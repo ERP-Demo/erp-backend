@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cn.erpdemo</groupId>
-    <artifactId>erp-dependencies</artifactId>
+    <artifactId>shiyin-dependencies</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>erp-dependencies</name>
+    <name>shiyin-dependencies</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

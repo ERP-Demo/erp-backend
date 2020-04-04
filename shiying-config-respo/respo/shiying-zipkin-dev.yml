@@ -1,6 +1,6 @@
 spring:
   application:
-    name: itoken-zipkin
+    name: shiying-zipkin
 
 server:
   port: 9411

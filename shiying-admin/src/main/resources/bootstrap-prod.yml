@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      uri: http://192.168.75.128:8888
+      name: shiying-client-eureka, shiying-client-zipkin, shiying-admin
+      label: master
+      profile: prod

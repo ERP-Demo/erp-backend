@@ -1,6 +1,6 @@
 spring:
   application:
-    name: itoken-eureka
+    name: shiying-eureka
 
 server:
   port: 8761

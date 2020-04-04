@@ -35,6 +35,7 @@
         <jackson.version>2.9.10.3</jackson.version>
         <feign-form.version>3.3.0</feign-form.version>
         <swagger2.version>2.8.0</swagger2.version>
+        <jolokia-core.version>1.5.0</jolokia-core.version>
     </properties>
 
     <dependencyManagement>
@@ -63,6 +64,11 @@
             <!-- Spring Cloud End -->
 
             <!-- Spring Boot Admin Begin -->
+            <dependency>
+                <groupId>org.jolokia</groupId>
+                <artifactId>jolokia-core</artifactId>
+                <version>${jolokia-core.version}</version>
+            </dependency>
             <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-starter-server</artifactId>

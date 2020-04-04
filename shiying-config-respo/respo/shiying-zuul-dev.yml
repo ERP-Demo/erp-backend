@@ -1,6 +1,6 @@
 spring:
   application:
-    name: itoken-zuul
+    name: shiying-zuul
 
 server:
   port: 8769
@@ -9,7 +9,7 @@ zuul:
   routes:
     backend-admin:
       path: /backend/admin/**
-      serviceId: itoken-web-admin
+      serviceId: shiying-web-admin
     backend-posts:
       path: /backend/posts/**
-      serviceId: itoken-web-posts
+      serviceId: shiying-web-posts

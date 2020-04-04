@@ -1,6 +1,6 @@
 spring:
   application:
-    name: itoken-zuul
+    name: shiying-zuul
 
 server:
   port: 8769

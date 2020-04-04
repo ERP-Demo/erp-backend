@@ -14,6 +14,7 @@
         <option value="$PROJECT_DIR$/shiying-dependencies/pom.xml" />
         <option value="$PROJECT_DIR$/shiying-zipkin/pom.xml" />
         <option value="$PROJECT_DIR$/shiying-eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-admin/pom.xml" />
         <option value="$PROJECT_DIR$/shiying-config/pom.xml" />
       </list>
     </option>

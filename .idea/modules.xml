@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/shiying-admin/shiying-admin.iml" filepath="$PROJECT_DIR$/shiying-admin/shiying-admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/shiying-config/shiying-config.iml" filepath="$PROJECT_DIR$/shiying-config/shiying-config.iml" />
       <module fileurl="file://$PROJECT_DIR$/shiying-config-respo/shiying-config-respo.iml" filepath="$PROJECT_DIR$/shiying-config-respo/shiying-config-respo.iml" />
       <module fileurl="file://$PROJECT_DIR$/shiying-dependencies/shiying-dependencies.iml" filepath="$PROJECT_DIR$/shiying-dependencies/shiying-dependencies.iml" />
       <module fileurl="file://$PROJECT_DIR$/shiying-eureka/shiying-eureka.iml" filepath="$PROJECT_DIR$/shiying-eureka/shiying-eureka.iml" />
       <module fileurl="file://$PROJECT_DIR$/shiying-zipkin/shiying-zipkin.iml" filepath="$PROJECT_DIR$/shiying-zipkin/shiying-zipkin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shiying-zuul/shiying-zuul.iml" filepath="$PROJECT_DIR$/shiying-zuul/shiying-zuul.iml" />
     </modules>
   </component>
 </project>

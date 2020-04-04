@@ -6,9 +6,11 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/erp-config/pom.xml" />
         <option value="$PROJECT_DIR$/shiyin-config/pom.xml" />
+        <option value="$PROJECT_DIR$/shiyin-eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/shiyin-zipkin/pom.xml" />
+        <option value="$PROJECT_DIR$/shiyin-dependencies/pom.xml" />
       </list>
     </option>
   </component>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="shiying-config" />
+        <module name="shiying-dependencies" />
+        <module name="shiying-zipkin" />
+        <module name="shiying-eureka" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="shiyin-backend" target="1.8" />
+      <module name="shiying-config" target="1.8" />
+      <module name="shiying-dependencies" target="1.8" />
+      <module name="shiying-eureka" target="1.8" />
+      <module name="shiying-zipkin" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="shiyin-backend" options="-parameters" />
+      <module name="shiying-config" options="-parameters" />
+      <module name="shiying-dependencies" options="-parameters" />
+      <module name="shiying-eureka" options="-parameters" />
+      <module name="shiying-zipkin" options="-parameters" />
+    </option>
+  </component>
+</project>

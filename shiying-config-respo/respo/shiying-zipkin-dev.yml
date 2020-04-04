@@ -1,7 +1,8 @@
 spring:
   application:
     name: shiying-zipkin
-
+  main:
+    allow-bean-definition-overriding: true
 server:
   port: 9411
 

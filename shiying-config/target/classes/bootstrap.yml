@@ -5,6 +5,13 @@ spring:
     admin:
       client:
         url: http://localhost:8084
+  cloud:
+    config:
+      label: master
+      server:
+        git:
+          uri: https://github.com/ERP-Demo/erp-backend.git
+          search-paths: shiying-config-respo/respo
   zipkin:
     base-url: http://localhost:9411
 

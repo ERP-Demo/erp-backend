@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>cn.erpdemo</groupId>
-        <artifactId>shiyin-dependencies</artifactId>
+        <groupId>cn.shiying</groupId>
+        <artifactId>shiying-dependencies</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../shiying-dependencies/pom.xml</relativePath>
     </parent>
-    <artifactId>shiyin-zipkin</artifactId>
-    <name>shiyin-zipkin</name>
+    <artifactId>shiying-zipkin</artifactId>
+    <name>shiying-zipkin</name>
 
     <properties>
         <java.version>1.8</java.version>

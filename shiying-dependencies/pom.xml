@@ -5,13 +5,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.6.RELEASE</version>
+        <version>2.2.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>cn.erpdemo</groupId>
-    <artifactId>shiyin-dependencies</artifactId>
+    <groupId>cn.shiying</groupId>
+    <artifactId>shiying-dependencies</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>shiyin-dependencies</name>
+    <name>shiying-dependencies</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -21,8 +21,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Spring Settings -->
-        <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
-        <spring-boot-admin.version>2.0.1</spring-boot-admin.version>
+        <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
+        <spring-boot-admin.version>2.2.2</spring-boot-admin.version>
         <spring-boot-alibaba-druid.version>1.1.10</spring-boot-alibaba-druid.version>
         <mybatis-plus-boot-starter.version>3.1.2</mybatis-plus-boot-starter.version>
         <zipkin.version>2.10.1</zipkin.version>
@@ -32,7 +32,7 @@
         <lombok.version>1.16.18</lombok.version>
         <guava.version>25.1-jre</guava.version>
         <nekohtml.version>1.9.22</nekohtml.version>
-        <jackson.version>2.9.6</jackson.version>
+        <jackson.version>2.9.10.3</jackson.version>
         <feign-form.version>3.3.0</feign-form.version>
         <swagger2.version>2.8.0</swagger2.version>
     </properties>

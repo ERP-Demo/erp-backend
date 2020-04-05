@@ -8,9 +8,12 @@
         <version>2.2.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>cn.shiying</groupId>
     <artifactId>shiying-dependencies</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
     <name>shiying-dependencies</name>
     <description>Demo project for Spring Boot</description>
 
@@ -25,14 +28,14 @@
         <spring-boot-admin.version>2.2.2</spring-boot-admin.version>
         <spring-boot-alibaba-druid.version>1.1.10</spring-boot-alibaba-druid.version>
         <mybatis-plus-boot-starter.version>3.1.2</mybatis-plus-boot-starter.version>
-        <zipkin.version>2.10.1</zipkin.version>
+        <zipkin.version>2.12.9</zipkin.version>
 
         <!-- Environment Settings -->
-        <mysql.version>5.1.46</mysql.version>
+        <mysql.version>8.0.19</mysql.version>
         <lombok.version>1.16.18</lombok.version>
         <guava.version>25.1-jre</guava.version>
         <nekohtml.version>1.9.22</nekohtml.version>
-        <jackson.version>2.9.10.3</jackson.version>
+        <jackson.version>2.10.3</jackson.version>
         <feign-form.version>3.3.0</feign-form.version>
         <swagger2.version>2.8.0</swagger2.version>
         <jolokia-core.version>1.5.0</jolokia-core.version>
@@ -84,12 +87,13 @@
             <!-- ZipKin Begin -->
             <dependency>
                 <groupId>io.zipkin.java</groupId>
-                <artifactId>zipkin</artifactId>
-                <version>${zipkin.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.zipkin.java</groupId>
                 <artifactId>zipkin-server</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-log4j2</artifactId>
+                    </exclusion>
+                </exclusions>
                 <version>${zipkin.version}</version>
             </dependency>
             <dependency>
@@ -143,5 +147,15 @@
         </dependencies>
     </dependencyManagement>
 
-
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!--添加SpringBoot插件:tomcat-->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

@@ -1,6 +1,0 @@
-spring:
-  application:
-    name: itoken-web-digiccy
-
-server:
-  port: 8604

@@ -6,11 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="shiying-dependencies" />
-        <module name="shiying-zuul" />
-        <module name="shiying-config" />
         <module name="shiying-admin" />
-        <module name="shiying-zipkin" />
+        <module name="shiying-config" />
+        <module name="shiying-zuul" />
         <module name="shiying-eureka" />
       </profile>
     </annotationProcessing>
@@ -29,7 +27,7 @@
       <module name="shiyin-backend" options="-parameters" />
       <module name="shiying-admin" options="-parameters" />
       <module name="shiying-config" options="-parameters" />
-      <module name="shiying-dependencies" options="-parameters" />
+      <module name="shiying-dependencies" options="" />
       <module name="shiying-eureka" options="-parameters" />
       <module name="shiying-zipkin" options="-parameters" />
       <module name="shiying-zuul" options="-parameters" />

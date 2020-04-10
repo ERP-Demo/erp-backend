@@ -1,12 +1,13 @@
-spring:
-  redis:
-    lettuce:
-      pool:
-        max-active: 8
-        max-idle: 8
-        max-wait: -1ms
-        min-idle: 0
-    host: localhost
+redis:
+  host: 127.0.0.1
+  port: 6379
+  timeout: 5000
+  jedis:
+    pool:
+      maxActive: 3
+      maxIdle: 3
+      minIdle: 1
+      maxWait: -1
 #    集群配置
 #    sentinel:
 #      master: mymaster

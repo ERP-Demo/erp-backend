@@ -28,7 +28,6 @@
         <spring-boot-admin.version>2.2.2</spring-boot-admin.version>
         <spring-boot-alibaba-druid.version>1.1.10</spring-boot-alibaba-druid.version>
         <mybatis-plus-boot-starter.version>3.1.2</mybatis-plus-boot-starter.version>
-        <zipkin.version>2.12.9</zipkin.version>
 
         <!-- Environment Settings -->
         <mysql.version>8.0.19</mysql.version>
@@ -94,25 +93,6 @@
                 <version>${spring-boot-admin.version}</version>
             </dependency>
             <!-- Spring Boot Admin End -->
-
-            <!-- ZipKin Begin -->
-            <dependency>
-                <groupId>io.zipkin.java</groupId>
-                <artifactId>zipkin-server</artifactId>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-log4j2</artifactId>
-                    </exclusion>
-                </exclusions>
-                <version>${zipkin.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.zipkin.java</groupId>
-                <artifactId>zipkin-autoconfigure-ui</artifactId>
-                <version>${zipkin.version}</version>
-            </dependency>
-            <!-- ZipKin End -->
 
             <!-- Environment Begin -->
             <dependency>

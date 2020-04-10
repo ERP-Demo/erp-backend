@@ -6,18 +6,25 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="shiying-admin" />
+        <module name="shiying-service-auth" />
         <module name="shiying-config" />
-        <module name="shiying-zuul" />
+        <module name="shiying-admin" />
+        <module name="shiying-common" />
+        <module name="shiying-service-ucenter" />
         <module name="shiying-eureka" />
+        <module name="shiying-govern-gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="shiyin-backend" target="1.8" />
       <module name="shiying-admin" target="1.8" />
+      <module name="shiying-common" target="1.8" />
       <module name="shiying-config" target="1.8" />
       <module name="shiying-dependencies" target="1.8" />
       <module name="shiying-eureka" target="1.8" />
+      <module name="shiying-govern-gateway" target="1.8" />
+      <module name="shiying-service-auth" target="1.8" />
+      <module name="shiying-service-ucenter" target="1.8" />
       <module name="shiying-zipkin" target="1.8" />
       <module name="shiying-zuul" target="1.8" />
     </bytecodeTargetLevel>
@@ -26,9 +33,13 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="shiyin-backend" options="-parameters" />
       <module name="shiying-admin" options="-parameters" />
+      <module name="shiying-common" options="-parameters" />
       <module name="shiying-config" options="-parameters" />
       <module name="shiying-dependencies" options="" />
       <module name="shiying-eureka" options="-parameters" />
+      <module name="shiying-govern-gateway" options="-parameters" />
+      <module name="shiying-service-auth" options="-parameters" />
+      <module name="shiying-service-ucenter" options="-parameters" />
       <module name="shiying-zipkin" options="-parameters" />
       <module name="shiying-zuul" options="-parameters" />
     </option>

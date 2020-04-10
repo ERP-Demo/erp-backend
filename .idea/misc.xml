@@ -15,6 +15,11 @@
         <option value="$PROJECT_DIR$/shiying-eureka/pom.xml" />
         <option value="$PROJECT_DIR$/shiying-admin/pom.xml" />
         <option value="$PROJECT_DIR$/shiying-config/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-common/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-auth/pom.xml" />
+        <option value="$PROJECT_DIR$/xc-service-ucenter/pom.xml" />
+        <option value="$PROJECT_DIR$/xc-govern-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-ucenter/pom.xml" />
       </list>
     </option>
   </component>

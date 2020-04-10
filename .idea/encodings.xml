@@ -3,10 +3,13 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/shiying-admin" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-common" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/shiying-config" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/shiying-dependencies" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/shiying-eureka" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/shiying-zipkin" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-govern-gateway" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-service-auth" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-service-ucenter" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/shiying-zuul" charset="UTF-8" />
   </component>
 </project>

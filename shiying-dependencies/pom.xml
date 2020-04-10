@@ -39,11 +39,22 @@
         <feign-form.version>3.3.0</feign-form.version>
         <swagger2.version>2.8.0</swagger2.version>
         <jolokia-core.version>1.5.0</jolokia-core.version>
+        <lombox.version>1.18.12</lombox.version>
+        <fastjson.version>1.2.62</fastjson.version>
+        <mybatis-plus.version>3.1.2</mybatis-plus.version>
+        <commons-lang3.version>3.9</commons-lang3.version>
+        <commons-io.version>2.6</commons-io.version>
+        <feign-okhttp.version>8.18.0</feign-okhttp.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <!-- Spring Boot Starter Begin -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${spring-boot-alibaba-druid.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
@@ -52,7 +63,7 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus-boot-starter</version>
+                <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
             <!-- Spring Boot Starter End -->
 
@@ -144,6 +155,47 @@
                 <version>${swagger2.version}</version>
             </dependency>
             <!-- Swagger2 End -->
+
+            <!-- Lombox Begin -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <!-- Lombox End -->
+
+            <!-- commons Begin -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${org.apache.commons.io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.netflix.feign</groupId>
+                <artifactId>feign-okhttp</artifactId>
+                <version>${feign-okhttp.version}</version>
+            </dependency>
+            <!-- commons End -->
         </dependencies>
     </dependencyManagement>
 

@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-ucenter
+
+server:
+  port: 40300
+  servlet:
+    context-path: /ucenter

@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: shiying-service-auth
+
+server:
+  port: 40400
+  servlet:
+    context-path: /auth
+
+auth:
+  tokenValiditySeconds: 1200  #token存储到redis的过期时间
+  clientId: XcWebApp
+  clientSecret: XcWebApp
+  cookieDomain: shiying.cn
+  cookieMaxAge: -1
+
+encrypt:
+  key-store:
+    location: classpath:/xc.keystore
+    secret: xuechengkeystore
+    alias: xckey
+    password: xuecheng

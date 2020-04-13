@@ -20,7 +20,13 @@
         <option value="$PROJECT_DIR$/xc-govern-gateway/pom.xml" />
         <option value="$PROJECT_DIR$/shiying-service-ucenter/pom.xml" />
         <option value="$PROJECT_DIR$/shiying-common/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-common-config/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/shiying-dependencies/shiying-common-config/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="1.8" project-jdk-type="JavaSDK" />

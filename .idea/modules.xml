@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/shiying-admin/shiying-admin.iml" filepath="$PROJECT_DIR$/shiying-admin/shiying-admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/shiying-common/shiying-common.iml" filepath="$PROJECT_DIR$/shiying-common/shiying-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shiying-common-config/shiying-common-config.iml" filepath="$PROJECT_DIR$/shiying-common-config/shiying-common-config.iml" />
       <module fileurl="file://$PROJECT_DIR$/shiying-config/shiying-config.iml" filepath="$PROJECT_DIR$/shiying-config/shiying-config.iml" />
       <module fileurl="file://$PROJECT_DIR$/shiying-config-respo/shiying-config-respo.iml" filepath="$PROJECT_DIR$/shiying-config-respo/shiying-config-respo.iml" />
       <module fileurl="file://$PROJECT_DIR$/shiying-dependencies/shiying-dependencies.iml" filepath="$PROJECT_DIR$/shiying-dependencies/shiying-dependencies.iml" />

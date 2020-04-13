@@ -1,11 +1,12 @@
 package cn.shiying.ucenter.controller;
 
 
-import cn.shiying.common.dto.Result;
 import cn.shiying.common.entity.sys.SysMenu;
 import cn.shiying.ucenter.service.SysMenuService;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,8 +27,8 @@ public class SysMenuController {
     @Autowired
     private SysMenuService sysMenuService;
 
-    @GetMapping("/nav")
-    public List<SysMenu> nav(Integer uid){
+    @GetMapping("/menu/{uid}")
+    public List<SysMenu> menu(Integer uid){
         List<SysMenu> menuList=sysMenuService.listUserMenu(uid);
         return menuList;
     }

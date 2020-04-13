@@ -36,5 +36,5 @@ public class SysUser implements Serializable {
     private List<Integer> roleIdList;
 
     @TableField(exist=false)
-    private List<SysMenu> menuList;
+    private List<String> perms;
 }

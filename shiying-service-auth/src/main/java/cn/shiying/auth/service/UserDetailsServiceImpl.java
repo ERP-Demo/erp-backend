@@ -57,12 +57,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 //       String password ="123";
         //用户权限，这里暂时使用静态数据，最终会从数据库读取
         //从数据库获取权限
-        List<SysMenu> permissions = user.getMenuList();
-        if(permissions == null){
-            permissions = new ArrayList<>();
+        List<String> user_permission = user.getPerms();
+        if(user_permission == null){
+            user_permission = new ArrayList<>();
         }
-        List<String> user_permission = new ArrayList<>();
-        permissions.forEach(item-> user_permission.add(item.getPerms()));
         String user_permission_string  = StringUtils.join(user_permission.toArray(), ",");
         UserJwt userDetails = new UserJwt(username,
                 password,

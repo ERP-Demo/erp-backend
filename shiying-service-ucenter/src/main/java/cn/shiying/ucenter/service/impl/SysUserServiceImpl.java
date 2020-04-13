@@ -1,7 +1,9 @@
 package cn.shiying.ucenter.service.impl;
 
+import cn.shiying.common.entity.sys.SysMenu;
 import cn.shiying.common.entity.sys.SysUser;
 import cn.shiying.common.utils.PageUtils;
+import cn.shiying.ucenter.mapper.SysMenuMapper;
 import cn.shiying.ucenter.mapper.SysUserMapper;
 import cn.shiying.ucenter.service.SysUserService;
 import com.baomidou.mybatisplus.core.conditions.query.Query;
@@ -16,10 +18,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -38,6 +37,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 //    @Autowired
 //    @Lazy
 //    private SysRoleService sysRoleService;
+
+    @Autowired
+    private SysMenuMapper sysMenuMapper;
+
+    private final static Integer SUPER_ADMIN=1;
 
 
     /**
@@ -59,7 +63,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     public SysUser selectByUsername(String username) {
-        return baseMapper.selectOne(new QueryWrapper<SysUser>().eq("username",username));
+        SysUser user=baseMapper.selectOne(new QueryWrapper<SysUser>().eq("username",username));
+        if (SUPER_ADMIN==user.getUserId()){
+            List<SysMenu> menuList=sysMenuMapper.selectList(null);
+            List<String> permsList=new ArrayList<>(menuList.size());
+            menuList.forEach(menu ->  permsList.add(menu.getPerms()));
+            user.setPerms(permsList);
+        }else {
+            user.setPerms(baseMapper.queryAllPerms(user.getUserId()));
+        }
+        return user;
     }
 
     /**

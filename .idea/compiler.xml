@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="shiying-service-auth" />
+        <module name="shiying-common-config" />
         <module name="shiying-config" />
         <module name="shiying-admin" />
         <module name="shiying-common" />
@@ -19,6 +20,7 @@
       <module name="shiyin-backend" target="1.8" />
       <module name="shiying-admin" target="1.8" />
       <module name="shiying-common" target="1.8" />
+      <module name="shiying-common-config" target="1.8" />
       <module name="shiying-config" target="1.8" />
       <module name="shiying-dependencies" target="1.8" />
       <module name="shiying-eureka" target="1.8" />
@@ -34,6 +36,7 @@
       <module name="shiyin-backend" options="-parameters" />
       <module name="shiying-admin" options="-parameters" />
       <module name="shiying-common" options="-parameters" />
+      <module name="shiying-common-config" options="-parameters" />
       <module name="shiying-config" options="-parameters" />
       <module name="shiying-dependencies" options="" />
       <module name="shiying-eureka" options="-parameters" />

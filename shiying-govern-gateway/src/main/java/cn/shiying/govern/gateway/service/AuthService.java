@@ -20,27 +20,11 @@ public class AuthService {
     @Autowired
     StringRedisTemplate stringRedisTemplate;
 
-    //从头取出jwt令牌
-    public String getJwtFromHeader(HttpServletRequest request){
-        //取出头信息
-        String authorization = request.getHeader("Authorization");
-        if(StringUtils.isEmpty(authorization)){
-            return null;
-        }
-        if(!authorization.startsWith("Bearer ")){
-            return null;
-        }
-        //取到jwt令牌
-        String jwt = authorization.substring(7);
-        return jwt;
-
-
-    }
     //从cookie取出token
     //查询身份令牌
     public String getTokenFromCookie(HttpServletRequest request){
-        Map<String, String> cookieMap = CookieUtil.readCookie(request, "uid");
-        String access_token = cookieMap.get("uid");
+        Map<String, String> cookieMap = CookieUtil.readCookie(request, "token");
+        String access_token = cookieMap.get("token");
         if(StringUtils.isEmpty(access_token)){
             return null;
         }

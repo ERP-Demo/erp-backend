@@ -12,10 +12,10 @@ zuul:
     service-auth:
       path: /auth/**
       serviceId: shiying-service-auth
-      sensitiveHeaders:
       strip-prefix: false
+      sensitiveHeaders:
     service-ucenter:
       path: /ucenter/**
       serviceId: shiying-service-ucenter
-      sensitiveHeaders:
       strip-prefix: false
+      sensitiveHeaders:

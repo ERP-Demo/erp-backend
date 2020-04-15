@@ -14,3 +14,8 @@ zuul:
       serviceId: shiying-service-auth
       sensitiveHeaders:
       strip-prefix: false
+    service-ucenter:
+      path: /ucenter/**
+      serviceId: shiying-service-ucenter
+      sensitiveHeaders:
+      strip-prefix: false

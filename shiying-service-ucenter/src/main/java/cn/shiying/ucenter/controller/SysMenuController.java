@@ -36,18 +36,18 @@ public class SysMenuController {
     /**
      * 所有菜单列表
      */
-//    @GetMapping("/list")
-//    @RequiresPermissions("sys:menu:list")
-//    public List<SysMenu> list(){
-//        List<SysMenu> menuList = sysMenuService.list(null);
-//        menuList.forEach(sysMenu -> {
-//            SysMenu parentMenu = sysMenuService.getById(sysMenu.getParentId());
-//            if(parentMenu != null){
-//                sysMenu.setParentName(parentMenu.getName());
-//            }
-//        });
-//        return menuList;
-//    }
+    @GetMapping("/list")
+    @PreAuthorize("hasAuthority('sys:menu:list')")
+    public List<SysMenu> list(){
+        List<SysMenu> menuList = sysMenuService.list(null);
+        menuList.forEach(sysMenu -> {
+            SysMenu parentMenu = sysMenuService.getById(sysMenu.getParentId());
+            if(parentMenu != null){
+                sysMenu.setParentName(parentMenu.getName());
+            }
+        });
+        return menuList;
+    }
 
     /**
      * 选择菜单(添加、修改菜单)

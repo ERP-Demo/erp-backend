@@ -22,8 +22,6 @@ import java.util.stream.Collectors;
  * @version 1.0
  **/
 @Configuration
-@EnableResourceServer
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)//激活方法上的PreAuthorize注解
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     //公钥
@@ -48,12 +46,5 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
      */
     private String getPubKey() {
         return PUBLIC_KEY;
-    }
-    //Http安全配置，对每个到达系统的http请求链接进行校验
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-        //所有请求必须认证通过
-        http.authorizeRequests().antMatchers("/**").permitAll()
-                .anyRequest().authenticated();
     }
 }

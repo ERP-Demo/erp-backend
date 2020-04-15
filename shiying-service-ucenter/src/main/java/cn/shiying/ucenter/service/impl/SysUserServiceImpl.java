@@ -1,22 +1,15 @@
 package cn.shiying.ucenter.service.impl;
 
+import cn.shiying.common.constants.SysConstants;
 import cn.shiying.common.entity.sys.SysMenu;
 import cn.shiying.common.entity.sys.SysUser;
-import cn.shiying.common.utils.PageUtils;
 import cn.shiying.ucenter.mapper.SysMenuMapper;
 import cn.shiying.ucenter.mapper.SysUserMapper;
 import cn.shiying.ucenter.service.SysUserService;
-import com.baomidou.mybatisplus.core.conditions.query.Query;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -41,8 +34,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Autowired
     private SysMenuMapper sysMenuMapper;
 
-    private final static Integer SUPER_ADMIN=1;
-
 
     /**
      * 查询用户菜单
@@ -64,7 +55,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public SysUser selectByUsername(String username) {
         SysUser user=baseMapper.selectOne(new QueryWrapper<SysUser>().eq("username",username));
-        if (SUPER_ADMIN==user.getUserId()){
+        if (SysConstants.SUPER_ADMIN.equals(user.getUserId())){
             List<SysMenu> menuList=sysMenuMapper.selectList(null);
             List<String> permsList=new ArrayList<>(menuList.size());
             menuList.forEach(menu ->  permsList.add(menu.getPerms()));

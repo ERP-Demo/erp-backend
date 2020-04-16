@@ -24,3 +24,8 @@ zuul:
       serviceId: shiying-service-supplier
       strip-prefix: false
       sensitiveHeaders:
+    service-Test_projects:
+      path: /Test_projects/**
+      serviceId: shiying-service-Test_projects
+      strip-prefix: false
+      sensitiveHeaders:

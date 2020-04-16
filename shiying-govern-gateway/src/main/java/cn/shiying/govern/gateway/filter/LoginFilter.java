@@ -50,6 +50,7 @@ public class LoginFilter extends ZuulFilter {
         if (LOGIN_URI.equals(request.getRequestURI())) {
             return false;
         }
+        System.out.println(request.getRequestURI());
         return true;
     }
 
@@ -64,7 +65,6 @@ public class LoginFilter extends ZuulFilter {
         HttpServletResponse response = requestContext.getResponse();
         //取cookie中的身份令牌
         String tokenFromCookie = authService.getTokenFromCookie(request);
-        System.out.println(tokenFromCookie);
         if(StringUtils.isEmpty(tokenFromCookie)){
             //拒绝访问
             access_denied();
@@ -77,7 +77,13 @@ public class LoginFilter extends ZuulFilter {
             access_denied();
             return null;
         }
-
+        String jwt=authService.getJwt(tokenFromCookie);
+        if (jwt==null){
+            access_denied();
+            return null;
+        }
+        requestContext.addZuulRequestHeader("Authorization","Bearer "+jwt);
+        System.out.println(jwt);
         return null;
     }
 

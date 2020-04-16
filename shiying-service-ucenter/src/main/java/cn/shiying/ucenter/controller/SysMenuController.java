@@ -1,12 +1,11 @@
 package cn.shiying.ucenter.controller;
 
 
+import cn.shiying.common.dto.Result;
 import cn.shiying.common.entity.sys.SysMenu;
 import cn.shiying.ucenter.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +20,7 @@ import java.util.Set;
  * @since 2018-10-19
  */
 
+@RequestMapping("/menu")
 @RestController
 public class SysMenuController {
 
@@ -38,7 +38,7 @@ public class SysMenuController {
      */
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('sys:menu:list')")
-    public List<SysMenu> list(){
+    public Result list(){
         List<SysMenu> menuList = sysMenuService.list(null);
         menuList.forEach(sysMenu -> {
             SysMenu parentMenu = sysMenuService.getById(sysMenu.getParentId());
@@ -46,7 +46,7 @@ public class SysMenuController {
                 sysMenu.setParentName(parentMenu.getName());
             }
         });
-        return menuList;
+        return Result.ok().put("menuList",menuList);
     }
 
     /**

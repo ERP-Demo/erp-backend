@@ -11,6 +11,7 @@ public class CustomException extends RuntimeException {
     public Result getResultCode(){
         return result;
     }
+    public CustomException(String str){this.result=Result.error(str);}
 
 
 }

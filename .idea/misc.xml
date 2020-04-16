@@ -21,6 +21,10 @@
         <option value="$PROJECT_DIR$/shiying-service-ucenter/pom.xml" />
         <option value="$PROJECT_DIR$/shiying-common/pom.xml" />
         <option value="$PROJECT_DIR$/shiying-common-config/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-govern-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/aa/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-aa/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-supplier/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

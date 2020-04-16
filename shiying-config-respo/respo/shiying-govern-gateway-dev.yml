@@ -19,3 +19,8 @@ zuul:
       serviceId: shiying-service-ucenter
       strip-prefix: false
       sensitiveHeaders:
+    service-supplier:
+      path: /supplier/**
+      serviceId: shiying-service-supplier
+      strip-prefix: false
+      sensitiveHeaders:

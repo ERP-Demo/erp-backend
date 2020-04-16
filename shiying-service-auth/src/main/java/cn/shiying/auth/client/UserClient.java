@@ -17,6 +17,6 @@ public interface UserClient {
     @GetMapping("/ucenter/user/{username}")
     public SysUser selectByUsername(@RequestParam("username") String username);
 
-    @GetMapping("/ucenter/menu/{uid}")
+    @GetMapping("/ucenter/menu/menu/{uid}")
     public List<SysMenu> selectByUid(@RequestParam("uid") int uid);
 }

@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-supplier
+
+server:
+  port: 40500
+  servlet:
+    context-path: /supplier

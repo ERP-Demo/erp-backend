@@ -13,6 +13,7 @@
         <module name="shiying-admin" />
         <module name="shiying-common" />
         <module name="shiying-service-ucenter" />
+        <module name="shiying-service-drugs" />
         <module name="shiying-eureka" />
         <module name="shiying-govern-gateway" />
       </profile>
@@ -28,6 +29,7 @@
       <module name="shiying-govern-gateway" target="1.8" />
       <module name="shiying-service-aa" target="1.8" />
       <module name="shiying-service-auth" target="1.8" />
+      <module name="shiying-service-drugs" target="1.8" />
       <module name="shiying-service-supplier" target="1.8" />
       <module name="shiying-service-ucenter" target="1.8" />
       <module name="shiying-zipkin" target="1.8" />
@@ -46,6 +48,7 @@
       <module name="shiying-govern-gateway" options="-parameters" />
       <module name="shiying-service-aa" options="-parameters" />
       <module name="shiying-service-auth" options="-parameters" />
+      <module name="shiying-service-drugs" options="-parameters" />
       <module name="shiying-service-supplier" options="-parameters" />
       <module name="shiying-service-ucenter" options="-parameters" />
       <module name="shiying-zipkin" options="-parameters" />

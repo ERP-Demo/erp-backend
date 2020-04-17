@@ -1,0 +1,42 @@
+package cn.shiying.Test_projects.entity;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import java.io.Serializable;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
+/**
+ * <p>
+ * 
+ * </p>
+ *
+ * @author tyb
+ * @since 2020-04-16
+ */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+public class TestProjects implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 化验项目的id
+     */
+    @TableId(value = "Test_projects_id", type = IdType.ID_WORKER_STR)
+    private String testProjectsId;
+
+    /**
+     * 化验项目的简称
+     */
+    private String testAbbreviation;
+
+    /**
+     * 化验项目的全称
+     */
+    private String testName;
+
+
+}

@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-register
+
+server:
+  port: 5001
+  servlet:
+    context-path: /register

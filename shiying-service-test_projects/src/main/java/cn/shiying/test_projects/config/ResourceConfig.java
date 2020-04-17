@@ -1,4 +1,4 @@
-package cn.shiying.Test_projects.config;
+package cn.shiying.test_projects.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;

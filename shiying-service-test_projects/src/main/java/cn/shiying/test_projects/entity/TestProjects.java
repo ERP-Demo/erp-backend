@@ -1,4 +1,4 @@
-package cn.shiying.Test_projects.entity;
+package cn.shiying.test_projects.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

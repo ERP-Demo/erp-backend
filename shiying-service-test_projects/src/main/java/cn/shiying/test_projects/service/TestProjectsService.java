@@ -1,6 +1,6 @@
-package cn.shiying.Test_projects.service;
+package cn.shiying.test_projects.service;
 
-import cn.shiying.Test_projects.entity.TestProjects;
+import cn.shiying.test_projects.entity.TestProjects;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
 import java.util.Map;

@@ -18,5 +18,6 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/webjars/**").permitAll()
                 .anyRequest().authenticated();
+        System.out.println();
     }
 }

@@ -83,7 +83,6 @@ public class LoginFilter extends ZuulFilter {
             return null;
         }
         requestContext.addZuulRequestHeader("Authorization","Bearer "+jwt);
-        System.out.println(jwt);
         return null;
     }
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.shiying.Test_projects.mapper.TestProjectsMapper">
+<mapper namespace="cn.shiying.test_projects.mapper.TestProjectsMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.shiying.Test_projects.entity.TestProjects">
+    <resultMap id="BaseResultMap" type="cn.shiying.test_projects.entity.TestProjects">
         <id column="Test_projects_id" property="testProjectsId" />
         <result column="test_abbreviation" property="testAbbreviation" />
         <result column="test_name" property="testName" />

@@ -1,8 +1,8 @@
-package cn.shiying.Test_projects.service.impl;
+package cn.shiying.test_projects.service.impl;
 
-import cn.shiying.Test_projects.entity.TestProjects;
-import cn.shiying.Test_projects.mapper.TestProjectsMapper;
-import cn.shiying.Test_projects.service.TestProjectsService;
+import cn.shiying.test_projects.entity.TestProjects;
+import cn.shiying.test_projects.mapper.TestProjectsMapper;
+import cn.shiying.test_projects.service.TestProjectsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;

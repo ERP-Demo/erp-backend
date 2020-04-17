@@ -1,4 +1,4 @@
-package cn.shiying.Test_projects.controller;
+package cn.shiying.test_projects.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
@@ -6,8 +6,8 @@ import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import cn.shiying.Test_projects.entity.TestProjects;
-import cn.shiying.Test_projects.service.TestProjectsService;
+import cn.shiying.test_projects.entity.TestProjects;
+import cn.shiying.test_projects.service.TestProjectsService;
 import cn.shiying.common.dto.Result;
 import cn.shiying.common.utils.PageUtils;
 import cn.shiying.common.validator.ValidatorUtils;

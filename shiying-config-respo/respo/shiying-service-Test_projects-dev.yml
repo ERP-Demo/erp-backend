@@ -1,8 +1,8 @@
 spring:
   application:
-    name: shiying-service-Test_projects
+    name: shiying-service-test_projects
 
 server:
   port: 6324
   servlet:
-    context-path: /Test_projects
+    context-path: /test_projects

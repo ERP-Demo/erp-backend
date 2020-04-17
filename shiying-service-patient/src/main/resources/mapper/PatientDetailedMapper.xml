@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shiying.patient.mapper.PatientDetailedMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.shiying.patient.entity.PatientDetailed">
+        <id column="Patient_id" property="patientId" />
+        <result column="Patient_name" property="patientName" />
+        <result column="Patient_age" property="patientAge" />
+        <result column="Patient_sex" property="patientSex" />
+        <result column="Patient_phone" property="patientPhone" />
+        <result column="Patient_address" property="patientAddress" />
+        <result column="Patient_Admission" property="patientAdmission" />
+        <result column="Patient_doctor" property="patientDoctor" />
+        <result column="Patient_note" property="patientNote" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        Patient_id, Patient_name, Patient_age, Patient_sex, Patient_phone, Patient_address, Patient_Admission, Patient_doctor, Patient_note
+    </sql>
+
+</mapper>

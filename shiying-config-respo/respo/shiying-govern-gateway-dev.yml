@@ -34,3 +34,8 @@ zuul:
       serviceId: shiying-service-drugs
       strip-prefix: false
       sensitiveHeaders:
+    service-patient:
+      path: /ucenter/**
+      serviceId: shiying-service-patient
+      strip-prefix: false
+      sensitiveHeaders:

@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-patient
+
+server:
+  port: 40888
+  servlet:
+    context-path: /patient

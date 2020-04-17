@@ -49,3 +49,8 @@ zuul:
       serviceId: shiying-service-register
       strip-prefix: false
       sensitiveHeaders:
+    service-drugs_storage:
+      path: /drugs_storage/**
+      serviceId: shiying-service-drugs_storage
+      strip-prefix: false
+      sensitiveHeaders:

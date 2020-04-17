@@ -6,17 +6,20 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="shiying-service-patient" />
+        <module name="shiying-service-drugs_storage" />
+        <module name="shiying-service-drugs" />
+        <module name="shiying-service-register" />
+        <module name="shiying-admin" />
+        <module name="shiying-govern-gateway" />
+        <module name="shiying-eureka" />
+        <module name="shiying-service-supplier" />
         <module name="shiying-service-auth" />
         <module name="shiying-common-config" />
-        <module name="shiying-config" />
-        <module name="shiying-service-supplier" />
-        <module name="shiying-service-Test_projects" />
-        <module name="shiying-admin" />
-        <module name="shiying-common" />
         <module name="shiying-service-ucenter" />
-        <module name="shiying-service-drugs" />
-        <module name="shiying-eureka" />
-        <module name="shiying-govern-gateway" />
+        <module name="shiying-config" />
+        <module name="shiying-common" />
+        <module name="shiying-service-Test_projects" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -31,6 +34,9 @@
       <module name="shiying-service-aa" target="1.8" />
       <module name="shiying-service-auth" target="1.8" />
       <module name="shiying-service-drugs" target="1.8" />
+      <module name="shiying-service-drugs_storage" target="1.8" />
+      <module name="shiying-service-patient" target="1.8" />
+      <module name="shiying-service-register" target="1.8" />
       <module name="shiying-service-supplier" target="1.8" />
       <module name="shiying-service-Test_projects" target="1.8" />
       <module name="shiying-service-ucenter" target="1.8" />
@@ -52,6 +58,9 @@
       <module name="shiying-service-aa" options="-parameters" />
       <module name="shiying-service-auth" options="-parameters" />
       <module name="shiying-service-drugs" options="-parameters" />
+      <module name="shiying-service-drugs_storage" options="-parameters" />
+      <module name="shiying-service-patient" options="-parameters" />
+      <module name="shiying-service-register" options="-parameters" />
       <module name="shiying-service-supplier" options="-parameters" />
       <module name="shiying-service-ucenter" options="-parameters" />
       <module name="shiying-zipkin" options="-parameters" />

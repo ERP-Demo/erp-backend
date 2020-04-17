@@ -29,3 +29,8 @@ zuul:
       serviceId: shiying-service-Test_projects
       strip-prefix: false
       sensitiveHeaders:
+    service-drugs:
+      path: /drugs/**
+      serviceId: shiying-service-drugs
+      strip-prefix: false
+      sensitiveHeaders:

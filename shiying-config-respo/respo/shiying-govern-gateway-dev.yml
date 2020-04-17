@@ -39,3 +39,13 @@ zuul:
       serviceId: shiying-service-patient
       strip-prefix: false
       sensitiveHeaders:
+    service-department:
+      path: /department/**
+      serviceId: shiying-service-department
+      strip-prefix: false
+      sensitiveHeaders:
+    service-register:
+      path: /register/**
+      serviceId: shiying-service-register
+      strip-prefix: false
+      sensitiveHeaders:

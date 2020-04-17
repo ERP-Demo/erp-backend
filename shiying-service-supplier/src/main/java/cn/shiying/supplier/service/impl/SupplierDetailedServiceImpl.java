@@ -3,12 +3,15 @@ package cn.shiying.supplier.service.impl;
 import cn.shiying.supplier.entity.SupplierDetailed;
 import cn.shiying.supplier.mapper.SupplierDetailedMapper;
 import cn.shiying.supplier.service.SupplierDetailedService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import cn.shiying.common.utils.Query;
 import cn.shiying.common.utils.PageUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 
 /**

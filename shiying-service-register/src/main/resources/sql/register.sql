@@ -1,6 +1,11 @@
+INSERT INTO `sys_menu` (`parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`)
+    VALUES ('0', '患者管理', NULL, NULL, '1', 'config', '6');
+
+set @parentId1 = @@identity;
+
 -- 菜单SQL
 INSERT INTO `sys_menu` (`parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`)
-    VALUES ('1', '', 'register/register', NULL, '1', 'config', '6');
+    VALUES (@parentId1, '患者列表', 'register/register', NULL, '1', 'config', '6');
 
 -- 按钮父菜单ID
 set @parentId = @@identity;

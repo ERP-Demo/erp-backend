@@ -7,6 +7,13 @@ server:
   servlet:
     context-path: /api
 
+ribbon:
+  ConnectTimeout: 250
+  ReadTimeout: 2000
+  OkToRetryOnAllOperations: true
+  MaxAutoRetriesNextServer: 2
+  MaxAutoRetries: 1
+
 zuul:
   routes:
     service-auth:

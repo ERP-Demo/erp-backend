@@ -6,4 +6,5 @@ import lombok.Data;
 public class JwtUser {
     private int uid;
     private String username;
+
 }

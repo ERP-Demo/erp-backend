@@ -1,6 +1,6 @@
 -- 菜单SQL
 INSERT INTO `sys_menu` (`parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`)
-    VALUES ('1', '', 'department/Department', NULL, '1', 'config', '6');
+    VALUES ('1', '科室管理', 'department/Department', NULL, '1', 'config', '6');
 
 -- 按钮父菜单ID
 set @parentId = @@identity;

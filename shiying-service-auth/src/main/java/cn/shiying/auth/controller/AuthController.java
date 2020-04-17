@@ -63,13 +63,15 @@ public class AuthController {
 
     @GetMapping("/info")
     public Result info(){
-        return Result.ok().put("user",getJwtUser());
+        return Result.ok().put("user",getJwtUser(Jwtdecode()));
     }
 
     @GetMapping("/nav")
     public Result nav(){
-        List<SysMenu> menuList=userClient.selectByUid(getJwtUser().getUid());
-        return Result.ok().put("menuList",menuList);
+        Map<String, Object> jwtClaims=Jwtdecode();
+        List<SysMenu> menuList=userClient.selectByUid(getJwtUser(jwtClaims).getUid());
+        List<String> permissions= (List<String>) jwtClaims.get("authorities");
+        return Result.ok().put("menuList",menuList).put("permissions",permissions);
     }
 
 
@@ -86,9 +88,13 @@ public class AuthController {
 //        return new ResponseResult(CommonCode.SUCCESS);
 //    }
 
-    public JwtUser getJwtUser(){
+    public Map<String,Object> Jwtdecode(){
         Jwt decode = JwtHelper.decode(userjwt());
         Map<String, Object> jwtClaims = JSON.parseObject(decode.getClaims(), Map.class);
+        return jwtClaims;
+    }
+
+    public JwtUser getJwtUser(Map<String,Object> jwtClaims){
         if(jwtClaims == null || StringUtils.isEmpty(jwtClaims.get("id")+"")){
             return null;
         }

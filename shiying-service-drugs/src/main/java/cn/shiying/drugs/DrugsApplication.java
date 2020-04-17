@@ -14,5 +14,4 @@ public class DrugsApplication {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(DrugsApplication.class, args);
     }
-
 }

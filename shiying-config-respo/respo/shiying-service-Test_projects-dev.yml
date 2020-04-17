@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-Test_projects
+
+server:
+  port: 6324
+  servlet:
+    context-path: /Test_projects

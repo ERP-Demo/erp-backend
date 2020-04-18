@@ -7,6 +7,13 @@ server:
   servlet:
     context-path: /api
 
+ribbon:
+  ConnectTimeout: 250
+  ReadTimeout: 2000
+  OkToRetryOnAllOperations: true
+  MaxAutoRetriesNextServer: 2
+  MaxAutoRetries: 1
+
 zuul:
   routes:
     service-auth:
@@ -47,6 +54,11 @@ zuul:
     service-register:
       path: /register/**
       serviceId: shiying-service-register
+      strip-prefix: false
+      sensitiveHeaders:
+    service-drugs_storage:
+      path: /drugs_storage/**
+      serviceId: shiying-service-drugs_storage
       strip-prefix: false
       sensitiveHeaders:
     service-electronic_case:

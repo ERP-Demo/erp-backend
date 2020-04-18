@@ -28,8 +28,10 @@
         <option value="$PROJECT_DIR$/../erp-backend-master/shiying-service-drugs/pom.xml" />
         <option value="$PROJECT_DIR$/shiying-service-Test_projects/pom.xml" />
         <option value="$PROJECT_DIR$/shiying-service-drugs/pom.xml" />
-        <option value="$PROJECT_DIR$/shiying-service-electronic_case/pom.xml" />
-        <option value="$PROJECT_DIR$/shiying-service-department/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-patient/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-register/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-test_projects/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-drugs_storage/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

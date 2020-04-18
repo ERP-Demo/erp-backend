@@ -1,4 +1,4 @@
-package cn.shiying.drugs;
+package cn.shiying.drugs_storage;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,10 +8,11 @@ import org.springframework.context.annotation.ComponentScan;
 
 @EnableDiscoveryClient
 @EnableFeignClients
-@ComponentScan(basePackages = {"cn.shiying.config","cn.shiying.drugs"})
+@ComponentScan(basePackages = {"cn.shiying.config","cn.shiying.drugs_storage"})
 @SpringBootApplication
-public class DrugsApplication {
+public class Drugs_storageApplication {
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(DrugsApplication.class, args);
+        SpringApplication.run(Drugs_storageApplication.class, args);
     }
+
 }

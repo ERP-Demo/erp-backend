@@ -1,4 +1,4 @@
-package cn.shiying.supplier.controller;
+package cn.shiying.drugs_storage.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
@@ -6,8 +6,8 @@ import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import cn.shiying.supplier.entity.SupplierDetailed;
-import cn.shiying.supplier.service.SupplierDetailedService;
+import cn.shiying.drugs_storage.entity.DrugsStorageDetailed;
+import cn.shiying.drugs_storage.service.DrugsStorageDetailedService;
 import cn.shiying.common.dto.Result;
 import cn.shiying.common.utils.PageUtils;
 import cn.shiying.common.validator.ValidatorUtils;
@@ -19,22 +19,22 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author tyb
- * @since 2020-04-16
+ * @since 2020-04-17
  */
 @RestController
-@RequestMapping("detailed")
-public class SupplierDetailedController {
+@RequestMapping("storage")
+public class DrugsStorageDetailedController {
     @Autowired
-    private SupplierDetailedService detailedService;
+    private DrugsStorageDetailedService storageService;
 
     /**
      * 列表
      */
     @GetMapping("/list")
-    @PreAuthorize("hasAuthority('supplier:detailed:list')")
+    @PreAuthorize("hasAuthority('drugs_storage:storage:list')")
     public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = detailedService.queryPage(params);
-        System.out.println(page);
+        PageUtils page = storageService.queryPage(params);
+
         return Result.ok().put("page", page);
     }
 
@@ -43,21 +43,21 @@ public class SupplierDetailedController {
      * 信息
      */
     @GetMapping("/info/{id}")
-    @PreAuthorize("hasAuthority('supplier:detailed:info')")
+    @PreAuthorize("hasAuthority('drugs_storage:storage:info')")
     public Result info(@PathVariable("id") String id){
-       SupplierDetailed detailed = detailedService.getById(id);
+       DrugsStorageDetailed storage = storageService.getById(id);
 
-        return Result.ok().put("detailed", detailed);
+        return Result.ok().put("storage", storage);
     }
 
     /**
      * 保存
      */
     @PostMapping("/save")
-    @PreAuthorize("hasAuthority('supplier:detailed:save')")
-    public Result save(@RequestBody SupplierDetailed detailed){
-        ValidatorUtils.validateEntity(detailed);
-        detailedService.save(detailed);
+    @PreAuthorize("hasAuthority('drugs_storage:storage:save')")
+    public Result save(@RequestBody DrugsStorageDetailed storage){
+        ValidatorUtils.validateEntity(storage);
+        storageService.save(storage);
 
         return Result.ok();
     }
@@ -66,10 +66,10 @@ public class SupplierDetailedController {
      * 修改
      */
     @PutMapping("/update")
-    @PreAuthorize("hasAuthority('supplier:detailed:update')")
-    public Result update(@RequestBody SupplierDetailed detailed){
-        ValidatorUtils.validateEntity(detailed);
-        detailedService.updateById(detailed);
+    @PreAuthorize("hasAuthority('drugs_storage:storage:update')")
+    public Result update(@RequestBody DrugsStorageDetailed storage){
+        ValidatorUtils.validateEntity(storage);
+        storageService.updateById(storage);
         return Result.ok();
     }
 
@@ -77,9 +77,9 @@ public class SupplierDetailedController {
      * 删除
      */
     @DeleteMapping("/delete")
-    @PreAuthorize("hasAuthority('supplier:detailed:delete')")
+    @PreAuthorize("hasAuthority('drugs_storage:storage:delete')")
     public Result delete(@RequestBody String[] ids){
-        detailedService.removeByIds(Arrays.asList(ids));
+        storageService.removeByIds(Arrays.asList(ids));
 
         return Result.ok();
     }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shiying.drugs_storage.mapper.DrugsStorageDetailedInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.shiying.drugs_storage.entity.DrugsStorageDetailedInfo">
+        <result column="drugs_id" property="drugsId" />
+        <result column="pharmacy_num" property="pharmacyNum" />
+        <result column="pharmacy_warning" property="pharmacyWarning" />
+        <!-- 关联一个对象 -->
+<!--        <association property="drugs_detailed" javaType="cn.shiying.drugs_storage.entity.drugs_detailed">-->
+<!--            <id property="drugsId" column="drugsId"/>-->
+<!--            <result property="drugsName" column="drugsName"/>-->
+<!--            <result property="drugsPrice" column="drugsPrice"/>-->
+<!--            <result property="drugsPrice" column="drugsPrice"/>-->
+<!--            <result property="drugsNorms" column="drugsNorms"/>-->
+<!--            <result property="drugsUsage" column="drugsUsage"/>-->
+<!--            <result property="drugsDosage" column="drugsDosage"/>-->
+<!--            <result property="drugsTaboo" column="drugsTaboo"/>-->
+<!--            <result property="drugsProducer" column="drugsProducer"/>-->
+<!--            <result property="drugsApprovalNumber" column="drugsApprovalNumber"/>-->
+<!--        </association>-->
+    </resultMap>
+    <resultMap id="WithDepartment" extends="BaseResultMap" type="cn.shiying.drugs_storage.entity.vo.DrugsDetailedVO">
+        <association property="drugs" column="drugs_id" select="cn.shiying.common.mapper.DrugsDetailedMapper.selectById" />
+    </resultMap>
+
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        drugs_id, pharmacy_num, pharmacy_warning
+    </sql>
+
+    <select id="listDrugsDetailedVO" resultMap="WithDepartment">-->
+        select <include refid="Base_Column_List" /> from  DrugsStorageDetailedInfo
+    </select>
+
+ </mapper>

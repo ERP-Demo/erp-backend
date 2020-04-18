@@ -68,5 +68,4 @@ public class DrugsDetailed implements Serializable {
      */
     private String drugsApprovalNumber;
 
-
 }

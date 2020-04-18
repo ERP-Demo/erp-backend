@@ -1,7 +1,7 @@
 package cn.shiying.drugs.service.impl;
 
 import cn.shiying.drugs.entity.DrugsDetailed;
-import cn.shiying.drugs.mapper.DrugsDetailedMapper;
+import cn.shiying.common.mapper.DrugsDetailedMapper;
 import cn.shiying.drugs.service.DrugsDetailedService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;

@@ -6,8 +6,8 @@ import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import cn.shiying.drugs_storage.entity.DrugsStorageDetailed;
-import cn.shiying.drugs_storage.service.DrugsStorageDetailedService;
+import cn.shiying.drugs_storage.entity.DrugsStorageDetailedInfo;
+import cn.shiying.drugs_storage.service.DrugsStorageDetailedInfoService;
 import cn.shiying.common.dto.Result;
 import cn.shiying.common.utils.PageUtils;
 import cn.shiying.common.validator.ValidatorUtils;
@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author tyb
- * @since 2020-04-17
+ * @since 2020-04-18
  */
 @RestController
 @RequestMapping("storage")
-public class DrugsStorageDetailedController {
+public class DrugsStorageDetailedInfoController {
     @Autowired
-    private DrugsStorageDetailedService storageService;
+    private DrugsStorageDetailedInfoService storageService;
 
     /**
      * 列表
@@ -45,7 +45,7 @@ public class DrugsStorageDetailedController {
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('drugs_storage:storage:info')")
     public Result info(@PathVariable("id") String id){
-       DrugsStorageDetailed storage = storageService.getById(id);
+       DrugsStorageDetailedInfo storage = storageService.getById(id);
 
         return Result.ok().put("storage", storage);
     }
@@ -55,7 +55,7 @@ public class DrugsStorageDetailedController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('drugs_storage:storage:save')")
-    public Result save(@RequestBody DrugsStorageDetailed storage){
+    public Result save(@RequestBody DrugsStorageDetailedInfo storage){
         ValidatorUtils.validateEntity(storage);
         storageService.save(storage);
 
@@ -67,7 +67,7 @@ public class DrugsStorageDetailedController {
      */
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('drugs_storage:storage:update')")
-    public Result update(@RequestBody DrugsStorageDetailed storage){
+    public Result update(@RequestBody DrugsStorageDetailedInfo storage){
         ValidatorUtils.validateEntity(storage);
         storageService.updateById(storage);
         return Result.ok();

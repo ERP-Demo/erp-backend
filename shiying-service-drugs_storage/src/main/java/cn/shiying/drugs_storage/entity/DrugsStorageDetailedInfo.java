@@ -1,10 +1,11 @@
 package cn.shiying.drugs_storage.entity;
 
 import cn.shiying.common.entity.drugs_storage.drugs_detailed;
-import cn.shiying.common.entity.drugs_storage.drugs_storage_detailed_info;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -15,34 +16,28 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author tyb
- * @since 2020-04-17
+ * @since 2020-04-18
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class DrugsStorageDetailed implements Serializable {
+public class DrugsStorageDetailedInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 药库id
+     * 药品编号
      */
-    @TableId(value = "pharmacy_id", type = IdType.AUTO)
-    private Integer pharmacyId;
+    private Integer drugsId;
 
     /**
-     * 药库名称
+     * 仓库数量
      */
-    private String pharmacyName;
+    private Integer pharmacyNum;
 
     /**
-     * 药品表
+     * 库存预警
      */
-    private drugs_detailed dd;
-
-    /**
-     * 仓库药品表
-     */
-    private drugs_storage_detailed_info di;
+    private Integer pharmacyWarning;
 
 }

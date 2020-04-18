@@ -1,6 +1,6 @@
-package cn.shiying.drugs.mapper;
+package cn.shiying.common.mapper;
 
-import cn.shiying.drugs.entity.DrugsDetailed;
+import cn.shiying.common.entity.drugs_storage.drugs_detailed;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2020-04-16
  */
 @Mapper
-public interface DrugsDetailedMapper extends BaseMapper<DrugsDetailed> {
+public interface DrugsDetailedMapper extends BaseMapper<drugs_detailed> {
 
 }

@@ -1,7 +1,7 @@
 package cn.shiying.department.service.impl;
 
-import cn.shiying.department.entity.Department;
-import cn.shiying.department.mapper.DepartmentMapper;
+import cn.shiying.common.entity.department.Department;
+import cn.shiying.common.mapper.DepartmentMapper;
 import cn.shiying.department.service.DepartmentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;

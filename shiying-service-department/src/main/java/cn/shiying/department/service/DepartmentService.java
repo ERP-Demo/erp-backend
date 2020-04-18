@@ -1,6 +1,6 @@
 package cn.shiying.department.service;
 
-import cn.shiying.department.entity.Department;
+import cn.shiying.common.entity.department.Department;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
 import java.util.Map;

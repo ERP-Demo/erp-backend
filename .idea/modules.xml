@@ -10,9 +10,11 @@
       <module fileurl="file://$PROJECT_DIR$/shiying-dependencies/shiying-dependencies.iml" filepath="$PROJECT_DIR$/shiying-dependencies/shiying-dependencies.iml" />
       <module fileurl="file://$PROJECT_DIR$/shiying-eureka/shiying-eureka.iml" filepath="$PROJECT_DIR$/shiying-eureka/shiying-eureka.iml" />
       <module fileurl="file://$PROJECT_DIR$/shiying-govern-gateway/shiying-govern-gateway.iml" filepath="$PROJECT_DIR$/shiying-govern-gateway/shiying-govern-gateway.iml" />
-      <module fileurl="file://$PROJECT_DIR$/shiying-service-Test_projects/shiying-service-Test_projects.iml" filepath="$PROJECT_DIR$/shiying-service-Test_projects/shiying-service-Test_projects.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shiying-service-test_projects/shiying-service-Test_projects.iml" filepath="$PROJECT_DIR$/shiying-service-test_projects/shiying-service-Test_projects.iml" />
       <module fileurl="file://$PROJECT_DIR$/shiying-service-auth/shiying-service-auth.iml" filepath="$PROJECT_DIR$/shiying-service-auth/shiying-service-auth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shiying-service-department/shiying-service-department.iml" filepath="$PROJECT_DIR$/shiying-service-department/shiying-service-department.iml" />
       <module fileurl="file://$PROJECT_DIR$/shiying-service-drugs/shiying-service-drugs.iml" filepath="$PROJECT_DIR$/shiying-service-drugs/shiying-service-drugs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shiying-service-electronic_case/shiying-service-electronic_case.iml" filepath="$PROJECT_DIR$/shiying-service-electronic_case/shiying-service-electronic_case.iml" />
       <module fileurl="file://$PROJECT_DIR$/shiying-service-supplier/shiying-service-supplier.iml" filepath="$PROJECT_DIR$/shiying-service-supplier/shiying-service-supplier.iml" />
       <module fileurl="file://$PROJECT_DIR$/shiying-service-ucenter/shiying-service-ucenter.iml" filepath="$PROJECT_DIR$/shiying-service-ucenter/shiying-service-ucenter.iml" />
     </modules>

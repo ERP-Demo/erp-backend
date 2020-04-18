@@ -31,7 +31,7 @@ public class TestProjectsController {
      * 列表
      */
     @GetMapping("/list")
-    @PreAuthorize("hasAuthority('Test_projects:projects:list')")
+    @PreAuthorize("hasAuthority('test_projects:projects:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = projectsService.queryPage(params);
 
@@ -43,7 +43,7 @@ public class TestProjectsController {
      * 信息
      */
     @GetMapping("/info/{id}")
-    @PreAuthorize("hasAuthority('Test_projects:projects:info')")
+    @PreAuthorize("hasAuthority('test_projects:projects:info')")
     public Result info(@PathVariable("id") String id){
        TestProjects projects = projectsService.getById(id);
 
@@ -54,7 +54,7 @@ public class TestProjectsController {
      * 保存
      */
     @PostMapping("/save")
-    @PreAuthorize("hasAuthority('Test_projects:projects:save')")
+    @PreAuthorize("hasAuthority('test_projects:projects:save')")
     public Result save(@RequestBody TestProjects projects){
         ValidatorUtils.validateEntity(projects);
         projectsService.save(projects);
@@ -66,7 +66,7 @@ public class TestProjectsController {
      * 修改
      */
     @PutMapping("/update")
-    @PreAuthorize("hasAuthority('Test_projects:projects:update')")
+    @PreAuthorize("hasAuthority('test_projects:projects:update')")
     public Result update(@RequestBody TestProjects projects){
         ValidatorUtils.validateEntity(projects);
         projectsService.updateById(projects);
@@ -77,7 +77,7 @@ public class TestProjectsController {
      * 删除
      */
     @DeleteMapping("/delete")
-    @PreAuthorize("hasAuthority('Test_projects:projects:delete')")
+    @PreAuthorize("hasAuthority('test_projects:projects:delete')")
     public Result delete(@RequestBody String[] ids){
         projectsService.removeByIds(Arrays.asList(ids));
 

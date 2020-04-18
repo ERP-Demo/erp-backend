@@ -1,6 +1,6 @@
-package cn.shiying.department.mapper;
+package cn.shiying.common.mapper;
 
-import cn.shiying.department.entity.Department;
+import cn.shiying.common.entity.department.Department;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

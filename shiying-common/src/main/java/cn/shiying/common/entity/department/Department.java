@@ -1,4 +1,4 @@
-package cn.shiying.department.entity;
+package cn.shiying.common.entity.department;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

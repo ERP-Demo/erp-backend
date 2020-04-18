@@ -1,6 +1,6 @@
-package cn.shiying.department.service;
+package cn.shiying.drugs_storage.service;
 
-import cn.shiying.common.entity.department.Department;
+import cn.shiying.drugs_storage.entity.DrugsStorageDetailed;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
 import java.util.Map;
@@ -13,7 +13,7 @@ import java.util.Map;
  * @author tyb
  * @since 2020-04-17
  */
-public interface DepartmentService extends IService<Department> {
+public interface DrugsStorageDetailedService extends IService<DrugsStorageDetailed> {
 
     /**
      * 分页查询

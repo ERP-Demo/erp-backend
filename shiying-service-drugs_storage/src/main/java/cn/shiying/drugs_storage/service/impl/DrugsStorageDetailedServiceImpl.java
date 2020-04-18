@@ -1,8 +1,8 @@
-package cn.shiying.department.service.impl;
+package cn.shiying.drugs_storage.service.impl;
 
-import cn.shiying.common.entity.department.Department;
-import cn.shiying.common.mapper.DepartmentMapper;
-import cn.shiying.department.service.DepartmentService;
+import cn.shiying.drugs_storage.entity.DrugsStorageDetailed;
+import cn.shiying.drugs_storage.mapper.DrugsStorageDetailedMapper;
+import cn.shiying.drugs_storage.service.DrugsStorageDetailedService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -20,7 +20,7 @@ import java.util.Map;
  * @since 2020-04-17
  */
 @Service
-public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Department> implements DepartmentService {
+public class DrugsStorageDetailedServiceImpl extends ServiceImpl<DrugsStorageDetailedMapper, DrugsStorageDetailed> implements DrugsStorageDetailedService {
 
     /**
      * 分页查询
@@ -29,8 +29,8 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        IPage<Department> page=baseMapper.selectPage(new Query<Department>(params).getPage(),
-                new QueryWrapper<Department>().lambda());
+        IPage<DrugsStorageDetailed> page=baseMapper.selectPage(new Query<DrugsStorageDetailed>(params).getPage(),
+                new QueryWrapper<DrugsStorageDetailed>().lambda());
         return new PageUtils(page);
     }
 

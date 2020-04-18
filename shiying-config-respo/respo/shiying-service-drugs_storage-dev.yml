@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-drugs_storage
+
+server:
+  port: 40124
+  servlet:
+    context-path: /drugs_storage

@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-electronic_case
+
+server:
+  port: 6325
+  servlet:
+    context-path: /electronic_case

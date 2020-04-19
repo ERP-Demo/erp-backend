@@ -8,8 +8,8 @@ server:
     context-path: /api
 
 ribbon:
-  ConnectTimeout: 250
-  ReadTimeout: 2000
+  ConnectTimeout: 30000
+  ReadTimeout: 120000
   OkToRetryOnAllOperations: true
   MaxAutoRetriesNextServer: 2
   MaxAutoRetries: 1

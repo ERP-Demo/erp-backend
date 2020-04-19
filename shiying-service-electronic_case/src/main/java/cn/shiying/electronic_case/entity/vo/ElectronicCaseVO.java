@@ -12,6 +12,8 @@ public class ElectronicCaseVO extends ElectronicCase {
      * 患者
      */
     private PatientDetailed patientDetailed;
+
+
     /**
      * 医生
      */

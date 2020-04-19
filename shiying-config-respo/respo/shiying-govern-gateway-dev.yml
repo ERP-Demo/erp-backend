@@ -8,8 +8,8 @@ server:
     context-path: /api
 
 ribbon:
-  ConnectTimeout: 600
-  ReadTimeout: 4000
+  ConnectTimeout: 250
+  ReadTimeout: 2000
   OkToRetryOnAllOperations: true
   MaxAutoRetriesNextServer: 2
   MaxAutoRetries: 1
@@ -59,10 +59,5 @@ zuul:
     service-drugs_storage:
       path: /drugs_storage/**
       serviceId: shiying-service-drugs_storage
-      strip-prefix: false
-      sensitiveHeaders:
-    service-electronic_case:
-      path: /electronic_case/**
-      serviceId: shiying-service-electronic_case
       strip-prefix: false
       sensitiveHeaders:

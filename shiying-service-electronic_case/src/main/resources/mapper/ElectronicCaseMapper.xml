@@ -15,11 +15,12 @@
     </resultMap>
     <resultMap id="WithDepartment" extends="BaseResultMap" type="cn.shiying.electronic_case.entity.vo.ElectronicCaseVO">
         <association property="department" column="department_id" select="cn.shiying.common.mapper.DepartmentMapper.selectById" />
+        <association property="patientDetailed" column="patient_id" select="cn.shiying.common.mapper.PatientDetailedMapper.selectById" />
 <!--        <association property="patientDetaile" column="patient_id" select="cn.shiying.common.mapper.PatientDetailedMapper.selectById" />-->
     </resultMap>
-    <resultMap id="WithPatientDetailed" extends="BaseResultMap" type="cn.shiying.electronic_case.entity.vo.ElectronicCaseVO">
-    <association property="patientDetailed" column="patient_id" select="cn.shiying.common.mapper.PatientDetailedMapper.selectById" />
-    </resultMap>
+<!--    <resultMap id="WithPatientDetailed" extends="BaseResultMap" type="cn.shiying.electronic_case.entity.vo.ElectronicCaseVO">-->
+<!--    <association property="patientDetailed" column="patient_id" select="cn.shiying.common.mapper.PatientDetailedMapper.selectById" />-->
+<!--    </resultMap>-->
 <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         case_no, uid, patient_id, department_id, enter_hospital, leave_hospital, patient_symptom, doctor_advice
@@ -28,7 +29,7 @@
     <select id="listElectronicCaseVO" resultMap="WithDepartment">
         select <include refid="Base_Column_List" /> from  Electronic_case
     </select>
-    <select id="listElectronicCaseVO" resultMap="WithPatientDetailed">
-        select <include refid="Base_Column_List" /> from  Electronic_case
-    </select>
+<!--    <select id="listElectronicCaseVO" resultMap="WithPatientDetailed">-->
+<!--        select <include refid="Base_Column_List" /> from  Electronic_case-->
+<!--    </select>-->
 </mapper>

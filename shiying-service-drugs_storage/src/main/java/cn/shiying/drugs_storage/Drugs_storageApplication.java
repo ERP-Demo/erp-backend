@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @EnableDiscoveryClient
 @EnableFeignClients
-@MapperScan({"cn.shiying.common.mapper","cn.shiying.drugs_storage.mapperw"})
+@MapperScan({"cn.shiying.common.mapper","cn.shiying.drugs_storage.mapper"})
 @ComponentScan(basePackages = {"cn.shiying.config","cn.shiying.drugs_storage"})
 @SpringBootApplication
 public class Drugs_storageApplication {

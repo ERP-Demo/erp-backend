@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-drugs_purchase
+
+server:
+  port: 5002
+  servlet:
+    context-path: /drugs_purchase

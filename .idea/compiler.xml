@@ -18,8 +18,10 @@
         <module name="shiying-common-config" />
         <module name="shiying-service-ucenter" />
         <module name="shiying-config" />
+        <module name="shiying-service-department" />
         <module name="shiying-common" />
         <module name="shiying-service-Test_projects" />
+        <module name="shiying-service-electronic_case" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -33,8 +35,10 @@
       <module name="shiying-govern-gateway" target="1.8" />
       <module name="shiying-service-aa" target="1.8" />
       <module name="shiying-service-auth" target="1.8" />
+      <module name="shiying-service-department" target="1.8" />
       <module name="shiying-service-drugs" target="1.8" />
       <module name="shiying-service-drugs_storage" target="1.8" />
+      <module name="shiying-service-electronic_case" target="1.8" />
       <module name="shiying-service-patient" target="1.8" />
       <module name="shiying-service-register" target="1.8" />
       <module name="shiying-service-supplier" target="1.8" />
@@ -57,8 +61,10 @@
       <module name="shiying-service-Test_projects" options="-parameters" />
       <module name="shiying-service-aa" options="-parameters" />
       <module name="shiying-service-auth" options="-parameters" />
+      <module name="shiying-service-department" options="-parameters" />
       <module name="shiying-service-drugs" options="-parameters" />
       <module name="shiying-service-drugs_storage" options="-parameters" />
+      <module name="shiying-service-electronic_case" options="-parameters" />
       <module name="shiying-service-patient" options="-parameters" />
       <module name="shiying-service-register" options="-parameters" />
       <module name="shiying-service-supplier" options="-parameters" />

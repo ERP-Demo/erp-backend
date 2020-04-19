@@ -30,7 +30,7 @@ public class TestStorage {
     @Test
     public void testRedis(){
         Map<String, Object> params = new HashMap();
-//        params.put("1",2);
+        params.put("1",2);
         PageUtils page = storageService.queryPage(params);
         System.out.println(page);
     }

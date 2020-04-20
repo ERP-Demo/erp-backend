@@ -1,12 +1,12 @@
 package cn.shiying.drugs.controller;
 
+import cn.shiying.common.entity.Drugs.DrugsDetailed;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import cn.shiying.drugs.entity.DrugsDetailed;
 import cn.shiying.drugs.service.DrugsDetailedService;
 import cn.shiying.common.dto.Result;
 import cn.shiying.common.utils.PageUtils;

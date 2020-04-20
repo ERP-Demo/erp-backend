@@ -1,6 +1,7 @@
 package cn.shiying.supplier.service.impl;
 
 import cn.shiying.supplier.entity.SupplierDetailed;
+import cn.shiying.supplier.entity.vo.Drugs_detailedVo;
 import cn.shiying.supplier.mapper.SupplierDetailedMapper;
 import cn.shiying.supplier.service.SupplierDetailedService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -35,6 +36,23 @@ public class SupplierDetailedServiceImpl extends ServiceImpl<SupplierDetailedMap
         IPage<SupplierDetailed> page=baseMapper.selectPage(new Query<SupplierDetailed>(params).getPage(),
                 new QueryWrapper<SupplierDetailed>().lambda());
         return new PageUtils(page);
+    }
+
+    @Override
+    public void insertDrigs_supplier(Integer pid, Integer[] ids) {
+        for(Integer i :ids){
+            baseMapper.insertDrigs_supplier(pid,i);
+        }
+    }
+
+    @Override
+    public List<Drugs_detailedVo> lisedetailedVo() {
+        return  baseMapper.lisedetailedVo();
+    }
+
+    @Override
+    public List<SupplierDetailed> selectlike(String name) {
+        return baseMapper.selectlike(name);
     }
 
 }

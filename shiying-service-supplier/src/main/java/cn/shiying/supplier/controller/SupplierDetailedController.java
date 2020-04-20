@@ -1,7 +1,9 @@
 package cn.shiying.supplier.controller;
 
+import cn.shiying.supplier.entity.vo.Drugs_detailedVo;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +83,27 @@ public class SupplierDetailedController {
     public Result delete(@RequestBody String[] ids){
         detailedService.removeByIds(Arrays.asList(ids));
 
+        return Result.ok();
+    }
+    //插入关系
+    @RequestMapping("/add/{pid}/{ids}")
+    public Result add(@PathVariable Integer pid,@PathVariable Integer[] ids){
+        detailedService.insertDrigs_supplier(pid,ids);
+        return Result.ok();
+    }
+    //表与表查询
+    @RequestMapping("/All")
+    public Result All(){
+//        List<Drugs_detailedVo> drugs_detailedVos = detailedService.lisedetailedVo();
+//        for (Drugs_detailedVo drugs_detailedVo : drugs_detailedVos) {
+//            System.out.println(drugs_detailedVo);
+//        }
+//        return Result.ok();
+        //模糊查询
+        List<SupplierDetailed> z = detailedService.selectlike("test");
+        for (SupplierDetailed supplierDetailed : z) {
+            System.out.print(supplierDetailed);
+        }
         return Result.ok();
     }
 }

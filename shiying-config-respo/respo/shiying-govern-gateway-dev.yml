@@ -61,3 +61,18 @@ zuul:
       serviceId: shiying-service-drugs_storage
       strip-prefix: false
       sensitiveHeaders:
+    service-electronic_case:
+      path: /electronic_case/**
+      serviceId: shiying-service-electronic_case
+      strip-prefix: false
+      sensitiveHeaders:
+    service-drugs_purchase:
+      path: /drugs_purchase/**
+      serviceId: shiying-service-drugs_purchase
+      strip-prefix: false
+      sensitiveHeaders:
+    service-drugs_purchase_detailed:
+      path: /drugs_purchase_detailed/**
+      serviceId: shiying-service-drugs_purchase_detailed
+      strip-prefix: false
+      sensitiveHeaders:

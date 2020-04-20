@@ -1,13 +1,14 @@
-package cn.shiying.patient.entity;
+package cn.shiying.common.entity.patient;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -27,7 +28,7 @@ public class PatientDetailed implements Serializable {
     /**
      * 患者id
      */
-    @TableId(value = "patient_Id", type = IdType.AUTO)
+    @TableId(value = "patient_id", type = IdType.AUTO)
     private Integer patientId;
 
     /**

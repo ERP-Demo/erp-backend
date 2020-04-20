@@ -1,9 +1,10 @@
-package cn.shiying.drugs_storage.service.impl;
+package cn.shiying.electronic_case.service.impl;
 
-import cn.shiying.drugs_storage.entity.DrugsStorageDetailedInfo;
-import cn.shiying.drugs_storage.entity.vo.DrugsDetailedVO;
-import cn.shiying.drugs_storage.mapper.DrugsStorageDetailedInfoMapper;
-import cn.shiying.drugs_storage.service.DrugsStorageDetailedInfoService;
+import cn.shiying.electronic_case.entity.ElectronicCase;
+import cn.shiying.electronic_case.entity.vo.ElectronicCaseVO;
+import cn.shiying.electronic_case.mapper.ElectronicCaseMapper;
+import cn.shiying.electronic_case.service.ElectronicCaseService;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -21,10 +22,10 @@ import java.util.Map;
  * </p>
  *
  * @author tyb
- * @since 2020-04-18
+ * @since 2020-04-17
  */
 @Service
-public class DrugsStorageDetailedInfoServiceImpl extends ServiceImpl<DrugsStorageDetailedInfoMapper, DrugsStorageDetailedInfo> implements DrugsStorageDetailedInfoService {
+public class ElectronicCaseServiceImpl extends ServiceImpl<ElectronicCaseMapper, ElectronicCase> implements ElectronicCaseService {
 
     /**
      * 分页查询
@@ -33,8 +34,8 @@ public class DrugsStorageDetailedInfoServiceImpl extends ServiceImpl<DrugsStorag
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        Page page=new Query<DrugsStorageDetailedInfo>(params).getPage();
-        List<DrugsDetailedVO> list= baseMapper.listDrugsDetailedVO();
+        Page page=new Query<ElectronicCase>(params).getPage();
+        List<ElectronicCaseVO> list= baseMapper.listElectronicCaseVO();
         System.out.println(list);
         page.setRecords(list);
         return new PageUtils(page);

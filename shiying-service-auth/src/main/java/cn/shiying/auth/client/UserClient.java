@@ -14,7 +14,7 @@ import java.util.List;
 @FeignClient("shiying-service-ucenter")
 public interface UserClient {
     //根据账号查询用户信息
-    @GetMapping("/ucenter/user/{username}")
+    @GetMapping("/ucenter/user/user/{username}")
     public SysUser selectByUsername(@RequestParam("username") String username);
 
     @GetMapping("/ucenter/menu/menu/{uid}")

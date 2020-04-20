@@ -22,8 +22,8 @@ zuul:
       strip-prefix: false
       sensitiveHeaders:
     service-ucenter:
-      path: /ucenter/**
-      serviceId: shiying-service-ucenter
+      path: /sys/**
+      serviceId: shiying-service-sys
       strip-prefix: false
       sensitiveHeaders:
     service-supplier:

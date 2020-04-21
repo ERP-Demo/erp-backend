@@ -3,8 +3,10 @@ package cn.shiying.ucenter.service.impl;
 import cn.shiying.common.constants.SysConstants;
 import cn.shiying.common.entity.sys.SysMenu;
 import cn.shiying.common.enums.MenuTypeEnum;
+import cn.shiying.common.utils.MapUtils;
 import cn.shiying.ucenter.mapper.SysMenuMapper;
 import cn.shiying.ucenter.service.SysMenuService;
+import cn.shiying.ucenter.service.SysRoleMenuService;
 import cn.shiying.ucenter.service.SysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +29,8 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Autowired
     private SysUserService sysUserService;
 
-//    @Autowired
-//    private SysRoleMenuService sysRoleMenuService;
+    @Autowired
+    private SysRoleMenuService sysRoleMenuService;
     /**
      * 获取用户的所有菜单
      *
@@ -133,13 +135,13 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
      *
      * @param menuId
      */
-//    @Override
-//    public void delete(Integer menuId) {
-//        //删除菜单
-//        baseMapper.deleteById(menuId);
-//        //删除菜单与角色关联
-//        sysRoleMenuService.removeByMap(new MapUtils().put("menu_id",menuId));
-//    }
+    @Override
+    public void delete(Integer menuId) {
+        //删除菜单
+        baseMapper.deleteById(menuId);
+        //删除菜单与角色关联
+        sysRoleMenuService.removeByMap(new MapUtils().put("menu_id",menuId));
+    }
 
 
 

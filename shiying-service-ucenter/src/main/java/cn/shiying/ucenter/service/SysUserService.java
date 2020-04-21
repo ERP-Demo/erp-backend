@@ -29,7 +29,7 @@ public interface SysUserService extends IService<SysUser> {
      * @param params
      * @return
      */
-//    PageUtils queryPage(Map<String, Object> params);
+    PageUtils queryPage(Map<String, Object> params);
 
     /**
      * 更新密码
@@ -38,13 +38,13 @@ public interface SysUserService extends IService<SysUser> {
      * @param newPassword
      * @return
      */
-//    boolean updatePassword(Integer userId, String password, String newPassword);
+    boolean updatePassword(Integer userId, String password, String newPassword);
 
     /**
      * 批量删除用户
      * @param userIds
      */
-//    void deleteBatch(Integer[] userIds);
+    void deleteBatch(Integer[] userIds);
 
     /**
      * 根据用户名查询

@@ -4,7 +4,7 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.shiying.patient.entity.PatientDetailed">
-        <id column="Patient_id" property="patientId" />
+        <id column="patient_id" property="patientId" />
         <result column="Patient_name" property="patientName" />
         <result column="Patient_age" property="patientAge" />
         <result column="Patient_sex" property="patientSex" />
@@ -17,7 +17,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        Patient_id, Patient_name, Patient_age, Patient_sex, Patient_phone, Patient_address, Patient_Admission, Patient_doctor, Patient_note
+        patient_id, Patient_name, Patient_age, Patient_sex, Patient_phone, Patient_address, Patient_Admission, Patient_doctor, Patient_note
     </sql>
 
 </mapper>

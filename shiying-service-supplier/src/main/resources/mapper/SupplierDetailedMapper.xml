@@ -14,10 +14,23 @@
         <result column="supplier_address" property="supplierAddress" />
         <result column="supplier_status" property="supplierStatus" />
     </resultMap>
+    <resultMap id="WithDepartment" extends="BaseResultMap" type="cn.shiying.supplier.entity.vo.Drugs_detailedVo">
+        <association property="drugs_detailed" column="detailed_id" select="cn.shiying.common.mapper.DepartmentMapper.selectById" />
+    </resultMap>
+
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         supplier_id, supplier_name, supplier_cart_phone, supplier_type, supplier_man, supplier_bank_name, supplier_bank_account, supplier_address, supplier_status
     </sql>
+    <insert id="insertDrigs_supplier">
+        insert into drigs_supplier(supplier_id,drugs_id)value(#{pid},#{ids})
+    </insert>
+    <select id="lisedetailedVo" resultMap="WithDepartment">
+        select <include refid="Base_Column_List" /> from  supplier_detailed
+    </select>
+    <select id="selectlike" resultType="cn.shiying.supplier.entity.SupplierDetailed">
+        select *from supplier_detailed where supplier_name LIKE '%'#{name}'%'
+    </select>
 
 </mapper>

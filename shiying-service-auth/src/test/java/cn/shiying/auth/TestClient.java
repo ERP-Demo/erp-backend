@@ -41,7 +41,7 @@ public class TestClient {
     public void testClient(){
         //从eureka中获取认证服务的地址（因为spring security在认证服务中）
         //从eureka中获取认证服务的一个实例的地址
-//        ServiceInstance serviceInstance = loadBalancerClient.choose("shiying-service-ucenter");
+//        ServiceInstance serviceInstance = loadBalancerClient.choose("shiying-service-sys");
         //此地址就是http://ip:port
 //        URI uri = serviceInstance.getUri();
         //令牌申请的地址 http://localhost:40400/auth/oauth/token

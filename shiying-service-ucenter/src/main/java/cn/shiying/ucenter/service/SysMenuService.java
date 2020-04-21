@@ -47,5 +47,5 @@ public interface SysMenuService extends IService<SysMenu> {
     /**
      * 删除
      */
-//    void delete(Integer menuId);
+    void delete(Integer menuId);
 }

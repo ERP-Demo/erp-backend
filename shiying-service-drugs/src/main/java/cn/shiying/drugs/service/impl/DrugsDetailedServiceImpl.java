@@ -1,14 +1,17 @@
 package cn.shiying.drugs.service.impl;
 
-import cn.shiying.drugs.entity.DrugsDetailed;
+
+import cn.shiying.common.entity.Drugs.DrugsDetailed;
 import cn.shiying.common.mapper.DrugsDetailedMapper;
+import cn.shiying.common.utils.PageUtils;
+import cn.shiying.common.utils.Query;
 import cn.shiying.drugs.service.DrugsDetailedService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import cn.shiying.common.utils.Query;
-import cn.shiying.common.utils.PageUtils;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+
 import java.util.Map;
 
 /**

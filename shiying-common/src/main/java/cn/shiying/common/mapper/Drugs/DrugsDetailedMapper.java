@@ -1,4 +1,4 @@
-package cn.shiying.common.mapper;
+package cn.shiying.common.mapper.Drugs;
 
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

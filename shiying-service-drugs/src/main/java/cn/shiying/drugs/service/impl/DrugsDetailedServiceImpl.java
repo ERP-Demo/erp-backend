@@ -2,7 +2,7 @@ package cn.shiying.drugs.service.impl;
 
 
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
-import cn.shiying.common.mapper.DrugsDetailedMapper;
+import cn.shiying.common.mapper.Drugs.DrugsDetailedMapper;
 import cn.shiying.common.utils.PageUtils;
 import cn.shiying.common.utils.Query;
 import cn.shiying.drugs.service.DrugsDetailedService;

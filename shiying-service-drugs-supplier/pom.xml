@@ -8,9 +8,8 @@
         <artifactId>shiying-dependencies</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../shiying-dependencies/pom.xml</relativePath>
-    </parent>
-    <artifactId>shiying-service-drugs</artifactId>
-    <name>shiying-service-drugs</name>
+    </parent>    <artifactId>shiying-service-drugs-supplier</artifactId>
+    <name>shiying-service-drugs-supplier</name>
 
     <dependencies>
         <dependency>

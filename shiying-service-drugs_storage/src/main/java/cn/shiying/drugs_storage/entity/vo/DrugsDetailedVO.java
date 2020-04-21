@@ -9,5 +9,5 @@ public class DrugsDetailedVO extends DrugsStorageDetailedInfo {
     /**
      * 药品表
      */
-    private drugs_detailed drugs;
+    private String drugsName;
 }

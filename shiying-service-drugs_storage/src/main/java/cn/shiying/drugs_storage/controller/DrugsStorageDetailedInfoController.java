@@ -38,7 +38,6 @@ public class DrugsStorageDetailedInfoController {
         return Result.ok().put("page", page);
     }
 
-
     /**
      * 信息
      */

@@ -17,5 +17,5 @@ import java.util.List;
  */
 @Mapper
 public interface SupplierDetailedMapper extends BaseMapper<SupplierDetailed> {
-    void insertDrigs_supplier(Integer pid, @Param("ids") Integer ids);
+    void insertDrigs_supplier(@Param("pid") Integer pid, @Param("ids") Integer ids);
 }

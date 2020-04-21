@@ -77,7 +77,7 @@ zuul:
       strip-prefix: false
       sensitiveHeaders:
     shiying-service-drugs-supplier:
-      path: /drugs_supplier/**
+      path: /drugsSupplier/**
       serviceId: shiying-service-drugs-supplier
       strip-prefix: false
       sensitiveHeaders:

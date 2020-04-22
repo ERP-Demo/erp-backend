@@ -1,8 +1,0 @@
-spring:
-  application:
-    name: shiying-service-department_register
-
-server:
-  port: 408882
-  servlet:
-    context-path: /department_register

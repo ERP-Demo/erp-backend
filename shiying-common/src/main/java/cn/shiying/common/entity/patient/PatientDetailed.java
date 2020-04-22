@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- *
+ * 
  * </p>
  *
  * @author tyb
@@ -28,7 +28,8 @@ public class PatientDetailed implements Serializable {
     /**
      * 患者id
      */
-    @TableId(value = "patient_Id", type = IdType.AUTO)
+
+
     private Integer patientId;
 
     /**

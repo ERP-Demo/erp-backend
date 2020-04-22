@@ -2,6 +2,7 @@ package cn.shiying.ucenter.service.impl;
 
 import cn.shiying.common.constants.SysConstants;
 import cn.shiying.common.entity.sys.SysMenu;
+import cn.shiying.common.entity.sys.SysRole;
 import cn.shiying.common.entity.sys.SysUser;
 import cn.shiying.common.enums.ErrorEnum;
 import cn.shiying.common.exception.ExceptionCast;
@@ -71,9 +72,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             List<SysMenu> menuList=sysMenuMapper.selectList(null);
             List<String> permsList=new ArrayList<>(menuList.size());
             menuList.forEach(menu ->  permsList.add(menu.getPerms()));
+            List<SysRole> roles=sysRoleService.list();
+            List<Integer> roleList=new ArrayList<>();
+            roles.forEach(sysRole -> roleList.add(sysRole.getRoleId()));
+            user.setRoleIdList(roleList);
             user.setPerms(permsList);
         }else {
             user.setPerms(baseMapper.queryAllPerms(user.getUserId()));
+            user.setRoleIdList(sysUserRoleService.queryRoleIdList(user.getUserId()));
         }
         return user;
     }

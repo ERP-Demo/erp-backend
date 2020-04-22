@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.shiying.common.mapper.DrugsDetailedMapper">
-
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.shiying.drugs.entity.DrugsDetailed">
-        <id column="drugs_id" property="drugsId" />
-        <result column="drugs_name" property="drugsName" />
-        <result column="drugs_price" property="drugsPrice" />
-        <result column="drugs_norms" property="drugsNorms" />
-        <result column="drugs_usage" property="drugsUsage" />
-        <result column="drugs_dosage" property="drugsDosage" />
-        <result column="drugs_taboo" property="drugsTaboo" />
-        <result column="drugs_producer" property="drugsProducer" />
-        <result column="drugs_approval_number" property="drugsApprovalNumber" />
-    </resultMap>
-
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        drugs_id, drugs_name, drugs_price, drugs_norms, drugs_usage, drugs_dosage, drugs_taboo, drugs_producer, drugs_approval_number
-    </sql>
-
+<mapper namespace="cn.shiying.common.mapper.Drugs.DrugsDetailedMapper">
+    <select id="like" resultType="cn.shiying.common.entity.Drugs.DrugsDetailed">
+            select * from drugs_detailed
+        <where>
+            <if test="name!=null||name!=''">
+                 drugs_name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
 </mapper>

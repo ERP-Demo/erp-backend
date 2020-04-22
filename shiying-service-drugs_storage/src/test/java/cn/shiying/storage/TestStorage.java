@@ -1,14 +1,18 @@
 package cn.shiying.storage;
 
+import cn.shiying.common.dto.Result;
 import cn.shiying.common.utils.PageUtils;
 import cn.shiying.drugs_storage.Drugs_storageApplication;
 import cn.shiying.drugs_storage.entity.DrugsStorageDetailedInfo;
+import cn.shiying.drugs_storage.entity.vo.DrugsDetailedVO;
 import cn.shiying.drugs_storage.service.DrugsStorageDetailedInfoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
@@ -37,7 +41,9 @@ public class TestStorage {
 
     @Test
     public void test2(){
-//        List<DrugsStorageDetailedInfo> list= storageService.listDrugsDetailedVO();
+//        String key="q";
+//        List<DrugsDetailedVO> selectLikeName=storageService.selectLikeName(key);
+//        System.out.println(selectLikeName);
     }
 
 }

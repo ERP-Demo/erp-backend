@@ -2,11 +2,12 @@ package cn.shiying.supplier.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import cn.shiying.supplier.entity.SupplierDetailed;
+import cn.shiying.common.entity.supplier.SupplierDetailed;
 import cn.shiying.supplier.service.SupplierDetailedService;
 import cn.shiying.common.dto.Result;
 import cn.shiying.common.utils.PageUtils;
@@ -82,5 +83,16 @@ public class SupplierDetailedController {
         detailedService.removeByIds(Arrays.asList(ids));
 
         return Result.ok();
+    }
+    //插入关系
+    @RequestMapping("/add/{pid}/{ids}")
+    public Result add(@PathVariable Integer pid,@PathVariable Integer[] ids){
+        detailedService.insertDrigs_supplier(pid,ids);
+        return Result.ok();
+    }
+    @RequestMapping("/like/{name}")
+    public Result like(@PathVariable String name){
+        List<SupplierDetailed> list= detailedService.like(name);
+        return Result.ok().put("list",list);
     }
 }

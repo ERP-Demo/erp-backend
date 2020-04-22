@@ -1,8 +1,10 @@
 package cn.shiying.supplier.service;
 
-import cn.shiying.supplier.entity.SupplierDetailed;
+import cn.shiying.common.entity.supplier.SupplierDetailed;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,4 +23,9 @@ public interface SupplierDetailedService extends IService<SupplierDetailed> {
      * @return
      */
      PageUtils queryPage(Map<String, Object> params);
+
+     //插入关系
+     void insertDrigs_supplier(Integer pid,Integer[] ids);
+     //模糊查询
+    List<SupplierDetailed> like(String name);
 }

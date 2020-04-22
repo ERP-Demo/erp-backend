@@ -1,14 +1,13 @@
 spring:
   application:
-    name: shiying-service-activiti
+    name: shiying-service-activitis
+  activiti:
+    database-schema: ACTIVITI
+    database-schema-update: true
+    history-level: full
+    db-history-used: true
 
 server:
   port: 40800
   servlet:
     context-path: /activiti
-
-activiti:
-  database-schema: ACTIVITI
-  database-schema-update: true
-  history-level: full
-  db-history-used: true

@@ -86,20 +86,3 @@ zuul:
       serviceId: shiying-service-activiti
       strip-prefix: false
       sensitiveHeaders:
-
-
-    service-test_projects:
-      path: /test_projects/**
-      serviceId: shiying-service-test_projects
-      strip-prefix: false
-      sensitiveHeaders:
-    service-test_projects:
-      path: /test_projects/**
-      serviceId: shiying-service-test_projects
-      strip-prefix: false
-      sensitiveHeaders:
-    service-test_projects:
-      path: /test_projects/**
-      serviceId: shiying-service-test_projects
-      strip-prefix: false
-      sensitiveHeaders:

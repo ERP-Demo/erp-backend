@@ -2,7 +2,6 @@ spring:
   application:
     name: shiying-service-activitis
   activiti:
-    database-schema: ACTIVITI
     database-schema-update: true
     history-level: full
     db-history-used: true

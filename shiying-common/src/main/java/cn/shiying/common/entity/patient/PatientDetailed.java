@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author tyb
@@ -28,11 +28,7 @@ public class PatientDetailed implements Serializable {
     /**
      * 患者id
      */
-<<<<<<<< HEAD:shiying-common/src/main/java/cn/shiying/common/entity/patient/PatientDetailed.java
-    @TableId(value = "patient_id", type = IdType.AUTO)
-========
     @TableId(value = "patient_Id", type = IdType.AUTO)
->>>>>>>> origin/master:shiying-service-patient/src/main/java/cn/shiying/patient/entity/PatientDetailed.java
     private Integer patientId;
 
     /**

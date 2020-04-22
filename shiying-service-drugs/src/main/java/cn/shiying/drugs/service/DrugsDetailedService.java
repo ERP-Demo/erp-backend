@@ -23,5 +23,4 @@ public interface DrugsDetailedService extends IService<DrugsDetailed> {
      * @return
      */
      PageUtils queryPage(Map<String, Object> params);
-     List<DrugsDetailed> like(String name);
 }

@@ -81,3 +81,9 @@ zuul:
       serviceId: shiying-service-drugs-supplier
       strip-prefix: false
       sensitiveHeaders:
+    shiying-service-activiti:
+      path: /activiti/**
+      serviceId: shiying-service-activiti
+      strip-prefix: false
+      sensitiveHeaders:
+

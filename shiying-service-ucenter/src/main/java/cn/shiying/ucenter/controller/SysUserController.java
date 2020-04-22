@@ -15,6 +15,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -143,10 +144,9 @@ public class SysUserController {
     }
 
     private Integer getUserId(){
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getPrincipal();
-        System.out.println(userDetails.getUsername());
+        SecurityContext userDetails = SecurityContextHolder.getContext();
+
+        System.out.println(userDetails);
 //        System.out.println(userDetails);
         return authClient.jwtuser().getUid();
     }

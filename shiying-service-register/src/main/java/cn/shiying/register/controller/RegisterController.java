@@ -86,8 +86,8 @@ public class RegisterController {
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('register:register:update')")
     public Result update(@RequestBody Register register){
-//        ValidatorUtils.validateEntity(register);
-//        registerService.updateById(register);
+        ValidatorUtils.validateEntity(register);
+        registerService.updateById(register);
         return Result.ok();
     }
 

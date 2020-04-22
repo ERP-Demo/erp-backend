@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @EnableDiscoveryClient
 @EnableFeignClients
-@ComponentScan(basePackages = {"cn.shiying.config", "cn.shiying.test_projects"})
+@ComponentScan(basePackages = {"cn.shiying.config","cn.shiying.test_projects"})
 @SpringBootApplication
 public class Test_projectsApplication {
     public static void main(String[] args) throws Exception {

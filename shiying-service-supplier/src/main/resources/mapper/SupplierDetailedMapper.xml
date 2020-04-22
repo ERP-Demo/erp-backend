@@ -21,7 +21,10 @@
         supplier_id, supplier_name, supplier_cart_phone, supplier_type, supplier_man, supplier_bank_name, supplier_bank_account, supplier_address, supplier_status
     </sql>
     <insert id="insertDrigs_supplier">
-        insert into drigs_supplier(supplier_id,drugs_id)value(#{pid},#{ids})
+        insert into drugs_supplier(supplier_id,drugs_id)value(#{pid},#{ids})
     </insert>
+    <select id="like" resultType="cn.shiying.common.entity.supplier.SupplierDetailed">
+        select * from supplier_detailed where supplier_name LIKE concat('%',#{name},'%')
+    </select>
 
 </mapper>

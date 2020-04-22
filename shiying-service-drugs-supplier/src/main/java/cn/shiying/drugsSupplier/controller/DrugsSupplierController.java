@@ -1,8 +1,12 @@
 package cn.shiying.drugsSupplier.controller;
 
+import cn.shiying.common.entity.Drugs.DrugsDetailed;
+import cn.shiying.common.entity.supplier.SupplierDetailed;
 import cn.shiying.drugsSupplier.service.DrugsSupplierService;
 import cn.shiying.drugsSupplier.entity.vo.DrugsSupplierVO;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -27,16 +31,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class DrugsSupplierController {
     @Autowired
     private DrugsSupplierService drugsSupplierService;
-//请求不到这个你网关没配置
-    @RequestMapping("/all")
-    public Result All(){
-        System.out.println("进入-------------------------");
-        List<DrugsSupplierVO> all = drugsSupplierService.All(1);
-        for (DrugsSupplierVO drugsSupplierVO : all) {
-            System.out.println(drugsSupplierVO);
-        }
+    @RequestMapping("/all/{id}")
+    public Result All(@PathVariable Integer id){
+        List<DrugsSupplierVO> list = drugsSupplierService.All(id);
+        return Result.ok().put("list",list);
+    }
+    @RequestMapping("/deletebyid/{id}/{did}")
+    public Result deletebyid(@PathVariable Integer id,@PathVariable Integer did){
+        drugsSupplierService.deletebyid(id,did);
         return Result.ok();
     }
-    //这个模块好了？这个模块端口和供货商一样
-
 }

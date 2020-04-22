@@ -86,4 +86,3 @@ zuul:
       serviceId: shiying-service-activiti
       strip-prefix: false
       sensitiveHeaders:
-

@@ -3,6 +3,7 @@ package cn.shiying.drugs.controller;
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,6 @@ public class DrugsDetailedController {
     @PreAuthorize("hasAuthority('drugs:detailed:info')")
     public Result info(@PathVariable("id") String id){
        DrugsDetailed detailed = detailedService.getById(id);
-
         return Result.ok().put("detailed", detailed);
     }
 

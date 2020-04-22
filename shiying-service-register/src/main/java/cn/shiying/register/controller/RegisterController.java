@@ -1,5 +1,8 @@
 package cn.shiying.register.controller;
 
+import cn.shiying.common.entity.patient.PatientDetailed;
+import cn.shiying.register.client.PatienClient;
+import cn.shiying.register.entity.RegisterPatient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
 import java.util.Map;
@@ -26,6 +29,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegisterController {
     @Autowired
     private RegisterService registerService;
+    @Autowired
+    PatienClient patientclient;
+
 
     /**
      * 列表
@@ -55,10 +61,22 @@ public class RegisterController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('register:register:save')")
-    public Result save(@RequestBody Register register){
+    public Result save(@RequestBody RegisterPatient register){
         ValidatorUtils.validateEntity(register);
-        registerService.save(register);
-
+        Register r=new Register();
+        r.setPatientName(register.getPatientName());
+        r.setDepartmentId(register.getDepartmentId());
+        r.setRegisterCost(register.getRegisterCost());
+        PatientDetailed p=new PatientDetailed();
+        p.setPatientName(register.getPatientName());
+        p.setPatientAge(register.getPatientAge());
+        p.setPatientSex(register.getPatientSex());
+        p.setPatientPhone(register.getPatientPhone());
+        p.setPatientAddress(register.getPatientAddress());
+        p.setPatientNote(register.getPatientNote());
+        p.setPatientCartnum(register.getPatientCartnum());
+        registerService.save(r);
+        patientclient.save(p);
         return Result.ok();
     }
 

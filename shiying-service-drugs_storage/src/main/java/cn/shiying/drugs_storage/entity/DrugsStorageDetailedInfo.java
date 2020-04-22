@@ -1,6 +1,5 @@
 package cn.shiying.drugs_storage.entity;
 
-import cn.shiying.common.entity.drugs_storage.drugs_detailed;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
@@ -12,7 +11,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author tyb

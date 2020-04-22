@@ -1,6 +1,6 @@
 package cn.shiying.patient.service;
 
-import cn.shiying.patient.entity.PatientDetailed;
+import cn.shiying.common.entity.patient.PatientDetailed;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
 import java.util.Map;

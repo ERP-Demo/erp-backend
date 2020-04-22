@@ -3,6 +3,8 @@ package cn.shiying.drugs.service;
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,4 +23,5 @@ public interface DrugsDetailedService extends IService<DrugsDetailed> {
      * @return
      */
      PageUtils queryPage(Map<String, Object> params);
+     List<DrugsDetailed> like(String name);
 }

@@ -33,6 +33,6 @@
         </where>
     </select>
     <select id="All" resultMap="WithDepartment">
-        select ds.dsid,ds.supplier_id,ds.drugs_id from drugs_supplier ds where ds.supplier_id=#{pid}
+        select distinct ds.dsid,ds.supplier_id,ds.drugs_id from drugs_supplier ds where ds.supplier_id=#{pid}
     </select>
 </mapper>

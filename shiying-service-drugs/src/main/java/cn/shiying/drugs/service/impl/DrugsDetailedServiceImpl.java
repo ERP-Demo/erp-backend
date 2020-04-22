@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,6 +36,11 @@ public class DrugsDetailedServiceImpl extends ServiceImpl<DrugsDetailedMapper, D
         IPage<DrugsDetailed> page=baseMapper.selectPage(new Query<DrugsDetailed>(params).getPage(),
                 new QueryWrapper<DrugsDetailed>().lambda());
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<DrugsDetailed> like(String name) {
+        return baseMapper.like(name);
     }
 
 }

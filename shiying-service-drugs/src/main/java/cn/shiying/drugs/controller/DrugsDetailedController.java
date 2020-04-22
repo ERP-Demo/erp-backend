@@ -47,7 +47,6 @@ public class DrugsDetailedController {
     @PreAuthorize("hasAuthority('drugs:detailed:info')")
     public Result info(@PathVariable("id") String id){
        DrugsDetailed detailed = detailedService.getById(id);
-
         return Result.ok().put("detailed", detailed);
     }
 
@@ -83,11 +82,5 @@ public class DrugsDetailedController {
         detailedService.removeByIds(Arrays.asList(ids));
 
         return Result.ok();
-    }
-    //模糊查询
-    @RequestMapping("/like/{name}")
-    public Result like(@PathVariable String name){
-        List<DrugsDetailed> list = detailedService.like(name);
-        return Result.ok().put("list",list);
     }
 }

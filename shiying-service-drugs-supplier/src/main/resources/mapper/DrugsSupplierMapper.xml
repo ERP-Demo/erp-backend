@@ -4,7 +4,6 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.shiying.drugsSupplier.entity.DrugsSupplier">
-        <id column="dsid" property="dsid" />
         <result column="supplier_id" property="supplierId" />
         <result column="drugs_id" property="drugsId" />
     </resultMap>
@@ -16,13 +15,13 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        dsid,supplier_id,drugs_id
+        supplier_id,drugs_id
     </sql>
     <delete id="deletebyid">
             delete from drugs_supplier where drugs_id=#{id} and supplier_id=#{did}
     </delete>
     <select id="selectlike" resultMap="WithDepartment">
-        select ds.dsid,ds.supplier_id,ds.drugs_id
+        select ds.supplier_id,ds.drugs_id
         from drugs_supplier ds
         inner join drugs_detailed dd
         on ds.drugs_id=dd.drugs_id
@@ -33,6 +32,6 @@
         </where>
     </select>
     <select id="All" resultMap="WithDepartment">
-        select distinct ds.dsid,ds.supplier_id,ds.drugs_id from drugs_supplier ds where ds.supplier_id=#{pid}
+        select distinct ds.supplier_id,ds.drugs_id from drugs_supplier ds where ds.supplier_id=#{pid}
     </select>
 </mapper>

@@ -22,7 +22,6 @@ public class DrugsSupplier implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private int dsid;
 
     private int supplierId;
 

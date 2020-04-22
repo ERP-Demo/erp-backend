@@ -10,10 +10,8 @@
         <result column="register_cost" property="registerCost" />
         <result column="department_id" property="departmentId" />
     </resultMap>
-
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         register_id, patient_name, is_back, register_cost, department_id
     </sql>
-
 </mapper>

@@ -90,9 +90,4 @@ public class SupplierDetailedController {
         detailedService.insertDrigs_supplier(pid,ids);
         return Result.ok();
     }
-    @RequestMapping("/like/{name}")
-    public Result like(@PathVariable String name){
-        List<SupplierDetailed> list= detailedService.like(name);
-        return Result.ok().put("list",list);
-    }
 }

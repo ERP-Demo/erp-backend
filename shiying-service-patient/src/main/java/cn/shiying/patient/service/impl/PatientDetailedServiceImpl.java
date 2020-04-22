@@ -1,7 +1,7 @@
 package cn.shiying.patient.service.impl;
 
-import cn.shiying.patient.entity.PatientDetailed;
-import cn.shiying.patient.mapper.PatientDetailedMapper;
+import cn.shiying.common.entity.patient.PatientDetailed;
+import cn.shiying.common.mapper.PatientDetailedMapper;
 import cn.shiying.patient.service.PatientDetailedService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;

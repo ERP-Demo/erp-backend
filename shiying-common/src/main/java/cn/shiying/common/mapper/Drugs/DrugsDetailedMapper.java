@@ -17,5 +17,4 @@ import java.util.List;
  */
 @Mapper
 public interface DrugsDetailedMapper extends BaseMapper<DrugsDetailed> {
-    List<DrugsDetailed> like(@Param("name") String name);
 }

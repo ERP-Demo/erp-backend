@@ -16,7 +16,6 @@
     <resultMap id="WithDepartment" extends="BaseResultMap" type="cn.shiying.electronic_case.entity.vo.ElectronicCaseVO">
         <association property="department" column="department_id" select="cn.shiying.common.mapper.DepartmentMapper.selectById" />
         <association property="patientDetailed" column="patient_id" select="cn.shiying.common.mapper.PatientDetailedMapper.selectById" />
-<!--        <association property="patientDetaile" column="patient_id" select="cn.shiying.common.mapper.PatientDetailedMapper.selectById" />-->
     </resultMap>
 <!--    <resultMap id="WithPatientDetailed" extends="BaseResultMap" type="cn.shiying.electronic_case.entity.vo.ElectronicCaseVO">-->
 <!--    <association property="patientDetailed" column="patient_id" select="cn.shiying.common.mapper.PatientDetailedMapper.selectById" />-->
@@ -26,8 +25,28 @@
         case_no, uid, patient_id, department_id, enter_hospital, leave_hospital, patient_symptom, doctor_advice
     </sql>
 
-    <select id="listElectronicCaseVO" resultMap="WithDepartment">
-        select <include refid="Base_Column_List" /> from  Electronic_case
+<!--    <select id="listElectronicCaseVO" resultMap="WithDepartment">-->
+<!--            select <include refid="Base_Column_List" /> from  Electronic_case-->
+
+<!--                <where>-->
+<!--                    <if test="params.key != null and params.key != ''">-->
+<!--                        and patientDetailed.patient_name LIKE concat('%',#{params.key},'%')-->
+<!--                    </if>-->
+<!--                </where>-->
+
+<!--        </select>-->
+    <select id="listElectronicCaseVO" resultType="cn.shiying.electronic_case.entity.vo.ElectronicCaseVO">
+        select el.case_no,el.uid,pa.patient_id,de.department_id,el.enter_hospital,el.leave_hospital,el.patient_symptom,el.doctor_advice,pa.patient_name,de.department_name
+        from electronic_case el
+        inner join department de
+        on el.department_id=de.department_id
+        inner join patient_detailed pa
+        on el.patient_id=pa.patient_id
+        <where>
+            <if test="params.key != null and params.key != ''">
+                and pa.patient_name LIKE concat('%',#{params.key},'%')
+            </if>
+        </where>
     </select>
 <!--    <select id="listElectronicCaseVO" resultMap="WithPatientDetailed">-->
 <!--        select <include refid="Base_Column_List" /> from  Electronic_case-->

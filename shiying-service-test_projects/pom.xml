@@ -9,8 +9,8 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../shiying-dependencies/pom.xml</relativePath>
     </parent>
-    <artifactId>shiying-service-Test_projects</artifactId>
-    <name>shiying-service-Test_projects</name>
+    <artifactId>shiying-service-test_projects</artifactId>
+    <name>shiying-service-test_projects</name>
 
     <dependencies>
         <dependency>

@@ -74,6 +74,13 @@ public class AuthController {
         return Result.ok().put("menuList",menuList).put("permissions",permissions);
     }
 
+    @GetMapping("/jwtuser")
+    public JwtUser jwtuser(){
+        JwtUser user=getJwtUser(Jwtdecode());
+        return user;
+    }
+
+
 
     //退出
 //    @Override
@@ -125,6 +132,9 @@ public class AuthController {
         if(map!=null && map.get("token")!=null){
             String token = map.get("token");
             return token;
+        } else {
+            String token=request.getHeader("token");
+            if (token!=null) return token;
         }
         return null;
     }
@@ -133,6 +143,5 @@ public class AuthController {
     private void clearCookie(String token){
         HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
         CookieUtil.addCookie(response,cookieDomain,"/","token",token,0,false);
-
     }
 }

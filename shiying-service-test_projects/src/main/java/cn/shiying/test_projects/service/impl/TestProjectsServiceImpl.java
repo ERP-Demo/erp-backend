@@ -17,7 +17,7 @@ import java.util.Map;
  * </p>
  *
  * @author tyb
- * @since 2020-04-16
+ * @since 2020-04-22
  */
 @Service
 public class TestProjectsServiceImpl extends ServiceImpl<TestProjectsMapper, TestProjects> implements TestProjectsService {
@@ -30,8 +30,7 @@ public class TestProjectsServiceImpl extends ServiceImpl<TestProjectsMapper, Tes
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<TestProjects> page=baseMapper.selectPage(new Query<TestProjects>(params).getPage(),
-                new QueryWrapper<TestProjects>().lambda());
+        new QueryWrapper<TestProjects>().lambda());
         return new PageUtils(page);
     }
-
 }

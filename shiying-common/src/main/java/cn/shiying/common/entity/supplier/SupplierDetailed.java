@@ -1,4 +1,4 @@
-package cn.shiying.supplier.entity;
+package cn.shiying.common.entity.supplier;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author tyb

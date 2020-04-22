@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: shiying-service-activiti
+
+server:
+  port: 40800
+  servlet:
+    context-path: /activiti
+
+activiti:
+  db-history-used: true

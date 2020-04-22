@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-drugs-supplier
+
+server:
+  port: 40801
+  servlet:
+    context-path: /drugsSupplier

@@ -3,6 +3,7 @@ package cn.shiying.drugs.controller;
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,5 +83,11 @@ public class DrugsDetailedController {
         detailedService.removeByIds(Arrays.asList(ids));
 
         return Result.ok();
+    }
+    //模糊查询
+    @RequestMapping("/like/{name}")
+    public Result like(@PathVariable String name){
+        List<DrugsDetailed> list = detailedService.like(name);
+        return Result.ok().put("list",list);
     }
 }

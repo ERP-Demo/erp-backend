@@ -9,7 +9,7 @@
         <result column="pharmacy_warning" property="pharmacyWarning" />
     </resultMap>
     <resultMap id="WithDepartment" extends="BaseResultMap" type="cn.shiying.drugs_storage.entity.vo.DrugsDetailedVO">
-        <association property="drugs" column="drugs_id" select="cn.shiying.common.mapper.DrugsDetailedMapper.selectById" />
+        <association property="drugs" column="drugs_id" select="cn.shiying.common.mapper.Drugs.DrugsDetailedMapper.selectById" />
     </resultMap>
 
     <!-- 通用查询结果列 -->

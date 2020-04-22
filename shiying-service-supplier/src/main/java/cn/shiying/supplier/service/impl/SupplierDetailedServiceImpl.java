@@ -1,10 +1,8 @@
 package cn.shiying.supplier.service.impl;
 
-import cn.shiying.supplier.entity.SupplierDetailed;
-import cn.shiying.supplier.entity.vo.Drugs_detailedVo;
-import cn.shiying.supplier.mapper.SupplierDetailedMapper;
+import cn.shiying.common.entity.supplier.SupplierDetailed;
+import cn.shiying.common.mapper.supplier.SupplierDetailedMapper;
 import cn.shiying.supplier.service.SupplierDetailedService;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -46,13 +44,9 @@ public class SupplierDetailedServiceImpl extends ServiceImpl<SupplierDetailedMap
     }
 
     @Override
-    public List<Drugs_detailedVo> lisedetailedVo() {
-        return  baseMapper.lisedetailedVo();
+    public List<SupplierDetailed> like(String name) {
+        return baseMapper.like(name);
     }
 
-    @Override
-    public List<SupplierDetailed> selectlike(String name) {
-        return baseMapper.selectlike(name);
-    }
 
 }

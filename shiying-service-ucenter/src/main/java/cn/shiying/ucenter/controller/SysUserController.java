@@ -4,20 +4,23 @@ import cn.shiying.common.constants.SysConstants;
 import cn.shiying.common.dto.Result;
 import cn.shiying.common.entity.sys.SysUser;
 import cn.shiying.common.entity.sys.form.PasswordForm;
+import cn.shiying.common.entity.token.JwtUser;
 import cn.shiying.common.utils.PageUtils;
 import cn.shiying.common.validator.ValidatorUtils;
 import cn.shiying.common.validator.group.AddGroup;
 import cn.shiying.common.validator.group.UpdateGroup;
-import cn.shiying.ucenter.client.AuthClient;
 import cn.shiying.ucenter.service.SysUserRoleService;
 import cn.shiying.ucenter.service.SysUserService;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,9 +36,6 @@ public class SysUserController {
 
     @Autowired
     private SysUserRoleService sysUserRoleService;
-
-    @Autowired
-    AuthClient authClient;
 
     @GetMapping("/user/{username}")
     public SysUser selectByUsername(String username) {
@@ -141,6 +141,7 @@ public class SysUserController {
     }
 
     private Integer getUserId(){
-        return authClient.jwtuser().getUid();
+        Map<String,Object> map= (Map<String, Object>) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return (Integer) map.get("uid");
     }
 }

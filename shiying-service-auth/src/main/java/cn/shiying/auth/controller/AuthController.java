@@ -11,6 +11,7 @@ import cn.shiying.common.enums.ErrorEnum;
 import cn.shiying.common.exception.ExceptionCast;
 import cn.shiying.common.utils.CookieUtil;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -102,13 +103,11 @@ public class AuthController {
     }
 
     public JwtUser getJwtUser(Map<String,Object> jwtClaims){
-        if(jwtClaims == null || StringUtils.isEmpty(jwtClaims.get("id")+"")){
+        if(jwtClaims == null){
             return null;
         }
-        JwtUser user = new JwtUser();
-        user.setUid((int)jwtClaims.get("id"));
-        user.setUsername(jwtClaims.get("user_name")+"");
-        return user;
+        JSONObject jsonObject = (JSONObject)jwtClaims.get("user_name");
+        return jsonObject.toJavaObject(JwtUser.class);
     }
 
 

@@ -11,7 +11,6 @@ import cn.shiying.common.validator.group.AddGroup;
 import cn.shiying.common.validator.group.UpdateGroup;
 import cn.shiying.ucenter.service.SysUserRoleService;
 import cn.shiying.ucenter.service.SysUserService;
-import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

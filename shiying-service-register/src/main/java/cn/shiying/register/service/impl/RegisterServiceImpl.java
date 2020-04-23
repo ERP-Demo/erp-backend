@@ -1,6 +1,7 @@
 package cn.shiying.register.service.impl;
 
 import cn.shiying.register.entity.Register;
+import cn.shiying.register.entity.Vo.departmentVo;
 import cn.shiying.register.mapper.RegisterMapper;
 import cn.shiying.register.service.RegisterService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -9,6 +10,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import cn.shiying.common.utils.Query;
 import cn.shiying.common.utils.PageUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,6 +35,11 @@ public class RegisterServiceImpl extends ServiceImpl<RegisterMapper, Register> i
         IPage<Register> page=baseMapper.selectPage(new Query<Register>(params).getPage(),
                 new QueryWrapper<Register>().lambda());
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<departmentVo> departmentvo() {
+        return baseMapper.departmentvo();
     }
 
 }

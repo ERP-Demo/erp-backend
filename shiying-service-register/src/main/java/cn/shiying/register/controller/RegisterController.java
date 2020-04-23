@@ -3,8 +3,10 @@ package cn.shiying.register.controller;
 import cn.shiying.common.entity.patient.PatientDetailed;
 import cn.shiying.register.client.PatienClient;
 import cn.shiying.register.entity.RegisterPatient;
+import cn.shiying.register.entity.Vo.departmentVo;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +42,6 @@ public class RegisterController {
     @PreAuthorize("hasAuthority('register:register:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = registerService.queryPage(params);
-
         return Result.ok().put("page", page);
     }
 
@@ -100,5 +101,10 @@ public class RegisterController {
         registerService.removeByIds(Arrays.asList(ids));
 
         return Result.ok();
+    }
+    @RequestMapping("/all")
+    public Result all(){
+        List<departmentVo> list = registerService.departmentvo();
+        return Result.ok().put("list",list);
     }
 }

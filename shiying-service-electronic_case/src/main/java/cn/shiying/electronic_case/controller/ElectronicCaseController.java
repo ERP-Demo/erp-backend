@@ -34,7 +34,6 @@ public class ElectronicCaseController {
     @PreAuthorize("hasAuthority('electronic_case:case:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = caseService.queryPage(params);
-
         return Result.ok().put("page", page);
     }
 

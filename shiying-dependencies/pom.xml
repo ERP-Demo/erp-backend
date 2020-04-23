@@ -29,6 +29,7 @@
         <spring-boot-alibaba-druid.version>1.1.22</spring-boot-alibaba-druid.version>
         <mybatis-plus-boot-starter.version>3.1.2</mybatis-plus-boot-starter.version>
         <spring-cloud-common.version>2.2.2.RELEASE</spring-cloud-common.version>
+        <activiti-spring-boot-starter.version>7.1.0.M6</activiti-spring-boot-starter.version>
 
         <!-- Environment Settings -->
         <mysql.version>8.0.19</mysql.version>
@@ -65,6 +66,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-spring-boot-starter</artifactId>
+                <version>${activiti-spring-boot-starter.version}</version>
             </dependency>
             <!-- Spring Boot Starter End -->
 

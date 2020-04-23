@@ -1,6 +1,8 @@
 package cn.shiying.register.entity;
 
 import java.math.BigDecimal;
+
+import cn.shiying.common.entity.patient.PatientDetailed;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
@@ -33,6 +35,5 @@ public class Register implements Serializable {
     private BigDecimal registerCost;
 
     private Integer departmentId;
-
 
 }

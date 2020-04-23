@@ -1,12 +1,12 @@
 package cn.shiying.patient.controller;
 
+import cn.shiying.common.entity.patient.PatientDetailed;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import cn.shiying.patient.entity.PatientDetailed;
 import cn.shiying.patient.service.PatientDetailedService;
 import cn.shiying.common.dto.Result;
 import cn.shiying.common.utils.PageUtils;
@@ -45,8 +45,7 @@ public class PatientDetailedController {
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('patient:detailed:info')")
     public Result info(@PathVariable("id") String id){
-       PatientDetailed detailed = detailedService.getById(id);
-
+        PatientDetailed detailed=detailedService.getById(id);
         return Result.ok().put("detailed", detailed);
     }
 

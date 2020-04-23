@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-RegisterDepartment
+
+server:
+  port: 80800
+  servlet:
+    context-path: /RegisterDepartment

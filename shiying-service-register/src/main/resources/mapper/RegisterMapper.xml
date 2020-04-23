@@ -10,10 +10,14 @@
         <result column="register_cost" property="registerCost" />
         <result column="department_id" property="departmentId" />
     </resultMap>
-
+    <resultMap id="WithDepartment" extends="BaseResultMap" type="cn.shiying.register.entity.Vo.departmentVo">
+        <association property="department" column="department_id" select="cn.shiying.common.mapper.DepartmentMapper.selectById" />
+        <association property="register" column="register_id" select="cn.shiying.register.mapper.RegisterMapper.selectById" />    </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         register_id, patient_name, is_back, register_cost, department_id
     </sql>
-
+    <select id="departmentvo" resultMap="WithDepartment">
+select <include refid="Base_Column_List"/> from register
+    </select>
 </mapper>

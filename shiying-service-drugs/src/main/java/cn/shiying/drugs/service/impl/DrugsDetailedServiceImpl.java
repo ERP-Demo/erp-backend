@@ -2,7 +2,7 @@ package cn.shiying.drugs.service.impl;
 
 
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
-import cn.shiying.common.mapper.DrugsDetailedMapper;
+import cn.shiying.common.mapper.Drugs.DrugsDetailedMapper;
 import cn.shiying.common.utils.PageUtils;
 import cn.shiying.common.utils.Query;
 import cn.shiying.drugs.service.DrugsDetailedService;
@@ -34,7 +34,7 @@ public class DrugsDetailedServiceImpl extends ServiceImpl<DrugsDetailedMapper, D
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<DrugsDetailed> page=baseMapper.selectPage(new Query<DrugsDetailed>(params).getPage(),
-                new QueryWrapper<DrugsDetailed>().lambda());
+                new QueryWrapper<DrugsDetailed>().like("drugs_name",params.get("name")).lambda());
         return new PageUtils(page);
     }
 

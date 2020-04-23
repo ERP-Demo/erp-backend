@@ -1,8 +1,11 @@
 package cn.shiying.register.service;
 
 import cn.shiying.register.entity.Register;
+import cn.shiying.register.entity.Vo.departmentVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,4 +24,5 @@ public interface RegisterService extends IService<Register> {
      * @return
      */
      PageUtils queryPage(Map<String, Object> params);
+    List<departmentVo> departmentvo();
 }

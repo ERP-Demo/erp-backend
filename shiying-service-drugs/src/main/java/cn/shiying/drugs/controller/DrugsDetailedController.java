@@ -1,6 +1,7 @@
 package cn.shiying.drugs.controller;
 
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
+import cn.shiying.drugs.service.DrugsStorageReportsLossService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +14,7 @@ import cn.shiying.common.dto.Result;
 import cn.shiying.common.utils.PageUtils;
 import cn.shiying.common.validator.ValidatorUtils;
 import org.springframework.web.bind.annotation.RestController;
+import cn.shiying.drugs.entity.DrugsStorageReportsLoss;
 
 /**
  * <p>
@@ -35,7 +37,6 @@ public class DrugsDetailedController {
     @PreAuthorize("hasAuthority('drugs:detailed:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = detailedService.queryPage(params);
-
         return Result.ok().put("page", page);
     }
 
@@ -58,7 +59,6 @@ public class DrugsDetailedController {
     public Result save(@RequestBody DrugsDetailed detailed){
         ValidatorUtils.validateEntity(detailed);
         detailedService.save(detailed);
-
         return Result.ok();
     }
 
@@ -80,7 +80,7 @@ public class DrugsDetailedController {
     @PreAuthorize("hasAuthority('drugs:detailed:delete')")
     public Result delete(@RequestBody String[] ids){
         detailedService.removeByIds(Arrays.asList(ids));
-
         return Result.ok();
     }
+
 }

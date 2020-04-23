@@ -7,14 +7,11 @@
         <id column="test_projects_id" property="testProjectsId" />
         <result column="test_abbreviation" property="testAbbreviation" />
         <result column="test_name" property="testName" />
-        <result column="floor" property="floor" />
-        <result column="ceiling" property="ceiling" />
-        <result column="unit" property="unit" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        test_projects_id, test_abbreviation, test_name, floor, ceiling, unit
+        test_projects_id, test_abbreviation, test_name
     </sql>
 
 </mapper>

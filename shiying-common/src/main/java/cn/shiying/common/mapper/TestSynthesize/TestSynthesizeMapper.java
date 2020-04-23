@@ -1,6 +1,7 @@
-package cn.shiying.test_projects.mapper;
+package cn.shiying.common.mapper.TestSynthesize;
 
-import cn.shiying.test_projects.entity.TestProjects;
+
+import cn.shiying.common.entity.TestSynthesize.TestSynthesize;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +14,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2020-04-23
  */
 @Mapper
-public interface TestProjectsMapper extends BaseMapper<TestProjects> {
+public interface TestSynthesizeMapper extends BaseMapper<TestSynthesize> {
 
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shiying.drugs.mapper.DrugsStorageReportsLossMapper">
+
+    <!--查询药品表（下拉列表）-->
+    <select id="selectDrugsId" resultType="cn.shiying.drugs.entity.DrugsStorageReportsLoss">
+        select drugs_id,drugs_name from drugs_detailed;
+    </select>
+
+
+    <!-- 药品的报损添加 -->
+    <insert id="addStorageReport" parameterType="cn.shiying.drugs.entity.DrugsStorageReportsLoss">
+		insert into drugs_storage_reports_loss(reported_loss_id,drugs_id,reported_loss_count,reported_loss_why,reported_loss_note,reported_loss_Operation_of) values(default,#{drugsId},#{reportedLossCount},#{reportedLossWhy},#{reportedLossNote},#{reportedLossOperationOf})
+	</insert>
+
+    <!--药品和报损关联查询-->
+    <select id="listDrugsDetailedVO" resultType="cn.shiying.drugs.entity.vo.DrugsDetailedVO">
+        select dl.reported_loss_id,dd.drugs_name,dl.reported_loss_count,dl.reported_loss_why,dl.reported_loss_note,dl.reported_loss_Operation_of
+        from drugs_storage_reports_loss dl
+        inner join drugs_detailed dd
+        on dd.drugs_id=dl.drugs_id
+        <where>
+            <if test="params.name != null and params.name != ''">
+                and dd.drugs_name LIKE concat('%',#{params.name},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -30,7 +30,6 @@
                 and di.pharmacy_num &lt; di.pharmacy_warning
             </if>
         </where>
-
     </select>
 
 </mapper>

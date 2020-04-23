@@ -3,7 +3,7 @@
 <mapper namespace="cn.shiying.drugs.mapper.DrugsStorageReportsLossMapper">
 
     <!--查询药品表（下拉列表）-->
-    <select id="selectDrugsId" resultType="cn.shiying.drugs.entity.DrugsStorageReportsLoss">
+    <select id="selectDrugsId" resultType="cn.shiying.common.entity.Drugs.DrugsDetailed">
         select drugs_id,drugs_name from drugs_detailed;
     </select>
 

@@ -34,7 +34,7 @@ public class DrugsStorageDetailedInfoServiceImpl extends ServiceImpl<DrugsStorag
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         Page page=new Query<DrugsStorageDetailedInfo>(params).getPage();
-        List<DrugsDetailedVO> list= baseMapper.listDrugsDetailedVO();
+        List<DrugsDetailedVO> list= baseMapper.listDrugsDetailedVO(page,params);
         System.out.println(list);
         page.setRecords(list);
         return new PageUtils(page);

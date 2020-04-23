@@ -24,6 +24,7 @@ public class DrugsStorageReportsLossController {
     @GetMapping("/selectDrugsId")
     public Result selectDrugsId(){
         List<DrugsStorageReportsLoss> list=storageService.selectDrugsId();
+        System.out.println("数据："+list);
         return Result.ok().put("list", list);
     }
 

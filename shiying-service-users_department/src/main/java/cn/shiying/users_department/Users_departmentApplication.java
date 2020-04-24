@@ -1,6 +1,5 @@
-package cn.shiying.department;
+package cn.shiying.users_department;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -9,12 +8,11 @@ import org.springframework.context.annotation.ComponentScan;
 
 @EnableDiscoveryClient
 @EnableFeignClients
-@ComponentScan(basePackages = {"cn.shiying.config","cn.shiying.department"})
+@ComponentScan(basePackages = {"cn.shiying.config","cn.shiying.users_department"})
 @SpringBootApplication
-@MapperScan("cn.shiying.common.mapper")
-public class DepartmentApplication {
+public class Users_departmentApplication {
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(DepartmentApplication.class, args);
+        SpringApplication.run(Users_departmentApplication.class, args);
     }
 
 }

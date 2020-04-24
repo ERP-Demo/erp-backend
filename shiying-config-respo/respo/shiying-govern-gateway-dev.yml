@@ -86,7 +86,6 @@ zuul:
       serviceId: shiying-service-users_department
       strip-prefix: false
       sensitiveHeaders:
-
     service-test_correlation:
       path: /test_correlation/**
       serviceId: shiying-service-test_correlation

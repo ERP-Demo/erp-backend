@@ -7,18 +7,16 @@
         <id column="supplier_id" property="supplierId" />
         <result column="supplier_name" property="supplierName" />
         <result column="supplier_cart_phone" property="supplierCartPhone" />
-        <result column="supplier_type" property="supplierType" />
         <result column="supplier_man" property="supplierMan" />
         <result column="supplier_bank_name" property="supplierBankName" />
         <result column="supplier_bank_account" property="supplierBankAccount" />
         <result column="supplier_address" property="supplierAddress" />
-        <result column="supplier_status" property="supplierStatus" />
     </resultMap>
 
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        supplier_id, supplier_name, supplier_cart_phone, supplier_type, supplier_man, supplier_bank_name, supplier_bank_account, supplier_address, supplier_status
+        supplier_id, supplier_name, supplier_cart_phone,  supplier_man, supplier_bank_name, supplier_bank_account, supplier_address
     </sql>
     <insert id="insertDrigs_supplier">
         insert into drugs_supplier(supplier_id,drugs_id)value(#{pid},#{ids})

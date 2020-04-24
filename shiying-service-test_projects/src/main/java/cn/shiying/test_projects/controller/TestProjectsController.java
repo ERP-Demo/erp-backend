@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author tyb
- * @since 2020-04-22
+ * @since 2020-04-23
  */
 @RestController
 @RequestMapping("projects")
@@ -34,6 +34,7 @@ public class TestProjectsController {
     @PreAuthorize("hasAuthority('test_projects:projects:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = projectsService.queryPage(params);
+
         return Result.ok().put("page", page);
     }
 

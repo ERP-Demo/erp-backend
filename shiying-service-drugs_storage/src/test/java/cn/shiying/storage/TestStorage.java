@@ -41,9 +41,7 @@ public class TestStorage {
 
     @Test
     public void test2(){
-//        String key="q";
-//        List<DrugsDetailedVO> selectLikeName=storageService.selectLikeName(key);
-//        System.out.println(selectLikeName);
+        
     }
 
 }

@@ -2,6 +2,17 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
-      name: shiying-client-zipkin, shiying-client-admin, shiying-client-eureka,shiying-activiti-client-mysql,shiying-service-activiti
+      name: shiying-client-zipkin, shiying-client-admin, shiying-client-eureka,shiying-activiti-client-mysql
       label: master
       profile: dev
+  application:
+    name: shiying-service-activiti
+  activiti:
+    database-schema-update: true
+#    history-level: full
+#    db-history-used: true
+
+server:
+  port: 40800
+  servlet:
+    context-path: /activiti

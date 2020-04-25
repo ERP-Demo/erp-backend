@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shiying.drugs_purchase.mapper.DrugsPurchaseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.shiying.drugs_purchase.entity.DrugsPurchase">
+        <id column="purchase_id" property="purchaseId" />
+        <result column="supplier_id" property="supplierId" />
+        <result column="purchase_amount_payable" property="purchaseAmountPayable" />
+        <result column="purchase_actual_amount_paid" property="purchaseActualAmountPaid" />
+        <result column="purchase_state" property="purchaseState" />
+        <result column="purchase_failure" property="purchaseFailure" />
+        <result column="purchase_time" property="purchaseTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        purchase_id, supplier_id, purchase_amount_payable, purchase_actual_amount_paid, purchase_state, purchase_failure, purchase_time
+    </sql>
+    <select id="selectBypid" resultType="cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO">
+        select t2.drugs_name,t1.pd_money,t1.pd_num
+        from drugs_purchase_detailed t1
+        inner join drugs_detailed t2
+        on t2.drugs_id=t1.drugs_id
+        where t1.purchase_id=#{pid}
+    </select>
+    <select id="selectSname" resultType="cn.shiying.common.entity.supplier.SupplierDetailed">
+        select a.supplier_id,a.supplier_name from supplier_detailed a
+    </select>
+    <select id="selectDname" resultType="cn.shiying.common.entity.Drugs.DrugsDetailed">
+        select a.drugs_id,a.drugs_name from drugs_detailed a
+    </select>
+</mapper>

@@ -1,6 +1,7 @@
 package cn.shiying.register.controller;
 
 import cn.shiying.common.entity.patient.PatientDetailed;
+import cn.shiying.register.client.ActivitiClient;
 import cn.shiying.register.client.PatienClient;
 import cn.shiying.register.entity.RegisterPatient;
 import cn.shiying.register.entity.Vo.departmentVo;
@@ -33,6 +34,9 @@ public class RegisterController {
     private RegisterService registerService;
     @Autowired
     PatienClient patientclient;
+
+    @Autowired
+    ActivitiClient activitiClient;
 
 
     /**
@@ -77,7 +81,10 @@ public class RegisterController {
         p.setPatientNote(register.getPatientNote());
         p.setPatientCartnum(register.getPatientCartnum());
         registerService.save(r);
-        patientclient.save(p);
+        Result result=patientclient.save(p);
+        if ((Integer) result.get("code")!=200) return Result.error("连接超时");
+        result=activitiClient.startPatient();
+        if ((Integer) result.get("code")!=200) return Result.error("连接超时");
         return Result.ok();
     }
 

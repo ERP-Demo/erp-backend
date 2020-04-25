@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="ES6" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/shiying-admin/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-common/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-config/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-dependencies/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-auth/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-common-config/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-drugs/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-govern-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-patient/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-ucenter/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-activiti/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-register/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-supplier/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-department/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-drugs_storage/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-test_projects/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-drugs-supplier/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-electronic_case/pom.xml" />
+        <option value="$PROJECT_DIR$/shiying-service-drugs_purchase/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+</project>

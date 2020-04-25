@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/shiying-admin/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-common-config/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-config/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-eureka/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-govern-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-service-activiti/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-service-auth/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-service-department/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-service-drugs-supplier/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-service-drugs/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-service-drugs_purchase/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-service-drugs_storage/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-service-electronic_case/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-service-patient/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-service-register/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-service-supplier/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-service-test_projects/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shiying-service-ucenter/src/main/java" charset="UTF-8" />
+  </component>
+</project>

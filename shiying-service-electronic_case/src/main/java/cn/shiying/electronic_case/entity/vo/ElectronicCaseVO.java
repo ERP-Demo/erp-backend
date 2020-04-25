@@ -11,7 +11,7 @@ public class ElectronicCaseVO extends ElectronicCase {
     /**
      * 患者
      */
-    private PatientDetailed patientDetailed;
+    private String patientName;
 
 
     /**
@@ -21,5 +21,5 @@ public class ElectronicCaseVO extends ElectronicCase {
     /**
      * 科室
      */
-    private Department department;
+    private String departmentName;
 }

@@ -11,7 +11,7 @@ import java.util.Collection;
 @ToString
 public class UserJwt extends User {
 
-    private Integer id;
+    private Integer user_id;
 
     public UserJwt(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);

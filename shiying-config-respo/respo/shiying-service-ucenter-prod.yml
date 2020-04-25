@@ -1,8 +1,8 @@
 spring:
   application:
-    name: shiying-service-sys
+    name: shiying-service-ucenter
 
 server:
   port: 40300
   servlet:
-    context-path: /sys
+    context-path: /ucenter

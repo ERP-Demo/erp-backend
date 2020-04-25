@@ -26,14 +26,19 @@ zuul:
       serviceId: shiying-service-ucenter
       strip-prefix: false
       sensitiveHeaders:
+    shiying-service-drugs-supplier:
+      path: /drugsSupplier/**
+      serviceId: shiying-service-drugs-supplier
+      strip-prefix: false
+      sensitiveHeaders:
+    shiying-service-activiti:
+      path: /activiti/**
+      serviceId: shiying-service-activiti
+      strip-prefix: false
+      sensitiveHeaders:
     service-supplier:
       path: /supplier/**
       serviceId: shiying-service-supplier
-      strip-prefix: false
-      sensitiveHeaders:
-    service-Test_projects:
-      path: /test_projects/**
-      serviceId: shiying-service-test_projects
       strip-prefix: false
       sensitiveHeaders:
     service-drugs:
@@ -71,13 +76,23 @@ zuul:
       serviceId: shiying-service-drugs_purchase
       strip-prefix: false
       sensitiveHeaders:
-    service-drugs_purchase_detailed:
-      path: /drugs_purchase_detailed/**
-      serviceId: shiying-service-drugs_purchase_detailed
+    service-users_department:
+      path: /users_department/**
+      serviceId: shiying-service-users_department
       strip-prefix: false
       sensitiveHeaders:
-    shiying-service-drugs-supplier:
-      path: /drugsSupplier/**
-      serviceId: shiying-service-drugs-supplier
+    service-test_correlation:
+      path: /test_correlation/**
+      serviceId: shiying-service-test_correlation
+      strip-prefix: false
+      sensitiveHeaders:
+    service-test_projects:
+      path: /test_projects/**
+      serviceId: shiying-service-test_projects
+      strip-prefix: false
+      sensitiveHeaders:
+    service-test_synthesize:
+      path: /test_synthesize/**
+      serviceId: shiying-service-test_synthesize
       strip-prefix: false
       sensitiveHeaders:

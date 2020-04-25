@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-test_synthesize
+
+server:
+  port: 6336
+  servlet:
+    context-path: /test_synthesize

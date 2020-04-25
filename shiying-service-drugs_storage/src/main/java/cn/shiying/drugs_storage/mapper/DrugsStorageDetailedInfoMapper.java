@@ -4,8 +4,8 @@ import cn.shiying.drugs_storage.entity.DrugsStorageDetailedInfo;
 import cn.shiying.drugs_storage.entity.vo.DrugsDetailedVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import feign.Param;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -22,4 +22,5 @@ import java.util.Map;
 public interface DrugsStorageDetailedInfoMapper extends BaseMapper<DrugsStorageDetailedInfo> {
 
     List<DrugsDetailedVO> listDrugsDetailedVO(Page<DrugsStorageDetailedInfo> page, @Param("params") Map<String, Object> params);
+
 }

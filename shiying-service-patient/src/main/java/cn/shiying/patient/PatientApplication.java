@@ -1,5 +1,6 @@
 package cn.shiying.patient;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableFeignClients
 @ComponentScan(basePackages = {"cn.shiying.config","cn.shiying.patient"})
 @SpringBootApplication
+@MapperScan("cn.shiying.common.mapper")
 public class PatientApplication {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(PatientApplication.class, args);

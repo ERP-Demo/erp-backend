@@ -4,13 +4,14 @@ package cn.shiying.ucenter.controller;
 import cn.shiying.common.constants.SysConstants;
 import cn.shiying.common.dto.Result;
 import cn.shiying.common.entity.sys.SysRole;
+import cn.shiying.common.entity.token.JwtUser;
 import cn.shiying.common.utils.PageUtils;
 import cn.shiying.common.validator.ValidatorUtils;
-import cn.shiying.ucenter.client.AuthClient;
 import cn.shiying.ucenter.service.SysRoleMenuService;
 import cn.shiying.ucenter.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -36,9 +37,6 @@ public class SysRoleController {
     @Autowired
     private SysRoleMenuService sysRoleMenuService;
 
-
-    @Autowired
-    AuthClient authClient;
 
     /**
      * 分页查询角色列表
@@ -132,7 +130,9 @@ public class SysRoleController {
 
         return Result.ok();
     }
+
     private Integer getUserId(){
-        return authClient.jwtuser().getUid();
+        JwtUser user = (JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return user.getUid();
     }
 }

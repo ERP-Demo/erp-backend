@@ -28,56 +28,49 @@ public class PatientDetailed implements Serializable {
     /**
      * 患者id
      */
-    @TableId(value = "patient_id", type = IdType.AUTO)
+
+
     private Integer patientId;
 
     /**
      * 患者姓名
      */
-    @TableField("Patient_name")
     private String patientName;
 
     /**
      * 患者年龄
      */
-    @TableField("Patient_age")
     private Integer patientAge;
 
     /**
      * 患者性别
      */
-    @TableField("Patient_sex")
     private String patientSex;
 
     /**
      * 患者联系电话
      */
-    @TableField("Patient_phone")
+    @TableField("patient_phone")
     private String patientPhone;
 
     /**
      * 患者联系地址
      */
-    @TableField("Patient_address")
     private String patientAddress;
 
     /**
      * 患者入院时间
      */
-    @TableField("Patient_Admission")
     private LocalDateTime patientAdmission;
-
-    /**
-     * 诊断医生
-     */
-    @TableField("Patient_doctor")
-    private String patientDoctor;
 
     /**
      * 备注
      */
-    @TableField("Patient_note")
     private String patientNote;
 
+    /**
+     * 身份证
+     */
+    private String  patientCartnum;
 
 }

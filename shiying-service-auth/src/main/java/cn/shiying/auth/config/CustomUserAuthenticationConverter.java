@@ -1,6 +1,7 @@
 package cn.shiying.auth.config;
 
 import cn.shiying.auth.service.UserJwt;
+import cn.shiying.common.entity.token.JwtUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -21,8 +22,6 @@ public class CustomUserAuthenticationConverter extends DefaultUserAuthentication
     public Map<String, ?> convertUserAuthentication(Authentication authentication) {
         LinkedHashMap response = new LinkedHashMap();
         String name = authentication.getName();
-        response.put("user_name", name);
-
         Object principal = authentication.getPrincipal();
         UserJwt userJwt = null;
         if(principal instanceof UserJwt){
@@ -32,7 +31,10 @@ public class CustomUserAuthenticationConverter extends DefaultUserAuthentication
             UserDetails userDetails = userDetailsService.loadUserByUsername(name);
             userJwt = (UserJwt) userDetails;
         }
-        response.put("id", userJwt.getId());
+        JwtUser user=new JwtUser();
+        user.setUid(userJwt.getUser_id());
+        user.setUsername(userJwt.getUsername());
+        response.put("user_name", user);
         if (authentication.getAuthorities() != null && !authentication.getAuthorities().isEmpty()) {
             response.put("authorities", AuthorityUtils.authorityListToSet(authentication.getAuthorities()));
         }

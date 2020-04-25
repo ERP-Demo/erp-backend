@@ -61,11 +61,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if(user_permission == null){
             user_permission = new ArrayList<>();
         }
-        String user_permission_string  = StringUtils.join(user_permission.toArray(), ",");
+        List<Integer> user_role=user.getRoleIdList();
+        if(user_role == null){
+            user_role = new ArrayList<>();
+        }
+        List<String> list=new ArrayList<>();
+        for (Integer integer : user_role) {
+            list.add("ROLE_"+integer);
+        }
+        String user_permission_string  = StringUtils.join(user_permission.toArray(), ",")+","+StringUtils.join(list.toArray(), ",");
         UserJwt userDetails = new UserJwt(username,
                 password,
                 AuthorityUtils.commaSeparatedStringToAuthorityList(user_permission_string));
-        userDetails.setId(user.getUserId());
+        userDetails.setUser_id(user.getUserId());
         return userDetails;
     }
 }

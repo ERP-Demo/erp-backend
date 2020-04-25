@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shiying.users_department.mapper.UsersDepartmentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.shiying.users_department.entity.UsersDepartment">
+        <result column="user_id" property="userId" />
+        <result column="department_id" property="departmentId" />
+    </resultMap>
+    <resultMap id="ud" extends="BaseResultMap" type="cn.shiying.users_department.entity.vo.UsersDepartmentVo">
+        <association property="user" column="user_id" select="cn.shiying.ucenter.mapper.SysUserMapper.selectById" />
+        <association property="department" column="department_id" select="cn.shiying.common.mapper.DepartmentMapper.selectById" />
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        user_id, department_id
+    </sql>
+    <delete id="delById">
+            delete from users_department where user_id=#{userId} and department_id=#{departmentId}
+    </delete>
+
+    <select id="All" resultMap="ud">
+        select distinct ud.user_id,ud.department_id from users_department ud where ud.user_id=#{uid}
+    </select>
+</mapper>

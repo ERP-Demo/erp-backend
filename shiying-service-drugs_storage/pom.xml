@@ -67,6 +67,12 @@
             <version>2.2.6.RELEASE</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.netflix.feign</groupId>
+            <artifactId>feign-core</artifactId>
+            <version>8.18.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

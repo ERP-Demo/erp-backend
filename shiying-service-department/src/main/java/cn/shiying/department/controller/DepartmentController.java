@@ -2,6 +2,7 @@ package cn.shiying.department.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,5 +83,14 @@ public class DepartmentController {
         DepartmentService.removeByIds(Arrays.asList(ids));
 
         return Result.ok();
+    }
+
+    /**
+     * 获取全部
+     */
+    @GetMapping("/getAll")
+    public Result getAll(){
+        List<Department> list = DepartmentService.list(null);
+        return Result.ok().put("list", list);
     }
 }

@@ -13,7 +13,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author tyb
- * @since 2020-04-16
+ * @since 2020-04-23
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -25,7 +25,7 @@ public class TestProjects implements Serializable {
     /**
      * 化验项目的id
      */
-    @TableId(value = "Test_projects_id", type = IdType.ID_WORKER_STR)
+    @TableId(value = "test_projects_id", type = IdType.ID_WORKER_STR)
     private String testProjectsId;
 
     /**

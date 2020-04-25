@@ -26,5 +26,6 @@ public interface SupplierDetailedService extends IService<SupplierDetailed> {
 
      //插入关系
      void insertDrigs_supplier(Integer pid,Integer[] ids);
-
+     //模糊查询
+    List<SupplierDetailed> like(String name);
 }

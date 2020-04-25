@@ -32,4 +32,9 @@ class DrugsSupplierServiceImpl extends ServiceImpl<DrugsSupplierMapper, DrugsSup
     public List<DrugsSupplierVO> All(Integer pid) {
         return baseMapper.All(pid);
     }
+
+    @Override
+    public void deletebyid(Integer id, Integer did) {
+        baseMapper.deletebyid(id,did);
+    }
 }

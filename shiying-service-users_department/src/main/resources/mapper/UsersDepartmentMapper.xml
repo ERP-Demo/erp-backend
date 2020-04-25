@@ -7,10 +7,7 @@
         <result column="user_id" property="userId" />
         <result column="department_id" property="departmentId" />
     </resultMap>
-    <resultMap id="ud" extends="BaseResultMap" type="cn.shiying.users_department.entity.vo.UsersDepartmentVo">
-        <association property="user" column="user_id" select="cn.shiying.ucenter.mapper.SysUserMapper.selectById" />
-        <association property="department" column="department_id" select="cn.shiying.common.mapper.DepartmentMapper.selectById" />
-    </resultMap>
+
 
 
     <!-- 通用查询结果列 -->
@@ -18,10 +15,18 @@
         user_id, department_id
     </sql>
     <delete id="delById">
-            delete from users_department where user_id=#{userId} and department_id=#{departmentId}
+            delete from users_department where department_id=#{id} and user_id=#{userId}
     </delete>
 
-    <select id="All" resultMap="ud">
-        select distinct ud.user_id,ud.department_id from users_department ud where ud.user_id=#{uid}
+    <select id="All" resultMap="BaseResultMap">
+       select d.department_id,d.department_name
+         from users_department ud
+         inner join department d
+         on ud.department_id=d.department_id
+         where ud.user_id=#{uid}
     </select>
+
+    <insert id="add">
+        insert into users_department(user_id,department_id)value(#{uid},#{ids})
+    </insert>
 </mapper>

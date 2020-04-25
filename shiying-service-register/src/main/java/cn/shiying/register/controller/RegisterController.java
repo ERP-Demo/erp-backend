@@ -1,6 +1,7 @@
 package cn.shiying.register.controller;
 
 import cn.shiying.common.entity.patient.PatientDetailed;
+import cn.shiying.register.client.ActivitiClient;
 import cn.shiying.register.client.PatienClient;
 import cn.shiying.register.entity.RegisterPatient;
 import cn.shiying.register.entity.Vo.departmentVo;
@@ -35,6 +36,9 @@ public class RegisterController {
     @Autowired
     PatienClient patientclient;
 
+    @Autowired
+    ActivitiClient activitiClient;
+
 
     /**
      * 列表
@@ -65,6 +69,10 @@ public class RegisterController {
     @PreAuthorize("hasAuthority('register:register:save')")
     public Result save(@RequestBody RegisterPatient register){
         ValidatorUtils.validateEntity(register);
+        Register r=new Register();
+        r.setPatientName(register.getPatientName());
+        r.setDepartmentId(register.getDepartmentId());
+        r.setRegisterCost(register.getRegisterCost());
         PatientDetailed p=new PatientDetailed();
         p.setPatientName(register.getPatientName());
         p.setPatientAge(register.getPatientAge());
@@ -80,6 +88,10 @@ public class RegisterController {
         r.setDepartmentId(register.getDepartmentId());
         r.setRegisterCost(register.getRegisterCost());
         registerService.save(r);
+        Result result=patientclient.save(p);
+        if ((Integer) result.get("code")!=200) return Result.error("连接超时");
+        result=activitiClient.startPatient();
+        if ((Integer) result.get("code")!=200) return Result.error("连接超时");
         return Result.ok();
     }
 

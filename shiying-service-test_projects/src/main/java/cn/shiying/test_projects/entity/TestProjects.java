@@ -13,7 +13,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author tyb
- * @since 2020-04-22
+ * @since 2020-04-23
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -37,21 +37,6 @@ public class TestProjects implements Serializable {
      * 化验项目的全称
      */
     private String testName;
-
-    /**
-     * 参考下限
-     */
-    private Integer floor;
-
-    /**
-     *  参考上限
-     */
-    private Integer ceiling;
-
-    /**
-     * 数值单位
-     */
-    private String unit;
 
 
 }

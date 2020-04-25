@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-test_correlation
+
+server:
+  port: 6334
+  servlet:
+    context-path: /test_correlation

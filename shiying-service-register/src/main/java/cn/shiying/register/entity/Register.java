@@ -28,7 +28,7 @@ public class Register implements Serializable {
     @TableId(value = "register_id", type = IdType.AUTO)
     private Integer registerId;
 
-    private String patientName;
+    private Integer patientId;
 
     private Integer isBack;
 

@@ -26,12 +26,19 @@ import java.util.Map;
 public class UsersDepartmentServiceImpl extends ServiceImpl<UsersDepartmentMapper, UsersDepartment> implements UsersDepartmentService {
 
     @Override
-    public List<UsersDepartmentVo> All(Long uid) {
+    public List<UsersDepartment> All(Long uid) {
         return baseMapper.All(uid);
     }
 
     @Override
-    public void delById(Long userId, Integer departmentId) {
-        baseMapper.delById(userId,departmentId);
+    public void delById(Integer id,Long userId) {
+        baseMapper.delById(id,userId);
+    }
+
+    @Override
+    public void add(Integer uid, Integer[] ids) {
+        for(Integer i :ids){
+            baseMapper.add(uid,i);
+        }
     }
 }

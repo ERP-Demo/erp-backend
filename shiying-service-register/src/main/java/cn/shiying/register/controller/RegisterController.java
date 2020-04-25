@@ -6,6 +6,7 @@ import cn.shiying.register.client.PatienClient;
 import cn.shiying.register.entity.RegisterPatient;
 import cn.shiying.register.entity.Vo.departmentVo;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -68,10 +69,6 @@ public class RegisterController {
     @PreAuthorize("hasAuthority('register:register:save')")
     public Result save(@RequestBody RegisterPatient register){
         ValidatorUtils.validateEntity(register);
-        Register r=new Register();
-        r.setPatientName(register.getPatientName());
-        r.setDepartmentId(register.getDepartmentId());
-        r.setRegisterCost(register.getRegisterCost());
         PatientDetailed p=new PatientDetailed();
         p.setPatientName(register.getPatientName());
         p.setPatientAge(register.getPatientAge());
@@ -80,11 +77,17 @@ public class RegisterController {
         p.setPatientAddress(register.getPatientAddress());
         p.setPatientNote(register.getPatientNote());
         p.setPatientCartnum(register.getPatientCartnum());
+        Register r=new Register();
+        Result rs=patientclient.save(p);
+        Integer pid=(Integer) rs.get("id");
+        r.setPatientId(pid);
+        r.setDepartmentId(register.getDepartmentId());
+        r.setRegisterCost(register.getRegisterCost());
         registerService.save(r);
-        Result result=patientclient.save(p);
-        if ((Integer) result.get("code")!=200) return Result.error("连接超时");
-        result=activitiClient.startPatient();
-        if ((Integer) result.get("code")!=200) return Result.error("连接超时");
+//        Result result=patientclient.save(p);
+        if ((Integer) rs.get("code")!=200) return Result.error("连接超时");
+//        result=activitiClient.startPatient();
+//        if ((Integer) result.get("code")!=200) return Result.error("连接超时");
         return Result.ok();
     }
 

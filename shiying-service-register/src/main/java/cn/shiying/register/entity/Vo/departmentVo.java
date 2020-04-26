@@ -1,6 +1,7 @@
 package cn.shiying.register.entity.Vo;
 
 import cn.shiying.common.entity.department.Department;
+import cn.shiying.common.entity.patient.PatientDetailed;
 import cn.shiying.register.entity.Register;
 import lombok.Data;
 
@@ -9,4 +10,5 @@ public class departmentVo extends Register {
 
     private Department department;
     private Register register;
+    private PatientDetailed patientDetailed;
 }

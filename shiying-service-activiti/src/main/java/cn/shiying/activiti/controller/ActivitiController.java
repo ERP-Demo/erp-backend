@@ -2,17 +2,14 @@ package cn.shiying.activiti.controller;
 
 import cn.shiying.common.dto.Result;
 import cn.shiying.common.entity.token.JwtUser;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,17 +24,20 @@ public class ActivitiController {
     TaskService taskService;
 
     @Autowired
-    private RuntimeService runtimeService;
+    RuntimeService runtimeService;
+
+    @Autowired
+    HistoryService historyService;
 
     @GetMapping("/startDrug")
     public Result startDrug(){
         return Result.ok().put("processInstanceId",strat("drug",null));
     }
 
-    @GetMapping("/startPatient")
-    public Result startPatient(Integer id){
+    @PostMapping("/startPatient")
+    public Result startPatient(Integer departmentId){
         Map<String , Object> variables = new HashMap<String,Object>();
-        variables.put("registerId", id);
+        variables.put("departmentId",departmentId);
         return Result.ok().put("processInstanceId",strat("patient",variables));
     }
 
@@ -49,34 +49,50 @@ public class ActivitiController {
         List<Integer> personalDuringList=new ArrayList<>();
         List<Integer> personalWaitList=new ArrayList<>();
         for (Task task : list) {
-            Integer id = (Integer) taskService.getVariable(task.getId(), "id");
-            System.out.println(id);
-            if ("挂号".equals(task.getName())) {
-                System.out.println("挂号了");
-                System.out.println(user.getDepartmentId());
-//                runtimeService.startProcessInstanceById(task.getProcessInstanceId());
-            }else {
-                System.out.println(task.getName());
+            Map<String, Object> variables = taskService.getVariables(task.getId());
+            //判断有没有权限
+            if (!user.getDepartmentId().contains(variables.get("departmentId"))) continue;
+
+            if ("挂号".equals(task.getName())
+                    &&user.getUsername().equals(variables.get("waitAssignee"))) {
+                personalWaitList.add((Integer) variables.get("registerId"));
+            }else if ("挂号".equals(task.getName())){
+                deptWaitList.add((Integer) variables.get("registerId"));
+            }else if (user.getUid()==(Integer) variables.get("uid")){
+                personalDuringList.add((Integer) variables.get("registerId"));
             }
         }
-        List<Integer> personalEndList=new ArrayList<>();
+        System.out.println("部门待诊患者："+deptWaitList);
+        System.out.println("我的待诊患者："+personalWaitList);
+        System.out.println("我的诊中患者："+personalDuringList);
+        return Result.ok().put("deptWaitList",deptWaitList)
+                .put("personalWaitList",personalWaitList)
+                .put("personalDuringList",personalDuringList);
+    }
+
+    @PostMapping("/consultation")
+    public Result consultation(String processInstanceId){
+        Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
+        taskService.setVariable(task.getId(),"waitAssignee",getUser().getUsername());
         return Result.ok();
     }
 
+    @PostMapping("/registerId")
+    public Result registerId(String processInstanceId,Integer registerId){
+        Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
+        taskService.setVariable(task.getId(),"registerId",registerId);
+        return Result.ok();
+    }
 
     private String strat(String bpmName,Map<String,Object> variables){
         JwtUser user=getUser();
-        ProcessInstance processInstance=null;
-        if (variables!=null){
-            processInstance=runtimeService.startProcessInstanceByKey(bpmName,variables);
-        } else {
-            processInstance=runtimeService.startProcessInstanceByKey(bpmName);
-        }
+        ProcessInstance processInstance=runtimeService.startProcessInstanceByKey(bpmName);
         String processInstanceId=processInstance.getProcessInstanceId();
         Task task=taskService.createTaskQuery()
                 .processDefinitionKey(bpmName)
                 .processInstanceId(processInstanceId).singleResult();
         taskService.setAssignee(task.getId(),user.getUsername());
+        taskService.setVariables(task.getId(),variables);
         return processInstanceId;
     }
 
@@ -90,12 +106,6 @@ public class ActivitiController {
         dotask(processInstanceId,map);
     }
 
-    private void gettask(String processInstanceId){
-        Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
-        JwtUser user=getUser();
-
-    }
-
     private void dotask(String processInstanceId,Map<String,Object> map){
         JwtUser user=getUser();
         if (map==null){
@@ -104,7 +114,7 @@ public class ActivitiController {
         }
         Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
         taskService.setAssignee(task.getId(),user.getUsername());
-        map.put("id",user.getUid());
+        map.put("uid",user.getUid());
         taskService.setVariables(task.getId(),map);
         taskService.complete(task.getId());
     }

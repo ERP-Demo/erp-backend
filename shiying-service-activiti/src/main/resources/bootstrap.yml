@@ -9,8 +9,8 @@ spring:
     name: shiying-service-activiti
   activiti:
     database-schema-update: true
-#    history-level: full
-#    db-history-used: true
+    history-level: full
+    db-history-used: true
 
 server:
   port: 40800

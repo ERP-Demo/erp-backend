@@ -43,17 +43,20 @@ public class ActivitiController {
 
     @GetMapping("/registerPatient")
     public Result registerPatient(){
+        JwtUser user=getUser();
         List<Task> list = taskService.createTaskQuery().list();
         List<Integer> deptWaitList=new ArrayList<>();
         List<Integer> personalDuringList=new ArrayList<>();
         List<Integer> personalWaitList=new ArrayList<>();
         for (Task task : list) {
             Integer id = (Integer) taskService.getVariable(task.getId(), "id");
+            System.out.println(id);
             if ("挂号".equals(task.getName())) {
-                System.out.println(id);
-//                runtimeService.startProcessInstanceById(task.getProcessInstanceId()).get
+                System.out.println("挂号了");
+                System.out.println(user.getDepartmentId());
+//                runtimeService.startProcessInstanceById(task.getProcessInstanceId());
             }else {
-                System.out.println(id);
+                System.out.println(task.getName());
             }
         }
         List<Integer> personalEndList=new ArrayList<>();
@@ -100,7 +103,6 @@ public class ActivitiController {
             System.out.println("空");
         }
         Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
-        System.out.println(task.getId());
         taskService.setAssignee(task.getId(),user.getUsername());
         map.put("id",user.getUid());
         taskService.setVariables(task.getId(),map);
@@ -112,6 +114,7 @@ public class ActivitiController {
         JwtUser user=new JwtUser();
         user.setUid((Integer) map.get("uid"));
         user.setUsername((String) map.get("username"));
+        user.setDepartmentId((List<Integer>) map.get("departmentId"));
         return user;
     }
 }

@@ -39,6 +39,10 @@ public class SupplierDetailed implements Serializable {
      */
     private String supplierCartPhone;
 
+    /**
+     * 供应商类型：1.自营，2.平台
+     */
+    private Integer supplierType;
 
     /**
      * 供应商联系人
@@ -60,6 +64,10 @@ public class SupplierDetailed implements Serializable {
      */
     private String supplierAddress;
 
+    /**
+     * 状态：0禁止，1启用
+     */
+    private Integer supplierStatus;
 
 
 }

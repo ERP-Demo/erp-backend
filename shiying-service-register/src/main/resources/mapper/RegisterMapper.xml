@@ -18,6 +18,6 @@
         register_id, patient_name, is_back, register_cost, department_id
     </sql>
     <select id="departmentvo" resultMap="WithDepartment">
-select <include refid="Base_Column_List"/> from register
+        select <include refid="Base_Column_List"/> from register
     </select>
 </mapper>

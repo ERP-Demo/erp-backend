@@ -132,7 +132,7 @@ public class SysRoleController {
     }
 
     private Integer getUserId(){
-        JwtUser user = (JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return user.getUid();
+        Map<String,Object> map= (Map<String, Object>) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return (Integer) map.get("uid");
     }
 }

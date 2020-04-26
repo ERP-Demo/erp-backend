@@ -13,11 +13,21 @@
         <result column="Patient_Admission" property="patientAdmission" />
         <result column="Patient_doctor" property="patientDoctor" />
         <result column="Patient_note" property="patientNote" />
+        <result column="patient_cartnum" property="patientCartnum" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        patient_id, Patient_name, Patient_age, Patient_sex, Patient_phone, Patient_address, Patient_Admission, Patient_doctor, Patient_note
+        patient_id, Patient_name, Patient_age, Patient_sex, Patient_phone, Patient_address, Patient_Admission, Patient_doctor, Patient_note,patient_cartnum
     </sql>
+
+    <select id="queryByCatnum" resultMap="BaseResultMap">
+        select * from patient_detailed
+        <where>
+            <if test="params.patientCartnum != null and params.patientCartnum != ''">
+                and patient_cartnum = #{params.patientCartnum}
+            </if>
+        </where>
+    </select>
 
 </mapper>

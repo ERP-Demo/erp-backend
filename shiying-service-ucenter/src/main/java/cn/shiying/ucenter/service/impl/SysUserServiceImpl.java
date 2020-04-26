@@ -68,6 +68,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public SysUser selectByUsername(String username) {
         SysUser user=baseMapper.selectOne(new QueryWrapper<SysUser>().eq("username",username));
+        if (user==null) return null;
         if (SysConstants.SUPER_ADMIN.equals(user.getUserId())){
             List<SysMenu> menuList=sysMenuMapper.selectList(null);
             List<String> permsList=new ArrayList<>(menuList.size());

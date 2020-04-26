@@ -1,14 +1,9 @@
 package cn.shiying.users_department.controller;
 
-import cn.shiying.common.entity.department.Department;
-import cn.shiying.common.mapper.DepartmentMapper;
-import cn.shiying.users_department.client.DepartmentClient;
+
 import cn.shiying.users_department.entity.UsersDepartment;
-import cn.shiying.users_department.entity.vo.UsersDepartmentVo;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,17 +27,9 @@ public class UsersDepartmentController {
 //    @Autowired
 //    private DepartmentMapper mapper;
 
-    @RequestMapping("/all/{uid}")
-    public Result All(@PathVariable Long uid){
+    @GetMapping("/all/{uid}")
+    public Result All(@PathVariable Integer uid){
         List<UsersDepartment> list1=departmentService.All(uid);
-//        Department list=null;
-//        List<Department> list2=null;
-//        for (UsersDepartment ud : list1) {
-//             list=mapper.selectById(ud);
-//            list2=Arrays.asList(list);
-//        }
-//        list2.add(Arrays.asList(list))
-
         return Result.ok().put("list",list1);
     }
     @RequestMapping("/deletebyid/{id}/{userId}")
@@ -57,4 +44,11 @@ public class UsersDepartmentController {
         departmentService.add(uid,ids);
         return Result.ok();
     }
+
+    @GetMapping("/list/{uid}")
+    public Result list(@PathVariable Integer uid){
+        List<Integer> list=departmentService.all(uid);
+        return Result.ok().put("list",list);
+    }
+
 }

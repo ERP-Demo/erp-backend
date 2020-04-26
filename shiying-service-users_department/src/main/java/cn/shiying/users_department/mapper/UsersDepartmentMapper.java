@@ -21,7 +21,7 @@ import java.util.Map;
 @Mapper
 public interface UsersDepartmentMapper extends BaseMapper<UsersDepartment> {
     List<UsersDepartmentVo> selectlike(Page<UsersDepartmentVo> page , @Param("params")Map<String,Object> params);
-    List<UsersDepartment> All(@Param("uid")  Long uid);
+    List<UsersDepartment> All(Integer uid);
     void delById(@Param("id") Integer id,@Param("userId") Long userId);
     void add(@Param("uid") Integer uid, @Param("ids") Integer ids);
 }

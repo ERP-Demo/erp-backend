@@ -110,14 +110,12 @@ public class DrugsPurchaseController {
     @PostMapping("/pur")
     public Result pur(@RequestBody DrugsPurchase purchase){
         int flag=purchaseService.insertPurchase(purchase);
-
         return Result.ok();
     }
 
     @PostMapping("/det")
     public Result det(@RequestBody DrugsPurchaseDetailed drugsPurchaseDetailed){
         int flag=purchaseService.insertDetailed(drugsPurchaseDetailed);
-
         return Result.ok();
     }
 }

@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -29,76 +31,47 @@ public class ActivitiController {
 
     @GetMapping("/startDrug")
     public Result startDrug(){
-        return Result.ok().put("processInstanceId",strat("drug"));
+        return Result.ok().put("processInstanceId",strat("drug",null));
     }
 
     @GetMapping("/startPatient")
-    public Result startPatient(){
-        return Result.ok().put("processInstanceId",strat("patient"));
+    public Result startPatient(Integer id){
+        Map<String , Object> variables = new HashMap<String,Object>();
+        variables.put("registerId", id);
+        return Result.ok().put("processInstanceId",strat("patient",variables));
     }
 
-    @PreAuthorize("hasAnyRole('2')")
-    public Result durgcheckOk(String processInstanceId){
-        dotask(processInstanceId,0);
-        return Result.ok();
-    }
-
-    @PreAuthorize("hasAnyRole('2')")
-    public Result durgcheckNo(String processInstanceId){
-        dotask(processInstanceId,1);
-        return Result.ok();
-    }
-
-    @PreAuthorize("hasAnyRole('3')")
-    public Result suppliercheckOk(String processInstanceId){
-        dotask(processInstanceId,0);
-        return Result.ok();
-    }
-
-    @PreAuthorize("hasAnyRole('3')")
-    public Result suppliercheckNo(String processInstanceId){
-        dotask(processInstanceId,1);
-        return Result.ok();
-    }
-
-    @PostMapping("/patientcheckOk")
-    @PreAuthorize("hasAnyRole('4')")
-    public Result patientcheckOk(String processInstanceId){
-        dotask(processInstanceId,0);
-        return Result.ok();
-    }
-
-    @PostMapping("/patientcheckNo")
-    @PreAuthorize("hasAnyRole('4')")
-    public Result patientcheckNo(String processInstanceId){
-        dotask(processInstanceId,1);
-        return Result.ok();
-    }
-
-    @PostMapping("/payment")
-    public Result payment(String processInstanceId){
-        dotask(processInstanceId);
-        return Result.ok();
-    }
-
-    @PostMapping("/drug")
-    @PreAuthorize("hasAnyRole('5')")
-    public Result drug(String processInstanceId){
-        dotask(processInstanceId,0);
-        return Result.ok();
-    }
-
-    @PostMapping("/gotest")
-    @PreAuthorize("hasAnyRole('5')")
-    public Result gotest(String processInstanceId){
-        dotask(processInstanceId,1);
-        return Result.ok();
-    }
-
-
-    private String strat(String bpmName){
+    @GetMapping("/registerPatient")
+    public Result registerPatient(){
         JwtUser user=getUser();
-        ProcessInstance processInstance=runtimeService.startProcessInstanceByKey(bpmName);
+        List<Task> list = taskService.createTaskQuery().list();
+        List<Integer> deptWaitList=new ArrayList<>();
+        List<Integer> personalDuringList=new ArrayList<>();
+        List<Integer> personalWaitList=new ArrayList<>();
+        for (Task task : list) {
+            Integer id = (Integer) taskService.getVariable(task.getId(), "id");
+            System.out.println(id);
+            if ("挂号".equals(task.getName())) {
+                System.out.println("挂号了");
+                System.out.println(user.getDepartmentId());
+//                runtimeService.startProcessInstanceById(task.getProcessInstanceId());
+            }else {
+                System.out.println(task.getName());
+            }
+        }
+        List<Integer> personalEndList=new ArrayList<>();
+        return Result.ok();
+    }
+
+
+    private String strat(String bpmName,Map<String,Object> variables){
+        JwtUser user=getUser();
+        ProcessInstance processInstance=null;
+        if (variables!=null){
+            processInstance=runtimeService.startProcessInstanceByKey(bpmName,variables);
+        } else {
+            processInstance=runtimeService.startProcessInstanceByKey(bpmName);
+        }
         String processInstanceId=processInstance.getProcessInstanceId();
         Task task=taskService.createTaskQuery()
                 .processDefinitionKey(bpmName)
@@ -130,7 +103,6 @@ public class ActivitiController {
             System.out.println("空");
         }
         Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
-        System.out.println(task.getId());
         taskService.setAssignee(task.getId(),user.getUsername());
         map.put("id",user.getUid());
         taskService.setVariables(task.getId(),map);
@@ -142,6 +114,7 @@ public class ActivitiController {
         JwtUser user=new JwtUser();
         user.setUid((Integer) map.get("uid"));
         user.setUsername((String) map.get("username"));
+        user.setDepartmentId((List<Integer>) map.get("departmentId"));
         return user;
     }
 }

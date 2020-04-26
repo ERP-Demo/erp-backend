@@ -16,5 +16,5 @@ import java.util.List;
  * @since 2020-04-16
  */
 @Mapper
-public interface DrugsDetailedMapper extends BaseMapper<DrugsDetailed> {
+public interface DrugsDetaileMapper extends BaseMapper<DrugsDetailed> {
 }

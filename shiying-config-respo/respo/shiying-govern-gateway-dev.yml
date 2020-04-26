@@ -103,3 +103,8 @@ zuul:
       serviceId: shiying-service-test_synthesize
       strip-prefix: false
       sensitiveHeaders:
+    service-test_correlationaffiliate:
+      path: /test_correlationaffiliate/**
+      serviceId: shiying-service-test_correlationaffiliate
+      strip-prefix: false
+      sensitiveHeaders:

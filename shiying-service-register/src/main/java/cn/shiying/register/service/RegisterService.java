@@ -1,7 +1,9 @@
 package cn.shiying.register.service;
 
 import cn.shiying.register.entity.Register;
+import cn.shiying.register.entity.Vo.RegisterPatientVO;
 import cn.shiying.register.entity.Vo.departmentVo;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
 
@@ -24,5 +26,10 @@ public interface RegisterService extends IService<Register> {
      * @return
      */
      PageUtils queryPage(Map<String, Object> params);
-    List<departmentVo> departmentvo();
+
+     List<departmentVo> departmentvo();
+
+     List<RegisterPatientVO> list(List<Integer> id);
+
+    PageUtils listPage(Map<String, Object> params);
 }

@@ -21,7 +21,7 @@
     <sql id="Base_Column_List">
         test_synthesize_id, test_projects_id, floor, ceiling, unit, createtime, uid
     </sql>
-    <select id="listTestCorrelationAffiliateVO" resultType="cn.shiying.test_correlation.entity.vo.TestCorrelationAffiliateVO">
+    <select id="listTestCorrelationAffiliateVO" resultType="cn.shiying.test_correlationaffiliate.entity.vo.TestCorrelationAffiliateVO">
         select tp.test_name,tc.floor,tc.ceiling,tc.unit
         from test_correlation tc
         inner join test_projects tp

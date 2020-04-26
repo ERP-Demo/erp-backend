@@ -1,6 +1,8 @@
 package cn.shiying.auth.service;
 
+import cn.shiying.auth.client.DepartmentClient;
 import cn.shiying.auth.client.UserClient;
+import cn.shiying.common.dto.Result;
 import cn.shiying.common.entity.sys.SysMenu;
 import cn.shiying.common.entity.sys.SysUser;
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +30,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     ClientDetailsService clientDetailsService;
+
+    @Autowired
+    DepartmentClient departmentClient;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -74,6 +79,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 password,
                 AuthorityUtils.commaSeparatedStringToAuthorityList(user_permission_string));
         userDetails.setUser_id(user.getUserId());
+        Result result=departmentClient.list(user.getUserId());
+        userDetails.setDepartmentId((List<Integer>) result.get("list"));
         return userDetails;
     }
 }

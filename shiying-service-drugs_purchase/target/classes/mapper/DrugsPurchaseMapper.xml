@@ -30,4 +30,10 @@
     <select id="selectDname" resultType="cn.shiying.common.entity.Drugs.DrugsDetailed">
         select a.drugs_id,a.drugs_name from drugs_detailed a
     </select>
+    <insert id="insertPurchase" parameterType="cn.shiying.drugs_purchase.entity.DrugsPurchase">
+        insert into drugs_purchase values(#{pid},#{sid},#{pay1},#{pay2},0,null,null)
+    </insert>
+    <insert id="insertDetailed" parameterType="cn.shiying.common.entity.Drugs.DrugsPurchaseDetailed">
+        insert into drugs_purchase_detailed values(null,#{did},#{pid},#{pay},#{num})
+    </insert>
 </mapper>

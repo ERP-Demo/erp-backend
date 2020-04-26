@@ -9,7 +9,7 @@
     </resultMap>
     <resultMap id="WithDepartment" extends="BaseResultMap" type="cn.shiying.drugsSupplier.entity.vo.DrugsSupplierVO">
         <association property="supplierDetailed" column="supplier_id" select="cn.shiying.common.mapper.supplier.SupplierDetailedMapper.selectById" />
-        <association property="drugsDetailed" column="drugs_id" select="cn.shiying.common.mapper.Drugs.DrugsDetailedMapper.selectById" />
+        <association property="drugsDetailed" column="drugs_id" select="cn.shiying.common.mapper.Drugs.DrugsDetaileMapper.selectById" />
     </resultMap>
 
 

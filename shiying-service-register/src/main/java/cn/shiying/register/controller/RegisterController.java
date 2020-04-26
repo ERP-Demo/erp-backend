@@ -1,10 +1,12 @@
 package cn.shiying.register.controller;
 
 import cn.shiying.common.entity.patient.PatientDetailed;
+import cn.shiying.common.entity.token.JwtUser;
 import cn.shiying.register.client.ActivitiClient;
 import cn.shiying.register.client.PatienClient;
 import cn.shiying.register.entity.RegisterPatient;
 import cn.shiying.register.entity.Vo.departmentVo;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Arrays;
@@ -116,5 +118,15 @@ public class RegisterController {
     public Result all(){
         List<departmentVo> list = registerService.departmentvo();
         return Result.ok().put("list",list);
+    }
+
+    @GetMapping("/refreshPatient")
+    public Result refreshPatient(){
+
+        return Result.ok();
+    }
+    public List<Integer> getDepartment(){
+        Map<String,Object> map= (Map<String, Object>) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return (List<Integer>)map.get("departmentId");
     }
 }

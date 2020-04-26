@@ -2,7 +2,7 @@ package cn.shiying.drugs.service.impl;
 
 
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
-import cn.shiying.common.mapper.Drugs.DrugsDetailedMapper;
+import cn.shiying.common.mapper.Drugs.DrugsDetaileMapper;
 import cn.shiying.common.utils.PageUtils;
 import cn.shiying.common.utils.Query;
 import cn.shiying.drugs.service.DrugsDetailedService;
@@ -24,7 +24,7 @@ import java.util.Map;
  * @since 2020-04-16
  */
 @Service
-public class DrugsDetailedServiceImpl extends ServiceImpl<DrugsDetailedMapper, DrugsDetailed> implements DrugsDetailedService {
+public class DrugsDetailedServiceImpl extends ServiceImpl<DrugsDetaileMapper, DrugsDetailed> implements DrugsDetailedService {
 
     /**
      * 分页查询

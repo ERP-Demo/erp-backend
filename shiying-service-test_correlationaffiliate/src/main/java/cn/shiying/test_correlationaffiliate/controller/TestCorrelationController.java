@@ -34,7 +34,7 @@ public class TestCorrelationController {
     @PreAuthorize("hasAuthority('test_correlationaffiliate:correlation:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = correlationService.queryPage(params);
-
+        System.out.println("进来了");
         return Result.ok().put("page", page);
     }
 

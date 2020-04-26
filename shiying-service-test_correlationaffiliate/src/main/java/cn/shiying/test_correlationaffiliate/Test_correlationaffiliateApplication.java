@@ -1,4 +1,4 @@
-package cn.shiying.patient;
+package cn.shiying.test_correlationaffiliate;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -9,12 +9,12 @@ import org.springframework.context.annotation.ComponentScan;
 
 @EnableDiscoveryClient
 @EnableFeignClients
-@MapperScan("cn.shiying.common.mapper")
-@ComponentScan(basePackages = {"cn.shiying.config","cn.shiying.patient"})
+@MapperScan({"cn.shiying.common.mapper","cn.shiying.test_correlationaffiliate.mapper"})
+@ComponentScan(basePackages = {"cn.shiying.config","cn.shiying.test_correlationaffiliate"})
 @SpringBootApplication
-public class PatientApplication {
+public class Test_correlationaffiliateApplication {
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(PatientApplication.class, args);
+        SpringApplication.run(Test_correlationaffiliateApplication.class, args);
     }
 
 }

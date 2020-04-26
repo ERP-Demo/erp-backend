@@ -18,7 +18,9 @@ import java.util.Map;
  * @since 2020-04-23
  */
 public interface UsersDepartmentService extends IService<UsersDepartment> {
-    List<UsersDepartmentVo> All(@Param("uid")  Long uid);
-    void delById(@Param("userId") Long userId,@Param("departmentId") Integer departmentId);
+    List<UsersDepartment> All(Integer uid);
+    void delById(@Param("id") Integer id,@Param("userId") Long userId);
+    void add(Integer uid,Integer[] ids);
 
+    List<Integer> all(Integer uid);
 }

@@ -51,7 +51,6 @@ public class SysUserController {
             params.put("createUserId", getUserId());
         }
         PageUtils page = sysUserService.queryPage(params);
-
         return Result.ok().put("page", page);
     }
 

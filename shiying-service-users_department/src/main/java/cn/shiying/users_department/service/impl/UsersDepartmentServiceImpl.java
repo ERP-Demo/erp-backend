@@ -1,18 +1,13 @@
 package cn.shiying.users_department.service.impl;
 
 import cn.shiying.users_department.entity.UsersDepartment;
-import cn.shiying.users_department.entity.vo.UsersDepartmentVo;
 import cn.shiying.users_department.mapper.UsersDepartmentMapper;
 import cn.shiying.users_department.service.UsersDepartmentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import cn.shiying.common.utils.Query;
-import cn.shiying.common.utils.PageUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -26,12 +21,29 @@ import java.util.Map;
 public class UsersDepartmentServiceImpl extends ServiceImpl<UsersDepartmentMapper, UsersDepartment> implements UsersDepartmentService {
 
     @Override
-    public List<UsersDepartmentVo> All(Long uid) {
+    public List<UsersDepartment> All(Integer uid) {
         return baseMapper.All(uid);
     }
 
     @Override
-    public void delById(Long userId, Integer departmentId) {
-        baseMapper.delById(userId,departmentId);
+    public void delById(Integer id,Long userId) {
+        baseMapper.delById(id,userId);
+    }
+
+    @Override
+    public void add(Integer uid, Integer[] ids) {
+        for(Integer i :ids){
+            baseMapper.add(uid,i);
+        }
+    }
+
+    @Override
+    public List<Integer> all(Integer uid) {
+        List<UsersDepartment> departments=baseMapper.All(uid);
+        List<Integer> list=new ArrayList<>();
+        for (UsersDepartment department : departments) {
+            list.add(department.getDepartmentId());
+        }
+        return list;
     }
 }

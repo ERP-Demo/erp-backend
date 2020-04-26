@@ -34,6 +34,7 @@ public class CustomUserAuthenticationConverter extends DefaultUserAuthentication
         JwtUser user=new JwtUser();
         user.setUid(userJwt.getUser_id());
         user.setUsername(userJwt.getUsername());
+        user.setDepartmentId(userJwt.getDepartmentId());
         response.put("user_name", user);
         if (authentication.getAuthorities() != null && !authentication.getAuthorities().isEmpty()) {
             response.put("authorities", AuthorityUtils.authorityListToSet(authentication.getAuthorities()));

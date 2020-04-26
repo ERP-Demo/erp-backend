@@ -81,11 +81,13 @@ zuul:
       serviceId: shiying-service-drugs_purchase_detailed
       strip-prefix: false
       sensitiveHeaders:
+
     service-users_department:
       path: /users_department/**
       serviceId: shiying-service-users_department
       strip-prefix: false
       sensitiveHeaders:
+
     service-test_correlation:
       path: /test_correlation/**
       serviceId: shiying-service-test_correlation

@@ -26,5 +26,6 @@ public class UsersDepartment implements Serializable {
 
     private Integer departmentId;
 
+    private String departmentName;
 
 }

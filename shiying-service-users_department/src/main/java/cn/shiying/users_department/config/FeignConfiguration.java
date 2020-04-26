@@ -1,6 +1,5 @@
-package cn.shiying.ucenter.config;
+package cn.shiying.users_department.config;
 
-import cn.shiying.common.utils.CookieUtil;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +7,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 /**
  * 自定义的请求头处理类，处理服务发送时的请求头；
@@ -26,9 +24,8 @@ public class FeignConfiguration implements RequestInterceptor {
     public void apply(RequestTemplate requestTemplate) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
-        Map<String, String> map = CookieUtil.readCookie(request, "token");
-        if(map!=null && map.get("token")!=null){
-            requestTemplate.header("token", map.get("token"));
+        if(request.getHeader("Authorization")!=null){
+            requestTemplate.header("Authorization", request.getHeader("Authorization"));
         }
     }
 }

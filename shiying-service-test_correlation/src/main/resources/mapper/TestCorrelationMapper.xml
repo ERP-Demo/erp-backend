@@ -24,4 +24,12 @@
     <select id="listTestCorrelationOV" resultMap="WithTestCorrelationOV">
         select <include refid="Base_Column_List" /> from  test_correlation
     </select>
+    <select id="listElectronicCaseVO" resultType="cn.shiying.test_correlation.entity.vo.TestCorrelationAffiliateVO">
+        select tp.test_name,tc.floor,tc.ceiling,tc.unit
+        from test_correlation tc
+        inner join test_projects tp
+        on tc.test_projects_id=tp.test_projects_id
+        where tc.test_synthesize_id=('%',#{params.key},'%')
+    </select>
+
 </mapper>

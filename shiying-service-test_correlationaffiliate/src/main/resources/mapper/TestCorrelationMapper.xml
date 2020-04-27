@@ -30,9 +30,10 @@
         on tc.test_synthesize_id=ts.test_synthesize_id
         where tc.test_synthesize_id=1
     </select>
-    <select id="listTestCorrelationAffiliateProjectsVO" resultType="cn.shiying.test_correlationaffiliate.entity.vo.TestCorrelationAffiliateVO">
-        SELECT
-        test_projects_id,test_abbreviation,test_name
+<!--    下拉菜单-->
+    <select id="selectTestCorrelationId" resultType="cn.shiying.common.entity.TestProjects.TestProjects">
+       SELECT
+        test_name
         from
         test_projects
         WHERE
@@ -44,5 +45,8 @@
         test_correlation
         where test_synthesize_id=1)
     </select>
-
+    <!-- 子项目添加到父项目下 -->
+    <insert id="addTestCorrelation" parameterType="cn.shiying.test_correlationaffiliate.entity.TestCorrelation">
+		insert into test_correlation(test_synthesize_id,test_projects_id,floor,ceiling,unit,createtime,uid) values(default,#{test_synthesize_id},#{test_projects_id},#{floor},#{ceiling},#{unit},#{createtime},#{uid})
+	</insert>
 </mapper>

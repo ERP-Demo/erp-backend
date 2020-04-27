@@ -20,8 +20,10 @@ import java.util.Map;
 @Mapper
 public interface TestCorrelationMapper extends BaseMapper<TestCorrelation> {
 
-
+//显示父项目下所有的子项目
     List<TestCorrelationAffiliateVO> listTestCorrelationAffiliateVO(Page page, Map<String, Object> params);
-
-    List<TestCorrelationAffiliateVO> listTestCorrelationAffiliateProjectsVO(Page page, Map<String, Object> params);
+//下拉列表
+    List<TestCorrelation> TestCorrelationId();
+//添加
+    void addTestCorrelation(TestCorrelation testcorrelation);
 }

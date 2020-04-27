@@ -37,11 +37,12 @@ public class TestCorrelationServiceImpl extends ServiceImpl<TestCorrelationMappe
         page.setRecords(list);
         return new PageUtils(page);
     }
+//下拉框显示子项目
     @Override
-    public PageUtils queryPagewindows (Map<String, Object> params) {
-        Page page=new Query<TestCorrelation>(params).getPage();
-        List<TestCorrelationAffiliateVO> list=baseMapper.listTestCorrelationAffiliateProjectsVO(page,params);
-        page.setRecords(list);
-        return new PageUtils(page);
+    public List<TestCorrelation> selectTestCorrelationId() {
+        return baseMapper.TestCorrelationId();
     }
+//    添加
+    @Override
+    public void addTestCorrelation(TestCorrelation testcorrelation) { baseMapper.addTestCorrelation(testcorrelation); }
 }

@@ -2,6 +2,7 @@ package cn.shiying.test_correlationaffiliate.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,20 +35,9 @@ public class TestCorrelationController {
     @PreAuthorize("hasAuthority('test_correlationaffiliate:correlation:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = correlationService.queryPage(params);
-        System.out.println("进来了");
-        return Result.ok().put("page", page);
-    }
-    /**
-     * 弹窗列表
-     */
-    @GetMapping("/listwindows")
-    @PreAuthorize("hasAuthority('test_correlationaffiliate:correlation:list')")
-    public Result listwindows(@RequestParam Map<String, Object> params){
-        PageUtils page = correlationService.queryPagewindows(params);
-        System.out.println("进来了");
-        return Result.ok().put("page", page);
-    }
 
+        return Result.ok().put("page", page);
+    }
     /**
      * 信息
      */
@@ -92,4 +82,22 @@ public class TestCorrelationController {
 
         return Result.ok();
     }
+    /**
+     * 查询子项目表（下拉列表）
+     */
+    @GetMapping("/selectTestCorrelationId")
+    public Result selectTestCorrelationId(){
+        List<TestCorrelation> list=correlationService.selectTestCorrelationId();
+        System.out.println("数据："+list);
+        return Result.ok().put("list", list);
+    }
+    /**
+     * 添加
+     */
+    @PostMapping("/addTestCorrelation")
+    public Result addStorageReport(@RequestBody TestCorrelation testcorrelation){
+        correlationService.addTestCorrelation(testcorrelation);
+        return Result.ok();
+    }
+
 }

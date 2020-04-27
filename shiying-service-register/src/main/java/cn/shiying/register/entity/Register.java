@@ -25,15 +25,17 @@ public class Register implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "register_id", type = IdType.AUTO)
+    @TableId(type = IdType.AUTO)
     private Integer registerId;
 
     private Integer patientId;
 
-    private Integer isBack;
+    private Integer status;
 
     private BigDecimal registerCost;
 
     private Integer departmentId;
+
+    private String processInstanceId;
 
 }

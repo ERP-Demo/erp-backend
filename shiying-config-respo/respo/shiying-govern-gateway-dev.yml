@@ -108,3 +108,8 @@ zuul:
       serviceId: shiying-service-test_correlationaffiliate
       strip-prefix: false
       sensitiveHeaders:
+    service-icd:
+      path: /icd/**
+      serviceId: shiying-service-icd
+      strip-prefix: false
+      sensitiveHeaders:

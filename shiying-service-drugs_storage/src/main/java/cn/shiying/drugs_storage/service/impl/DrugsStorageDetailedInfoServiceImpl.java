@@ -40,4 +40,5 @@ public class DrugsStorageDetailedInfoServiceImpl extends ServiceImpl<DrugsStorag
         return new PageUtils(page);
     }
 
+
 }

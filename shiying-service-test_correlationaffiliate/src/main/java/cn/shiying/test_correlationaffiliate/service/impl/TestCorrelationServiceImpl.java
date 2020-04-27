@@ -25,7 +25,6 @@ import java.util.Map;
  */
 @Service
 public class TestCorrelationServiceImpl extends ServiceImpl<TestCorrelationMapper, TestCorrelation> implements TestCorrelationService {
-
     /**
      * 分页查询
      * @param params
@@ -38,5 +37,11 @@ public class TestCorrelationServiceImpl extends ServiceImpl<TestCorrelationMappe
         page.setRecords(list);
         return new PageUtils(page);
     }
-
+    @Override
+    public PageUtils queryPagewindows (Map<String, Object> params) {
+        Page page=new Query<TestCorrelation>(params).getPage();
+        List<TestCorrelationAffiliateVO> list=baseMapper.listTestCorrelationAffiliateProjectsVO(page,params);
+        page.setRecords(list);
+        return new PageUtils(page);
+    }
 }

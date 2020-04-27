@@ -34,10 +34,19 @@ public class TestCorrelationController {
     @PreAuthorize("hasAuthority('test_correlationaffiliate:correlation:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = correlationService.queryPage(params);
-
+        System.out.println("进来了");
         return Result.ok().put("page", page);
     }
-
+    /**
+     * 弹窗列表
+     */
+    @GetMapping("/listwindows")
+    @PreAuthorize("hasAuthority('test_correlationaffiliate:correlation:list')")
+    public Result listwindows(@RequestParam Map<String, Object> params){
+        PageUtils page = correlationService.queryPagewindows(params);
+        System.out.println("进来了");
+        return Result.ok().put("page", page);
+    }
 
     /**
      * 信息

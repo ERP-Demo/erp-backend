@@ -22,4 +22,6 @@ public interface TestCorrelationMapper extends BaseMapper<TestCorrelation> {
 
 
     List<TestCorrelationAffiliateVO> listTestCorrelationAffiliateVO(Page page, Map<String, Object> params);
+
+    List<TestCorrelationAffiliateVO> listTestCorrelationAffiliateProjectsVO(Page page, Map<String, Object> params);
 }

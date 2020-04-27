@@ -22,11 +22,27 @@
         test_synthesize_id, test_projects_id, floor, ceiling, unit, createtime, uid
     </sql>
     <select id="listTestCorrelationAffiliateVO" resultType="cn.shiying.test_correlationaffiliate.entity.vo.TestCorrelationAffiliateVO">
-        select tp.test_name,tc.floor,tc.ceiling,tc.unit
+        select ts.test_synthesize_name,tp.test_name,tc.floor,tc.ceiling,tc.unit
         from test_correlation tc
         inner join test_projects tp
         on tc.test_projects_id=tp.test_projects_id
+        inner join test_synthesize ts
+        on tc.test_synthesize_id=ts.test_synthesize_id
         where tc.test_synthesize_id=1
+    </select>
+    <select id="listTestCorrelationAffiliateProjectsVO" resultType="cn.shiying.test_correlationaffiliate.entity.vo.TestCorrelationAffiliateVO">
+        SELECT
+        test_projects_id,test_abbreviation,test_name
+        from
+        test_projects
+        WHERE
+        test_projects_id
+        not in
+        (SELECT
+        test_projects_id
+        from
+        test_correlation
+        where test_synthesize_id=1)
     </select>
 
 </mapper>

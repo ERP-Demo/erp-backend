@@ -13,6 +13,9 @@
     <resultMap id="WithDepartment" extends="BaseResultMap" type="cn.shiying.register.entity.Vo.departmentVo">
         <association property="department" column="department_id" select="cn.shiying.common.mapper.DepartmentMapper.selectById" />
         <association property="register" column="register_id" select="cn.shiying.register.mapper.RegisterMapper.selectById" />
+        <association property="patientDetailed" column="patient_id" select="cn.shiying.common.mapper.PatientDetailedMapper.selectById" />
+    </resultMap>
+        <association property="register" column="register_id" select="cn.shiying.register.mapper.RegisterMapper.selectById" />
     </resultMap>
 
     <resultMap id="WithPatien" extends="BaseResultMap" type="cn.shiying.register.entity.Vo.RegisterPatientVO">
@@ -20,6 +23,7 @@
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
+        register_id, patient_id, is_back, register_cost, department_id
         register_id, patient_id, status, register_cost, department_id,process_instance_id
     </sql>
     <select id="departmentvo" resultMap="WithDepartment">

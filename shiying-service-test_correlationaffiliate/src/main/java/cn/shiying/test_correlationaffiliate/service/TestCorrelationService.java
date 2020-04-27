@@ -21,4 +21,5 @@ public interface TestCorrelationService extends IService<TestCorrelation> {
      * @return
      */
      PageUtils queryPage(Map<String, Object> params);
+    PageUtils queryPagewindows (Map<String, Object> params);
 }

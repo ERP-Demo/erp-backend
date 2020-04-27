@@ -30,5 +30,19 @@
         on tc.test_synthesize_id=ts.test_synthesize_id
         where tc.test_synthesize_id=1
     </select>
+    <select id="listTestCorrelationAffiliateProjectsVO" resultType="cn.shiying.test_correlationaffiliate.entity.vo.TestCorrelationAffiliateVO">
+        SELECT
+        test_projects_id,test_abbreviation,test_name
+        from
+        test_projects
+        WHERE
+        test_projects_id
+        not in
+        (SELECT
+        test_projects_id
+        from
+        test_correlation
+        where test_synthesize_id=1)
+    </select>
 
 </mapper>

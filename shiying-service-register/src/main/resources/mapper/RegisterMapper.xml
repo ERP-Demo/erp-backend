@@ -12,7 +12,7 @@
     </resultMap>
     <resultMap id="WithDepartment" extends="BaseResultMap" type="cn.shiying.register.entity.Vo.departmentVo">
         <association property="department" column="department_id" select="cn.shiying.common.mapper.DepartmentMapper.selectById" />
-        <association property="register" column="register_id" select="cn.shiying.register.mapper.RegisterMapper.selectById" />
+        <association property="patient" column="patient_id" select="cn.shiying.common.mapper.PatientDetailedMapper.selectById" />
     </resultMap>
 
     <resultMap id="WithPatien" extends="BaseResultMap" type="cn.shiying.register.entity.Vo.RegisterPatientVO">

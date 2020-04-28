@@ -2,6 +2,7 @@ package cn.shiying.activiti.controller;
 
 import cn.shiying.common.dto.Result;
 import cn.shiying.common.entity.token.JwtUser;
+import cn.shiying.common.enums.ErrorEnum;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -49,22 +50,24 @@ public class ActivitiController {
         List<Integer> personalDuringList=new ArrayList<>();
         List<Integer> personalWaitList=new ArrayList<>();
         for (Task task : list) {
-            Map<String, Object> variables = taskService.getVariables(task.getId());
+            Map<String, Object> variables = runtimeService.getVariables(task.getProcessInstanceId());
             //判断有没有权限
             if (!user.getDepartmentId().contains(variables.get("departmentId"))) continue;
 
             if ("挂号".equals(task.getName())
-                    &&user.getUsername().equals(variables.get("waitAssignee"))) {
+                    &&variables.get("waitAssignee")!=null
+                    &&user.getUid()==(Integer) variables.get("waitAssignee")) {
                 personalWaitList.add((Integer) variables.get("registerId"));
             }else if ("挂号".equals(task.getName())){
                 deptWaitList.add((Integer) variables.get("registerId"));
-            }else if (user.getUid()==(Integer) variables.get("uid")){
+            }else if (variables.get("uid")!=null
+                    && user.getUid()==(Integer) variables.get("uid")){
                 personalDuringList.add((Integer) variables.get("registerId"));
             }
         }
-        System.out.println("部门待诊患者："+deptWaitList);
-        System.out.println("我的待诊患者："+personalWaitList);
-        System.out.println("我的诊中患者："+personalDuringList);
+
+
+
         return Result.ok().put("deptWaitList",deptWaitList)
                 .put("personalWaitList",personalWaitList)
                 .put("personalDuringList",personalDuringList);
@@ -73,7 +76,7 @@ public class ActivitiController {
     @PostMapping("/consultation")
     public Result consultation(String processInstanceId){
         Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
-        taskService.setVariable(task.getId(),"waitAssignee",getUser().getUsername());
+        taskService.setVariable(task.getId(),"waitAssignee",getUser().getUid());
         return Result.ok();
     }
 
@@ -81,6 +84,22 @@ public class ActivitiController {
     public Result registerId(String processInstanceId,Integer registerId){
         Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
         taskService.setVariable(task.getId(),"registerId",registerId);
+        return Result.ok();
+    }
+
+    @PostMapping("/startDiagnosis")
+    public Result startDiagnosis(String processInstanceId){
+        JwtUser user=getUser();
+        Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
+        Map<String, Object> variables = taskService.getVariables(task.getId());
+        if (!user.getDepartmentId().contains(variables.get("departmentId"))||user.getUid()!=(Integer)variables.get("waitAssignee")) return Result.error(ErrorEnum.NO_AUTH);
+        if (!"挂号".equals(task.getName())) return Result.error("已经在诊断了，请问重复发送");
+
+        taskService.setVariable(task.getId(),"check",0);
+        taskService.complete(task.getId());
+        task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
+        taskService.setVariable(task.getId(),"uid",user.getUid());
+        taskService.setAssignee(task.getId(),user.getUsername());
         return Result.ok();
     }
 

@@ -73,6 +73,13 @@ public class ActivitiController {
                 .put("personalDuringList",personalDuringList);
     }
 
+    @PostMapping("/sysconsultation")
+    public Result sysconsultation(String processInstanceId,Integer uid){
+        Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
+        taskService.setVariable(task.getId(),"waitAssignee",uid);
+        return Result.ok();
+    }
+
     @PostMapping("/consultation")
     public Result consultation(String processInstanceId){
         Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();

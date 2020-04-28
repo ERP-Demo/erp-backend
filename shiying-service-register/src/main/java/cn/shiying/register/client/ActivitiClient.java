@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient("shiying-service-activiti")
 public interface ActivitiClient {
     @PostMapping("/activiti/startPatient")
-    Result startPatient(Integer departmentId);
+    Result startPatient(@RequestParam("departmentId") Integer departmentId);
 
     @PostMapping("/activiti/consultation")
     Result consultation(String processInstanceId);

@@ -116,9 +116,10 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="_13" id="BPMNEdge__13" sourceElement="_6" targetElement="_15">
         <di:waypoint x="862.0" y="286.0"/>
+        <di:waypoint x="875.0" y="330.0"/>
         <di:waypoint x="895.0" y="367.5"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+          <dc:Bounds height="5.0" width="0.0" x="0.0" y="5.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_12" id="BPMNEdge__12" sourceElement="_6" targetElement="_10">

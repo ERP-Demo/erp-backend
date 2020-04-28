@@ -113,36 +113,6 @@ zuul:
       serviceId: shiying-service-scheduling
       strip-prefix: false
       sensitiveHeaders:
-    service-scheduling:
-      path: /scheduling/**
-      serviceId: shiying-service-scheduling
-      strip-prefix: false
-      sensitiveHeaders:
-    service-scheduling:
-      path: /scheduling/**
-      serviceId: shiying-service-scheduling
-      strip-prefix: false
-      sensitiveHeaders:
-    service-scheduling:
-      path: /scheduling/**
-      serviceId: shiying-service-scheduling
-      strip-prefix: false
-      sensitiveHeaders:
-    service-scheduling:
-      path: /scheduling/**
-      serviceId: shiying-service-scheduling
-      strip-prefix: false
-      sensitiveHeaders:
-    service-scheduling:
-      path: /scheduling/**
-      serviceId: shiying-service-scheduling
-      strip-prefix: false
-      sensitiveHeaders:
-    service-scheduling:
-      path: /scheduling/**
-      serviceId: shiying-service-scheduling
-      strip-prefix: false
-      sensitiveHeaders:
     service-icd:
       path: /icd/**
       serviceId: shiying-service-icd

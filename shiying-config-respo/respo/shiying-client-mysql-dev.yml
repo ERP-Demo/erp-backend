@@ -4,7 +4,7 @@ spring:
       url: jdbc:mysql://rm-bp142lv533e0916loqo.mysql.rds.aliyuncs.com:3306/shiying?serverTimezone=GMT
       username: root
       password: Shiying0426
-      driverClassName: com.mysql.cj.jdbc.Driver
+      driverClassName: com.mysql.jdbc.Driver
       initialSize: 5
       minIdle: 5
       maxActive: 20

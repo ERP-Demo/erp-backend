@@ -34,7 +34,6 @@ public class TestSynthesizeController {
     @PreAuthorize("hasAuthority('test_synthesize:synthesize:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = synthesizeService.queryPage(params);
-
         return Result.ok().put("page", page);
     }
 

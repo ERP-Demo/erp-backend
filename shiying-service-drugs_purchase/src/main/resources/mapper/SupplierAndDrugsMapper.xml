@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shiying.drugs_purchase.mapper.SupplierAndDrugsMapper">
+
+    <!--根据供应商查询对应的药品-->
+    <select id="listDrugsSupplierVO" resultType="cn.shiying.drugs_purchase.entity.vo.DrugsSupplierVO">
+        select dd.drugs_id,dd.drugs_name,dd.drugs_price,dd.drugs_norms,dd.drugs_usage,dd.drugs_dosage,dd.drugs_taboo,dd.drugs_producer,dd.drugs_approval_number
+        from drugs_supplier ds
+        inner join supplier_detailed  sd
+        on ds.supplier_id=sd.supplier_id
+        inner join drugs_detailed dd
+        on ds.drugs_id=dd.drugs_id
+        <where>
+            <if test="params.supplierId != null and params.supplierId != ''">
+                and sd.supplier_id = #{params.supplierId}
+            </if>
+        </where>
+    </select>
+
+</mapper>

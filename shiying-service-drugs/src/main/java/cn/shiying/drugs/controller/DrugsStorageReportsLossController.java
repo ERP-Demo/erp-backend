@@ -37,10 +37,4 @@ public class DrugsStorageReportsLossController {
         return Result.ok();
     }
 
-    @GetMapping("/StorageReportList")
-    public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = storageService.queryPage(params);
-        return Result.ok().put("page", page);
-    }
-
 }

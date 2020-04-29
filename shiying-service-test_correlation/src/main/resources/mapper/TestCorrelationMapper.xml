@@ -12,16 +12,20 @@
         <result column="createtime" property="createtime" />
         <result column="uid" property="uid" />
     </resultMap>
-    <resultMap id="WithTestCorrelationOV" extends="BaseResultMap" type="cn.shiying.test_correlation.entity.vo.TestCorrelationVO">
+
+    <resultMap id="WithProjects" type="cn.shiying.test_correlation.entity.VO.TestCorrelationVO">
         <association property="testProjects" column="test_projects_id" select="cn.shiying.common.mapper.TestProjects.TestProjectsMapper.selectById" />
-        <association property="testSynthesize" column="test_synthesize_id" select="cn.shiying.common.mapper.TestSynthesize.TestSynthesizeMapper.selectById" />
     </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         test_synthesize_id, test_projects_id, floor, ceiling, unit, createtime, uid
     </sql>
-    <!--不知道干嘛用的-->
-    <select id="listTestCorrelationOV" resultMap="WithTestCorrelationOV">
-        select <include refid="Base_Column_List" /> from  test_correlation
+
+    <select id="list" resultMap="WithProjects">
+        select <include refid="Base_Column_List" /> from test_correlation where test_synthesize_id=#{params.pid}
     </select>
+
+
+
 </mapper>

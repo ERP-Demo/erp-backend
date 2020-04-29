@@ -53,7 +53,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         List<SysMenu> menuList = queryListParentId(0, menuIdList);
         //递归生成特定格式的菜单列表
         getMenuTreeList(menuList, menuIdList);
-
         return menuList;
     }
     /**

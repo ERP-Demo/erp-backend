@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-test_correlationaffiliate
+
+server:
+  port: 63366
+  servlet:
+    context-path: /test_correlationaffiliate

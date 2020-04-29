@@ -9,9 +9,9 @@ import org.springframework.context.annotation.ComponentScan;
 
 @EnableDiscoveryClient
 @EnableFeignClients
+@MapperScan("cn.shiying.common.mapper")
 @ComponentScan(basePackages = {"cn.shiying.config","cn.shiying.patient"})
 @SpringBootApplication
-@MapperScan("cn.shiying.common.mapper")
 public class PatientApplication {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(PatientApplication.class, args);

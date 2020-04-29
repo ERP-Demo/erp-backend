@@ -28,8 +28,7 @@ public class PatientDetailed implements Serializable {
     /**
      * 患者id
      */
-
-
+    @TableId(type = IdType.AUTO)
     private Integer patientId;
 
     /**
@@ -50,7 +49,6 @@ public class PatientDetailed implements Serializable {
     /**
      * 患者联系电话
      */
-    @TableField("patient_phone")
     private String patientPhone;
 
     /**

@@ -5,19 +5,38 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.shiying.register.entity.Register">
         <id column="register_id" property="registerId" />
-        <result column="patient_name" property="patientName" />
+        <result column="patient_id" property="patientId" />
         <result column="is_back" property="isBack" />
         <result column="register_cost" property="registerCost" />
         <result column="department_id" property="departmentId" />
     </resultMap>
     <resultMap id="WithDepartment" extends="BaseResultMap" type="cn.shiying.register.entity.Vo.departmentVo">
         <association property="department" column="department_id" select="cn.shiying.common.mapper.DepartmentMapper.selectById" />
-        <association property="register" column="register_id" select="cn.shiying.register.mapper.RegisterMapper.selectById" />    </resultMap>
+        <association property="patient" column="patient_id" select="cn.shiying.common.mapper.PatientDetailedMapper.selectById" />
+    </resultMap>
+
+    <resultMap id="WithPatien" extends="BaseResultMap" type="cn.shiying.register.entity.Vo.RegisterPatientVO">
+        <association property="patient" column="patient_id" select="cn.shiying.common.mapper.PatientDetailedMapper.selectById" />
+    </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        register_id, patient_name, is_back, register_cost, department_id
+        register_id, patient_id, status, register_cost, department_id,process_instance_id
     </sql>
     <select id="departmentvo" resultMap="WithDepartment">
-select <include refid="Base_Column_List"/> from register
+        select <include refid="Base_Column_List"/> from register
+    </select>
+
+    <select id="list" resultMap="WithPatien">
+        select <include refid="Base_Column_List"/> from register
+        <where>
+            register_id in
+            <foreach item="id" collection="ids" separator="," open="(" close=")" index="">
+                #{id}
+            </foreach>
+        </where>
+    </select>
+
+    <select id="listPage" resultMap="WithPatien">
+        select <include refid="Base_Column_List"/> from register where status=0
     </select>
 </mapper>

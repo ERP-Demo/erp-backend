@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-icd
+
+server:
+  port: 5003
+  servlet:
+    context-path: /icd

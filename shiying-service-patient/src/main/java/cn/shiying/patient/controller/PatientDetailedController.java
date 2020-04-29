@@ -57,8 +57,7 @@ public class PatientDetailedController {
     public Result save(@RequestBody PatientDetailed detailed){
         ValidatorUtils.validateEntity(detailed);
         detailedService.save(detailed);
-
-        return Result.ok();
+        return Result.ok().put("id",detailed.getPatientId());
     }
 
     /**
@@ -82,4 +81,6 @@ public class PatientDetailedController {
 
         return Result.ok();
     }
+
+
 }

@@ -34,4 +34,9 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
         return new PageUtils(page);
     }
 
+    @Override
+    public Department selectById(Integer did) {
+        return baseMapper.selectById(did);
+    }
+
 }

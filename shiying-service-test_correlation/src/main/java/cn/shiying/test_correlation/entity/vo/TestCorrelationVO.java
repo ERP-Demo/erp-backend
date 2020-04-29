@@ -1,11 +1,11 @@
-package cn.shiying.test_correlation.entity.vo;
+package cn.shiying.test_correlation.entity.VO;
 
 import cn.shiying.common.entity.TestProjects.TestProjects;
-import cn.shiying.common.entity.TestSynthesize.TestSynthesize;
+import cn.shiying.test_correlation.entity.TestCorrelation;
+import lombok.Data;
 
-public class TestCorrelationVO {
-    //化验项目的具体内容
+
+@Data
+public class TestCorrelationVO extends TestCorrelation {
     private TestProjects testProjects;
-    //化验项目的大体
-    private TestSynthesize testSynthesize;
 }

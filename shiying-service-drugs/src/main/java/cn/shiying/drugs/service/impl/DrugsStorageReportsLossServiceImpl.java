@@ -32,9 +32,7 @@ public class DrugsStorageReportsLossServiceImpl extends ServiceImpl<DrugsStorage
     }
 
     @Override
-    public void addStorageReport(DrugsStorageReportsLoss drugsStorage) {
-        baseMapper.addStorageReport(drugsStorage);
-    }
+    public void addStorageReport(DrugsStorageReportsLoss drugsStorage) { baseMapper.addStorageReport(drugsStorage); }
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {

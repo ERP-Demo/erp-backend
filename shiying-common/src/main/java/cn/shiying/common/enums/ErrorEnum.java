@@ -43,7 +43,8 @@ public enum ErrorEnum {
     MENU_PARENT_IS_NULL(20002,"上级菜单不能为空"),
     MENU_URL_IS_NULL(20003,"菜单URL不能为空"),
     MENU_PARENT_NO_CATALOG(20004,"上级菜单只能为目录类型"),
-    MENU_PARENT_NO_MENU(20005,"上级菜单只能为菜单类型");
+    MENU_PARENT_NO_MENU(20005,"上级菜单只能为菜单类型"),
+    PARENT_IS_NULL(20006,"父项目id为空");
 
     private int code;
     private String msg;

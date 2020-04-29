@@ -1,8 +1,8 @@
 spring:
   application:
-    name: shiying-service-users_department
+    name: shiying-service-users-department
 
 server:
-  port: 60666
+  port: 10086
   servlet:
     context-path: /users_department

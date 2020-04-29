@@ -3,6 +3,8 @@ package cn.shiying.department.service;
 import cn.shiying.common.entity.department.Department;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
+import feign.Param;
+
 import java.util.Map;
 
 /**
@@ -21,4 +23,5 @@ public interface DepartmentService extends IService<Department> {
      * @return
      */
      PageUtils queryPage(Map<String, Object> params);
+     Department selectById(@Param("did") Integer did);
 }

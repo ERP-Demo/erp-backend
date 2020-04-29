@@ -1,5 +1,6 @@
 package cn.shiying.ucenter.mapper;
 
+import cn.shiying.common.entity.scheduling.Vo.SysUserVo;
 import cn.shiying.common.entity.sys.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -30,4 +31,5 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * @return
      */
     List<Integer> queryAllMenuId(Integer userId);
+
 }

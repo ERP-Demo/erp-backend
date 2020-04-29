@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -45,19 +47,15 @@ public class DrugsPurchase implements Serializable {
     private Double purchaseActualAmountPaid;
 
     /**
-     * 审核 0是未审核 1是审核通过 2是审核未通过
-     */
-    private Integer purchaseState;
-
-    /**
-     * 审核未通过原因
-     */
-    private String purchaseFailure;
-
-    /**
      * 购入日期
      */
-    private LocalDateTime purchaseTime;
+    private String purchaseTime;
 
-
+//    public DrugsPurchase(String purchaseId, Integer supplierId, Double purchaseAmountPayable, Double purchaseActualAmountPaid, Date purchaseTime) {
+//        this.purchaseId = purchaseId;
+//        this.supplierId = supplierId;
+//        this.purchaseAmountPayable = purchaseAmountPayable;
+//        this.purchaseActualAmountPaid = purchaseActualAmountPaid;
+//        this.purchaseTime = purchaseTime;
+//    }
 }

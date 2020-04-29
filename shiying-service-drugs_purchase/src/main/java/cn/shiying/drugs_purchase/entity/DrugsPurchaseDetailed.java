@@ -1,20 +1,15 @@
-package cn.shiying.common.entity.Drugs;
+package cn.shiying.drugs_purchase.entity;
 
+import cn.shiying.drugs_purchase.entity.form.DrugsAndDetailed;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-/**
- * <p>
- * 
- * </p>
- *
- * @author tyb
- * @since 2020-04-22
- */
+import java.io.Serializable;
+import java.util.List;
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
@@ -25,7 +20,7 @@ public class DrugsPurchaseDetailed implements Serializable {
     /**
      * 购入详情编号
      */
-    @TableId(value = "pdid", type = IdType.AUTO)
+    @TableId(value = "pdid", type = IdType.ID_WORKER_STR)
     private Integer pdid;
 
     /**
@@ -34,19 +29,19 @@ public class DrugsPurchaseDetailed implements Serializable {
     private Integer drugsId;
 
     /**
-     * 购入药品编号
+     * 药品购入表编号
      */
     private String purchaseId;
 
     /**
      * 进货单价
      */
-    private Integer price;
+    private String pdMoney;
 
     /**
      * 进货数量
      */
-    private Integer num;
+    private String pdNum;
 
-
+    List<DrugsAndDetailed> list;
 }

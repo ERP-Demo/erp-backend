@@ -40,7 +40,6 @@ public class DrugsStorageReportsLossServiceImpl extends ServiceImpl<DrugsStorage
     public PageUtils queryPage(Map<String, Object> params) {
         Page page=new Query<DrugsStorageReportsLoss>(params).getPage();
         List<DrugsDetailedVO> list= baseMapper.listDrugsDetailedVO(page,params);
-        System.out.println("数据:"+list);
         page.setRecords(list);
         return new PageUtils(page);
     }

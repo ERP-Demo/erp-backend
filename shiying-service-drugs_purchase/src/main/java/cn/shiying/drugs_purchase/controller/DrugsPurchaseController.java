@@ -3,6 +3,7 @@ package cn.shiying.drugs_purchase.controller;
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
 import cn.shiying.common.entity.Drugs.DrugsPurchaseDetailed;
 import cn.shiying.common.entity.supplier.SupplierDetailed;
+import cn.shiying.drugs_purchase.entity.form.DrugsAndDetailed;
 import cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
@@ -39,7 +40,6 @@ public class DrugsPurchaseController {
     @PreAuthorize("hasAuthority('drugs_purchase:purchase:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = purchaseService.queryPage(params);
-
         return Result.ok().put("page", page);
     }
 
@@ -63,7 +63,6 @@ public class DrugsPurchaseController {
     public Result save(@RequestBody DrugsPurchase purchase){
         ValidatorUtils.validateEntity(purchase);
         purchaseService.save(purchase);
-
         return Result.ok();
     }
 
@@ -95,29 +94,42 @@ public class DrugsPurchaseController {
         return Result.ok().put("all",all);
     }
 
-    @GetMapping("/sname")
-    public Result sname(){
-        List<SupplierDetailed> sname = purchaseService.selectSname();
-        return Result.ok().put("sname",sname);
+    @GetMapping("/supplier")
+    public Result supplier(){
+        List<SupplierDetailed> supplier = purchaseService.selectSname();
+        return Result.ok().put("supplier",supplier);
     }
 
-    @GetMapping("/dname")
-    public Result dname(){
-        List<DrugsDetailed> dname = purchaseService.selectDname();
-        return Result.ok().put("dname",dname);
+    @GetMapping("/drugs")
+    public Result drugs(){
+        List<DrugsDetailed> drugs = purchaseService.selectDname();
+        return Result.ok().put("drugs",drugs);
     }
 
     @PostMapping("/pur")
     public Result pur(@RequestBody DrugsPurchase purchase){
         int flag=purchaseService.insertPurchase(purchase);
-
         return Result.ok();
     }
 
     @PostMapping("/det")
     public Result det(@RequestBody DrugsPurchaseDetailed drugsPurchaseDetailed){
         int flag=purchaseService.insertDetailed(drugsPurchaseDetailed);
+        return Result.ok();
+    }
 
+    @GetMapping("/selectSupplierIdByDrugs")
+    public Result selectSupplierIdByDrugs(@RequestParam Map<String, Object> params){
+        PageUtils page = purchaseService.queryPage(params);
+        return Result.ok().put("page", page);
+    }
+
+    /**
+     * 药品进货
+     */
+    @PostMapping("/addSupplierAndDrugs")
+    public Result addSupplierAndDrugs(@RequestBody DrugsAndDetailed detailed){
+        purchaseService.addSupplierAndDrugs(detailed);
         return Result.ok();
     }
 }

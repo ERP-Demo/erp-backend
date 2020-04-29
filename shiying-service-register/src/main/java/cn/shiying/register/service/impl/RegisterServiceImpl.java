@@ -34,8 +34,9 @@ public class RegisterServiceImpl extends ServiceImpl<RegisterMapper, Register> i
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        IPage<Register> page=baseMapper.selectPage(new Query<Register>(params).getPage(),
-                new QueryWrapper<Register>().lambda());
+        Page<departmentVo> page=new Query<departmentVo>(params).getPage();
+        List<departmentVo> list=baseMapper.departmentvo(page,params);
+        page.setRecords(list);
         return new PageUtils(page);
     }
 
@@ -43,6 +44,7 @@ public class RegisterServiceImpl extends ServiceImpl<RegisterMapper, Register> i
     public List<departmentVo> departmentvo() {
         return baseMapper.departmentvo();
     }
+
 
     @Override
     public List<RegisterPatientVO> list(List<Integer> id) {

@@ -9,6 +9,5 @@ import lombok.Data;
 public class departmentVo extends Register {
 
     private Department department;
-    private Register register;
-    private PatientDetailed patientDetailed;
+    private PatientDetailed patient;
 }

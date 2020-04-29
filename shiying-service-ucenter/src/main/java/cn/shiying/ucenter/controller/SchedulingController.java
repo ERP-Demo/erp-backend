@@ -1,9 +1,12 @@
 package cn.shiying.ucenter.controller;
 
 import cn.shiying.common.entity.scheduling.Scheduling;
+import cn.shiying.common.entity.scheduling.Vo.SysUserVo;
+import cn.shiying.common.entity.sys.SysUser;
 import cn.shiying.ucenter.service.SchedulingService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +37,8 @@ public class SchedulingController {
     @PreAuthorize("hasAuthority('scheduling:scheduling:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = schedulingService.queryPage(params);
-
-        return Result.ok().put("page", page);
+        List<SysUserVo> sysUserVos = schedulingService.SysUserVo();
+        return Result.ok().put("page", page).put("list",sysUserVos);
     }
 
 
@@ -82,5 +85,13 @@ public class SchedulingController {
         schedulingService.removeByIds(Arrays.asList(ids));
 
         return Result.ok();
+    }
+    @RequestMapping("/All")
+    public Result all(){
+        List<SysUser> sysUsers = schedulingService.sysUser();
+        for (SysUser User : sysUsers) {
+            System.out.println(User);
+        }
+        return Result.ok().put("list",sysUsers);
     }
 }

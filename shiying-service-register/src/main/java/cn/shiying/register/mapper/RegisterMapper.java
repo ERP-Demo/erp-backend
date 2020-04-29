@@ -21,9 +21,11 @@ import java.util.Map;
  */
 @Mapper
 public interface RegisterMapper extends BaseMapper<Register> {
-    List<departmentVo> departmentvo();
+    List<departmentVo> departmentvo(Page<departmentVo> page,@Param("params") Map<String, Object> params);
 
     List<RegisterPatientVO> list(@Param("ids") List<Integer> ids);
 
     List<RegisterPatientVO> listPage(Page page,@Param("params") Map<String, Object> params);
+
+    List<departmentVo> departmentvo();
 }

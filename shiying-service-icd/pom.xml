@@ -9,10 +9,15 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../shiying-dependencies/pom.xml</relativePath>
     </parent>
-    <artifactId>shiying-service-activiti</artifactId>
-    <name>shiying-service-activiti</name>
+    <artifactId>shiying-service-icd</artifactId>
+    <name>shiying-service-icd</name>
 
     <dependencies>
+        <dependency>
+            <groupId>cn.shiying</groupId>
+            <artifactId>shiying-common</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
         <dependency>
             <groupId>cn.shiying</groupId>
             <artifactId>shiying-common-config</artifactId>
@@ -43,19 +48,13 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
     <build>

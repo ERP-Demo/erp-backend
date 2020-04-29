@@ -5,13 +5,23 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.shiying.common.entity.scheduling.Scheduling">
         <id column="id" property="id" />
+        <result column="user_id" property="userId"/>
         <result column="starttime" property="starttime" />
         <result column="endtime" property="endtime" />
+    </resultMap>
+    <resultMap id="WithDepartment" extends="BaseResultMap" type="cn.shiying.common.entity.scheduling.Vo.SysUserVo">
+        <association property="sysuser" column="user_id" select="cn.shiying.ucenter.mapper.SysUserMapper.selectById" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, starttime, endtime
+        id,  user_id,starttime, endtime
     </sql>
+    <select id="SysUserVo" resultMap="WithDepartment">
+        select <include refid="Base_Column_List" /> from  scheduling
+    </select>
+    <select id="sysUser" resultType="cn.shiying.common.entity.sys.SysUser">
+               select * from sys_user
+    </select>
 
 </mapper>

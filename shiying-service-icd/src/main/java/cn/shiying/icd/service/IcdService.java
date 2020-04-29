@@ -1,8 +1,6 @@
-package cn.shiying.ucenter.service;
+package cn.shiying.icd.service;
 
-import cn.shiying.common.entity.scheduling.Scheduling;
-import cn.shiying.common.entity.scheduling.Vo.SysUserVo;
-import cn.shiying.common.entity.sys.SysUser;
+import cn.shiying.icd.entity.Icd;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
 
@@ -17,7 +15,7 @@ import java.util.Map;
  * @author tyb
  * @since 2020-04-27
  */
-public interface SchedulingService extends IService<Scheduling> {
+public interface IcdService extends IService<Icd> {
 
     /**
      * 分页查询
@@ -25,6 +23,4 @@ public interface SchedulingService extends IService<Scheduling> {
      * @return
      */
      PageUtils queryPage(Map<String, Object> params);
-    List<SysUserVo> SysUserVo();
-    List<SysUser> sysUser();
 }

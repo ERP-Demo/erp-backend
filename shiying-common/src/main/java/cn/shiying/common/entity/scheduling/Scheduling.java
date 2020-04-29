@@ -29,6 +29,7 @@ public class Scheduling implements Serializable {
 
     @TableId(value = "id",  type = IdType.AUTO)
     private Integer id;
+    private Integer userId;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date starttime;

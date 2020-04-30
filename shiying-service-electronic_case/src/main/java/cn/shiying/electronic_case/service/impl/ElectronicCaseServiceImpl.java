@@ -35,7 +35,7 @@ public class ElectronicCaseServiceImpl extends ServiceImpl<ElectronicCaseMapper,
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         Page page=new Query<ElectronicCase>(params).getPage();
-        List<ElectronicCaseVO> list= baseMapper.listElectronicCaseVO();
+        List<ElectronicCaseVO> list= baseMapper.listElectronicCaseVO(params);
         System.out.println(list);
         page.setRecords(list);
         return new PageUtils(page);

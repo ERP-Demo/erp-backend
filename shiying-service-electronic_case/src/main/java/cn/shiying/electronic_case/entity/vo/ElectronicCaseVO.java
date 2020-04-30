@@ -12,14 +12,9 @@ public class ElectronicCaseVO extends ElectronicCase {
      * 患者
      */
     private String patientName;
-
-
     /**
      * 医生
      */
-//    private SysUser user;
-    /**
-     * 科室
-     */
-    private String departmentName;
+    private String username;
+
 }

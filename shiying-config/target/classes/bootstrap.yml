@@ -10,10 +10,8 @@ spring:
       label: master
       server:
         git:
-          uri: https://github.com/81118597/respo.git
-          search-paths: respo
-          username: 81118597@qq.com
-          password: a20020429A
+          uri: https://github.com/ERP-Demo/erp-backend.git
+          search-paths: shiying-config-respo/respo
   zipkin:
     base-url: http://localhost:9411
 

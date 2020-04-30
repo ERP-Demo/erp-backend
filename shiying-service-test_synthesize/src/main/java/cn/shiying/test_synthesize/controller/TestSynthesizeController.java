@@ -57,7 +57,6 @@ public class TestSynthesizeController {
     public Result save(@RequestBody TestSynthesize synthesize){
         ValidatorUtils.validateEntity(synthesize);
         synthesizeService.save(synthesize);
-
         return Result.ok();
     }
 

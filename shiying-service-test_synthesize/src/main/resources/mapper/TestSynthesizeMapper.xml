@@ -12,5 +12,12 @@
     <sql id="Base_Column_List">
         test_synthesize_id, test_synthesize_name
     </sql>
-
+    <select id="queryByCatnum" resultMap="BaseResultMap">
+        select * from test_synthesize
+        <where>
+            <if test="params.testSynthesizeName != null and params.testSynthesizeName != ''">
+                and test_synthesize_name LIKE concat('%',#{params.testSynthesizeName},'%')
+            </if>
+        </where>
+    </select>
 </mapper>

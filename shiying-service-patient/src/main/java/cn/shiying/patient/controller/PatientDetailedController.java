@@ -34,7 +34,7 @@ public class PatientDetailedController {
     @PreAuthorize("hasAuthority('patient:detailed:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = detailedService.queryPage(params);
-
+        System.out.println(page);
         return Result.ok().put("page", page);
     }
 

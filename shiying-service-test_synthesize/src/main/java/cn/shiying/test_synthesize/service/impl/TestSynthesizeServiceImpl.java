@@ -3,12 +3,15 @@ package cn.shiying.test_synthesize.service.impl;
 import cn.shiying.test_synthesize.entity.TestSynthesize;
 import cn.shiying.test_synthesize.mapper.TestSynthesizeMapper;
 import cn.shiying.test_synthesize.service.TestSynthesizeService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import cn.shiying.common.utils.Query;
 import cn.shiying.common.utils.PageUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,8 +32,10 @@ public class TestSynthesizeServiceImpl extends ServiceImpl<TestSynthesizeMapper,
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        IPage<TestSynthesize> page=baseMapper.selectPage(new Query<TestSynthesize>(params).getPage(),
-                new QueryWrapper<TestSynthesize>().lambda());
+        Page page=new Query<TestSynthesize>(params).getPage();
+        List<TestSynthesize> list= baseMapper.queryByCatnum(page,params);
+        System.out.println(list);
+        page.setRecords(list);
         return new PageUtils(page);
     }
 

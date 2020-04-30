@@ -62,7 +62,6 @@ public class ElectronicCaseController {
         cas.setUid(getUser().getUid());
         System.out.println(cas);
         caseService.save(cas);
-        System.out.println(caseService.save(cas));
         return Result.ok();
     }
 

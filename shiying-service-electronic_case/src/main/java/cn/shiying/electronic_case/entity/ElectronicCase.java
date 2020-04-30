@@ -41,6 +41,11 @@ public class ElectronicCase implements Serializable {
     private Integer patientId;
 
     /**
+     * 挂号编号
+     */
+    private Integer registerId;
+
+    /**
      * 主诉
      */
     private String complain;
@@ -71,20 +76,15 @@ public class ElectronicCase implements Serializable {
      */
     private String treatment;
     /**
-     * 入院时间
-     *
+     * icd编号
      */
-    private LocalDateTime enterHospital;
-
+    private Integer icdId;
     /**
-     * 出院时间
+     * 中文名称
      */
-    private LocalDateTime leaveHospital;
-
+    private String icdName;
     /**
-     * 医嘱
+     * 疾病编码
      */
-    private String doctorAdvice;
-
-
+    private String icdCode;
 }

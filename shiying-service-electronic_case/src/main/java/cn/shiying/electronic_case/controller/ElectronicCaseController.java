@@ -1,7 +1,10 @@
 package cn.shiying.electronic_case.controller;
 
+import cn.shiying.common.entity.token.JwtUser;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +59,10 @@ public class ElectronicCaseController {
     @PreAuthorize("hasAuthority('electronic_case:case:save')")
     public Result save(@RequestBody ElectronicCase cas){
         ValidatorUtils.validateEntity(cas);
+        cas.setUid(getUser().getUid());
+        System.out.println(cas);
         caseService.save(cas);
-
+        System.out.println(caseService.save(cas));
         return Result.ok();
     }
 
@@ -79,7 +84,16 @@ public class ElectronicCaseController {
     @PreAuthorize("hasAuthority('electronic_case:case:delete')")
     public Result delete(@RequestBody String[] ids){
         caseService.removeByIds(Arrays.asList(ids));
-
         return Result.ok();
     }
+
+    public JwtUser getUser(){
+        Map<String,Object> map= (Map<String, Object>) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        JwtUser user=new JwtUser();
+        user.setUid((Integer) map.get("uid"));
+        user.setUsername((String) map.get("username"));
+        user.setDepartmentId((List<Integer>) map.get("departmentId"));
+        return user;
+    }
+
 }

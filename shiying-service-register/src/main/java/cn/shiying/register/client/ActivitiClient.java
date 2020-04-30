@@ -4,19 +4,28 @@ import cn.shiying.common.dto.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
+@RequestMapping("/activiti")
 @FeignClient("shiying-service-activiti")
 public interface ActivitiClient {
-    @PostMapping("/activiti/startPatient")
+    @PostMapping("/startPatient")
     Result startPatient(@RequestParam("departmentId") Integer departmentId);
 
-    @PostMapping("/activiti/consultation")
+    @PostMapping("/consultation")
     Result consultation(String processInstanceId);
 
-    @GetMapping("/activiti/registerPatient")
+    @GetMapping("/registerPatient")
     Result registerPatient();
 
-    @PostMapping("/activiti/registerId")
+    @PostMapping("/registerId")
     Result registerId(@RequestParam("processInstanceId") String processInstanceId,@RequestParam("registerId")  Integer registerId);
+
+    @PostMapping("/back")
+    Result back(@RequestParam("processInstanceId") String processInstanceId);
+
+    @PostMapping("/bpmName")
+    Result bpmName(@RequestParam("processInstanceId") String processInstanceId);
 }

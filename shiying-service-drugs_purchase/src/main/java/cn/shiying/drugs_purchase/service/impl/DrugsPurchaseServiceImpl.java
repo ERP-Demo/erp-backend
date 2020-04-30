@@ -8,8 +8,11 @@ import cn.shiying.drugs_purchase.entity.form.Drugs;
 import cn.shiying.drugs_purchase.entity.form.DrugsAndDetailed;
 import cn.shiying.drugs_purchase.entity.DrugsPurchase;
 import cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO;
+import cn.shiying.drugs_purchase.entity.vo.DrugsSupplierVO;
+import cn.shiying.drugs_purchase.entity.vo.PurchaseSupplierVo;
 import cn.shiying.drugs_purchase.mapper.DrugsPurchaseMapper;
 import cn.shiying.drugs_purchase.service.DrugsPurchaseService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -37,8 +40,8 @@ import java.util.Map;
 @Service
 public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, DrugsPurchase> implements DrugsPurchaseService {
 
-//    @Autowired
-//    DrugsSchedule schedule;
+    @Autowired
+    DrugsSchedule schedule;
 
     /**
      * 分页查询
@@ -47,8 +50,9 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        IPage<DrugsPurchase> page=baseMapper.selectPage(new Query<DrugsPurchase>(params).getPage(),
-                new QueryWrapper<DrugsPurchase>().lambda());
+        Page page=new Query<DrugsPurchase>(params).getPage();
+        List<PurchaseSupplierVo> list= baseMapper.DrugsPurchaseList(page,params);
+        page.setRecords(list);
         return new PageUtils(page);
     }
 
@@ -61,8 +65,7 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
     @Override
     public void addSupplierAndDrugs(DrugsAndDetailed drugsAndDetailed) {
         //进货单号
-//        String PurchaseId = schedule.createId();
-        String PurchaseId="1";
+        String PurchaseId = schedule.createId();
 
         //循环Drugs数据
         List<Drugs> DrugsList=drugsAndDetailed.getDetailed();
@@ -74,19 +77,15 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
             AllTotal+=total;
         }
 
-        System.out.println("进入药品");
         //药品购入表
         DrugsPurchase dp=new DrugsPurchase();
         dp.setPurchaseId(PurchaseId);//订单编号
         dp.setSupplierId(drugsAndDetailed.getSupplierId());//供应商编号
         dp.setPurchaseAmountPayable(AllTotal);//应付金额
         dp.setPurchaseActualAmountPaid(drugsAndDetailed.getPayPrice());//已付订金
-        System.out.println("对象1："+dp);
         baseMapper.addDrugsPurchase(dp);
 
-        System.out.println("进入药品详细表");
         //药品购入详细表
-
         List<DrugsPurchaseDetailed> as=new ArrayList<>();
         DrugsPurchaseDetailed dpd;
         //循环Drugs数据
@@ -95,12 +94,10 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
             dpd=new DrugsPurchaseDetailed();
             dpd.setDrugsId(drugs.getDrugsId());//药品编号
             dpd.setPurchaseId(dp.getPurchaseId());//药品购入表编号
-            dpd.setPrice(drugs.getPrice());//价格
-            dpd.setNum(drugs.getNum());//数量
+            dpd.setPdMoney(drugs.getPrice());//价格
+            dpd.setPdNum(drugs.getNum());//数量
             as.add(dpd);
         }
-        System.out.println("对象2:"+as);
-//        System.out.println(drugsAndDetailed);
         baseMapper.addDrugsPurchaseDetailed(as);
     }
 

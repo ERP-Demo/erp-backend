@@ -8,14 +8,20 @@ import org.springframework.scheduling.annotation.Scheduled;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-//@Configuration
-//@EnableScheduling
+@Configuration
+@EnableScheduling
 public class DrugsSchedule {
 
-    int num = 1;
+    private int num;
+    public DrugsSchedule(){
+        num=1;
+    }
 
-//    @Bean
-//    @Scheduled(cron = "0 0 0 * * ?")
+    @Scheduled(cron = "0 0 0 * * ?")
+    public void restid(){
+        num=1;
+    }
+
     public String createId() {
         //进货单号
         String n="";

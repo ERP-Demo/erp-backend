@@ -51,11 +51,4 @@ public class DrugsPurchase implements Serializable {
      */
     private String purchaseTime;
 
-//    public DrugsPurchase(String purchaseId, Integer supplierId, Double purchaseAmountPayable, Double purchaseActualAmountPaid, Date purchaseTime) {
-//        this.purchaseId = purchaseId;
-//        this.supplierId = supplierId;
-//        this.purchaseAmountPayable = purchaseAmountPayable;
-//        this.purchaseActualAmountPaid = purchaseActualAmountPaid;
-//        this.purchaseTime = purchaseTime;
-//    }
 }

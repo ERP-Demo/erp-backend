@@ -26,12 +26,13 @@ import java.util.Map;
 @RunWith(SpringRunner.class)
 public class TestDrugs_purchase {
 
-//    @Autowired
-//    DrugsSchedule schedule;
+    @Autowired
+    DrugsSchedule schedule;
     @Test
     public void test3() {
-        System.out.println("1");
-//        System.out.println(schedule.createId());
+//        System.out.println("1");
+        System.out.println(schedule.createId());
+        System.out.println(schedule.createId());
     }
 
 }

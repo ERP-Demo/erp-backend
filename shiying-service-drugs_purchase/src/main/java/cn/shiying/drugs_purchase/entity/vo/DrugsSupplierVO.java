@@ -1,7 +1,6 @@
 package cn.shiying.drugs_purchase.entity.vo;
 
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
-import cn.shiying.common.entity.supplier.SupplierDetailed;
 import cn.shiying.drugs_purchase.entity.DrugsSupplier;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,6 +10,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class DrugsSupplierVO extends DrugsSupplier {
+
     /**
      * 药品编号，主键ID，主键，非空
      */

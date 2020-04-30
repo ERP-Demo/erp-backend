@@ -41,12 +41,12 @@ public class DrugsPurchaseDetailed implements Serializable {
     /**
      * 进货单价
      */
-    private Integer price;
+    private Integer pdMoney;
 
     /**
      * 进货数量
      */
-    private Integer num;
+    private Integer pdNum;
 
 
 }

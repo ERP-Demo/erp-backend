@@ -118,3 +118,8 @@ zuul:
       serviceId: shiying-service-icd
       strip-prefix: false
       sensitiveHeaders:
+    service-drug_model:
+      path: /drug_model/**
+      serviceId: shiying-service-drug_model
+      strip-prefix: false
+      sensitiveHeaders:

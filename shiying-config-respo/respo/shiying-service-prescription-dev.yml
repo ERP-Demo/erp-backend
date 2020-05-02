@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-prescription
+
+server:
+  port: 5004
+  servlet:
+    context-path: /prescription

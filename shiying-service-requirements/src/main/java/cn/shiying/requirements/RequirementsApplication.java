@@ -1,18 +1,18 @@
-package cn.shiying.activiti;
+package cn.shiying.requirements;
 
-
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 @EnableDiscoveryClient
-@ComponentScan(basePackages = {"cn.shiying.config", "cn.shiying.activiti"})
+@EnableFeignClients
+@ComponentScan(basePackages = {"cn.shiying.config","cn.shiying.requirements"})
 @SpringBootApplication
-public class ActivitiApplication {
+public class RequirementsApplication {
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(ActivitiApplication.class, args);
+        SpringApplication.run(RequirementsApplication.class, args);
     }
 
 }

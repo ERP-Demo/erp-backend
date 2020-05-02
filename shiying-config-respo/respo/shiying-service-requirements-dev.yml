@@ -1,8 +1,0 @@
-spring:
-  application:
-    name: shiying-service-requirements
-
-server:
-  port: 40886
-  servlet:
-    context-path: /requirements

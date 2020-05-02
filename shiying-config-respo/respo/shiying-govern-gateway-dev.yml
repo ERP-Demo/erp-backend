@@ -123,3 +123,8 @@ zuul:
       serviceId: shiying-service-drug_model
       strip-prefix: false
       sensitiveHeaders:
+    service-prescription:
+      path: /prescription/**
+      serviceId: shiying-service-prescription
+      strip-prefix: false
+      sensitiveHeaders:

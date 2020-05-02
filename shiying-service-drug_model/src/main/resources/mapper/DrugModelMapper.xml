@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shiying.drug_model.mapper.DrugModelMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.shiying.drug_model.entity.DrugModel">
+        <id column="drug_model_id" property="drugModelId" />
+        <result column="drug_model_name" property="drugModelName" />
+        <result column="drug_model_ price" property="drugModel price" />
+        <result column="drug_model_ num" property="drugModel num" />
+        <result column="drug_model_ specs" property="drugModel specs" />
+        <result column="drug_model_ company" property="drugModel company" />
+        <result column="drug_model_ englishcode" property="drugModel englishcode" />
+        <result column="drug_model_ proposal" property="drugModel proposal" />
+        <result column="drug_model_ frequency" property="drugModel frequency" />
+        <result column="drug_model_ day" property="drugModel day" />
+        <result column="drug_model_ consumption" property="drugModel consumption" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        drug_model_id, drug_model_name, drug_model_ price, drug_model_ num, drug_model_ specs, drug_model_ company, drug_model_ englishcode, drug_model_ proposal, drug_model_ frequency, drug_model_ day, drug_model_ consumption
+    </sql>
+
+</mapper>

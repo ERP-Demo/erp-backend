@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-drug_model
+
+server:
+  port: 40999
+  servlet:
+    context-path: /drug_model

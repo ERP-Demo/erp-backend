@@ -1,6 +1,7 @@
 package cn.shiying.electronic_case.controller;
 
 import cn.shiying.common.entity.token.JwtUser;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;

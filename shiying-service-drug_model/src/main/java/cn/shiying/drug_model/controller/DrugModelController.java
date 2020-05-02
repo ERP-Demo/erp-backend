@@ -2,6 +2,7 @@ package cn.shiying.drug_model.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class DrugModelController {
     @PreAuthorize("hasAuthority('drug_model:model:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = modelService.queryPage(params);
-
+        System.out.println(page);
         return Result.ok().put("page", page);
     }
 

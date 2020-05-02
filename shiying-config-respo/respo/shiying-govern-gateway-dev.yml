@@ -128,3 +128,8 @@ zuul:
       serviceId: shiying-service-prescription
       strip-prefix: false
       sensitiveHeaders:
+    service-requirements:
+      path: /requirements/**
+      serviceId: shiying-service-requirements
+      strip-prefix: false
+      sensitiveHeaders:

@@ -1,6 +1,7 @@
 package cn.shiying.test_synthesize.service;
 
 import cn.shiying.test_synthesize.entity.TestSynthesize;
+import cn.shiying.test_synthesize.entity.form.SynthesizeAndProjects;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
 import java.util.Map;
@@ -21,4 +22,6 @@ public interface TestSynthesizeService extends IService<TestSynthesize> {
      * @return
      */
      PageUtils queryPage(Map<String, Object> params);
+
+    void addSynthesizeAndProjects(SynthesizeAndProjects synthesizeAndProjects);
 }

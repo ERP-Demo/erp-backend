@@ -1,5 +1,6 @@
 package cn.shiying.test_synthesize.controller;
 
+import cn.shiying.test_synthesize.entity.form.SynthesizeAndProjects;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
 import java.util.Map;
@@ -79,7 +80,15 @@ public class TestSynthesizeController {
     @PreAuthorize("hasAuthority('test_synthesize:synthesize:delete')")
     public Result delete(@RequestBody String[] ids){
         synthesizeService.removeByIds(Arrays.asList(ids));
+        return Result.ok();
+    }
 
+    /**
+     * 添加化验
+     */
+    @PostMapping("/addSynthesizeAndProjects")
+    public Result addSynthesizeAndProjects(@RequestBody SynthesizeAndProjects synthesizeAndProjects){
+        synthesizeService.addSynthesizeAndProjects(synthesizeAndProjects);
         return Result.ok();
     }
 }

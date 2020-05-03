@@ -1,8 +1,10 @@
 package cn.shiying.test_correlation.controller;
 
 import cn.shiying.common.enums.ErrorEnum;
+import cn.shiying.test_correlation.entity.vo.TestCorrelationVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +36,6 @@ public class TestCorrelationController {
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('test_correlation:correlation:list')")
     public Result list(@RequestParam Map<String, Object> params){
-        if (params.get("pid")==null) return Result.error(ErrorEnum.PARENT_IS_NULL);
         PageUtils page = correlationService.queryPage(params);
 
         return Result.ok().put("page", page);
@@ -85,4 +86,5 @@ public class TestCorrelationController {
 
         return Result.ok();
     }
+
 }

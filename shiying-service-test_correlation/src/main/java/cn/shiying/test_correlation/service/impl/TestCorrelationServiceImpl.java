@@ -1,13 +1,11 @@
 package cn.shiying.test_correlation.service.impl;
 
 import cn.shiying.test_correlation.entity.TestCorrelation;
-import cn.shiying.test_correlation.entity.VO.TestCorrelationVO;
+import cn.shiying.test_correlation.entity.vo.TestCorrelationVO;
 import cn.shiying.test_correlation.mapper.TestCorrelationMapper;
 import cn.shiying.test_correlation.service.TestCorrelationService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import cn.shiying.common.utils.Query;
 import cn.shiying.common.utils.PageUtils;
 import org.springframework.stereotype.Service;
@@ -33,8 +31,8 @@ public class TestCorrelationServiceImpl extends ServiceImpl<TestCorrelationMappe
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        Page<TestCorrelationVO> page=new Query<TestCorrelationVO>(params).getPage();
-        List<TestCorrelationVO> list=baseMapper.list(page,params);
+        Page page=new Query<TestCorrelation>(params).getPage();
+        List<TestCorrelationVO> list= baseMapper.list(page,params);
         page.setRecords(list);
         return new PageUtils(page);
     }

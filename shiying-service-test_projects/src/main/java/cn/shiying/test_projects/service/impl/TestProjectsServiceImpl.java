@@ -39,4 +39,9 @@ public class TestProjectsServiceImpl extends ServiceImpl<TestProjectsMapper, Tes
         return new PageUtils(page);
     }
 
+    @Override
+    public List<TestProjects> boxTestProjects() {
+        return baseMapper.boxTestProjects();
+    }
+
 }

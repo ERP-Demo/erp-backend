@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-dms_case_model
+
+server:
+  port: 6344
+  servlet:
+    context-path: /dms_case_model

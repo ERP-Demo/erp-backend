@@ -5,3 +5,9 @@ eureka:
   instance:
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
     prefer-ip-address: true
+ribbon:
+  ConnectTimeout: 30000
+  ReadTimeout: 120000
+  OkToRetryOnAllOperations: true
+  MaxAutoRetriesNextServer: 2
+  MaxAutoRetries: 1

@@ -87,6 +87,13 @@ public class ActivitiController {
         return Result.ok();
     }
 
+    @PostMapping("/unconsultation")
+    public Result unconsultation(String processInstanceId){
+        Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
+        taskService.removeVariable(task.getId(),"waitAssignee");
+        return Result.ok();
+    }
+
     @PostMapping("/registerId")
     public Result registerId(String processInstanceId,Integer registerId){
         Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
@@ -109,6 +116,30 @@ public class ActivitiController {
         taskService.setAssignee(task.getId(),user.getUsername());
         return Result.ok();
     }
+
+    @PostMapping("/back")
+    public Result back(String processInstanceId){
+        JwtUser user=getUser();
+        Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
+        if (!"挂号".equals(task.getName())) return Result.error("已经在诊断了不能退号");
+        taskService.setVariable(task.getId(),"check",1);
+        taskService.complete(task.getId());
+        task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
+        task.setAssignee(user.getUsername());
+        taskService.complete(task.getId());
+        return Result.ok();
+    }
+
+    @PostMapping("/bpmName")
+    public Result bpmName(String processInstanceId){
+        List<Task> list = taskService.createTaskQuery().processInstanceId(processInstanceId).list();
+        if (list.size()==0)return Result.ok().put("bpmName","诊断完成");
+        for (Task task : list) {
+            return Result.ok().put("bpmName",task.getName());
+        }
+        return Result.ok();
+    }
+
 
     private String strat(String bpmName,Map<String,Object> variables){
         JwtUser user=getUser();

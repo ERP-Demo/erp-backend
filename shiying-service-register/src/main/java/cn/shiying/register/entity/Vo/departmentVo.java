@@ -10,4 +10,6 @@ public class departmentVo extends Register {
 
     private Department department;
     private PatientDetailed patient;
+
+    private String bpmName;
 }

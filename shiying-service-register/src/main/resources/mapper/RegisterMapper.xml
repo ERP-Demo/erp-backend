@@ -6,7 +6,6 @@
     <resultMap id="BaseResultMap" type="cn.shiying.register.entity.Register">
         <id column="register_id" property="registerId" />
         <result column="patient_id" property="patientId" />
-        <result column="is_back" property="isBack" />
         <result column="register_cost" property="registerCost" />
         <result column="department_id" property="departmentId" />
     </resultMap>

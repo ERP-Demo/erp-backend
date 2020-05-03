@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author tyb
@@ -41,29 +41,48 @@ public class ElectronicCase implements Serializable {
     private Integer patientId;
 
     /**
-     * 科室id
+     * 主诉
      */
-    private Integer departmentId;
+    private String complain;
 
     /**
-     * 入院时间
+     * 发病时间
      */
-    private LocalDateTime enterHospital;
-
-    /**
-     * 出院时间
-     */
-    private LocalDateTime leaveHospital;
-
+    private LocalDateTime onsetTime;
     /**
      * 症状
      */
     private String patientSymptom;
 
     /**
-     * 医嘱
+     * 既往病史
      */
-    private String doctorAdvice;
+    private String medicalHistory;
+    /**
+     *过敏史
+     */
+    private String allergyHistory;
+    /**
+     * 体格检查
+     */
+    private String healthCheckup;
+    /**
+     * 治疗情况
+     */
+    private String treatment;
+    /**
+     * icd编号
+     */
 
+    private LocalDateTime enterHospital;
 
+    private Integer icdId;
+    /**
+     * 中文名称
+     */
+    private String icdName;
+    /**
+     * 疾病编码
+     */
+    private String icdCode;
 }

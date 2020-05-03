@@ -1,7 +1,7 @@
 package cn.shiying.test_correlation.mapper;
 
 import cn.shiying.test_correlation.entity.TestCorrelation;
-import cn.shiying.test_correlation.entity.VO.TestCorrelationVO;
+import cn.shiying.test_correlation.entity.vo.TestCorrelationVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
@@ -20,5 +20,7 @@ import java.util.Map;
  */
 @Mapper
 public interface TestCorrelationMapper extends BaseMapper<TestCorrelation> {
+
     List<TestCorrelationVO> list(Page<TestCorrelationVO> page, @Param("params")Map<String,Object> params);
+
 }

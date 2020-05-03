@@ -3,6 +3,7 @@ package cn.shiying.drugs_purchase.service;
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
 import cn.shiying.common.entity.Drugs.DrugsPurchaseDetailed;
 import cn.shiying.common.entity.supplier.SupplierDetailed;
+import cn.shiying.drugs_purchase.entity.form.DrugsAndDetailed;
 import cn.shiying.drugs_purchase.entity.DrugsPurchase;
 import cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -32,4 +33,6 @@ public interface DrugsPurchaseService extends IService<DrugsPurchase> {
     List<DrugsDetailed> selectDname();
     int insertPurchase(DrugsPurchase drugsPurchase);
     int insertDetailed(DrugsPurchaseDetailed drugsPurchaseDetailed);
+    void addSupplierAndDrugs(DrugsAndDetailed drugsAndDetailed);
+
 }

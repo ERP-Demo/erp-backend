@@ -36,12 +36,12 @@
 
     <!--        </select>-->
     <select id="listElectronicCaseVO" resultType="cn.shiying.electronic_case.entity.vo.ElectronicCaseVO">
-        select el.case_no,el.uid,pa.patient_id,de.department_id,el.enter_hospital,el.leave_hospital,el.patient_symptom,el.doctor_advice,pa.patient_name,de.department_name
-        from electronic_case el
-        inner join department de
-        on el.department_id=de.department_id
-        inner join patient_detailed pa
-        on el.patient_id=pa.patient_id
+        select ec.*,su.username,pd.patient_name
+        from electronic_case ec
+        inner join sys_user su
+        on ec.uid=su.user_id
+        inner join patient_detailed pd
+        on ec.patient_id=pd.patient_id
         <where>
             <if test="params.key != null and params.key != ''">
                 and pa.patient_name LIKE concat('%',#{params.key},'%')

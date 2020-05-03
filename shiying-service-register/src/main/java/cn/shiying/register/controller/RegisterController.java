@@ -1,7 +1,7 @@
 package cn.shiying.register.controller;
 
 import cn.shiying.common.entity.patient.PatientDetailed;
-import cn.shiying.common.entity.token.JwtUser;
+import cn.shiying.common.enums.ErrorEnum;
 import cn.shiying.register.client.ActivitiClient;
 import cn.shiying.register.client.PatienClient;
 import cn.shiying.register.entity.RegisterPatient;
@@ -135,8 +135,21 @@ public class RegisterController {
                 .put("personalWaitList",personalWaitList)
                 .put("personalDuringList",personalDuringList);
     }
+
+    @PostMapping("/back")
+    public Result back(Integer id){
+        Register register = registerService.getById(id);
+        Result result=activitiClient.back(register.getProcessInstanceId());
+        if ((Integer) result.get("code")!=200) return Result.error(ErrorEnum.UNKNOWN);
+        register.setStatus(0);
+        registerService.updateById(register);
+        return Result.ok();
+    }
+
     public List<Integer> getDepartment(){
         Map<String,Object> map= (Map<String, Object>) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return (List<Integer>)map.get("departmentId");
     }
+
+
 }

@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @EnableDiscoveryClient
 @EnableFeignClients
-@MapperScan({"cn.shiying.common.mapper.TestProjects","cn.shiying.test_correlation.mapper"})
+@MapperScan({"cn.shiying.test_correlation.mapper"})
 @ComponentScan(basePackages = {"cn.shiying.config","cn.shiying.test_correlation"})
 @SpringBootApplication
 public class Test_correlationApplication {

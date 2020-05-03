@@ -13,4 +13,21 @@
         test_synthesize_id, test_synthesize_name
     </sql>
 
+    <!-- 添加化验详细表 -->
+    <insert id="addTestCorrelation" parameterType="java.util.List">
+        insert into test_correlation(test_synthesize_id,Test_projects_id,floor,ceiling,unit,createtime,uid) values
+        <foreach collection="list" item="correlation" separator="," close=";">
+           (#{correlation.testSynthesizeId},#{correlation.testProjectsId},#{correlation.floor},#{correlation.ceiling},#{correlation.unit},default,#{correlation.uid})
+        </foreach>
+    </insert>
+
+    <select id="SynthesizeList" resultType="cn.shiying.test_synthesize.entity.TestSynthesize">
+        select test_synthesize_id, test_synthesize_name from test_synthesize
+        <where>
+            <if test="params.key != null and params.key != ''">
+                and test_synthesize_name LIKE concat('%',#{params.key},'%')
+            </if>
+        </where>
+    </select>
+
 </mapper>

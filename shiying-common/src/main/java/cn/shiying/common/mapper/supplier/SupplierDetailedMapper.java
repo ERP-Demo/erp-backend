@@ -18,5 +18,4 @@ import java.util.List;
 @Mapper
 public interface SupplierDetailedMapper extends BaseMapper<SupplierDetailed> {
     void insertDrigs_supplier(@Param("pid") Integer pid, @Param("ids") Integer ids);
-    List<SupplierDetailed> like(@Param("name") String name);
 }

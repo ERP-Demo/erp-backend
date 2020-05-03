@@ -2,6 +2,21 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
-      name: shiying-client-zipkin, shiying-client-admin, shiying-client-eureka,shiying-client-mysql,shiying-service-ucenter
+      name: shiying-client-zipkin, shiying-client-admin, shiying-client-eureka,shiying-service-ucenter
       label: master
       profile: dev
+
+  datasource:
+    druid:
+      url: jdbc:mysql://rm-bp142lv533e0916loqo.mysql.rds.aliyuncs.com:3306/shiying?serverTimezone=GMT
+      username: root
+      password: Shiying0426
+      driverClassName: com.mysql.cj.jdbc.Driver
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 10000
+      testOnBorrow: true
+      testOnReturn: false
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000

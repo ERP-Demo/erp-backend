@@ -21,8 +21,5 @@
     <insert id="insertDrigs_supplier">
         insert into drugs_supplier(supplier_id,drugs_id)value(#{pid},#{ids})
     </insert>
-    <select id="like" resultType="cn.shiying.common.entity.supplier.SupplierDetailed">
-        select * from supplier_detailed where supplier_name LIKE concat('%',#{name},'%')
-    </select>
 
 </mapper>

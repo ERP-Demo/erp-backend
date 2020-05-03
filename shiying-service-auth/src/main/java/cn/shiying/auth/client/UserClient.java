@@ -4,6 +4,7 @@ import cn.shiying.common.entity.sys.SysMenu;
 import cn.shiying.common.entity.sys.SysUser;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -18,5 +19,5 @@ public interface UserClient {
     public SysUser selectByUsername(@RequestParam("username") String username);
 
     @GetMapping("/ucenter/menu/menu/{uid}")
-    public List<SysMenu> selectByUid(@RequestParam("uid") int uid);
+    public List<SysMenu> selectByUid(@PathVariable int uid);
 }

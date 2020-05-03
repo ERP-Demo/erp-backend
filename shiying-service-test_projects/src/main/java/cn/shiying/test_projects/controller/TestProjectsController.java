@@ -2,6 +2,7 @@ package cn.shiying.test_projects.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,5 +83,13 @@ public class TestProjectsController {
         projectsService.removeByIds(Arrays.asList(ids));
 
         return Result.ok();
+    }
+    @RequestMapping("/All")
+    public Result all(){
+        List<TestProjects> boxTestProjects = projectsService.boxTestProjects();
+        for (TestProjects TestProjects : boxTestProjects) {
+            System.out.println(TestProjects);
+        }
+        return Result.ok().put("list",boxTestProjects);
     }
 }

@@ -9,6 +9,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import cn.shiying.common.utils.Query;
 import cn.shiying.common.utils.PageUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,6 +34,11 @@ public class TestProjectsServiceImpl extends ServiceImpl<TestProjectsMapper, Tes
         IPage<TestProjects> page=baseMapper.selectPage(new Query<TestProjects>(params).getPage(),
                 new QueryWrapper<TestProjects>().lambda());
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<TestProjects> boxTestProjects() {
+        return baseMapper.boxTestProjects();
     }
 
 }

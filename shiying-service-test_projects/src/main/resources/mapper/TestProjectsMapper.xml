@@ -13,5 +13,8 @@
     <sql id="Base_Column_List">
         test_projects_id, test_abbreviation, test_name
     </sql>
+    <select id="boxTestProjects" resultType="cn.shiying.common.entity.TestProjects.TestProjects">
+               select test_projects_id,test_name from test_projects
+    </select>
 
 </mapper>

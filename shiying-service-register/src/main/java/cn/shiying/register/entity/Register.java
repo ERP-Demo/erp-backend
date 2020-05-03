@@ -26,7 +26,7 @@ public class Register implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(type = IdType.AUTO)
-    private Integer registerId;
+    private String registerId;
 
     private Integer patientId;
 

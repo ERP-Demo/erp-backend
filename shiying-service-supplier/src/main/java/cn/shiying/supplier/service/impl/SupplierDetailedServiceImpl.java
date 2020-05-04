@@ -43,10 +43,10 @@ public class SupplierDetailedServiceImpl extends ServiceImpl<SupplierDetailedMap
         }
     }
 
-    @Override
-    public List<SupplierDetailed> like(String name) {
-        return baseMapper.like(name);
-    }
+//    @Override
+//    public List<SupplierDetailed> like(String name) {
+//        return baseMapper.like(name);
+//    }
 
 
 }

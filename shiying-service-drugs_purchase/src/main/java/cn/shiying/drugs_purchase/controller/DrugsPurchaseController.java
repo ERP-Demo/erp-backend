@@ -3,8 +3,14 @@ package cn.shiying.drugs_purchase.controller;
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
 import cn.shiying.common.entity.Drugs.DrugsPurchaseDetailed;
 import cn.shiying.common.entity.supplier.SupplierDetailed;
+import cn.shiying.common.enums.ErrorEnum;
+import cn.shiying.common.exception.ExceptionCast;
+import cn.shiying.drugs_purchase.client.ActivitiClient;
+import cn.shiying.drugs_purchase.entity.form.CheckForm;
 import cn.shiying.drugs_purchase.entity.form.DrugsAndDetailed;
 import cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
 import java.util.List;
@@ -33,12 +39,16 @@ public class DrugsPurchaseController {
     @Autowired
     private DrugsPurchaseService purchaseService;
 
+    @Autowired
+    private ActivitiClient activitiClient;
+
     /**
      * 列表
      */
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('drugs_purchase:purchase:list')")
     public Result list(@RequestParam Map<String, Object> params){
+        params.put("check",false);
         PageUtils page = purchaseService.queryPage(params);
         return Result.ok().put("page", page);
     }
@@ -131,5 +141,52 @@ public class DrugsPurchaseController {
     public Result addSupplierAndDrugs(@RequestBody DrugsAndDetailed detailed){
         purchaseService.addSupplierAndDrugs(detailed);
         return Result.ok();
+    }
+
+    @GetMapping("/checkList")
+    @PreAuthorize("hasAuthority('drugs_purchase:purchase:check:list')")
+    public Result checkList(@RequestParam Map<String, Object> params){
+        params.put("check",true);
+        PageUtils page = purchaseService.queryPage(params);
+        return Result.ok().put("page", page);
+    }
+
+    @PostMapping("/subOrder")
+    public Result subOrder(@RequestBody String[] sub){
+        Result result= activitiClient.sub(Arrays.asList(sub));
+        DrugsPurchase drugsPurchase=new DrugsPurchase();
+        drugsPurchase.setSubName(getUserName());
+        order(result,drugsPurchase);
+        return Result.ok();
+    }
+
+    @PostMapping("/agree")
+    public Result agree(@RequestBody String[] ids){
+        Result result= activitiClient.agree(Arrays.asList(ids));
+        DrugsPurchase drugsPurchase=new DrugsPurchase();
+        drugsPurchase.setCheckName(getUserName());
+        order(result,drugsPurchase);
+        return Result.ok();
+    }
+
+    @PostMapping("/reject")
+    public Result reject(@RequestBody CheckForm form){
+        Result result= activitiClient.reject(form.getIds(),form.getReason());
+        DrugsPurchase drugsPurchase=new DrugsPurchase();
+        drugsPurchase.setCheckName(getUserName());
+        order(result,drugsPurchase);
+        return Result.ok();
+    }
+
+    private void order(Result result,DrugsPurchase drugsPurchase){
+        if ((Integer) result.get("code")!=200) ExceptionCast.cast(ErrorEnum.LOAD_TIME_LANG);
+        List<String> ids =(List<String>) result.get("ids");
+        if (ids.size()==0) ExceptionCast.cast(ErrorEnum.UNKNOWN);
+        purchaseService.update(drugsPurchase,new UpdateWrapper<DrugsPurchase>().in("purchase_id",ids));
+    }
+
+    public String getUserName(){
+        Map<String,Object> map= (Map<String, Object>) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return (String) map.get("username");
     }
 }

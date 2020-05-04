@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/")
@@ -30,9 +27,12 @@ public class ActivitiController {
     @Autowired
     HistoryService historyService;
 
-    @GetMapping("/startDrug")
-    public Result startDrug(){
-        return Result.ok().put("processInstanceId",strat("drug",null));
+    @PostMapping("/startDrug")
+    public Result startDrug(String purchaseId){
+        JwtUser user=getUser();
+        Map<String , Object> variables = new HashMap<String,Object>();
+        variables.put("purchaseId",purchaseId);
+        return Result.ok().put("processInstanceId",strat("drug",variables));
     }
 
     @PostMapping("/startPatient")
@@ -45,7 +45,7 @@ public class ActivitiController {
     @GetMapping("/registerPatient")
     public Result registerPatient(){
         JwtUser user=getUser();
-        List<Task> list = taskService.createTaskQuery().list();
+        List<Task> list = taskService.createTaskQuery().processDefinitionName("patient").list();
         List<Integer> deptWaitList=new ArrayList<>();
         List<Integer> personalDuringList=new ArrayList<>();
         List<Integer> personalWaitList=new ArrayList<>();
@@ -71,6 +71,51 @@ public class ActivitiController {
         return Result.ok().put("deptWaitList",deptWaitList)
                 .put("personalWaitList",personalWaitList)
                 .put("personalDuringList",personalDuringList);
+    }
+
+    @GetMapping("/order")
+    public Result order(){
+        JwtUser user=getUser();
+        List<Task> list = taskService.createTaskQuery().taskAssignee(user.getUsername()).taskName("提交申请").list();
+        return Result.ok().put("ids",orderId(list));
+    }
+
+    @GetMapping("/checkOrder")
+    public Result checkOrder(){
+        List<Task> list = taskService.createTaskQuery().taskName("经理审核").list();
+        return Result.ok().put("ids",orderId(list));
+    }
+
+    @GetMapping("/agree")
+    public Result agree(@RequestBody List<String> processInstanceIds){
+        JwtUser user = getUser();
+        List<Task> list = taskService.createTaskQuery().processInstanceIdIn(processInstanceIds).list();
+        for (Task task : list) {
+            task.setAssignee(user.getUsername());
+            taskService.setVariable(task.getId(),"check",0);
+            taskService.complete(task.getId());
+        }
+        return Result.ok().put("ids",orderId(list));
+    }
+
+    @GetMapping("/reject")
+    public Result reject(@RequestParam("processInstanceIds") List<String> processInstanceIds,@RequestParam("reason") String reason){
+        JwtUser user = getUser();
+        List<Task> list = taskService.createTaskQuery().processInstanceIdIn(processInstanceIds).list();
+        Map<String,String> map=new HashMap<>();
+        for (Task task : list) {
+            task.setAssignee(user.getUsername());
+            Map<String, Object> variables=new HashMap<>();
+            variables.put("check",1);
+            variables.put("reason",reason);
+            taskService.setVariables(task.getId(),variables);
+            taskService.complete(task.getId());
+            variables = runtimeService.getVariables(task.getProcessInstanceId());
+            Task task1 = taskService.createTaskQuery().processInstanceId(task.getProcessInstanceId()).singleResult();
+            taskService.setAssignee(task1.getId(),(String) variables.get("subName"));
+            map.put((String) variables.get("purchaseId"),task1.getProcessInstanceId());
+        }
+        return Result.ok().put("map",map);
     }
 
     @PostMapping("/sysconsultation")
@@ -107,7 +152,7 @@ public class ActivitiController {
         Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
         Map<String, Object> variables = taskService.getVariables(task.getId());
         if (!user.getDepartmentId().contains(variables.get("departmentId"))||user.getUid()!=(Integer)variables.get("waitAssignee")) return Result.error(ErrorEnum.NO_AUTH);
-        if (!"挂号".equals(task.getName())) return Result.error("已经在诊断了，请问重复发送");
+        if (!"挂号".equals(task.getName())) return Result.error("已经在诊断了，请勿重复发送");
 
         taskService.setVariable(task.getId(),"check",0);
         taskService.complete(task.getId());
@@ -130,6 +175,11 @@ public class ActivitiController {
         return Result.ok();
     }
 
+    /**
+     * 待优化
+     * @param processInstanceId 流程id
+     * @return code=200
+     */
     @PostMapping("/bpmName")
     public Result bpmName(String processInstanceId){
         List<Task> list = taskService.createTaskQuery().processInstanceId(processInstanceId).list();
@@ -138,6 +188,34 @@ public class ActivitiController {
             return Result.ok().put("bpmName",task.getName());
         }
         return Result.ok();
+    }
+
+    @PostMapping("/sub")
+    public Result sub(@RequestBody List<String> processInstanceIds){
+        JwtUser user=getUser();
+        List<Task> list = taskService.createTaskQuery().processInstanceIdIn(processInstanceIds).taskName("提交申请").taskAssignee(user.getUsername()).list();
+        for (Task task : list) {
+            taskService.setVariable(task.getId(),"subName",user.getUsername());
+            taskService.complete(task.getId());
+        }
+        return Result.ok().put("ids",orderId(list));
+    }
+
+    @PostMapping("/reason")
+    public Result reason(String processInstanceId){
+        JwtUser user=getUser();
+        Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
+        Map<String, Object> variables = runtimeService.getVariables(processInstanceId);
+        return Result.ok().put("reason",variables.get("reason"));
+    }
+
+    private List<String> orderId(List<Task> list){
+        List<String> ids=new ArrayList<>();
+        for (Task task : list) {
+            Map<String, Object> variables = runtimeService.getVariables(task.getProcessInstanceId());
+            ids.add((String) variables.get("purchaseId"));
+        }
+        return ids;
     }
 
 

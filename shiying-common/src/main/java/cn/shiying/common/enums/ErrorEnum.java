@@ -24,6 +24,7 @@ public enum ErrorEnum {
     TOKEN_ERROR(505,"token过期请重新登录"),
     NO_UUID(503,"uuid为空"),
     SQL_ILLEGAL(504,"sql非法"),
+    LOAD_TIME_LANG(505,"连接超时"),
 
     //用户权限错误
     INVALID_TOKEN(1001,"token不合法"),

@@ -37,5 +37,4 @@ public class DrugsDetailedServiceImpl extends ServiceImpl<DrugsDetaileMapper, Dr
                 new QueryWrapper<DrugsDetailed>().like("drugs_name",params.get("name")).lambda());
         return new PageUtils(page);
     }
-
 }

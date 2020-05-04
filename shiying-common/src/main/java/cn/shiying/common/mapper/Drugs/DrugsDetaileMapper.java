@@ -17,4 +17,5 @@ import java.util.List;
  */
 @Mapper
 public interface DrugsDetaileMapper extends BaseMapper<DrugsDetailed> {
+
 }

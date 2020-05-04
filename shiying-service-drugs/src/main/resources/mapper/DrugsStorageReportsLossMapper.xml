@@ -7,7 +7,21 @@
         select drugs_id,drugs_name from drugs_detailed;
     </select>
 
+    <!-- 药品 -->
+    <select id="all" resultType="cn.shiying.common.entity.Drugs.DrugsDetailed">
+        select d.*
+        from drugs_detailed d
+        inner join drugs_storage_detailed_info s
+        on d.drugs_id=s.drugs_id
+    </select>
 
+    <!-- 根据id-->
+    <select id="queryByIds" resultType="cn.shiying.common.entity.Drugs.DrugsDetailed">
+        select * from drugs_detailed where drugs_id in
+        <foreach collection="ids" item="ids" index="index" open="(" close=")" separator=",">
+            #{ids}
+        </foreach>
+    </select>
     <!-- 药品的报损添加 -->
     <insert id="addStorageReport" parameterType="cn.shiying.drugs.entity.DrugsStorageReportsLoss">
 		insert into drugs_storage_reports_loss(reported_loss_id,drugs_id,reported_loss_count,reported_loss_why,reported_loss_note,reported_loss_Operation_of) values(default,#{drugsId},#{reportedLossCount},#{reportedLossWhy},#{reportedLossNote},#{reportedLossOperationOf})

@@ -1,6 +1,7 @@
 package cn.shiying.drugs.service.impl;
 
 
+import cn.shiying.common.entity.Drugs.DrugsDetailed;
 import cn.shiying.common.utils.PageUtils;
 import cn.shiying.common.utils.Query;
 import cn.shiying.drugs.entity.DrugsStorageReportsLoss;
@@ -40,5 +41,15 @@ public class DrugsStorageReportsLossServiceImpl extends ServiceImpl<DrugsStorage
         List<DrugsDetailedVO> list= baseMapper.listDrugsDetailedVO(page,params);
         page.setRecords(list);
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<DrugsDetailed> all() {
+        return baseMapper.all();
+    }
+
+    @Override
+    public List<DrugsDetailed> queryByIds(Integer[] ids) {
+        return baseMapper.queryByIds(ids);
     }
 }

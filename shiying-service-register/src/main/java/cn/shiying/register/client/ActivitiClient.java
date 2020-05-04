@@ -21,7 +21,7 @@ public interface ActivitiClient {
     Result registerPatient();
 
     @PostMapping("/registerId")
-    Result registerId(@RequestParam("processInstanceId") String processInstanceId,@RequestParam("registerId")  Integer registerId);
+    Result registerId(@RequestParam("processInstanceId") String processInstanceId,@RequestParam("registerId")  String registerId);
 
     @PostMapping("/back")
     Result back(@RequestParam("processInstanceId") String processInstanceId);

@@ -2,30 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.shiying.test_correlation.mapper.TestCorrelationMapper">
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.shiying.test_correlation.entity.TestCorrelation">
-        <result column="test_synthesize_id" property="testSynthesizeId" />
-        <result column="test_projects_id" property="testProjectsId" />
-        <result column="floor" property="floor" />
-        <result column="ceiling" property="ceiling" />
-        <result column="unit" property="unit" />
-        <result column="createtime" property="createtime" />
-        <result column="uid" property="uid" />
-    </resultMap>
-
-    <resultMap id="WithProjects" type="cn.shiying.test_correlation.entity.VO.TestCorrelationVO">
-        <association property="testProjects" column="test_projects_id" select="cn.shiying.common.mapper.TestProjects.TestProjectsMapper.selectById" />
-    </resultMap>
-
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        test_synthesize_id, test_projects_id, floor, ceiling, unit, createtime, uid
-    </sql>
-
-    <select id="list" resultMap="WithProjects">
-        select <include refid="Base_Column_List" /> from test_correlation where test_synthesize_id=#{params.pid}
+    <select id="list" resultType="cn.shiying.test_correlation.entity.vo.TestCorrelationVO">
+        select tp.test_name,tc.ceiling,tc.floor,tc.unit
+        from test_synthesize ts
+        inner join test_correlation tc
+        on ts.test_synthesize_id=tc.test_synthesize_id
+        inner join test_projects tp
+        on tp.test_projects_id=tc.test_projects_id
+        where ts.test_synthesize_id=#{params.pid}
     </select>
-
-
 
 </mapper>

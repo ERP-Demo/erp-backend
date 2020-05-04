@@ -27,13 +27,9 @@ public class TestSynthesize implements Serializable {
      */
     @TableId(value = "test_synthesize_id", type = IdType.AUTO)
     private Integer testSynthesizeId;
-    /**
-     * 综合化验的名称
-     */
+
     private String testSynthesizeName;
-    /**
-     * 综合化验的价格
-     */
-    private double testSynthesizePrice;
+
+    private String testSynthesizePrice;
 
 }

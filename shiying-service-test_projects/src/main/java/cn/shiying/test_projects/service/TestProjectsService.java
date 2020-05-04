@@ -3,6 +3,8 @@ package cn.shiying.test_projects.service;
 import cn.shiying.test_projects.entity.TestProjects;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,4 +23,5 @@ public interface TestProjectsService extends IService<TestProjects> {
      * @return
      */
      PageUtils queryPage(Map<String, Object> params);
+     List<TestProjects> boxTestProjects();
 }

@@ -4,6 +4,7 @@ import cn.shiying.common.entity.patient.PatientDetailed;
 import cn.shiying.common.enums.ErrorEnum;
 import cn.shiying.register.client.ActivitiClient;
 import cn.shiying.register.client.PatienClient;
+import cn.shiying.register.config.RegisterSchedule;
 import cn.shiying.register.entity.RegisterPatient;
 import cn.shiying.register.entity.Vo.RegisterPatientVO;
 import cn.shiying.register.entity.Vo.departmentVo;
@@ -41,6 +42,9 @@ public class RegisterController {
     @Autowired
     ActivitiClient activitiClient;
 
+    @Autowired
+    RegisterSchedule schedule;
+
 
     /**
      * 列表
@@ -70,6 +74,11 @@ public class RegisterController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('register:register:save')")
     public Result save(@RequestBody RegisterPatient register){
+
+        //进货单号
+        String RegisterId = schedule.createId();
+        System.out.println("编号："+RegisterId);
+
         ValidatorUtils.validateEntity(register);
         PatientDetailed p=new PatientDetailed();
         p.setPatientName(register.getPatientName());
@@ -80,16 +89,20 @@ public class RegisterController {
         p.setPatientNote(register.getPatientNote());
         p.setPatientCartnum(register.getPatientCartnum());
         Result rs=patientclient.save(p);
-        Result result=activitiClient.startPatient(register.getDepartmentId());
-        String processInstanceId = (String) result.get("processInstanceId");
+//        Result result=activitiClient.startPatient(register.getDepartmentId());
+//        String processInstanceId = (String) result.get("processInstanceId");
         Integer pid=(Integer) rs.get("id");
         Register r=new Register();
+        r.setRegisterId(RegisterId);
         r.setPatientId(pid);
         r.setDepartmentId(register.getDepartmentId());
         r.setRegisterCost(register.getRegisterCost());
-        r.setProcessInstanceId(processInstanceId);
+//        r.setProcessInstanceId(processInstanceId);
         registerService.save(r);
-        activitiClient.registerId(processInstanceId,r.getRegisterId());
+
+        System.out.println("数据："+r);
+
+//        activitiClient.registerId(processInstanceId,r.getRegisterId());
         return Result.ok();
     }
 

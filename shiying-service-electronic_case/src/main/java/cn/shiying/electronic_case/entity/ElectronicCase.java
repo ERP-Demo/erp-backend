@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author tyb
@@ -39,11 +39,6 @@ public class ElectronicCase implements Serializable {
      */
 
     private Integer patientId;
-
-    /**
-     * 挂号编号
-     */
-    private Integer registerId;
 
     /**
      * 主诉
@@ -78,6 +73,9 @@ public class ElectronicCase implements Serializable {
     /**
      * icd编号
      */
+
+    private LocalDateTime enterHospital;
+
     private Integer icdId;
     /**
      * 中文名称

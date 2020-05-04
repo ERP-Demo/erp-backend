@@ -1,5 +1,6 @@
 package cn.shiying.test_synthesize.mapper;
 
+import cn.shiying.test_synthesize.entity.TestCorrelation;
 import cn.shiying.test_synthesize.entity.TestSynthesize;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -19,5 +20,9 @@ import java.util.Map;
  */
 @Mapper
 public interface TestSynthesizeMapper extends BaseMapper<TestSynthesize> {
-    List<TestSynthesize> queryByCatnum(Page<TestSynthesize> page, @Param("params") Map<String, Object> params);
+
+    //添加化验详细表
+    void addTestCorrelation(List<TestCorrelation> co);
+
+    List<TestSynthesize> SynthesizeList(Page<TestSynthesize> page, @Param("params") Map<String, Object> params);
 }

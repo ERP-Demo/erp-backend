@@ -13,5 +13,17 @@
     <sql id="Base_Column_List">
         test_projects_id, test_abbreviation, test_name
     </sql>
+    <select id="boxTestProjects" resultType="cn.shiying.common.entity.TestProjects.TestProjects">
+               select test_projects_id,test_name from test_projects
+    </select>
+
+    <select id="ProjectsList" resultType="cn.shiying.test_projects.entity.TestProjects">
+        select test_projects_id, test_abbreviation, test_name from test_projects
+        <where>
+            <if test="params.key != null and params.key != ''">
+                and test_name LIKE concat('%',#{params.key},'%')
+            </if>
+        </where>
+    </select>
 
 </mapper>

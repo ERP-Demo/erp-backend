@@ -1,14 +1,18 @@
 package cn.shiying.test_projects.service.impl;
 
+import cn.shiying.common.entity.TestSynthesize.TestSynthesize;
 import cn.shiying.test_projects.entity.TestProjects;
 import cn.shiying.test_projects.mapper.TestProjectsMapper;
 import cn.shiying.test_projects.service.TestProjectsService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import cn.shiying.common.utils.Query;
 import cn.shiying.common.utils.PageUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,9 +33,15 @@ public class TestProjectsServiceImpl extends ServiceImpl<TestProjectsMapper, Tes
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        IPage<TestProjects> page=baseMapper.selectPage(new Query<TestProjects>(params).getPage(),
-                new QueryWrapper<TestProjects>().lambda());
+        Page page=new Query<TestSynthesize>(params).getPage();
+        List<TestProjects> list= baseMapper.ProjectsList(page,params);
+        page.setRecords(list);
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<TestProjects> boxTestProjects() {
+        return baseMapper.boxTestProjects();
     }
 
 }

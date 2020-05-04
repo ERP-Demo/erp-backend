@@ -51,4 +51,19 @@ public class DrugsPurchase implements Serializable {
      */
     private String purchaseTime;
 
+    /**
+     * 流程id
+     */
+    private String processInstanceId;
+
+    /**
+     * 提交人
+     */
+    private String subName;
+
+    /**
+     * 审核人
+     */
+    private String checkName;
+
 }

@@ -76,11 +76,11 @@ public class RequirementsController {
     /**
      * 删除
      */
-    @DeleteMapping("/delete")
-    @PreAuthorize("hasAuthority('requirements:requirements:delete')")
-    public Result delete(@RequestBody String[] ids){
-        requirementsService.removeByIds(Arrays.asList(ids));
-
-        return Result.ok();
-    }
+//    @DeleteMapping("/delete")
+//    @PreAuthorize("hasAuthority('requirements:requirements:delete')")
+//    public Result delete(@RequestBody String[] ids){
+//        requirementsService.removeByIds(Arrays.asList(ids));
+//
+//        return Result.ok();
+//    }
 }

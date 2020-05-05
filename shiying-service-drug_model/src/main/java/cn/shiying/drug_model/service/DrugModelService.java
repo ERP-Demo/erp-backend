@@ -23,4 +23,6 @@ public interface DrugModelService extends IService<DrugModel> {
      * @return
      */
      PageUtils queryPage(Map<String, Object> params);
+    //向关联表添加jilu
+    void add(Integer drugModelId, List<Integer> ids);
 }

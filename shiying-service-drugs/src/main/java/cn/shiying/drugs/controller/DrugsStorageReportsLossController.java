@@ -38,6 +38,7 @@ public class DrugsStorageReportsLossController {
     @GetMapping("/selectByIds/{ids}")
     public Result selectByIds(@PathVariable Integer[] ids){
         List<DrugsDetailed> drugsDetaileds = storageService.queryByIds(ids);
+        //System.out.println("1111111"+drugsDetaileds);
         System.out.println("1111111"+drugsDetaileds);
         return Result.ok().put("list",drugsDetaileds);
     }

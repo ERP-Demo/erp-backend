@@ -1,9 +1,9 @@
 spring:
   datasource:
     druid:
-      url: jdbc:mysql://localhost:3306/activiti?serverTimezone=GMT
+      url: jdbc:mysql://rm-bp142lv533e0916loqo.mysql.rds.aliyuncs.com:3306/shiying?serverTimezone=GMT
       username: root
-      password: 123456
+      password: Shiying0426
       driverClassName: com.mysql.cj.jdbc.Driver
       initialSize: 5
       minIdle: 5

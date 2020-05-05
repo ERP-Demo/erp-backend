@@ -35,4 +35,11 @@ public class DrugModelServiceImpl extends ServiceImpl<DrugModelMapper, DrugModel
         return new PageUtils(page);
     }
 
+    @Override
+    public void add(Integer drugModelId, List<Integer> ids) {
+        for(Integer i :ids){
+            baseMapper.add(drugModelId,i);
+        }
+    }
+
 }

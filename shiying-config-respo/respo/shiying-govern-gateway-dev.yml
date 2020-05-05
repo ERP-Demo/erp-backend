@@ -133,8 +133,3 @@ zuul:
       serviceId: shiying-service-dms_case_model_catalog
       strip-prefix: false
       sensitiveHeaders:
-    service-test_model:
-      path: /test_model/**
-      serviceId: shiying-service-test_model
-      strip-prefix: false
-      sensitiveHeaders:

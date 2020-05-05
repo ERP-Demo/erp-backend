@@ -16,5 +16,7 @@
     <sql id="Base_Column_List">
         drug_model_id, drug_model_name, drug_model_introduction,drug_model_code,drug_model_range,drug_model_type
     </sql>
-
+    <insert id="add">
+        insert into drugs_drug_model(drug_model_id,drugs_id)value(#{drugModelId},#{ids})
+    </insert>
 </mapper>

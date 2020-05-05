@@ -89,20 +89,16 @@ public class RegisterController {
         p.setPatientNote(register.getPatientNote());
         p.setPatientCartnum(register.getPatientCartnum());
         Result rs=patientclient.save(p);
-//        Result result=activitiClient.startPatient(register.getDepartmentId());
-//        String processInstanceId = (String) result.get("processInstanceId");
+        Result result=activitiClient.startPatient(register.getDepartmentId(),RegisterId);
+        String processInstanceId = (String) result.get("processInstanceId");
         Integer pid=(Integer) rs.get("id");
         Register r=new Register();
         r.setRegisterId(RegisterId);
         r.setPatientId(pid);
         r.setDepartmentId(register.getDepartmentId());
         r.setRegisterCost(register.getRegisterCost());
-//        r.setProcessInstanceId(processInstanceId);
+        r.setProcessInstanceId(processInstanceId);
         registerService.save(r);
-
-        System.out.println("数据："+r);
-
-//        activitiClient.registerId(processInstanceId,r.getRegisterId());
         return Result.ok();
     }
 

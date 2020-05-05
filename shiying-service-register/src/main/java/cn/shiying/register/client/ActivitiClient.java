@@ -12,16 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient("shiying-service-activiti")
 public interface ActivitiClient {
     @PostMapping("/startPatient")
-    Result startPatient(@RequestParam("departmentId") Integer departmentId);
+    Result startPatient(@RequestParam("departmentId") Integer departmentId,@RequestParam("registerId") String registerId);
 
     @PostMapping("/consultation")
     Result consultation(String processInstanceId);
 
     @GetMapping("/registerPatient")
     Result registerPatient();
-
-    @PostMapping("/registerId")
-    Result registerId(@RequestParam("processInstanceId") String processInstanceId,@RequestParam("registerId")  String registerId);
 
     @PostMapping("/back")
     Result back(@RequestParam("processInstanceId") String processInstanceId);

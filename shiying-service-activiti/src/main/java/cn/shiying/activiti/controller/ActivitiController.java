@@ -36,19 +36,22 @@ public class ActivitiController {
     }
 
     @PostMapping("/startPatient")
-    public Result startPatient(Integer departmentId){
+    public Result startPatient(Integer departmentId,String registerId){
+        System.out.println(registerId+" "+departmentId);
         Map<String , Object> variables = new HashMap<String,Object>();
         variables.put("departmentId",departmentId);
+        variables.put("registerId",registerId);
         return Result.ok().put("processInstanceId",strat("patient",variables));
     }
 
     @GetMapping("/registerPatient")
     public Result registerPatient(){
         JwtUser user=getUser();
-        List<Task> list = taskService.createTaskQuery().processDefinitionName("patient").list();
-        List<Integer> deptWaitList=new ArrayList<>();
-        List<Integer> personalDuringList=new ArrayList<>();
-        List<Integer> personalWaitList=new ArrayList<>();
+        List<Task> list = taskService.createTaskQuery().processDefinitionKey("patient").list();
+        System.out.println(list);
+        List<String> deptWaitList=new ArrayList<>();
+        List<String> personalDuringList=new ArrayList<>();
+        List<String> personalWaitList=new ArrayList<>();
         for (Task task : list) {
             Map<String, Object> variables = runtimeService.getVariables(task.getProcessInstanceId());
             //判断有没有权限
@@ -57,12 +60,12 @@ public class ActivitiController {
             if ("挂号".equals(task.getName())
                     &&variables.get("waitAssignee")!=null
                     &&user.getUid()==(Integer) variables.get("waitAssignee")) {
-                personalWaitList.add((Integer) variables.get("registerId"));
+                personalWaitList.add((String) variables.get("registerId"));
             }else if ("挂号".equals(task.getName())){
-                deptWaitList.add((Integer) variables.get("registerId"));
+                deptWaitList.add((String) variables.get("registerId"));
             }else if (variables.get("uid")!=null
                     && user.getUid()==(Integer) variables.get("uid")){
-                personalDuringList.add((Integer) variables.get("registerId"));
+                personalDuringList.add((String) variables.get("registerId"));
             }
         }
 
@@ -136,13 +139,6 @@ public class ActivitiController {
     public Result unconsultation(String processInstanceId){
         Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
         taskService.removeVariable(task.getId(),"waitAssignee");
-        return Result.ok();
-    }
-
-    @PostMapping("/registerId")
-    public Result registerId(String processInstanceId,Integer registerId){
-        Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
-        taskService.setVariable(task.getId(),"registerId",registerId);
         return Result.ok();
     }
 

@@ -184,7 +184,7 @@
         <di:waypoint x="417.0" y="191.0"/>
         <di:waypoint x="490.0" y="192.5"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+          <dc:Bounds height="13.0" width="0.0" x="0.0" y="-3.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_27" id="BPMNEdge__27" sourceElement="_25" targetElement="_7">

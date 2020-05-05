@@ -1,5 +1,6 @@
 package cn.shiying.drugs.mapper;
 
+import cn.shiying.common.entity.Drugs.DrugsDetailed;
 import cn.shiying.drugs.entity.DrugsStorageReportsLoss;
 import cn.shiying.drugs.entity.vo.DrugsDetailedVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -21,4 +22,7 @@ public interface DrugsStorageReportsLossMapper extends BaseMapper<DrugsStorageRe
 
     /*药品和报损关联查询*/
     List<DrugsDetailedVO> listDrugsDetailedVO(Page<DrugsStorageReportsLoss> page, @Param("params") Map<String, Object> params);
+
+    List<DrugsDetailed> all();
+    List<DrugsDetailed> queryByIds(@Param("ids") Integer[] ids);
 }

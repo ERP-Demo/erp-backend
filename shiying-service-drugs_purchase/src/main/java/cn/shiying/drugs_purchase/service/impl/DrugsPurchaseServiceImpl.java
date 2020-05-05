@@ -1,8 +1,13 @@
 package cn.shiying.drugs_purchase.service.impl;
 
+import cn.shiying.common.dto.Result;
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
 import cn.shiying.common.entity.Drugs.DrugsPurchaseDetailed;
 import cn.shiying.common.entity.supplier.SupplierDetailed;
+import cn.shiying.common.enums.ErrorEnum;
+import cn.shiying.common.exception.ExceptionCast;
+import cn.shiying.common.exception.ExceptionCatch;
+import cn.shiying.drugs_purchase.client.ActivitiClient;
 import cn.shiying.drugs_purchase.config.DrugsSchedule;
 import cn.shiying.drugs_purchase.entity.form.Drugs;
 import cn.shiying.drugs_purchase.entity.form.DrugsAndDetailed;
@@ -43,6 +48,9 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
     @Autowired
     DrugsSchedule schedule;
 
+    @Autowired
+    private ActivitiClient activitiClient;
+
     /**
      * 分页查询
      * @param params
@@ -51,7 +59,22 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         Page page=new Query<DrugsPurchase>(params).getPage();
-        List<PurchaseSupplierVo> list= baseMapper.DrugsPurchaseList(page,params);
+        Result result = null;
+        if ((boolean)params.get("check")) {
+            result = activitiClient.checkOrder();
+        }else{
+            result = activitiClient.order();
+        }
+        if ((Integer) result.get("code") != 200) {
+            ExceptionCast.cast(ErrorEnum.UNKNOWN);
+        }
+        List<String> ids= (List<String>) result.get("ids");
+        if (ids == null || ids.size()==0) {
+            page.setRecords(null);
+            return new PageUtils(page);
+        }
+
+        List<PurchaseSupplierVo> list= baseMapper.DrugsPurchaseList(page,params,ids);
         page.setRecords(list);
         return new PageUtils(page);
     }
@@ -66,6 +89,10 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
     public void addSupplierAndDrugs(DrugsAndDetailed drugsAndDetailed) {
         //进货单号
         String PurchaseId = schedule.createId();
+
+        Result result= activitiClient.startDrug(PurchaseId);
+        if ((Integer) result.get("code")!=200) ExceptionCast.cast(ErrorEnum.LOAD_TIME_LANG);
+        String processInstanceId = (String) result.get("processInstanceId");
 
         //循环Drugs数据
         List<Drugs> DrugsList=drugsAndDetailed.getDetailed();
@@ -83,7 +110,8 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
         dp.setSupplierId(drugsAndDetailed.getSupplierId());//供应商编号
         dp.setPurchaseAmountPayable(AllTotal);//应付金额
         dp.setPurchaseActualAmountPaid(drugsAndDetailed.getPayPrice());//已付订金
-        baseMapper.addDrugsPurchase(dp);
+        dp.setProcessInstanceId(processInstanceId);
+        baseMapper.insert(dp);
 
         //药品购入详细表
         List<DrugsPurchaseDetailed> as=new ArrayList<>();

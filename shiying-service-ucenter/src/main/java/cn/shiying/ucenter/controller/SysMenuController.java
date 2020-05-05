@@ -31,8 +31,7 @@ public class SysMenuController {
     private SysMenuService sysMenuService;
 
     @GetMapping("/menu/{uid}")
-    public List<SysMenu> menu(@PathVariable Integer uid){
-        System.out.println(uid);
+    public List<SysMenu> menu(@RequestParam("uid") Integer uid){
         List<SysMenu> menuList=sysMenuService.listUserMenu(uid);
         return menuList;
     }

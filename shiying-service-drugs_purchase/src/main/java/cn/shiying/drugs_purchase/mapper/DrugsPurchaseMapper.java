@@ -5,12 +5,11 @@ import cn.shiying.common.entity.Drugs.DrugsPurchaseDetailed;
 import cn.shiying.common.entity.supplier.SupplierDetailed;
 import cn.shiying.drugs_purchase.entity.DrugsPurchase;
 import cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO;
-import cn.shiying.drugs_purchase.entity.vo.DrugsSupplierVO;
 import cn.shiying.drugs_purchase.entity.vo.PurchaseSupplierVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import feign.Param;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -31,10 +30,8 @@ public interface DrugsPurchaseMapper extends BaseMapper<DrugsPurchase> {
     int insertPurchase(DrugsPurchase drugsPurchase);
     int insertDetailed(DrugsPurchaseDetailed drugsPurchaseDetailed);
 
-    //添加药品购入表
-    void addDrugsPurchase(DrugsPurchase drugsPurchase);
     //添加药品购入详细表
     void addDrugsPurchaseDetailed(List<DrugsPurchaseDetailed> drugsPurchaseDetailed);
 
-    List<PurchaseSupplierVo> DrugsPurchaseList(Page<DrugsPurchase> page, @Param("params") Map<String, Object> params);
+    List<PurchaseSupplierVo> DrugsPurchaseList(Page<DrugsPurchase> page, @Param("params") Map<String, Object> params, @Param("ids") List<String> ids);
 }

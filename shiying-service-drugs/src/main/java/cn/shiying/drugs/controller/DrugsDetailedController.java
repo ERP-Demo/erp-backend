@@ -39,8 +39,6 @@ public class DrugsDetailedController {
         PageUtils page = detailedService.queryPage(params);
         return Result.ok().put("page", page);
     }
-
-
     /**
      * 信息
      */

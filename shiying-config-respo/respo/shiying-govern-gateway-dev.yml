@@ -118,24 +118,13 @@ zuul:
       serviceId: shiying-service-icd
       strip-prefix: false
       sensitiveHeaders:
-
-    service-dms_case_model:
-      path: /dms_case_model/**
-      serviceId: shiying-service-dms_case_model
+    service-electronic_case_model_catalog:
+      path: /electronic_case_model_catalog/**
+      serviceId: shiying-service-electronic_case_model_catalog
       strip-prefix: false
       sensitiveHeaders:
-    service-dms_drug_refund_item_record:
-      path: /dms_drug_refund_item_record/**
-      serviceId: shiying-service-dms_drug_refund_item_record
-      strip-prefix: false
-      sensitiveHeaders:
-    service-dms_case_model:
-      path: /dms_case_model/**
-      serviceId: shiying-service-dms_case_model
-      strip-prefix: false
-      sensitiveHeaders:
-    service-dms_case_model_catalog:
-      path: /dms_case_model_catalog/**
-      serviceId: shiying-service-dms_case_model_catalog
+    service-electronic_case_model:
+      path: /electronic_case_model/**
+      serviceId: shiying-service-electronic_case_model
       strip-prefix: false
       sensitiveHeaders:

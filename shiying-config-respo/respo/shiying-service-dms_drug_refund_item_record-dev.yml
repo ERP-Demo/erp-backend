@@ -1,8 +1,0 @@
-spring:
-  application:
-    name: shiying-service-dms_drug_refund_item_record
-
-server:
-  port: 6345
-  servlet:
-    context-path: /dms_drug_refund_item_record

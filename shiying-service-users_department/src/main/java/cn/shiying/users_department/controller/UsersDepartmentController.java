@@ -50,5 +50,6 @@ public class UsersDepartmentController {
         List<Integer> list=departmentService.all(uid);
         return Result.ok().put("list",list);
     }
+    //哪个接收
 
 }

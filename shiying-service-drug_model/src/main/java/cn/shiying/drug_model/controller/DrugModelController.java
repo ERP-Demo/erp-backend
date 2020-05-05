@@ -58,8 +58,8 @@ public class DrugModelController {
     @PreAuthorize("hasAuthority('drug_model:model:save')")
     public Result save(@RequestBody DrugModel model){
         ValidatorUtils.validateEntity(model);
-        modelService.save(model);
-
+        //modelService.save(model);
+        System.out.println(model);
         return Result.ok();
     }
 

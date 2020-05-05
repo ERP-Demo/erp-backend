@@ -23,60 +23,33 @@ public class DrugModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 药品编号
+     * 药品模板编号
      */
     @TableId(value = "drug_model_id", type = IdType.AUTO)
     private Integer drugModelId;
 
     /**
-     * 药品名称
+     * 药品模板名称
      */
     private String drugModelName;
 
     /**
-     * 药品单价（元）
+     * 药品模板简介
      */
-    private String drugModelPrice;
+    private String drugModelIntroduction;
 
     /**
-     * 药品数量
+     * 药品模板编码
      */
-    private String drugModelNum;
+    private String drugModelCode;
 
     /**
-     * 药品规格
+     * 药品模板范围
      */
-    private Double drugModelSpecs;
+    private Integer drugModelRange;
 
     /**
-     * 单位
+     * 药品模板类型
      */
-    private String drugModelCompany;
-
-    /**
-     * 药品拼英码
-     */
-    private String drugModelEnglishcode;
-
-    /**
-     * 使用建议
-     */
-    private String drugModelProposal;
-
-    /**
-     * 频次
-     */
-    private String drugModelFrequency;
-
-    /**
-     * 天数
-     */
-    private Integer drugModelDay;
-
-    /**
-     * 用量
-     */
-    private String drugModelConsumption;
-
-
+    private String drugModelType;
 }

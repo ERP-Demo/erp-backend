@@ -35,4 +35,15 @@ public interface DrugsPurchaseService extends IService<DrugsPurchase> {
     int insertDetailed(DrugsPurchaseDetailed drugsPurchaseDetailed);
     void addSupplierAndDrugs(DrugsAndDetailed drugsAndDetailed);
 
+    List<DrugsPurchaseDetailed> getByDrugsId(String id);
+
+    //根据单号修改进货表
+    void updateDrugs(DrugsAndDetailed detailed);
+
+    //根据单号删除进货详细表
+    void delDrugs(String purchaseId);
+
+    //再添加进货详细表
+    void addDrugs(DrugsAndDetailed detailed);
+
 }

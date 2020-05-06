@@ -6,9 +6,8 @@ import java.util.List;
 
 @Data
 public class DrugsAndDetailed {
-    /**
-     * 供应商的编号
-     */
+    private String purchaseId;
+
     private Integer supplierId;
 
     private double payPrice;

@@ -15,6 +15,7 @@
     <sql id="Base_Column_List">
         purchase_id, supplier_id, purchase_amount_payable, purchase_actual_amount_paid, purchase_time,processInstanceId
     </sql>
+
     <select id="selectBypid" resultType="cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO">
         select t2.drugs_name,t1.pd_money,t1.pd_num
         from drugs_purchase_detailed t1
@@ -60,4 +61,23 @@
             </if>
         </where>
     </select>
+
+    <select id="getByDrugsId" resultType="cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO">
+        select dpd.drugs_id,dd.drugs_name,dpd.purchase_id,dpd.pd_money,dpd.pd_num
+        from drugs_purchase_detailed dpd
+        inner join drugs_detailed dd
+        on dpd.drugs_id=dd.drugs_id
+        where purchase_id=#{purchaseId}
+    </select>
+
+    <!--根据单号修改进货表-->
+    <update id="updateDrugs">
+        update drugs_purchase set supplier_id=#{supplierId},purchase_amount_payable=#{purchaseAmountPayable},purchase_actual_amount_paid=#{purchaseActualAmountPaid} where purchase_id=#{purchaseId}
+    </update>
+
+    <!--根据单号删除进货详细表-->
+    <delete id="delDrugs">
+        delete from drugs_purchase_detailed where purchase_id=#{purchase_id}
+    </delete>
+
 </mapper>

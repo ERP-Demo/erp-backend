@@ -60,9 +60,13 @@ public class DrugsPurchaseController {
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('drugs_purchase:purchase:info')")
     public Result info(@PathVariable("id") String id){
-       DrugsPurchase purchase = purchaseService.getById(id);
-
-        return Result.ok().put("purchase", purchase);
+        System.out.println("进入："+id);
+        DrugsPurchase purchase = purchaseService.getById(id);
+        //根据单号查询详细表
+        List<DrugsPurchaseDetailed> detailed = purchaseService.getByDrugsId(id);
+        System.out.println("数据1："+purchase);
+        System.out.println("数据2："+detailed);
+        return Result.ok().put("purchase", purchase).put("detailed",detailed);
     }
 
     /**
@@ -81,9 +85,23 @@ public class DrugsPurchaseController {
      */
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('drugs_purchase:purchase:update')")
-    public Result update(@RequestBody DrugsPurchase purchase){
-        ValidatorUtils.validateEntity(purchase);
-        purchaseService.updateById(purchase);
+    public Result update(@RequestBody DrugsAndDetailed detailed){
+        System.out.println("进入修改");
+        System.out.println("修改数据："+detailed);
+
+        //订单编号
+        String purchaseId=detailed.getPurchaseId();
+
+        //根据单号修改进货表
+        purchaseService.updateDrugs(detailed);
+        //根据单号删除进货详细表
+        purchaseService.delDrugs(purchaseId);
+        //再添加进货详细表
+        purchaseService.addDrugs(detailed);
+
+
+//        ValidatorUtils.validateEntity(purchase);
+//        purchaseService.updateById(purchase);
         return Result.ok();
     }
 

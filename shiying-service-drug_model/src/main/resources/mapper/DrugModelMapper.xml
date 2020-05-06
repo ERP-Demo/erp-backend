@@ -6,20 +6,17 @@
     <resultMap id="BaseResultMap" type="cn.shiying.drug_model.entity.DrugModel">
         <id column="drug_model_id" property="drugModelId" />
         <result column="drug_model_name" property="drugModelName" />
-        <result column="drug_model_price" property="drugModelPrice" />
-        <result column="drug_model_num" property="drugModelNum" />
-        <result column="drug_model_specs" property="drugModelSpecs" />
-        <result column="drug_model_company" property="drugModelCompany" />
-        <result column="drug_model_englishcode" property="drugModelEnglishcode" />
-        <result column="drug_model_proposal" property="drugModelProposal" />
-        <result column="drug_model_frequency" property="drugModelFrequency" />
-        <result column="drug_model_day" property="drugModelDay" />
-        <result column="drug_model_consumption" property="drugModelConsumption" />
+        <result column="drug_model_introduction" property="drugModelIntroduction" />
+        <result column="drug_model_code" property="drugModelCode" />
+        <result column="drug_model_range" property="drugModelRange" />
+        <result column="drug_model_type" property="drugModelType" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        drug_model_id, drug_model_name, drug_model_price, drug_model_num, drug_model_specs, drug_model_company, drug_model_englishcode, drug_model_proposal, drug_model_frequency, drug_model_day, drug_model_consumption
+        drug_model_id, drug_model_name, drug_model_introduction,drug_model_code,drug_model_range,drug_model_type
     </sql>
-
+    <insert id="add">
+        insert into drugs_drug_model(drug_model_id,drugs_id)value(#{drugModelId},#{ids})
+    </insert>
 </mapper>

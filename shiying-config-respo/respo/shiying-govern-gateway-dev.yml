@@ -118,10 +118,9 @@ zuul:
       serviceId: shiying-service-icd
       strip-prefix: false
       sensitiveHeaders:
-
-    service-dms_case_model:
-      path: /dms_case_model/**
-      serviceId: shiying-service-dms_case_model
+    service-prescription:
+      path: /prescription/**
+      serviceId: shiying-service-prescription
       strip-prefix: false
       sensitiveHeaders:
     service-dms_drug_refund_item_record:
@@ -129,11 +128,11 @@ zuul:
       serviceId: shiying-service-dms_drug_refund_item_record
       strip-prefix: false
       sensitiveHeaders:
-#    service-dms_case_model:
-#      path: /dms_case_model/**
-#      serviceId: shiying-service-dms_case_model
-#      strip-prefix: false
-#      sensitiveHeaders:
+    service-dms_case_model:
+      path: /dms_case_model/**
+      serviceId: shiying-service-dms_case_model
+      strip-prefix: false
+      sensitiveHeaders:
     service-dms_case_model_catalog:
       path: /dms_case_model_catalog/**
       serviceId: shiying-service-dms_case_model_catalog

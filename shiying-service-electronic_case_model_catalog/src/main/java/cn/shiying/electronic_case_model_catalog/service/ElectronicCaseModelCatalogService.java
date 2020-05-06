@@ -1,21 +1,20 @@
-package cn.shiying.drug_model.service;
+package cn.shiying.electronic_case_model_catalog.service;
 
-import cn.shiying.drug_model.entity.DrugModel;
+import cn.shiying.electronic_case_model_catalog.entity.ElectronicCaseModelCatalog;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
-
-import java.util.List;
 import java.util.Map;
 
 /**
  * <p>
- *  服务类
+ * 病例模版目录表
+ 服务类
  * </p>
  *
  * @author tyb
- * @since 2020-05-01
+ * @since 2020-05-03
  */
-public interface DrugModelService extends IService<DrugModel> {
+public interface ElectronicCaseModelCatalogService extends IService<ElectronicCaseModelCatalog> {
 
     /**
      * 分页查询
@@ -23,6 +22,4 @@ public interface DrugModelService extends IService<DrugModel> {
      * @return
      */
      PageUtils queryPage(Map<String, Object> params);
-    //向关联表添加jilu
-    void add(Integer drugModelId, List<Integer> ids);
 }

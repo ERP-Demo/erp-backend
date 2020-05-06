@@ -1,8 +1,8 @@
 package cn.shiying.drug_model.controller;
 
+import cn.shiying.drug_model.entity.from.DrugModelFrom;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class DrugModelController {
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('drug_model:model:info')")
     public Result info(@PathVariable("id") String id){
-       DrugModel model = modelService.getById(id);
+        DrugModel model = modelService.getById(id);
 
         return Result.ok().put("model", model);
     }
@@ -56,13 +56,15 @@ public class DrugModelController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('drug_model:model:save')")
-    public Result save(@RequestBody DrugModel model){
-        ValidatorUtils.validateEntity(model);
-        modelService.save(model);
-
+    public Result save(@RequestBody DrugModelFrom from){
+        ValidatorUtils.validateEntity(from);
+        DrugModel m=from.getDrugModel();
+        modelService.save(m);
+        System.out.println(from.getIds());
+        from.setDrugModelId(m.getDrugModelId());
+        modelService.add(from.getDrugModelId(),from.getIds());
         return Result.ok();
     }
-
     /**
      * 修改
      */

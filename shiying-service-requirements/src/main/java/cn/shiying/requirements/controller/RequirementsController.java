@@ -56,9 +56,9 @@ public class RequirementsController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('requirements:requirements:save')")
     public Result save(@RequestBody Requirements requirements){
+        System.out.println(requirements);
         ValidatorUtils.validateEntity(requirements);
         requirementsService.save(requirements);
-
         return Result.ok();
     }
 

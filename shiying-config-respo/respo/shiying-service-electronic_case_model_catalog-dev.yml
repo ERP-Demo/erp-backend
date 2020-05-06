@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-electronic_case_model_catalog
+
+server:
+  port: 10087
+  servlet:
+    context-path: /electronic_case_model_catalog

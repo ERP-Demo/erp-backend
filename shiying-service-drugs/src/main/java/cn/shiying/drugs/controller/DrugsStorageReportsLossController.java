@@ -36,11 +36,11 @@ public class DrugsStorageReportsLossController {
         return  Result.ok().put("list", list);
     }
     @GetMapping("/selectByIds/{ids}")
-    public Result selectByIds(@Param("ids") Integer[] ids){
-        List<DrugsDetailed> list1=storageService.queryByIds(ids);
-        System.out.println(ids);
-        System.out.println(list1);
-        return Result.ok().put("list", list1);
+    public Result selectByIds(@PathVariable Integer[] ids){
+        List<DrugsDetailed> drugsDetaileds = storageService.queryByIds(ids);
+        //System.out.println("1111111"+drugsDetaileds);
+        System.out.println("1111111"+drugsDetaileds);
+        return Result.ok().put("list",drugsDetaileds);
     }
     /**
      * 药品的报损添加

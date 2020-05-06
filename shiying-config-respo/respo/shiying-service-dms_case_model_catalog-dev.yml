@@ -1,8 +1,0 @@
-spring:
-  application:
-    name: shiying-service-dms_case_model_catalog
-
-server:
-  port: 6346
-  servlet:
-    context-path: /dms_case_model_catalog

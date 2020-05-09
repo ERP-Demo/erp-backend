@@ -57,13 +57,15 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
      * @return
      */
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
+    public PageUtils queryPage(Map<String, Object> params,Integer check) {
         Page page=new Query<DrugsPurchase>(params).getPage();
         Result result = null;
-        if ((boolean)params.get("check")) {
+        if (check==0) {
             result = activitiClient.checkOrder();
-        }else{
+        }else if (check==1){
             result = activitiClient.order();
+        }else {
+            result = activitiClient.warehouseCheck();
         }
         if ((Integer) result.get("code") != 200) {
             ExceptionCast.cast(ErrorEnum.UNKNOWN);
@@ -98,9 +100,9 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
         List<Drugs> DrugsList=drugsAndDetailed.getDetailed();
         Double AllTotal=0.0;
         for (Drugs drugs : DrugsList) {
-            Integer price= drugs.getPrice();
-            Integer drugsNum = drugs.getNum();
-            Integer total = price*drugsNum;
+            double price= drugs.getPdMoney();
+            Integer drugsNum = drugs.getPdNum();
+            double total = price*drugsNum;
             AllTotal+=total;
         }
 
@@ -122,11 +124,88 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
             dpd=new DrugsPurchaseDetailed();
             dpd.setDrugsId(drugs.getDrugsId());//药品编号
             dpd.setPurchaseId(dp.getPurchaseId());//药品购入表编号
-            dpd.setPdMoney(drugs.getPrice());//价格
-            dpd.setPdNum(drugs.getNum());//数量
+            dpd.setPdMoney(drugs.getPdMoney());//价格
+            dpd.setPdNum(drugs.getPdNum());//数量
             as.add(dpd);
         }
         baseMapper.addDrugsPurchaseDetailed(as);
     }
+
+    @Override
+    public List<DrugsPurchaseDetailed> getByDrugsId(String id) {
+        return baseMapper.getByDrugsId(id);
+    }
+
+    //根据单号修改进货表
+    @Override
+    public void updateDrugs(DrugsAndDetailed detailed) {
+        //循环Drugs数据
+        List<Drugs> DrugsList=detailed.getDetailed();
+        Double AllTotal=0.0;
+        for (Drugs drugs : DrugsList) {
+            double price= drugs.getPdMoney();
+            Integer drugsNum = drugs.getPdNum();
+            double total = price*drugsNum;
+            AllTotal+=total;
+        }
+
+        Result result= activitiClient.startDrug(detailed.getPurchaseId());
+        if ((Integer) result.get("code")!=200) ExceptionCast.cast(ErrorEnum.LOAD_TIME_LANG);
+        String processInstanceId = (String) result.get("processInstanceId");
+
+        //药品购入表
+        DrugsPurchase dp=new DrugsPurchase();
+        dp.setPurchaseId(detailed.getPurchaseId());//订单编号
+        dp.setSupplierId(detailed.getSupplierId());//供应商编号
+        dp.setPurchaseAmountPayable(AllTotal);//应付金额
+        dp.setPurchaseActualAmountPaid(detailed.getPayPrice());//已付订金
+        dp.setProcessInstanceId(processInstanceId);
+        System.out.println("药品表数据："+dp);
+        baseMapper.updateDrugs(dp);
+    }
+
+    //根据单号删除进货详细表
+    @Override
+    public void delDrugs(String purchaseId) {
+        baseMapper.delDrugs(purchaseId);
+    }
+
+    //再添加进货详细表
+    @Override
+    public void addDrugs(DrugsAndDetailed detailed) {
+        List<DrugsPurchaseDetailed> as=new ArrayList<>();
+        DrugsPurchaseDetailed dpd;
+        //循环Drugs数据
+        List<Drugs> list=detailed.getDetailed();
+        for (Drugs drugs : list) {
+            dpd=new DrugsPurchaseDetailed();
+            dpd.setDrugsId(drugs.getDrugsId());//药品编号
+            dpd.setPurchaseId(detailed.getPurchaseId());//药品购入表编号
+            dpd.setPdMoney(drugs.getPdMoney());//价格
+            dpd.setPdNum(drugs.getPdNum());//数量
+            as.add(dpd);
+        }
+        baseMapper.addDrugsPurchaseDetailed(as);
+    }
+
+    @Override
+    public PageUtils historyOrder(Map<String, Object> params){
+        Page page=new Query<DrugsPurchase>(params).getPage();
+        List<PurchaseSupplierVo> list= baseMapper.pageList(page,params);
+        List<String> processInstanceIds=new ArrayList<>();
+        for (PurchaseSupplierVo purchaseSupplierVo : list) {
+            processInstanceIds.add(purchaseSupplierVo.getProcessInstanceId());
+        }
+        Result result = activitiClient.bpmName(processInstanceIds);
+        if ((Integer) result.get("code")!=200) ExceptionCast.cast(ErrorEnum.LOAD_TIME_LANG);
+        Map<String,String> map=(Map<String, String>) result.get("map");
+        for (PurchaseSupplierVo purchaseSupplierVo : list) {
+            purchaseSupplierVo.setBpmName(map.get(purchaseSupplierVo.getProcessInstanceId()));
+        }
+        page.setRecords(list);
+        return new PageUtils(page);
+    }
+
+
 
 }

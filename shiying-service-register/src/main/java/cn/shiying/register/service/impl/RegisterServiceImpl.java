@@ -18,6 +18,7 @@ import cn.shiying.common.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -44,20 +45,15 @@ public class RegisterServiceImpl extends ServiceImpl<RegisterMapper, Register> i
     public PageUtils queryPage(Map<String, Object> params) {
         Page<departmentVo> page=new Query<departmentVo>(params).getPage();
         List<departmentVo> list=baseMapper.departmentvo(page,params);
+        List<String> processInstanceIds=new ArrayList<>();
         for (departmentVo vo : list) {
-            if (vo.getStatus()==0) continue;
-            vo.getProcessInstanceId();
-            Result result=activitiClient.bpmName(vo.getProcessInstanceId());
-            if ((Integer) result.get("code")!=200) ExceptionCast.cast(ErrorEnum.UNKNOWN);
-            String bpmName=(String) result.get("bpmName");
-            if ("挂号".equals(bpmName)){
-                vo.setBpmName("待诊");
-            }else if ("诊断完成".equals(bpmName)){
-                vo.setBpmName("已诊");
-            }else {
-                vo.setBpmName("诊中");
-            }
-
+            processInstanceIds.add(vo.getProcessInstanceId());
+        }
+        Result result=activitiClient.bpmName(processInstanceIds);
+        if ((Integer) result.get("code")!=200) ExceptionCast.cast(ErrorEnum.UNKNOWN);
+        Map<String,String> map=(Map<String, String>) result.get("map");
+        for (departmentVo vo : list) {
+            vo.setBpmName(map.get(vo.getProcessInstanceId()));
         }
         page.setRecords(list);
         return new PageUtils(page);

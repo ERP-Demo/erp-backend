@@ -90,4 +90,5 @@ public class SupplierDetailedController {
         detailedService.insertDrigs_supplier(pid,ids);
         return Result.ok();
     }
+
 }

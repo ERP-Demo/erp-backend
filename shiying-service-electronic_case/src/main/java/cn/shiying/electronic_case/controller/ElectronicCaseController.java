@@ -65,7 +65,6 @@ public class ElectronicCaseController {
         ValidatorUtils.validateEntity(cas);
         cas.setUid(getUser().getUid());
         caseService.save(cas);
-        System.out.println(caseService.save(cas));
         redisTemplate.delete(id);
         return Result.ok();
     }
@@ -102,13 +101,11 @@ public class ElectronicCaseController {
     @PostMapping("/saveRidis")
     public Result saveRidis(@RequestBody ElectronicCase cas) {
         caseService.ElectronicCase(cas);
-        System.out.println(cas);
         return Result.ok();
     }
     @PostMapping("/getRidis")
     public Result getRidis(@RequestBody ElectronicCase cas) {
         ElectronicCase redis = caseService.getRedis(cas);
-        System.out.println("数据++"+redis);
         return Result.ok().put("list",redis);
     }
 

@@ -48,8 +48,14 @@ public class DrugsPurchaseController {
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('drugs_purchase:purchase:list')")
     public Result list(@RequestParam Map<String, Object> params){
-        params.put("check",false);
-        PageUtils page = purchaseService.queryPage(params);
+        PageUtils page = purchaseService.queryPage(params,1);
+        return Result.ok().put("page", page);
+    }
+
+    @GetMapping("/historyOrder")
+    @PreAuthorize("hasAuthority('drugs_purchase:purchase:history')")
+    public Result historyOrder(@RequestParam Map<String, Object> params){
+        PageUtils page = purchaseService.historyOrder(params);
         return Result.ok().put("page", page);
     }
 
@@ -60,9 +66,10 @@ public class DrugsPurchaseController {
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('drugs_purchase:purchase:info')")
     public Result info(@PathVariable("id") String id){
-       DrugsPurchase purchase = purchaseService.getById(id);
-
-        return Result.ok().put("purchase", purchase);
+        DrugsPurchase purchase = purchaseService.getById(id);
+        //根据单号查询详细表
+        List<DrugsPurchaseDetailed> detailed = purchaseService.getByDrugsId(id);
+        return Result.ok().put("purchase", purchase).put("detailed",detailed);
     }
 
     /**
@@ -81,9 +88,23 @@ public class DrugsPurchaseController {
      */
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('drugs_purchase:purchase:update')")
-    public Result update(@RequestBody DrugsPurchase purchase){
-        ValidatorUtils.validateEntity(purchase);
-        purchaseService.updateById(purchase);
+    public Result update(@RequestBody DrugsAndDetailed detailed){
+        System.out.println("进入修改");
+        System.out.println("修改数据："+detailed);
+
+        //订单编号
+        String purchaseId=detailed.getPurchaseId();
+
+        //根据单号修改进货表
+        purchaseService.updateDrugs(detailed);
+        //根据单号删除进货详细表
+        purchaseService.delDrugs(purchaseId);
+        //再添加进货详细表
+        purchaseService.addDrugs(detailed);
+
+
+//        ValidatorUtils.validateEntity(purchase);
+//        purchaseService.updateById(purchase);
         return Result.ok();
     }
 
@@ -128,12 +149,6 @@ public class DrugsPurchaseController {
         return Result.ok();
     }
 
-    @GetMapping("/selectSupplierIdByDrugs")
-    public Result selectSupplierIdByDrugs(@RequestParam Map<String, Object> params){
-        PageUtils page = purchaseService.queryPage(params);
-        return Result.ok().put("page", page);
-    }
-
     /**
      * 药品进货
      */
@@ -146,8 +161,14 @@ public class DrugsPurchaseController {
     @GetMapping("/checkList")
     @PreAuthorize("hasAuthority('drugs_purchase:purchase:check:list')")
     public Result checkList(@RequestParam Map<String, Object> params){
-        params.put("check",true);
-        PageUtils page = purchaseService.queryPage(params);
+        PageUtils page = purchaseService.queryPage(params,0);
+        return Result.ok().put("page", page);
+    }
+
+    @GetMapping("/warehouseCheck")
+    @PreAuthorize("hasAuthority('warehouse:check:list')")
+    public Result warehouseCheck(@RequestParam Map<String, Object> params){
+        PageUtils page = purchaseService.queryPage(params,3);
         return Result.ok().put("page", page);
     }
 

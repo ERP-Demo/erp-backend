@@ -37,7 +37,6 @@ public class ElectronicCase implements Serializable {
     /**
      * 病人id
      */
-
     private Integer patientId;
 
     /**
@@ -76,13 +75,4 @@ public class ElectronicCase implements Serializable {
 
     private LocalDateTime enterHospital;
 
-    private Integer icdId;
-    /**
-     * 中文名称
-     */
-    private String icdName;
-    /**
-     * 疾病编码
-     */
-    private String icdCode;
 }

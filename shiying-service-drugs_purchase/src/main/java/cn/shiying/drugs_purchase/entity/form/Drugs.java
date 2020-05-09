@@ -20,17 +20,17 @@ public class Drugs {
     /**
      * 进货单价
      */
-    private Integer price;
+    private double pdMoney;
 
     /**
      * 进货数量
      */
-    private Integer num;
+    private Integer pdNum;
 
-    public Drugs(Integer drugsId, String drugsName, Integer price, Integer num) {
+    public Drugs(Integer drugsId, String drugsName, double pdMoney, Integer pdNum) {
         this.drugsId = drugsId;
         this.drugsName = drugsName;
-        this.price = price;
-        this.num = num;
+        this.pdMoney = pdMoney;
+        this.pdNum = pdNum;
     }
 }

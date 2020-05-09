@@ -69,7 +69,6 @@ public class ElectronicCaseServiceImpl extends ServiceImpl<ElectronicCaseMapper,
         String id=Integer.toString(electronicCase.getPatientId());
         String students = redisTemplate.boundValueOps(id).get();
         ElectronicCase electronicCase1=JSON.parseObject(students,ElectronicCase.class);
-        System.out.println("取出来数据"+electronicCase1);
         return electronicCase1;
     }
 

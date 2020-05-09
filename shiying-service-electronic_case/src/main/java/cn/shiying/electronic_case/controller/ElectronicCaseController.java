@@ -65,8 +65,7 @@ public class ElectronicCaseController {
         ValidatorUtils.validateEntity(cas);
         cas.setUid(getUser().getUid());
         caseService.save(cas);
-        System.out.println(caseService.save(cas));
-        redisTemplate.delete(id);
+//        redisTemplate.delete(id);
         return Result.ok();
     }
 

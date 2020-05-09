@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-test_model
+
+server:
+  port: 10010
+  servlet:
+    context-path: /test_model

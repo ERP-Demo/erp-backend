@@ -57,13 +57,15 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
      * @return
      */
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
+    public PageUtils queryPage(Map<String, Object> params,Integer check) {
         Page page=new Query<DrugsPurchase>(params).getPage();
         Result result = null;
-        if ((boolean)params.get("check")) {
+        if (check==0) {
             result = activitiClient.checkOrder();
-        }else{
+        }else if (check==1){
             result = activitiClient.order();
+        }else {
+            result = activitiClient.warehouseCheck();
         }
         if ((Integer) result.get("code") != 200) {
             ExceptionCast.cast(ErrorEnum.UNKNOWN);
@@ -98,9 +100,9 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
         List<Drugs> DrugsList=drugsAndDetailed.getDetailed();
         Double AllTotal=0.0;
         for (Drugs drugs : DrugsList) {
-            Integer price= drugs.getPdMoney();
+            double price= drugs.getPdMoney();
             Integer drugsNum = drugs.getPdNum();
-            Integer total = price*drugsNum;
+            double total = price*drugsNum;
             AllTotal+=total;
         }
 
@@ -141,9 +143,9 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
         List<Drugs> DrugsList=detailed.getDetailed();
         Double AllTotal=0.0;
         for (Drugs drugs : DrugsList) {
-            Integer price= drugs.getPdMoney();
+            double price= drugs.getPdMoney();
             Integer drugsNum = drugs.getPdNum();
-            Integer total = price*drugsNum;
+            double total = price*drugsNum;
             AllTotal+=total;
         }
 
@@ -183,8 +185,25 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
             dpd.setPdNum(drugs.getPdNum());//数量
             as.add(dpd);
         }
-        System.out.println("药品详细表数据："+as);
         baseMapper.addDrugsPurchaseDetailed(as);
+    }
+
+    @Override
+    public PageUtils historyOrder(Map<String, Object> params){
+        Page page=new Query<DrugsPurchase>(params).getPage();
+        List<PurchaseSupplierVo> list= baseMapper.pageList(page,params);
+        List<String> processInstanceIds=new ArrayList<>();
+        for (PurchaseSupplierVo purchaseSupplierVo : list) {
+            processInstanceIds.add(purchaseSupplierVo.getProcessInstanceId());
+        }
+        Result result = activitiClient.bpmName(processInstanceIds);
+        if ((Integer) result.get("code")!=200) ExceptionCast.cast(ErrorEnum.LOAD_TIME_LANG);
+        Map<String,String> map=(Map<String, String>) result.get("map");
+        for (PurchaseSupplierVo purchaseSupplierVo : list) {
+            purchaseSupplierVo.setBpmName(map.get(purchaseSupplierVo.getProcessInstanceId()));
+        }
+        page.setRecords(list);
+        return new PageUtils(page);
     }
 
 

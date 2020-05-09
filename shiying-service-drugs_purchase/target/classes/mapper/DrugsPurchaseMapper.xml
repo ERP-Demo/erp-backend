@@ -15,7 +15,6 @@
     <sql id="Base_Column_List">
         purchase_id, supplier_id, purchase_amount_payable, purchase_actual_amount_paid, purchase_time,processInstanceId
     </sql>
-
     <select id="selectBypid" resultType="cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO">
         select t2.drugs_name,t1.pd_money,t1.pd_num
         from drugs_purchase_detailed t1
@@ -56,6 +55,18 @@
             <foreach item="id" collection="ids" separator="," open="(" close=")" index="">
                 #{id}
             </foreach>
+            <if test="params.purchaseId != null and params.purchaseId != ''">
+                and purchase_id LIKE concat('%',#{params.purchaseId},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="pageList" resultType="cn.shiying.drugs_purchase.entity.vo.PurchaseSupplierVo">
+        select dp.purchase_id,sd.supplier_name,dp.purchase_amount_payable,dp.purchase_actual_amount_paid,dp.purchase_time,dp.process_instance_id,dp.sub_name,dp.check_name
+        from drugs_purchase dp
+        inner join supplier_detailed sd
+        on dp.supplier_id=sd.supplier_id
+        <where>
             <if test="params.purchaseId != null and params.purchaseId != ''">
                 and purchase_id LIKE concat('%',#{params.purchaseId},'%')
             </if>

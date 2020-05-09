@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 
 @RequestMapping("/activiti")
 @FeignClient("shiying-service-activiti")
@@ -24,5 +26,5 @@ public interface ActivitiClient {
     Result back(@RequestParam("processInstanceId") String processInstanceId);
 
     @PostMapping("/bpmName")
-    Result bpmName(@RequestParam("processInstanceId") String processInstanceId);
+    Result bpmName(@RequestParam("processInstanceIds") List<String> processInstanceIds);
 }

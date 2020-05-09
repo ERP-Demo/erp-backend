@@ -27,13 +27,14 @@ public interface DrugsPurchaseService extends IService<DrugsPurchase> {
      * @param params
      * @return
      */
-    PageUtils queryPage(Map<String, Object> params);
+    PageUtils queryPage(Map<String, Object> params,Integer check);
     List<DrugsPurchaseDetailedVO> selectBypid(String pid);
     List<SupplierDetailed> selectSname();
     List<DrugsDetailed> selectDname();
     int insertPurchase(DrugsPurchase drugsPurchase);
     int insertDetailed(DrugsPurchaseDetailed drugsPurchaseDetailed);
     void addSupplierAndDrugs(DrugsAndDetailed drugsAndDetailed);
+    PageUtils historyOrder(Map<String, Object> params);
 
     List<DrugsPurchaseDetailed> getByDrugsId(String id);
 

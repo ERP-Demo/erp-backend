@@ -37,7 +37,6 @@ public class ElectronicCase implements Serializable {
     /**
      * 病人id
      */
-
     private Integer patientId;
 
     /**

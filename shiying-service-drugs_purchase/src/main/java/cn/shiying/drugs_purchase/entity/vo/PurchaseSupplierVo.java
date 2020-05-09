@@ -15,4 +15,6 @@ public class PurchaseSupplierVo extends DrugsPurchase {
      */
     private String supplierName;
 
+    private String bpmName;
+
 }

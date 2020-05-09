@@ -23,9 +23,15 @@ public interface ActivitiClient {
     @GetMapping("/checkOrder")
     Result checkOrder();
 
+    @GetMapping("/warehouseCheck")
+    Result warehouseCheck();
+
     @GetMapping("/reject")
     Result reject(@RequestParam("processInstanceIds") List<String> processInstanceIds,@RequestParam("reason") String reason);
 
-    @GetMapping("/agree")
+    @PostMapping("/agree")
     Result agree(@RequestBody List<String> processInstanceIds);
+
+    @PostMapping("/bpmName")
+    Result bpmName(@RequestParam("processInstanceIds") List<String> processInstanceIds);
 }

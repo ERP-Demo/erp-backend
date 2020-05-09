@@ -37,7 +37,6 @@ public class ActivitiController {
 
     @PostMapping("/startPatient")
     public Result startPatient(Integer departmentId,String registerId){
-        System.out.println(registerId+" "+departmentId);
         Map<String , Object> variables = new HashMap<String,Object>();
         variables.put("departmentId",departmentId);
         variables.put("registerId",registerId);
@@ -48,7 +47,6 @@ public class ActivitiController {
     public Result registerPatient(){
         JwtUser user=getUser();
         List<Task> list = taskService.createTaskQuery().processDefinitionKey("patient").list();
-        System.out.println(list);
         List<String> deptWaitList=new ArrayList<>();
         List<String> personalDuringList=new ArrayList<>();
         List<String> personalWaitList=new ArrayList<>();
@@ -89,7 +87,13 @@ public class ActivitiController {
         return Result.ok().put("ids",orderId(list));
     }
 
-    @GetMapping("/agree")
+    @GetMapping("/warehouseCheck")
+    public Result warehouseCheck(){
+        List<Task> list = taskService.createTaskQuery().taskName("验收").list();
+        return Result.ok().put("ids",orderId(list));
+    }
+
+    @PostMapping("/agree")
     public Result agree(@RequestBody List<String> processInstanceIds){
         JwtUser user = getUser();
         List<Task> list = taskService.createTaskQuery().processInstanceIdIn(processInstanceIds).list();
@@ -171,19 +175,15 @@ public class ActivitiController {
         return Result.ok();
     }
 
-    /**
-     * 待优化
-     * @param processInstanceId 流程id
-     * @return code=200
-     */
+
     @PostMapping("/bpmName")
-    public Result bpmName(String processInstanceId){
-        List<Task> list = taskService.createTaskQuery().processInstanceId(processInstanceId).list();
-        if (list.size()==0)return Result.ok().put("bpmName","诊断完成");
+    public Result bpmName(@RequestParam("processInstanceIds") List<String> processInstanceIds){
+        List<Task> list = taskService.createTaskQuery().processInstanceIdIn(processInstanceIds).list();
+        Map<String,String> map=new HashMap<>();
         for (Task task : list) {
-            return Result.ok().put("bpmName",task.getName());
+            map.put(task.getProcessInstanceId(),task.getName());
         }
-        return Result.ok();
+        return Result.ok().put("map",map);
     }
 
     @PostMapping("/sub")

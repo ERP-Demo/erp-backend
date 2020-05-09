@@ -138,3 +138,8 @@ zuul:
       serviceId: shiying-service-dms_case_model_catalog
       strip-prefix: false
       sensitiveHeaders:
+    shiying-service-requirements:
+      path: /requirements/**
+      serviceId: shiying-service-requirements
+      strip-prefix: false
+      sensitiveHeaders:

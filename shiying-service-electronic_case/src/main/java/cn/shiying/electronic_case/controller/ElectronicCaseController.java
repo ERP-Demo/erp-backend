@@ -1,6 +1,7 @@
 package cn.shiying.electronic_case.controller;
 
 import cn.shiying.common.entity.token.JwtUser;
+import cn.shiying.electronic_case.entity.Case;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,12 +61,9 @@ public class ElectronicCaseController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('electronic_case:case:save')")
-    public Result save(@RequestBody ElectronicCase cas){
-        String id=Integer.toString(cas.getPatientId());
+    public Result save(@RequestBody Case cas){
         ValidatorUtils.validateEntity(cas);
-        cas.setUid(getUser().getUid());
-        caseService.save(cas);
-        redisTemplate.delete(id);
+        caseService.saveCase(cas);
         return Result.ok();
     }
 
@@ -90,14 +88,7 @@ public class ElectronicCaseController {
         return Result.ok();
     }
 
-    public JwtUser getUser(){
-        Map<String,Object> map= (Map<String, Object>) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        JwtUser user=new JwtUser();
-        user.setUid((Integer) map.get("uid"));
-        user.setUsername((String) map.get("username"));
-        user.setDepartmentId((List<Integer>) map.get("departmentId"));
-        return user;
-    }
+
     @PostMapping("/saveRidis")
     public Result saveRidis(@RequestBody ElectronicCase cas) {
         caseService.ElectronicCase(cas);

@@ -60,9 +60,9 @@ public class DrugModelController {
         ValidatorUtils.validateEntity(from);
         DrugModel m=from.getDrugModel();
         modelService.save(m);
-        System.out.println(from.getIds());
+        System.out.println(m.getDrugModelId());
         from.setDrugModelId(m.getDrugModelId());
-        modelService.add(from.getDrugModelId(),from.getIds());
+        modelService.add(m.getDrugModelId(),from.getIds());
         return Result.ok();
     }
     /**
@@ -82,8 +82,8 @@ public class DrugModelController {
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('drug_model:model:delete')")
     public Result delete(@RequestBody String[] ids){
-        modelService.removeByIds(Arrays.asList(ids));
-
+        //modelService.removeByIds(Arrays.asList(ids));
+        System.out.println(Arrays.asList(ids));
         return Result.ok();
     }
 }

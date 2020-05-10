@@ -1,8 +1,12 @@
 package cn.shiying.electronic_case.service.impl;
 
+import cn.shiying.common.entity.token.JwtUser;
 import cn.shiying.electronic_case.Util.RedisUtil;
+import cn.shiying.electronic_case.entity.Case;
 import cn.shiying.electronic_case.entity.ElectronicCase;
+import cn.shiying.electronic_case.entity.ElectronicCaseDetailed;
 import cn.shiying.electronic_case.entity.vo.ElectronicCaseVO;
+import cn.shiying.electronic_case.mapper.ElectronicCaseDetailedMapper;
 import cn.shiying.electronic_case.mapper.ElectronicCaseMapper;
 import cn.shiying.electronic_case.service.ElectronicCaseService;
 import com.alibaba.fastjson.JSON;
@@ -18,6 +22,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +30,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author tyb
@@ -35,18 +40,23 @@ import java.util.Map;
 public class ElectronicCaseServiceImpl extends ServiceImpl<ElectronicCaseMapper, ElectronicCase> implements ElectronicCaseService {
     @Autowired
     private RedisUtil redisUtil;
+
     @Autowired
-    RedisTemplate<String,String> redisTemplate;
+    RedisTemplate<String, String> redisTemplate;
+
+    @Autowired
+    ElectronicCaseDetailedMapper electronicCaseDetailedMapper;
 
     /**
      * 分页查询
+     *
      * @param params
      * @return
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        Page page=new Query<ElectronicCase>(params).getPage();
-        List<ElectronicCaseVO> list= baseMapper.listElectronicCaseVO(params);
+        Page page = new Query<ElectronicCase>(params).getPage();
+        List<ElectronicCaseVO> list = baseMapper.listElectronicCaseVO(params);
         System.out.println(list);
         page.setRecords(list);
         return new PageUtils(page);
@@ -54,8 +64,8 @@ public class ElectronicCaseServiceImpl extends ServiceImpl<ElectronicCaseMapper,
 
     @Override
     public void ElectronicCase(ElectronicCase electronicCase) {
-       String id=Integer.toString(electronicCase.getPatientId());
-        ObjectMapper objectMapper=new ObjectMapper();
+        String id = Integer.toString(electronicCase.getPatientId());
+        ObjectMapper objectMapper = new ObjectMapper();
         try {
             String s = objectMapper.writeValueAsString(electronicCase);
             redisTemplate.boundValueOps(id).set(s);
@@ -66,10 +76,36 @@ public class ElectronicCaseServiceImpl extends ServiceImpl<ElectronicCaseMapper,
 
     @Override
     public ElectronicCase getRedis(ElectronicCase electronicCase) {
-        String id=Integer.toString(electronicCase.getPatientId());
+        String id = Integer.toString(electronicCase.getPatientId());
         String students = redisTemplate.boundValueOps(id).get();
-        ElectronicCase electronicCase1=JSON.parseObject(students,ElectronicCase.class);
+        ElectronicCase electronicCase1 = JSON.parseObject(students, ElectronicCase.class);
         return electronicCase1;
+    }
+
+    @Override
+    public void saveCase(Case cas) {
+        ElectronicCase aCase = cas.getElectronicCase();
+        String id = aCase.getRegisterId();
+        aCase.setUid(getUser().getUid());
+        baseMapper.insert(aCase);
+        List<Integer> icdId = cas.getIcdId();
+        for (Integer icd : icdId) {
+            ElectronicCaseDetailed electronicCaseDetailed = new ElectronicCaseDetailed();
+            electronicCaseDetailed.setCaseNo(aCase.getCaseNo());
+            electronicCaseDetailed.setIcdId(icd);
+            electronicCaseDetailedMapper.insert(electronicCaseDetailed);
+        }
+        redisTemplate.delete("Case:"+id);
+    }
+
+
+    public JwtUser getUser() {
+        Map<String, Object> map = (Map<String, Object>) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        JwtUser user = new JwtUser();
+        user.setUid((Integer) map.get("uid"));
+        user.setUsername((String) map.get("username"));
+        user.setDepartmentId((List<Integer>) map.get("departmentId"));
+        return user;
     }
 
 }

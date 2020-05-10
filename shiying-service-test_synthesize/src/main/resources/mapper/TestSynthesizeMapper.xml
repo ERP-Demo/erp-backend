@@ -22,7 +22,7 @@
     </insert>
 
     <select id="SynthesizeList" resultType="cn.shiying.test_synthesize.entity.TestSynthesize">
-        select test_synthesize_id, test_synthesize_name from test_synthesize
+        select test_synthesize_id, test_synthesize_name,test_synthesize_price from test_synthesize
         <where>
             <if test="params.key != null and params.key != ''">
                 and test_synthesize_name LIKE concat('%',#{params.key},'%')

@@ -40,6 +40,11 @@ public class ElectronicCase implements Serializable {
     private Integer patientId;
 
     /**
+     * 挂号编号
+     */
+    private String registerId;
+
+    /**
      * 主诉
      */
     private String complain;

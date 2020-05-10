@@ -6,6 +6,6 @@ import java.util.List;
 
 @Data
 public class Case {
-//    private List<Integer> icdId;
+    private List<Integer> icdId;
     private ElectronicCase electronicCase;
 }

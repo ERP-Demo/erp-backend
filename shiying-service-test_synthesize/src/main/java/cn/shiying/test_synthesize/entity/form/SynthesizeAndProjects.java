@@ -9,7 +9,7 @@ public class SynthesizeAndProjects {
 
     private String synthesizeName;
 
-    private String synthesizPrice;
+    private double synthesizPrice;
 
     private List<correlation> detailed;
 

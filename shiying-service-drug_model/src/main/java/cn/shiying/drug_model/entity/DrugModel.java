@@ -51,6 +51,6 @@ public class DrugModel implements Serializable {
     /**
      * 药品模板类型
      */
-    private String drugModelType;
+    private Integer drugModelType;
 
 }

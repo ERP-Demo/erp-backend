@@ -143,3 +143,8 @@ zuul:
       serviceId: shiying-service-requirements
       strip-prefix: false
       sensitiveHeaders:
+    shiying-service-drug_model:
+      path: /drug_model/**
+      serviceId: shiying-service-drug_model
+      strip-prefix: false
+      sensitiveHeaders:

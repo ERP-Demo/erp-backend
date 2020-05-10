@@ -1,4 +1,4 @@
-package cn.shiying.test_synthesize;
+package cn.shiying.test_model;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,10 +8,11 @@ import org.springframework.context.annotation.ComponentScan;
 
 @EnableDiscoveryClient
 @EnableFeignClients
-@ComponentScan(basePackages = {"cn.shiying.config","cn.shiying.test_synthesize"})
+@ComponentScan(basePackages = {"cn.shiying.config","cn.shiying.test_model"})
 @SpringBootApplication
-public class Test_synthesizeApplication {
+public class Test_modelApplication {
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(Test_synthesizeApplication.class, args);
+        SpringApplication.run(Test_modelApplication.class, args);
     }
+
 }

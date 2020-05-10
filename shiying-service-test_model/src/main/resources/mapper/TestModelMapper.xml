@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shiying.test_model.mapper.TestModelMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.shiying.test_model.entity.TestModel">
+        <id column="test_model_id" property="testModelId" />
+        <result column="test_model_name" property="testModelName" />
+        <result column="test_model_introduction" property="testModelIntroduction" />
+        <result column="test_model_code" property="testModelCode" />
+        <result column="test_model_range" property="testModelRange" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        test_model_id, test_model_name, test_model_introduction, test_model_code, test_model_range
+    </sql>
+    <insert id="add">
+        insert into test_model(test_model_id,test_synthesize_id)value(#{testModelId},#{ids})
+    </insert>
+</mapper>

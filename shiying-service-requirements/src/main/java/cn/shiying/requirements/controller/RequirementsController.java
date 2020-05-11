@@ -1,7 +1,10 @@
 package cn.shiying.requirements.controller;
 
+import cn.shiying.common.entity.token.JwtUser;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,10 +59,19 @@ public class RequirementsController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('requirements:requirements:save')")
     public Result save(@RequestBody Requirements requirements){
-        System.out.println(requirements);
+        System.out.println("数据=-----------"+requirements);
         ValidatorUtils.validateEntity(requirements);
+        requirements.setUid(getUser().getUid());
         requirementsService.save(requirements);
         return Result.ok();
+    }
+    public JwtUser getUser(){
+        Map<String,Object> map= (Map<String, Object>) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        JwtUser user=new JwtUser();
+        user.setUid((Integer) map.get("uid"));
+        user.setUsername((String) map.get("username"));
+        user.setDepartmentId((List<Integer>) map.get("departmentId"));
+        return user;
     }
 
     /**
@@ -81,6 +93,12 @@ public class RequirementsController {
     public Result delete(@RequestBody String[] ids){
         requirementsService.removeByIds(Arrays.asList(ids));
 
+        return Result.ok();
+    }
+    @GetMapping("/updatestate/{id}")
+    public Result updatestate(@PathVariable Integer id){
+        System.out.println(id);
+        requirementsService.updatestate(id);
         return Result.ok();
     }
 }

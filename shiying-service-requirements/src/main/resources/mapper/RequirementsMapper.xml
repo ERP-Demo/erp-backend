@@ -5,17 +5,26 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.shiying.requirements.entity.Requirements">
         <result column="project_id" property="projectId" />
-        <result column="project_name" property="projectName" />
         <result column="purpose" property="purpose" />
         <result column="requirements" property="requirements" />
         <result column="Clinical_impression" property="clinicalImpression" />
         <result column="Clinical_diagnosis" property="clinicalDiagnosis" />
         <result column="Check_the" property="checkThe" />
     </resultMap>
+    <resultMap id="WithDepartment" extends="BaseResultMap" type="cn.shiying.requirements.entity.Vo.Requirements_Vo">
+        <association property="patientDetailed" column="patient_id" select="cn.shiying.common.mapper.PatientDetailedMapper.selectById"/>
+        <association property="electronicCase" column="register_id" select="cn.shiying.electronic_case.mapper.ElectronicCaseMapper.selectById"/>
+    </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        project_id, project_name, purpose, requirements, Clinical_impression, Clinical_diagnosis, Check_the
+        project_id, uid,patient_id,register_id, purpose, requirements, Clinical_impression, Clinical_diagnosis, Check_the,status
     </sql>
+    <update id="updatestate">
+        update  requirements  set status=4 where project_id=#{id}
+    </update>
+    <select id="All" resultMap="WithDepartment">
+
+    </select>
 
 </mapper>

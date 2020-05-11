@@ -2,7 +2,10 @@ package cn.shiying.test_synthesize.controller;
 
 import cn.shiying.test_synthesize.entity.form.SynthesizeAndProjects;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,7 @@ public class TestSynthesizeController {
     @PreAuthorize("hasAuthority('test_synthesize:synthesize:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = synthesizeService.queryPage(params);
+        System.out.println(page);
         return Result.ok().put("page", page);
     }
 
@@ -89,5 +93,13 @@ public class TestSynthesizeController {
     public Result addSynthesizeAndProjects(@RequestBody SynthesizeAndProjects synthesizeAndProjects){
         synthesizeService.addSynthesizeAndProjects(synthesizeAndProjects);
         return Result.ok();
+    }
+    @GetMapping("/selectByid/{ids}")
+    public Result selectByid(@PathVariable Integer ids){
+        TestSynthesize testSynthesize = synthesizeService.selectByid(ids);
+        List<TestSynthesize> list=new ArrayList<>();
+        list.add(testSynthesize);
+        System.out.println(testSynthesize);
+        return Result.ok().put("list",list);
     }
 }

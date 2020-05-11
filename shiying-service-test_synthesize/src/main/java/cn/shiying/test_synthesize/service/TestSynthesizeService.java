@@ -24,4 +24,5 @@ public interface TestSynthesizeService extends IService<TestSynthesize> {
      PageUtils queryPage(Map<String, Object> params);
 
     void addSynthesizeAndProjects(SynthesizeAndProjects synthesizeAndProjects);
+    TestSynthesize selectByid(Integer id);
 }

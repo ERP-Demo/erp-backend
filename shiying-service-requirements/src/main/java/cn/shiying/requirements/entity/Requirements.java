@@ -4,13 +4,15 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author tyb
@@ -27,11 +29,18 @@ public class Requirements implements Serializable {
      * 项目编码
      */
     private Integer projectId;
-
     /**
-     * 项目名称
+     * 医生id
      */
-    private String projectName;
+    private Integer uid;
+    /**
+     * 患者id
+     */
+    private Integer patientId;
+    /**
+     * 就诊号
+     */
+    private String registerId;
 
     /**
      * 目的
@@ -60,6 +69,12 @@ public class Requirements implements Serializable {
      */
     @TableField("Check_the")
     private String checkThe;
+
+    /**
+     * 状态
+     */
+    @TableField("status")
+    private Integer status;
 
 
 }

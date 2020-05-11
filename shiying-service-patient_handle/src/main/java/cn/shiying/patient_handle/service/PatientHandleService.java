@@ -1,6 +1,6 @@
-package cn.shiying.requirements.service;
+package cn.shiying.patient_handle.service;
 
-import cn.shiying.requirements.entity.Requirements;
+import cn.shiying.patient_handle.entity.PatientHandle;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
 import java.util.Map;
@@ -11,9 +11,9 @@ import java.util.Map;
  * </p>
  *
  * @author tyb
- * @since 2020-05-02
+ * @since 2020-05-11
  */
-public interface RequirementsService extends IService<Requirements> {
+public interface PatientHandleService extends IService<PatientHandle> {
 
     /**
      * 分页查询
@@ -21,5 +21,4 @@ public interface RequirementsService extends IService<Requirements> {
      * @return
      */
      PageUtils queryPage(Map<String, Object> params);
-     void  updatestate(Integer id);
 }

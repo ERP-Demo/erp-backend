@@ -25,4 +25,5 @@ public interface TestSynthesizeMapper extends BaseMapper<TestSynthesize> {
     void addTestCorrelation(List<TestCorrelation> co);
 
     List<TestSynthesize> SynthesizeList(Page<TestSynthesize> page, @Param("params") Map<String, Object> params);
+
 }

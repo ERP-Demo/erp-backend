@@ -34,4 +34,9 @@ public class RequirementsServiceImpl extends ServiceImpl<RequirementsMapper, Req
         return new PageUtils(page);
     }
 
+    @Override
+    public void updatestate(Integer id) {
+        baseMapper.updatestate(id);
+    }
+
 }

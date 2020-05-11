@@ -94,4 +94,9 @@ public class TestSynthesizeServiceImpl extends ServiceImpl<TestSynthesizeMapper,
         System.out.println("数据："+synthesizeAndProjects);
     }
 
+    @Override
+    public TestSynthesize selectByid(Integer id) {
+        return baseMapper.selectById(id);
+    }
+
 }

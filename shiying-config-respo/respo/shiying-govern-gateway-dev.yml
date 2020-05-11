@@ -153,3 +153,8 @@ zuul:
       serviceId: shiying-service-test_model
       strip-prefix: false
       sensitiveHeaders:
+    service-handle:
+      path: /handle/**
+      serviceId: shiying-service-handle
+      strip-prefix: false
+      sensitiveHeaders:

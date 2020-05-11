@@ -4,7 +4,11 @@ import cn.shiying.common.entity.Drugs.DrugsDetailed;
 import cn.shiying.common.entity.Drugs.DrugsPurchaseDetailed;
 import cn.shiying.common.entity.supplier.SupplierDetailed;
 import cn.shiying.drugs_purchase.entity.DrugsPurchase;
+import cn.shiying.drugs_purchase.entity.PurchaseReturned;
+import cn.shiying.drugs_purchase.entity.PurchaseReturnedDetailed;
+import cn.shiying.drugs_purchase.entity.form.Returned;
 import cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO;
+import cn.shiying.drugs_purchase.entity.vo.PurchaseAndReturnedVO;
 import cn.shiying.drugs_purchase.entity.vo.PurchaseSupplierVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -45,4 +49,11 @@ public interface DrugsPurchaseMapper extends BaseMapper<DrugsPurchase> {
 
     //根据单号删除进货详细表
     void delDrugs(String purchaseId);
+
+    //添加退货表详细表
+    void addPurchaseReturnedDetailed(List<PurchaseReturnedDetailed> prdetailedList);
+
+    //查询退货所有数据
+    List<PurchaseAndReturnedVO> listPurchaseAndReturnedVO(Page<DrugsPurchaseDetailed> page, @Param("params") Map<String, Object> params);
+
 }

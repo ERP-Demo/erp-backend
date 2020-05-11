@@ -3,8 +3,10 @@ package cn.shiying.drugs_purchase.service;
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
 import cn.shiying.common.entity.Drugs.DrugsPurchaseDetailed;
 import cn.shiying.common.entity.supplier.SupplierDetailed;
+import cn.shiying.drugs_purchase.entity.PurchaseReturnedDetailed;
 import cn.shiying.drugs_purchase.entity.form.DrugsAndDetailed;
 import cn.shiying.drugs_purchase.entity.DrugsPurchase;
+import cn.shiying.drugs_purchase.entity.form.Returned;
 import cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
@@ -47,4 +49,9 @@ public interface DrugsPurchaseService extends IService<DrugsPurchase> {
     //再添加进货详细表
     void addDrugs(DrugsAndDetailed detailed);
 
+    //退货
+    void purchaseReturned(Returned returned);
+
+    //查询退货所有数据
+    PageUtils allreturned(Map<String, Object> params);
 }

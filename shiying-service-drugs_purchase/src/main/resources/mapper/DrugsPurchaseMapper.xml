@@ -16,7 +16,7 @@
         purchase_id, supplier_id, purchase_amount_payable, purchase_actual_amount_paid, purchase_time,processInstanceId
     </sql>
     <select id="selectBypid" resultType="cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO">
-        select t2.drugs_name,t1.pd_money,t1.pd_num
+        select t1.pdid,t1.purchase_Id,t2.drugs_name,t1.pd_money,t1.pd_num
         from drugs_purchase_detailed t1
         inner join drugs_detailed t2
         on t2.drugs_id=t1.drugs_id
@@ -90,5 +90,30 @@
     <delete id="delDrugs">
         delete from drugs_purchase_detailed where purchase_id=#{purchase_id}
     </delete>
+
+    <!--添加退货表详细表-->
+    <insert id="addPurchaseReturnedDetailed">
+        insert into purchase_returned_detailed(pdid,pdNum,tuihuo_id) values
+        <foreach collection="list" item="returned" separator="," close=";">
+            (#{returned.pdid},#{returned.pdNum},#{returned.tuihuoId})
+        </foreach>
+    </insert>
+
+    <!--查询退货所有数据-->
+    <select id="listPurchaseAndReturnedVO" resultType="cn.shiying.drugs_purchase.entity.vo.PurchaseAndReturnedVO">
+        select dpd.purchase_id,prd.pdNum,prd.tuihuo_id,pr.tuihuo_time,su.username
+        from purchase_returned pr
+        inner join purchase_returned_detailed prd
+        on pr.tuihuo_id=prd.tuihuo_id
+        inner join drugs_purchase_detailed dpd
+        on prd.pdid=dpd.pdid
+        inner join sys_user su
+        on pr.user_id=su.user_id
+        <where>
+            <if test="params.purchaseId != null and params.purchaseId != ''">
+                and purchase_id LIKE concat('%',#{params.purchaseId},'%')
+            </if>
+        </where>
+    </select>
 
 </mapper>

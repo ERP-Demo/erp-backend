@@ -60,7 +60,6 @@ public class TestSynthesizeServiceImpl extends ServiceImpl<TestSynthesizeMapper,
      */
     @Override
     public void addSynthesizeAndProjects(SynthesizeAndProjects synthesizeAndProjects) {
-        System.out.println("进入");
         //添加化验表
         TestSynthesize synthesize = new TestSynthesize();
         synthesize.setTestSynthesizeName(synthesizeAndProjects.getSynthesizeName());

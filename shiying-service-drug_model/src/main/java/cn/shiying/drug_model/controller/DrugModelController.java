@@ -57,7 +57,9 @@ public class DrugModelController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('drug_model:model:save')")
     public Result save(@RequestBody DrugModelFrom from){
+        //验证
         ValidatorUtils.validateEntity(from);
+        //获取数据
         DrugModel m=from.getDrugModel();
         modelService.save(m);
         System.out.println(m.getDrugModelId());

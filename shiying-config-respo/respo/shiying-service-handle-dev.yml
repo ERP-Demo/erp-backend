@@ -3,6 +3,6 @@ spring:
     name: shiying-service-handle
 
 server:
-  port: 80976
+  port: 80943
   servlet:
     context-path: /handle

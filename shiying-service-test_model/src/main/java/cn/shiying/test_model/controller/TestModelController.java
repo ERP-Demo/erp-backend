@@ -34,7 +34,7 @@ public class TestModelController {
     @PreAuthorize("hasAuthority('test_model:model:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = modelService.queryPage(params);
-
+        System.out.println(page);
         return Result.ok().put("page", page);
     }
 
@@ -46,7 +46,6 @@ public class TestModelController {
     @PreAuthorize("hasAuthority('test_model:model:info')")
     public Result info(@PathVariable("id") String id){
        TestModel model = modelService.getById(id);
-
         return Result.ok().put("model", model);
     }
 
@@ -56,9 +55,9 @@ public class TestModelController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('test_model:model:save')")
     public Result save(@RequestBody TestModel model){
+        //验证工具
         ValidatorUtils.validateEntity(model);
         modelService.save(model);
-
         return Result.ok();
     }
 
@@ -80,7 +79,6 @@ public class TestModelController {
     @PreAuthorize("hasAuthority('test_model:model:delete')")
     public Result delete(@RequestBody String[] ids){
         modelService.removeByIds(Arrays.asList(ids));
-
         return Result.ok();
     }
 }

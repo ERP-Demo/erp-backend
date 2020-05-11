@@ -1,10 +1,8 @@
 package cn.shiying.icd.mapper;
 
-import cn.shiying.icd.entity.Icd;
+import cn.shiying.common.entity.Icd.Icd;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.List;
 
 /**
  * <p>

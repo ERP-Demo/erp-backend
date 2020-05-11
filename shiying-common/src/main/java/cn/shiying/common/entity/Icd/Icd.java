@@ -1,4 +1,4 @@
-package cn.shiying.icd.entity;
+package cn.shiying.common.entity.Icd;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

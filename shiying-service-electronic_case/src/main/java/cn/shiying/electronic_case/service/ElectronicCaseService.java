@@ -32,4 +32,6 @@ public interface ElectronicCaseService extends IService<ElectronicCase> {
     ElectronicCase getRedis(ElectronicCase electronicCase);
 
     void saveCase(Case cas);
+
+    List<String> getdetailed(Integer caseNo);
 }

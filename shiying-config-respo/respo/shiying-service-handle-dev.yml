@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-handle
+
+server:
+  port: 80976
+  servlet:
+    context-path: /handle

@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -16,6 +17,6 @@ public class PurchaseReturned  implements Serializable {
     @TableId(value = "tuihuo_id", type = IdType.AUTO)
     private Integer tuihuoId;
     private Integer userId;
-    private String tuihuoTime;
+    private LocalDateTime tuihuoTime;
     private String purchaseId;
 }

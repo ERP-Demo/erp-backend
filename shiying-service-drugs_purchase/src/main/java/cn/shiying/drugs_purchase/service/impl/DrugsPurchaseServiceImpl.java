@@ -148,13 +148,12 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
     @Override
     public void purchaseReturned(Returned returned) {
         //添加订单退货表
-        PurchaseReturned purchaseReturned = new PurchaseReturned();
+        PurchaseReturned purchaseReturned = returned.getPurchaseReturned();
         purchaseReturned.setUserId(getUser().getUid());
         returnedMapper.insert(purchaseReturned);
         Integer id = purchaseReturned.getTuihuoId();
-
         //添加订单退货详细表
-        List<PurchaseReturnedDetailed> prdetailedList=returned.getPurchaseReturned();
+        List<PurchaseReturnedDetailed> prdetailedList=returned.getPurchaseReturnedDetaileds();
 
         for (PurchaseReturnedDetailed p : prdetailedList) {
             p.setTuihuoId(id);

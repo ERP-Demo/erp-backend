@@ -4,33 +4,34 @@ import cn.shiying.common.dto.Result;
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
 import cn.shiying.common.entity.Drugs.DrugsPurchaseDetailed;
 import cn.shiying.common.entity.supplier.SupplierDetailed;
+import cn.shiying.common.entity.token.JwtUser;
 import cn.shiying.common.enums.ErrorEnum;
 import cn.shiying.common.exception.ExceptionCast;
-import cn.shiying.common.exception.ExceptionCatch;
 import cn.shiying.drugs_purchase.client.ActivitiClient;
 import cn.shiying.drugs_purchase.config.DrugsSchedule;
+import cn.shiying.drugs_purchase.entity.DrugsSupplier;
+import cn.shiying.drugs_purchase.entity.PurchaseReturned;
+import cn.shiying.drugs_purchase.entity.PurchaseReturnedDetailed;
 import cn.shiying.drugs_purchase.entity.form.Drugs;
 import cn.shiying.drugs_purchase.entity.form.DrugsAndDetailed;
 import cn.shiying.drugs_purchase.entity.DrugsPurchase;
+import cn.shiying.drugs_purchase.entity.form.Returned;
 import cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO;
 import cn.shiying.drugs_purchase.entity.vo.DrugsSupplierVO;
+import cn.shiying.drugs_purchase.entity.vo.PurchaseAndReturnedVO;
 import cn.shiying.drugs_purchase.entity.vo.PurchaseSupplierVo;
 import cn.shiying.drugs_purchase.mapper.DrugsPurchaseMapper;
+import cn.shiying.drugs_purchase.mapper.PurchaseReturnedMapper;
 import cn.shiying.drugs_purchase.service.DrugsPurchaseService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import cn.shiying.common.utils.Query;
 import cn.shiying.common.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +51,9 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
 
     @Autowired
     private ActivitiClient activitiClient;
+
+    @Autowired
+    PurchaseReturnedMapper returnedMapper;
 
     /**
      * 分页查询
@@ -131,6 +135,34 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
         baseMapper.addDrugsPurchaseDetailed(as);
     }
 
+    public JwtUser getUser(){
+        Map<String,Object> map= (Map<String, Object>) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        JwtUser user=new JwtUser();
+        user.setUid((Integer) map.get("uid"));
+        user.setUsername((String) map.get("username"));
+        user.setDepartmentId((List<Integer>) map.get("departmentId"));
+        return user;
+    }
+
+    //退货
+    @Override
+    public void purchaseReturned(Returned returned) {
+        //添加订单退货表
+        PurchaseReturned purchaseReturned = new PurchaseReturned();
+        purchaseReturned.setUserId(getUser().getUid());
+        returnedMapper.insert(purchaseReturned);
+        Integer id = purchaseReturned.getTuihuoId();
+
+        //添加订单退货详细表
+        List<PurchaseReturnedDetailed> prdetailedList=returned.getPurchaseReturned();
+
+        for (PurchaseReturnedDetailed p : prdetailedList) {
+            p.setTuihuoId(id);
+        }
+
+        baseMapper.addPurchaseReturnedDetailed(prdetailedList);
+    }
+
     @Override
     public List<DrugsPurchaseDetailed> getByDrugsId(String id) {
         return baseMapper.getByDrugsId(id);
@@ -160,7 +192,6 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
         dp.setPurchaseAmountPayable(AllTotal);//应付金额
         dp.setPurchaseActualAmountPaid(detailed.getPayPrice());//已付订金
         dp.setProcessInstanceId(processInstanceId);
-        System.out.println("药品表数据："+dp);
         baseMapper.updateDrugs(dp);
     }
 
@@ -206,6 +237,14 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
         return new PageUtils(page);
     }
 
-
+    //查询退货所有数据
+    @Override
+    public PageUtils allreturned(Map<String, Object> params) {
+        Page page=new Query<DrugsPurchaseDetailed>(params).getPage();
+        List<PurchaseAndReturnedVO> list= baseMapper.listPurchaseAndReturnedVO(page,params);
+        System.out.println(list);
+        page.setRecords(list);
+        return new PageUtils(page);
+    }
 
 }

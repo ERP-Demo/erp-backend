@@ -35,4 +35,5 @@ public class DrugsSchedule {
         num++;
         return "JH" + LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE) + n;
     }
+
 }

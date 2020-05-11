@@ -6,8 +6,11 @@ import cn.shiying.common.entity.supplier.SupplierDetailed;
 import cn.shiying.common.enums.ErrorEnum;
 import cn.shiying.common.exception.ExceptionCast;
 import cn.shiying.drugs_purchase.client.ActivitiClient;
+import cn.shiying.drugs_purchase.entity.PurchaseReturned;
+import cn.shiying.drugs_purchase.entity.PurchaseReturnedDetailed;
 import cn.shiying.drugs_purchase.entity.form.CheckForm;
 import cn.shiying.drugs_purchase.entity.form.DrugsAndDetailed;
+import cn.shiying.drugs_purchase.entity.form.Returned;
 import cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -158,6 +161,15 @@ public class DrugsPurchaseController {
         return Result.ok();
     }
 
+    /**
+     * 药品退货
+     */
+    @PostMapping("/purchaseReturned")
+    public Result purchaseReturned(@RequestBody Returned returned){
+        purchaseService.purchaseReturned(returned);
+        return Result.ok();
+    }
+
     @GetMapping("/checkList")
     @PreAuthorize("hasAuthority('drugs_purchase:purchase:check:list')")
     public Result checkList(@RequestParam Map<String, Object> params){
@@ -210,4 +222,14 @@ public class DrugsPurchaseController {
         Map<String,Object> map= (Map<String, Object>) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return (String) map.get("username");
     }
+
+
+    @GetMapping("/allreturned")
+    @PreAuthorize("hasAuthority('returned:check:list')")
+    public Result allreturned(@RequestParam Map<String, Object> params){
+        System.out.println("进入");
+        PageUtils page = purchaseService.allreturned(params);
+        return Result.ok().put("page", page);
+    }
+
 }

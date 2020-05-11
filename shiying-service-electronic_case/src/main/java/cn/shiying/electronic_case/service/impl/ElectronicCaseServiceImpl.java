@@ -25,6 +25,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -96,6 +97,16 @@ public class ElectronicCaseServiceImpl extends ServiceImpl<ElectronicCaseMapper,
             electronicCaseDetailedMapper.insert(electronicCaseDetailed);
         }
         redisTemplate.delete("Case:"+id);
+    }
+
+    @Override
+    public List<String> getdetailed(Integer caseNo) {
+        List<ElectronicCaseDetailed> electronicCaseDetaileds = electronicCaseDetailedMapper.selectList(new QueryWrapper<ElectronicCaseDetailed>().eq("case_no", caseNo));
+        List<String> icds=new ArrayList<>();
+        for (ElectronicCaseDetailed electronicCaseDetailed : electronicCaseDetaileds) {
+            icds.add(electronicCaseDetailed.getIcdId()+"");
+        }
+        return icds;
     }
 
 

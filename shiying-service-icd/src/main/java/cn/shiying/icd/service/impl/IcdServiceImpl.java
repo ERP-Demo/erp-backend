@@ -1,6 +1,6 @@
 package cn.shiying.icd.service.impl;
 
-import cn.shiying.icd.entity.Icd;
+import cn.shiying.common.entity.Icd.Icd;
 import cn.shiying.icd.mapper.IcdMapper;
 import cn.shiying.icd.service.IcdService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -10,7 +10,6 @@ import cn.shiying.common.utils.Query;
 import cn.shiying.common.utils.PageUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 
 /**

@@ -1,10 +1,9 @@
 package cn.shiying.icd.service;
 
-import cn.shiying.icd.entity.Icd;
+import cn.shiying.common.entity.Icd.Icd;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
 
-import java.util.List;
 import java.util.Map;
 
 /**

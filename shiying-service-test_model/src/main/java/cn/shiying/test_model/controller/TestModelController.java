@@ -1,5 +1,6 @@
 package cn.shiying.test_model.controller;
 
+import cn.shiying.test_model.entity.from.TestModelFrom;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
 import java.util.Map;
@@ -54,10 +55,14 @@ public class TestModelController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('test_model:model:save')")
-    public Result save(@RequestBody TestModel model){
+    public Result save(@RequestBody TestModelFrom from){
         //验证工具
-        ValidatorUtils.validateEntity(model);
-        modelService.save(model);
+        ValidatorUtils.validateEntity(from);
+        TestModel t=from.getTestModel();
+        modelService.save(t);
+        System.out.println(t.getTestModelId());
+        from.setTestModelId(from.getTestModelId());
+        modelService.add(from.getTestModelId(),from.getIds());
         return Result.ok();
     }
 

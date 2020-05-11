@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: shiying-service-patient_handle
+
+server:
+  port: 80764
+  servlet:
+    context-path: /patient_handle

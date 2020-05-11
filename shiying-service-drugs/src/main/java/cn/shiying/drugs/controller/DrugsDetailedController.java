@@ -3,9 +3,9 @@ package cn.shiying.drugs.controller;
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
 import cn.shiying.drugs.service.DrugsStorageReportsLossService;
 import org.springframework.web.bind.annotation.RequestMapping;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ import cn.shiying.drugs.entity.DrugsStorageReportsLoss;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author tyb
@@ -35,17 +35,19 @@ public class DrugsDetailedController {
      */
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('drugs:detailed:list')")
-    public Result list(@RequestParam Map<String, Object> params){
+    public Result list(@RequestParam Map<String, Object> params) {
         PageUtils page = detailedService.queryPage(params);
         return Result.ok().put("page", page);
     }
+
+
     /**
      * 信息
      */
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('drugs:detailed:info')")
-    public Result info(@PathVariable("id") String id){
-       DrugsDetailed detailed = detailedService.getById(id);
+    public Result info(@PathVariable("id") String id) {
+        DrugsDetailed detailed = detailedService.getById(id);
         return Result.ok().put("detailed", detailed);
     }
 
@@ -54,7 +56,7 @@ public class DrugsDetailedController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('drugs:detailed:save')")
-    public Result save(@RequestBody DrugsDetailed detailed){
+    public Result save(@RequestBody DrugsDetailed detailed) {
         ValidatorUtils.validateEntity(detailed);
         detailedService.save(detailed);
         return Result.ok();
@@ -65,7 +67,7 @@ public class DrugsDetailedController {
      */
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('drugs:detailed:update')")
-    public Result update(@RequestBody DrugsDetailed detailed){
+    public Result update(@RequestBody DrugsDetailed detailed) {
         ValidatorUtils.validateEntity(detailed);
         detailedService.updateById(detailed);
         return Result.ok();
@@ -76,9 +78,19 @@ public class DrugsDetailedController {
      */
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('drugs:detailed:delete')")
-    public Result delete(@RequestBody String[] ids){
+    public Result delete(@RequestBody String[] ids) {
         detailedService.removeByIds(Arrays.asList(ids));
         return Result.ok();
+    }
+
+    @PostMapping("/getPrice")
+    @PreAuthorize("hasAuthority('drugs:detailed:list')")
+    public Result getPrice(@RequestParam("drugIds") List<Integer> drugIds) {
+        Map<String, Double> map = new HashMap<>();
+        for (DrugsDetailed detailed : detailedService.listByIds(drugIds)) {
+            map.put(detailed.getDrugsId()+"", detailed.getDrugsPrice());
+        }
+        return Result.ok().put("map", map);
     }
 
 }

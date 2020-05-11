@@ -3,7 +3,7 @@
 <mapper namespace="cn.shiying.icd.mapper.IcdMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.shiying.icd.entity.Icd">
+    <resultMap id="BaseResultMap" type="cn.shiying.common.entity.Icd.Icd">
         <id column="icd_id" property="icdId" />
         <result column="icd_name" property="icdName" />
         <result column="icd_code" property="icdCode" />

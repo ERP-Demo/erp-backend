@@ -14,5 +14,4 @@ public class Test_synthesizeApplication {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Test_synthesizeApplication.class, args);
     }
-
 }

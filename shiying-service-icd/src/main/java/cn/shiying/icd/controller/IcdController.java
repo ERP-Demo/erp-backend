@@ -1,13 +1,13 @@
 package cn.shiying.icd.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import cn.shiying.icd.entity.Icd;
+import cn.shiying.common.entity.Icd.Icd;
 import cn.shiying.icd.service.IcdService;
 import cn.shiying.common.dto.Result;
 import cn.shiying.common.utils.PageUtils;
@@ -85,4 +85,9 @@ public class IcdController {
         return Result.ok();
     }
 
+    @PostMapping("/icds")
+    public Result icds(@RequestParam("ids") List<String> ids){
+        List<Icd> icds = (List<Icd>) icdService.listByIds(ids);
+        return Result.ok().put("icds",icds);
+    }
 }

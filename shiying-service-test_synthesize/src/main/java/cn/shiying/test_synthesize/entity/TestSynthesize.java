@@ -30,6 +30,6 @@ public class TestSynthesize implements Serializable {
 
     private String testSynthesizeName;
 
-    private String testSynthesizePrice;
+    private double testSynthesizePrice;
 
 }

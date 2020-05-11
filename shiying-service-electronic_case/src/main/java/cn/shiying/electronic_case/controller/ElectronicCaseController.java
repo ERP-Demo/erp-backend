@@ -1,12 +1,20 @@
 package cn.shiying.electronic_case.controller;
 
+import cn.shiying.common.entity.Icd.Icd;
 import cn.shiying.common.entity.token.JwtUser;
+import cn.shiying.common.enums.ErrorEnum;
+import cn.shiying.electronic_case.client.IcdClient;
+import cn.shiying.electronic_case.entity.Case;
+import cn.shiying.electronic_case.entity.vo.CaseVO;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author tyb
@@ -29,16 +37,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("case")
 public class ElectronicCaseController {
     @Autowired
-    private ElectronicCaseService caseService;
+    ElectronicCaseService caseService;
+
     @Autowired
-    RedisTemplate<String,String> redisTemplate;
+    RedisTemplate<String, String> redisTemplate;
+
+    @Autowired
+    IcdClient icdClient;
 
     /**
      * 列表
      */
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('electronic_case:case:list')")
-    public Result list(@RequestParam Map<String, Object> params){
+    public Result list(@RequestParam Map<String, Object> params) {
         PageUtils page = caseService.queryPage(params);
         return Result.ok().put("page", page);
     }
@@ -49,10 +61,15 @@ public class ElectronicCaseController {
      */
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('electronic_case:case:info')")
-    public Result info(@PathVariable("id") String id){
-       ElectronicCase case1 = caseService.getById(id);
-
-        return Result.ok().put("case", case1);
+    public Result info(@PathVariable("id") String id) {
+        ElectronicCase case1 = caseService.getOne(new QueryWrapper<ElectronicCase>().eq("register_id", id));
+        List<String> ids= caseService.getdetailed(case1.getCaseNo());
+        Result result = icdClient.icds(ids);
+        if ((Integer) result.get("code")!=200) return Result.error(ErrorEnum.LOAD_TIME_LANG);
+        CaseVO caseVO=new CaseVO();
+        caseVO.setElectronicCase(case1);
+        caseVO.setIcds((List<Icd>) result.get("icds"));
+        return Result.ok().put("case", caseVO);
     }
 
     /**
@@ -60,12 +77,9 @@ public class ElectronicCaseController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('electronic_case:case:save')")
-    public Result save(@RequestBody ElectronicCase cas){
-        String id=Integer.toString(cas.getPatientId());
+    public Result save(@RequestBody Case cas) {
         ValidatorUtils.validateEntity(cas);
-        cas.setUid(getUser().getUid());
-        caseService.save(cas);
-        redisTemplate.delete(id);
+        caseService.saveCase(cas);
         return Result.ok();
     }
 
@@ -74,7 +88,7 @@ public class ElectronicCaseController {
      */
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('electronic_case:case:update')")
-    public Result update(@RequestBody ElectronicCase cas){
+    public Result update(@RequestBody ElectronicCase cas) {
         ValidatorUtils.validateEntity(cas);
         caseService.updateById(cas);
         return Result.ok();
@@ -85,28 +99,22 @@ public class ElectronicCaseController {
      */
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('electronic_case:case:delete')")
-    public Result delete(@RequestBody String[] ids){
+    public Result delete(@RequestBody String[] ids) {
         caseService.removeByIds(Arrays.asList(ids));
         return Result.ok();
     }
 
-    public JwtUser getUser(){
-        Map<String,Object> map= (Map<String, Object>) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        JwtUser user=new JwtUser();
-        user.setUid((Integer) map.get("uid"));
-        user.setUsername((String) map.get("username"));
-        user.setDepartmentId((List<Integer>) map.get("departmentId"));
-        return user;
-    }
+
     @PostMapping("/saveRidis")
     public Result saveRidis(@RequestBody ElectronicCase cas) {
         caseService.ElectronicCase(cas);
         return Result.ok();
     }
+
     @PostMapping("/getRidis")
     public Result getRidis(@RequestBody ElectronicCase cas) {
         ElectronicCase redis = caseService.getRedis(cas);
-        return Result.ok().put("list",redis);
+        return Result.ok().put("list", redis);
     }
 
 

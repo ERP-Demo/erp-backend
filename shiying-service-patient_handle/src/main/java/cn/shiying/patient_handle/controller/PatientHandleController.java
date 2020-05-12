@@ -1,7 +1,15 @@
 package cn.shiying.patient_handle.controller;
 
+import cn.shiying.patient_handle.entity.PatientHandleApply;
+import cn.shiying.patient_handle.entity.PatientHandleApplyDetailed;
+import cn.shiying.patient_handle.entity.form.HandleApplyForm;
+import cn.shiying.patient_handle.service.PatientHandleApplyDetailedService;
+import cn.shiying.patient_handle.service.PatientHandleApplyService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +34,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class PatientHandleController {
     @Autowired
     private PatientHandleService handleService;
+
+    @Autowired
+    PatientHandleApplyService applyService;
+
+    @Autowired
+    PatientHandleApplyDetailedService detailedService;
 
     /**
      * 列表
@@ -82,5 +96,30 @@ public class PatientHandleController {
         handleService.removeByIds(Arrays.asList(ids));
 
         return Result.ok();
+    }
+
+    @PostMapping("/apply")
+    @PreAuthorize("hasAuthority('patient_handle:handle:apply')")
+    public Result apply(@RequestBody HandleApplyForm form){
+        PatientHandleApply apply = form.getApply();
+        applyService.save(apply);
+        List<PatientHandleApplyDetailed> detaileds = form.getDetaileds();
+        for (PatientHandleApplyDetailed detailed : detaileds) {
+            detailed.setApplyId(apply.getId());
+            detailed.setStatus(1);
+        }
+        detailedService.saveBatch(detaileds);
+        return Result.ok().put("id",apply.getId());
+    }
+
+    @GetMapping("/apply/list/{registerId}")
+    @PreAuthorize("hasAuthority('patient_handle:handle:apply:list')")
+    public Result apply(@PathVariable("registerId") String registerId){
+        PatientHandleApply apply = applyService.getOne(new QueryWrapper<PatientHandleApply>().eq("register_id", registerId));
+        List<PatientHandleApplyDetailed> list = detailedService.list(new QueryWrapper<PatientHandleApplyDetailed>().eq("apply_id", apply.getId()));
+        for (PatientHandleApplyDetailed detailed : list) {
+            detailed.setPatientHandle(handleService.getById(detailed.getHandleId()));
+        }
+        return Result.ok().put("list",list).put("id",apply.getId());
     }
 }

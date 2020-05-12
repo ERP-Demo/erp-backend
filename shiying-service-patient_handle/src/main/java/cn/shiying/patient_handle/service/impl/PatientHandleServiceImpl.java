@@ -29,8 +29,11 @@ public class PatientHandleServiceImpl extends ServiceImpl<PatientHandleMapper, P
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+        QueryWrapper<PatientHandle> wrapper = new QueryWrapper<>();
+        if (params.get("search")!=null&&params.get("search")!="")
+            wrapper.like("handle_name",params.get("search"));
         IPage<PatientHandle> page=baseMapper.selectPage(new Query<PatientHandle>(params).getPage(),
-                new QueryWrapper<PatientHandle>().lambda());
+                wrapper.lambda());
         return new PageUtils(page);
     }
 

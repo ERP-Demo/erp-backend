@@ -16,10 +16,7 @@ import cn.shiying.drugs_purchase.entity.form.Drugs;
 import cn.shiying.drugs_purchase.entity.form.DrugsAndDetailed;
 import cn.shiying.drugs_purchase.entity.DrugsPurchase;
 import cn.shiying.drugs_purchase.entity.form.Returned;
-import cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO;
-import cn.shiying.drugs_purchase.entity.vo.DrugsSupplierVO;
-import cn.shiying.drugs_purchase.entity.vo.PurchaseAndReturnedVO;
-import cn.shiying.drugs_purchase.entity.vo.PurchaseSupplierVo;
+import cn.shiying.drugs_purchase.entity.vo.*;
 import cn.shiying.drugs_purchase.mapper.DrugsPurchaseMapper;
 import cn.shiying.drugs_purchase.mapper.PurchaseReturnedMapper;
 import cn.shiying.drugs_purchase.service.DrugsPurchaseService;
@@ -239,11 +236,15 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
     //查询退货所有数据
     @Override
     public PageUtils allreturned(Map<String, Object> params) {
-        Page page=new Query<DrugsPurchaseDetailed>(params).getPage();
+        Page page=new Query<PurchaseReturned>(params).getPage();
         List<PurchaseAndReturnedVO> list= baseMapper.listPurchaseAndReturnedVO(page,params);
-        System.out.println(list);
         page.setRecords(list);
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<ReturnedAndDetailedVO> selectReturned(String tuihuoId) {
+        return baseMapper.selectReturned(tuihuoId);
     }
 
 }

@@ -14,9 +14,14 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 public class PurchaseReturned  implements Serializable {
 
+    //进货编号
     @TableId(value = "tuihuo_id", type = IdType.AUTO)
     private Integer tuihuoId;
+    //用户编号
     private Integer userId;
+    //退货时间
     private LocalDateTime tuihuoTime;
+    //药品购入表编号
     private String purchaseId;
+
 }

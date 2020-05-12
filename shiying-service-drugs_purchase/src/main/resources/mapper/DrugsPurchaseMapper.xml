@@ -101,19 +101,29 @@
 
     <!--查询退货所有数据-->
     <select id="listPurchaseAndReturnedVO" resultType="cn.shiying.drugs_purchase.entity.vo.PurchaseAndReturnedVO">
-        select dpd.purchase_id,prd.pdNum,prd.tuihuo_id,pr.tuihuo_time,su.username
+        select pr.tuihuo_id,dp.purchase_id,sd.supplier_name,su.username,pr.tuihuo_time
         from purchase_returned pr
-        inner join purchase_returned_detailed prd
-        on pr.tuihuo_id=prd.tuihuo_id
-        inner join drugs_purchase_detailed dpd
-        on prd.pdid=dpd.pdid
         inner join sys_user su
         on pr.user_id=su.user_id
+        inner join drugs_purchase dp
+        on pr.purchase_id=dp.purchase_id
+        inner join supplier_detailed sd
+        on dp.supplier_id=sd.supplier_id
         <where>
             <if test="params.purchaseId != null and params.purchaseId != ''">
-                and purchase_id LIKE concat('%',#{params.purchaseId},'%')
+                and dp.purchase_id LIKE concat('%',#{params.purchaseId},'%')
             </if>
         </where>
+    </select>
+
+    <select id="selectReturned" resultType="cn.shiying.drugs_purchase.entity.vo.ReturnedAndDetailedVO">
+        select dd.drugs_name,dpd.pd_money,prd.pdNum
+        from purchase_returned_detailed prd
+        inner join drugs_purchase_detailed dpd
+        on prd.pdid=dpd.pdid
+        inner join drugs_detailed dd
+        on dpd.drugs_id=dd.drugs_id
+        where prd.tuihuo_id=#{tuihuoId}
     </select>
 
 </mapper>

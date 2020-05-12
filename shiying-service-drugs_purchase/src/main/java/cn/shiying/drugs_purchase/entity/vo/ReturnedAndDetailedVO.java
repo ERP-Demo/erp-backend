@@ -8,16 +8,10 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class PurchaseAndReturnedVO extends PurchaseReturnedDetailed {
-    //进货单号
-    private String purchaseId;
+public class ReturnedAndDetailedVO extends PurchaseReturnedDetailed {
+    //药品名称
+    private String drugsName;
 
-    //供应商
-    private String supplierName;
-
-    //操作人
-    private String username;
-
-    //退货时间
-    private String tuihuoTime;
+    //进货单价
+    private double pdMoney;
 }

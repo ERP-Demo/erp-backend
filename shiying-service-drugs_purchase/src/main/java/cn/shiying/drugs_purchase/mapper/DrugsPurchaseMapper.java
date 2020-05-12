@@ -10,6 +10,7 @@ import cn.shiying.drugs_purchase.entity.form.Returned;
 import cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO;
 import cn.shiying.drugs_purchase.entity.vo.PurchaseAndReturnedVO;
 import cn.shiying.drugs_purchase.entity.vo.PurchaseSupplierVo;
+import cn.shiying.drugs_purchase.entity.vo.ReturnedAndDetailedVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
@@ -54,6 +55,8 @@ public interface DrugsPurchaseMapper extends BaseMapper<DrugsPurchase> {
     void addPurchaseReturnedDetailed(List<PurchaseReturnedDetailed> prdetailedList);
 
     //查询退货所有数据
-    List<PurchaseAndReturnedVO> listPurchaseAndReturnedVO(Page<DrugsPurchaseDetailed> page, @Param("params") Map<String, Object> params);
+    List<PurchaseAndReturnedVO> listPurchaseAndReturnedVO(Page<PurchaseReturned> page, @Param("params") Map<String, Object> params);
 
+    //根据退货编号查询详细
+    List<ReturnedAndDetailedVO> selectReturned(@Param("tuihuoId") String tuihuoId);
 }

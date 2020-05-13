@@ -17,10 +17,15 @@
 
     <!-- 根据id-->
     <select id="queryByIds" resultType="cn.shiying.common.entity.Drugs.DrugsDetailed">
-        select * from drugs_detailed where drugs_id in
-        <foreach collection="ids" item="ids" index="index" open="(" close=")" separator=",">
-            #{ids}
-        </foreach>
+        select * from drugs_detailed
+        <where>
+            <if test="ids != null and ids != ''">
+                and drugs_id in
+                <foreach collection="ids" item="ids" index="index" open="(" close=")" separator=",">
+                    #{ids}
+                </foreach>
+            </if>
+        </where>
     </select>
     <!-- 药品的报损添加 -->
     <insert id="addStorageReport" parameterType="cn.shiying.drugs.entity.DrugsStorageReportsLoss">

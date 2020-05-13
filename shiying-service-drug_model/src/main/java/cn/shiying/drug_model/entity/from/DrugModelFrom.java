@@ -1,5 +1,6 @@
 package cn.shiying.drug_model.entity.from;
 
+import cn.shiying.common.entity.Drugs.DrugsDetailed;
 import cn.shiying.drug_model.entity.DrugModel;
 import lombok.Data;
 

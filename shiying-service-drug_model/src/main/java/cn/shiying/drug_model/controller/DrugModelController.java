@@ -1,8 +1,11 @@
 package cn.shiying.drug_model.controller;
 
 import cn.shiying.drug_model.entity.from.DrugModelFrom;
+import cn.shiying.drug_model.entity.vo.DrugModelVo;
+import cn.shiying.drug_model.service.DrugsDrugModelService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DrugModelController {
     @Autowired
     private DrugModelService modelService;
+    private DrugsDrugModelService dmService;
 
     /**
      * 列表
@@ -44,11 +48,10 @@ public class DrugModelController {
      * 信息
      */
     @GetMapping("/info/{id}")
-    @PreAuthorize("hasAuthority('drug_model:model:info')")
-    public Result info(@PathVariable("id") String id){
-        DrugModel model = modelService.getById(id);
-
-        return Result.ok().put("model", model);
+    public Result info(@PathVariable("id") Integer id){
+        List<DrugModelVo> drugModelVos = modelService.selectById(id);
+        DrugModel selectbyid = modelService.selectbyid(id);
+        return Result.ok().put("list",drugModelVos).put("mode",selectbyid);
     }
 
     /**
@@ -57,9 +60,7 @@ public class DrugModelController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('drug_model:model:save')")
     public Result save(@RequestBody DrugModelFrom from){
-        //验证
         ValidatorUtils.validateEntity(from);
-        //获取数据
         DrugModel m=from.getDrugModel();
         modelService.save(m);
         System.out.println(m.getDrugModelId());
@@ -72,9 +73,15 @@ public class DrugModelController {
      */
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('drug_model:model:update')")
-    public Result update(@RequestBody DrugModel model){
-        ValidatorUtils.validateEntity(model);
-        modelService.updateById(model);
+    public Result update(@RequestBody DrugModelFrom from){
+        ValidatorUtils.validateEntity(from);
+        System.out.println(from);
+        DrugModel m=from.getDrugModel();
+        System.out.println("m:"+m);
+        System.out.println("id:"+m.getDrugModelId());
+        System.out.println(modelService.updateById(m));
+        dmService.removeById(m.getDrugModelId());
+        //modelService.add(m.getDrugModelId(),from.getIds());
         return Result.ok();
     }
 
@@ -84,8 +91,16 @@ public class DrugModelController {
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('drug_model:model:delete')")
     public Result delete(@RequestBody String[] ids){
-        //modelService.removeByIds(Arrays.asList(ids));
+        modelService.removeByIds(Arrays.asList(ids));
         System.out.println(Arrays.asList(ids));
+        modelService.del(Arrays.asList(ids));
         return Result.ok();
+    }
+    @RequestMapping("/byid/{id}")
+    public Result byid(@PathVariable Integer id){
+        System.out.println(id);
+        DrugModel selectbyid = modelService.selectbyid(id);
+        System.out.println(selectbyid);
+        return Result.ok().put("mode",selectbyid);
     }
 }

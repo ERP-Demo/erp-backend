@@ -68,7 +68,7 @@ public class UsersDepartmentController {
     }
 
     @PostMapping("/getUser")
-    public Result getUser(@PathVariable Integer did){
+    public Result getUser(@RequestBody Integer did){
         List<User> list=departmentService.allUser(did);
         return Result.ok().put("list",list);
     }

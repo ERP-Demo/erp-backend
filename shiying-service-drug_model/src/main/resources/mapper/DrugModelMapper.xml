@@ -35,4 +35,8 @@
     <select id="selectbyid" resultType="cn.shiying.drug_model.entity.DrugModel">
         select * from drug_model where drug_model_id=#{id}
     </select>
+    
+    <delete id="delbyid">
+        delete from drugs_drug_model where drug_model_id=#{DrugModelId}
+    </delete>
 </mapper>

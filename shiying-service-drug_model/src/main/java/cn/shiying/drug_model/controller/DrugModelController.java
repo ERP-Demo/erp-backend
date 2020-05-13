@@ -30,7 +30,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class DrugModelController {
     @Autowired
     private DrugModelService modelService;
-    private DrugsDrugModelService dmService;
+    @Autowired
+    private DrugsDrugModelService dmservice;
 
     /**
      * 列表
@@ -79,9 +80,9 @@ public class DrugModelController {
         DrugModel m=from.getDrugModel();
         System.out.println("m:"+m);
         System.out.println("id:"+m.getDrugModelId());
-        System.out.println(modelService.updateById(m));
-        dmService.removeById(m.getDrugModelId());
-        //modelService.add(m.getDrugModelId(),from.getIds());
+        modelService.updateById(m);
+        modelService.delbyid(m.getDrugModelId());
+        modelService.add(m.getDrugModelId(),from.getIds());
         return Result.ok();
     }
 

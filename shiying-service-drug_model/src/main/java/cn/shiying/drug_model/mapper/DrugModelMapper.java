@@ -23,4 +23,5 @@ public interface DrugModelMapper extends BaseMapper<DrugModel> {
     void del(@Param("ids") List<String> ids);
     List<DrugModelVo> selectById(@Param("id") Integer id);
     DrugModel selectbyid(@Param("id") Integer id);
+    void delbyid(@Param("DrugModelId") Integer DrugModelId);
 }

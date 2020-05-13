@@ -1,6 +1,11 @@
 package cn.shiying.electronic_case.controller;
 
+import cn.shiying.common.entity.Icd.Icd;
 import cn.shiying.common.entity.token.JwtUser;
+import cn.shiying.common.enums.ErrorEnum;
+import cn.shiying.electronic_case.client.IcdClient;
+import cn.shiying.electronic_case.entity.vo.CaseVO;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +37,8 @@ public class ElectronicCaseController {
     private ElectronicCaseService caseService;
     @Autowired
     RedisTemplate<String,String> redisTemplate;
+    @Autowired
+    IcdClient icdClient;
 
     /**
      * 列表
@@ -49,10 +56,15 @@ public class ElectronicCaseController {
      */
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('electronic_case:case:info')")
-    public Result info(@PathVariable("id") String id){
-       ElectronicCase case1 = caseService.getById(id);
-
-        return Result.ok().put("case", case1);
+    public Result info(@PathVariable("id") String id) {
+        ElectronicCase case1 = caseService.getOne(new QueryWrapper<ElectronicCase>().eq("register_id", id));
+        List<String> ids = caseService.getdetailed(case1.getCaseNo());
+        Result result = icdClient.icds(ids);
+        if ((Integer) result.get("code") != 200) return Result.error(ErrorEnum.LOAD_TIME_LANG);
+        CaseVO caseVO = new CaseVO();
+        caseVO.setElectronicCase(case1);
+        caseVO.setIcds((List<Icd>) result.get("icds"));
+        return Result.ok().put("case", caseVO);
     }
 
     /**

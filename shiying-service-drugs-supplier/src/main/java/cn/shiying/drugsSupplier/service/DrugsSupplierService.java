@@ -21,4 +21,5 @@ import java.util.Map;
 public interface DrugsSupplierService extends IService<DrugsSupplier> {
     List<DrugsSupplierVO> All(Integer pid);
     void deletebyid(Integer id,Integer did);
+    void add(Integer tid,Integer[] id);
 }

@@ -5,6 +5,8 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.shiying.requirements.entity.Requirements">
         <result column="project_id" property="projectId" />
+        <result column="patient_id" property="patientId"/>
+        <result column="register_id" property="registerId"/>
         <result column="purpose" property="purpose" />
         <result column="requirements" property="requirements" />
         <result column="Clinical_impression" property="clinicalImpression" />
@@ -13,7 +15,8 @@
     </resultMap>
     <resultMap id="WithDepartment" extends="BaseResultMap" type="cn.shiying.requirements.entity.Vo.Requirements_Vo">
         <association property="patientDetailed" column="patient_id" select="cn.shiying.common.mapper.PatientDetailedMapper.selectById"/>
-        <association property="electronicCase" column="register_id" select="cn.shiying.electronic_case.mapper.ElectronicCaseMapper.selectById"/>
+        <association property="requirements1" column="project_id" select="cn.shiying.requirements.mapper.RequirementsMapper.selectById"/>
+        <association property="testSynthesize" column="project_id" select="cn.shiying.common.mapper.TestSynthesize.TestSynthesizeMapper.selectById"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -24,7 +27,7 @@
         update  requirements  set status=4 where project_id=#{id}
     </update>
     <select id="All" resultMap="WithDepartment">
-
+    select <include refid="Base_Column_List"/>from requirements where status=1
     </select>
 
 </mapper>

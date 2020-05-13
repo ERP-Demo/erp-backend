@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author tyb
@@ -30,6 +30,8 @@ public class TestSynthesize implements Serializable {
     private Integer testSynthesizeId;
 
     private String testSynthesizeName;
+
+    private double testSynthesizePrice;
 
 
 }

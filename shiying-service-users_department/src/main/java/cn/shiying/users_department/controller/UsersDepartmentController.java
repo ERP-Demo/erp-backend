@@ -1,7 +1,10 @@
 package cn.shiying.users_department.controller;
 
 
+import cn.shiying.common.entity.department.Department;
+import cn.shiying.users_department.client.DepartmentClient;
 import cn.shiying.users_department.entity.UsersDepartment;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -24,6 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class UsersDepartmentController {
     @Autowired
     private UsersDepartmentService departmentService;
+
+    @Autowired
+    DepartmentClient departmentClient;
 //    @Autowired
 //    private DepartmentMapper mapper;
 
@@ -51,5 +57,11 @@ public class UsersDepartmentController {
         return Result.ok().put("list",list);
     }
     //哪个接收
-
+    public Result test(){
+        Result all = departmentClient.getAll();
+        List<Department> departments=(List<Department>) all.get("list");
+        Department department = departments.get(0);
+        List<UsersDepartment> department_id = departmentService.list(new QueryWrapper<UsersDepartment>().eq("department_id", department.getDepartmentId()));
+        return Result.ok();
+    }
 }

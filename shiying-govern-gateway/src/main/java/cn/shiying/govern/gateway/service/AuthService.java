@@ -54,4 +54,9 @@ public class AuthService {
             return null;
         }
     }
+
+    public boolean reset(String access_token){
+        String key = "user_token:"+access_token;
+        return stringRedisTemplate.expire(key, 3600,TimeUnit.SECONDS);
+    }
 }

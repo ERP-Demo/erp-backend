@@ -85,7 +85,7 @@ public class LoginFilter extends ZuulFilter {
             return null;
         }
         if(expire<300){
-
+            authService.reset(tokenFromCookie);
         }
         requestContext.addZuulRequestHeader("Authorization","Bearer "+jwt);
         return null;

@@ -10,7 +10,10 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class PurchaseReturnedDetailed{
+    //进货编号
     private Integer pdid;
+    //退货数量
     private Integer pdNum;
+    //退货编号
     private Integer tuihuoId;
 }

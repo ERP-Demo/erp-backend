@@ -1,8 +1,11 @@
 package cn.shiying.requirements.service;
 
 import cn.shiying.requirements.entity.Requirements;
+import cn.shiying.requirements.entity.Vo.Requirements_Vo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,4 +25,5 @@ public interface RequirementsService extends IService<Requirements> {
      */
      PageUtils queryPage(Map<String, Object> params);
      void  updatestate(Integer id);
+    List<Requirements_Vo> All();
 }

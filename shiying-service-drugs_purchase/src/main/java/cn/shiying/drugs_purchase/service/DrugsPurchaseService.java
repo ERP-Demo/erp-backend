@@ -8,6 +8,7 @@ import cn.shiying.drugs_purchase.entity.form.DrugsAndDetailed;
 import cn.shiying.drugs_purchase.entity.DrugsPurchase;
 import cn.shiying.drugs_purchase.entity.form.Returned;
 import cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO;
+import cn.shiying.drugs_purchase.entity.vo.ReturnedAndDetailedVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
 
@@ -54,4 +55,6 @@ public interface DrugsPurchaseService extends IService<DrugsPurchase> {
 
     //查询退货所有数据
     PageUtils allreturned(Map<String, Object> params);
+
+    List<ReturnedAndDetailedVO> selectReturned(String tuihuoId);
 }

@@ -12,6 +12,7 @@ import cn.shiying.drugs_purchase.entity.form.CheckForm;
 import cn.shiying.drugs_purchase.entity.form.DrugsAndDetailed;
 import cn.shiying.drugs_purchase.entity.form.Returned;
 import cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO;
+import cn.shiying.drugs_purchase.entity.vo.ReturnedAndDetailedVO;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,9 +93,6 @@ public class DrugsPurchaseController {
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('drugs_purchase:purchase:update')")
     public Result update(@RequestBody DrugsAndDetailed detailed){
-        System.out.println("进入修改");
-        System.out.println("修改数据："+detailed);
-
         //订单编号
         String purchaseId=detailed.getPurchaseId();
 
@@ -223,13 +221,18 @@ public class DrugsPurchaseController {
         return (String) map.get("username");
     }
 
-
     @GetMapping("/allreturned")
     @PreAuthorize("hasAuthority('returned:check:list')")
     public Result allreturned(@RequestParam Map<String, Object> params){
-        System.out.println("进入");
         PageUtils page = purchaseService.allreturned(params);
         return Result.ok().put("page", page);
+    }
+
+    //根据退货编号查询详细
+    @GetMapping("/selectReturned/{tuihuoId}")
+    public Result selectReturned(@PathVariable("tuihuoId") String tuihuoId){
+        List<ReturnedAndDetailedVO> all = purchaseService.selectReturned(tuihuoId);
+        return Result.ok().put("all",all);
     }
 
 }

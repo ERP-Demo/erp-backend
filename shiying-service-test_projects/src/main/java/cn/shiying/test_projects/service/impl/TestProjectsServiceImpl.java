@@ -1,13 +1,11 @@
 package cn.shiying.test_projects.service.impl;
 
-import cn.shiying.common.entity.TestSynthesize.TestSynthesize;
+import cn.shiying.common.entity.TestSynthesize_.TestSynthesize.TestSynthesize;
 import cn.shiying.test_projects.entity.TestProjects;
 import cn.shiying.test_projects.mapper.TestProjectsMapper;
 import cn.shiying.test_projects.service.TestProjectsService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import cn.shiying.common.utils.Query;
 import cn.shiying.common.utils.PageUtils;
 import org.springframework.stereotype.Service;

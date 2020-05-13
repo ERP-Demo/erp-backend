@@ -1,10 +1,12 @@
 package cn.shiying.electronic_case.service.impl;
 
+import cn.shiying.common.entity.Icd.Icd;
 import cn.shiying.common.entity.token.JwtUser;
 import cn.shiying.electronic_case.Util.RedisUtil;
 import cn.shiying.electronic_case.entity.Case;
 import cn.shiying.electronic_case.entity.ElectronicCase;
 import cn.shiying.electronic_case.entity.ElectronicCaseDetailed;
+import cn.shiying.electronic_case.entity.vo.ElectronicAndDetailedVO;
 import cn.shiying.electronic_case.entity.vo.ElectronicCaseVO;
 import cn.shiying.electronic_case.mapper.ElectronicCaseDetailedMapper;
 import cn.shiying.electronic_case.mapper.ElectronicCaseMapper;
@@ -109,7 +111,6 @@ public class ElectronicCaseServiceImpl extends ServiceImpl<ElectronicCaseMapper,
         return icds;
     }
 
-
     public JwtUser getUser() {
         Map<String, Object> map = (Map<String, Object>) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         JwtUser user = new JwtUser();
@@ -117,6 +118,12 @@ public class ElectronicCaseServiceImpl extends ServiceImpl<ElectronicCaseMapper,
         user.setUsername((String) map.get("username"));
         user.setDepartmentId((List<Integer>) map.get("departmentId"));
         return user;
+    }
+
+    //查询历史病历
+    @Override
+    public List<ElectronicAndDetailedVO> selectElectronic(Integer patientId) {
+        return electronicCaseDetailedMapper.selectElectronic(patientId);
     }
 
 }

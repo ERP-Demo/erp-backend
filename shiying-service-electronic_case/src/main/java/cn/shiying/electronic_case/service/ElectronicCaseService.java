@@ -1,7 +1,9 @@
 package cn.shiying.electronic_case.service;
 
+import cn.shiying.common.entity.Icd.Icd;
 import cn.shiying.electronic_case.entity.Case;
 import cn.shiying.electronic_case.entity.ElectronicCase;
+import cn.shiying.electronic_case.entity.vo.ElectronicAndDetailedVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -34,4 +36,7 @@ public interface ElectronicCaseService extends IService<ElectronicCase> {
     void saveCase(Case cas);
 
     List<String> getdetailed(Integer caseNo);
+
+    //查询历史病历
+    List<ElectronicAndDetailedVO> selectElectronic(Integer patientId);
 }

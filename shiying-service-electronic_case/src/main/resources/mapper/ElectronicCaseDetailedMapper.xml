@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shiying.electronic_case.mapper.ElectronicCaseDetailedMapper">
+
+
+    <select id="selectElectronic" resultType="cn.shiying.electronic_case.entity.vo.ElectronicAndDetailedVO">
+        select ic.icd_name,ec.onset_time
+        from electronic_case ec
+        inner join electronic_case_detailed dpd
+        on ec.case_no=dpd.case_no
+        inner join icd ic
+        on dpd.icd_id=ic.icd_id
+        where ec.patient_id=#{patientId}
+    </select>
+</mapper>

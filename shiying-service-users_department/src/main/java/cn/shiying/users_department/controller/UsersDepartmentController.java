@@ -63,13 +63,13 @@ public class UsersDepartmentController {
     public Result allDepartment(){
         //获取所有科室信息
         List<Department> departments=(List<Department>)departmentClient.getAll().get("list");
-        List<User> list=departmentService.allUser(departments.get(0).getDepartmentId());
-        return Result.ok().put("departments",departments).put("list",list);
+        List<User> users=departmentService.allUser(departments.get(0).getDepartmentId());
+        return Result.ok().put("departments",departments).put("users",users);
     }
 
     @PostMapping("/getUser")
     public Result getUser(@RequestBody Integer did){
-        List<User> list=departmentService.allUser(did);
-        return Result.ok().put("list",list);
+        List<User> users=departmentService.allUser(did);
+        return Result.ok().put("list",users);
     }
 }

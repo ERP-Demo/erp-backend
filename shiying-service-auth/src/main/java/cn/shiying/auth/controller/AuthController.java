@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.jwt.Jwt;
 import org.springframework.security.jwt.JwtHelper;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +49,6 @@ public class AuthController {
 
     @PostMapping("/userlogin")
     public Result login(@RequestBody SysLoginForm loginRequest) {
-        System.out.println(loginRequest);
         if(loginRequest == null || StringUtils.isEmpty(loginRequest.getUsername())){
             ExceptionCast.cast(ErrorEnum.USERNAME_IS_NULL);
         }
@@ -64,25 +64,26 @@ public class AuthController {
 
     @GetMapping("/info")
     public Result info(){
-        return Result.ok().put("user",getJwtUser(Jwtdecode()));
+        return Result.ok().put("user",getUser());
     }
 
     @GetMapping("/nav")
     public Result nav(){
         Map<String, Object> jwtClaims=Jwtdecode();
-        List<SysMenu> menuList=userClient.selectByUid(getJwtUser(jwtClaims).getUid());
+        List<SysMenu> menuList=userClient.selectByUid(getUser().getUid());
         List<String> permissions= (List<String>) jwtClaims.get("authorities");
         return Result.ok().put("menuList",menuList).put("permissions",permissions);
     }
 
-    @GetMapping("/jwtuser")
-    public JwtUser jwtuser(){
-        JwtUser user=getJwtUser(Jwtdecode());
+
+    public JwtUser getUser(){
+        Map<String,Object> map= (Map<String, Object>) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        JwtUser user=new JwtUser();
+        user.setUid((Integer) map.get("uid"));
+        user.setUsername((String) map.get("username"));
+        user.setDepartmentId((List<Integer>) map.get("departmentId"));
         return user;
     }
-
-
-
     //退出
 //    @Override
 //    @PostMapping("/userlogout")
@@ -100,14 +101,6 @@ public class AuthController {
         Jwt decode = JwtHelper.decode(userjwt());
         Map<String, Object> jwtClaims = JSON.parseObject(decode.getClaims(), Map.class);
         return jwtClaims;
-    }
-
-    public JwtUser getJwtUser(Map<String,Object> jwtClaims){
-        if(jwtClaims == null){
-            return null;
-        }
-        JSONObject jsonObject = (JSONObject)jwtClaims.get("user_name");
-        return jsonObject.toJavaObject(JwtUser.class);
     }
 
 
@@ -138,6 +131,11 @@ public class AuthController {
         return null;
     }
 
+    private void saveCookie(String token){
+        HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+        CookieUtil.addCookie(response,cookieDomain,"/","token",token,cookieMaxAge,false);
+
+    }
 
     private void clearCookie(String token){
         HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();

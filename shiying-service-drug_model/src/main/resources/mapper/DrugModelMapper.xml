@@ -19,4 +19,24 @@
     <insert id="add">
         insert into drugs_drug_model(drug_model_id,drugs_id)value(#{drugModelId},#{ids})
     </insert>
+    <delete id="del">
+        delete from drugs_drug_model where drug_model_id in 
+        <foreach collection="list" item="drug_model_id" open="(" close=")" separator=",">
+            #{drug_model_id}
+        </foreach>
+    </delete>
+    <select id="selectById" resultType="cn.shiying.drug_model.entity.vo.DrugModelVo">
+        select  dd.*
+        from drugs_detailed dd
+        inner join drugs_drug_model ddm
+        on dd.drugs_id=ddm.drugs_id
+        where ddm.drug_model_id=#{id}
+    </select>
+    <select id="selectbyid" resultType="cn.shiying.drug_model.entity.DrugModel">
+        select * from drug_model where drug_model_id=#{id}
+    </select>
+    
+    <delete id="delbyid">
+        delete from drugs_drug_model where drug_model_id=#{DrugModelId}
+    </delete>
 </mapper>

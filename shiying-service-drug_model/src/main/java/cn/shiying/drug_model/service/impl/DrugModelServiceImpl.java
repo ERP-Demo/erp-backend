@@ -1,6 +1,8 @@
 package cn.shiying.drug_model.service.impl;
 
 import cn.shiying.drug_model.entity.DrugModel;
+import cn.shiying.drug_model.entity.from.DrugModelFrom;
+import cn.shiying.drug_model.entity.vo.DrugModelVo;
 import cn.shiying.drug_model.mapper.DrugModelMapper;
 import cn.shiying.drug_model.service.DrugModelService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -40,6 +42,26 @@ public class DrugModelServiceImpl extends ServiceImpl<DrugModelMapper, DrugModel
         for(Integer i :ids){
             baseMapper.add(drugModelId,i);
         }
+    }
+
+    @Override
+    public void del(List<String> ids) {
+        baseMapper.del(ids);
+    }
+
+    @Override
+    public List<DrugModelVo> selectById(Integer id) {
+        return baseMapper.selectById(id);
+    }
+
+    @Override
+    public DrugModel selectbyid(Integer id) {
+        return baseMapper.selectbyid(id);
+    }
+
+    @Override
+    public void delbyid(Integer DrugModelId) {
+        baseMapper.delbyid(DrugModelId);
     }
 
 }

@@ -11,7 +11,6 @@
         <result column="Patient_phone" property="patientPhone" />
         <result column="Patient_address" property="patientAddress" />
         <result column="Patient_Admission" property="patientAdmission" />
-        <result column="Patient_doctor" property="patientDoctor" />
         <result column="Patient_note" property="patientNote" />
         <result column="patient_cartnum" property="patientCartnum" />
     </resultMap>

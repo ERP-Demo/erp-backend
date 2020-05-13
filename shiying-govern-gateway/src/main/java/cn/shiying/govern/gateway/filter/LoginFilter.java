@@ -2,6 +2,7 @@ package cn.shiying.govern.gateway.filter;
 
 import cn.shiying.common.dto.Result;
 import cn.shiying.common.enums.ErrorEnum;
+import cn.shiying.common.utils.CookieUtil;
 import com.alibaba.fastjson.JSON;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
@@ -26,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class LoginFilter extends ZuulFilter {
 
-    private static final String LOGIN_URI = "/api/auth/userlogin";
+    private static final String[] LOGIN_URI = {"/api/auth/userlogin","/api/Department/Department/getAll"};
 
     @Autowired
     AuthService authService;
@@ -47,10 +48,11 @@ public class LoginFilter extends ZuulFilter {
     public boolean shouldFilter() {
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletRequest request = requestContext.getRequest();
-        if (LOGIN_URI.equals(request.getRequestURI())) {
-            return false;
+        for (String url : LOGIN_URI) {
+            if (url.equals(request.getRequestURI())) {
+                return false;
+            }
         }
-        System.out.println(request.getRequestURI());
         return true;
     }
 
@@ -81,6 +83,9 @@ public class LoginFilter extends ZuulFilter {
         if (jwt==null){
             access_denied();
             return null;
+        }
+        if(expire<300){
+
         }
         requestContext.addZuulRequestHeader("Authorization","Bearer "+jwt);
         return null;

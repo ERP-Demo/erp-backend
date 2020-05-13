@@ -37,4 +37,11 @@ class DrugsSupplierServiceImpl extends ServiceImpl<DrugsSupplierMapper, DrugsSup
     public void deletebyid(Integer id, Integer did) {
         baseMapper.deletebyid(id,did);
     }
+
+    @Override
+    public void add(Integer tid, Integer[] id) {
+        for (Integer integer : id) {
+            baseMapper.add(tid,integer);
+        }
+    }
 }

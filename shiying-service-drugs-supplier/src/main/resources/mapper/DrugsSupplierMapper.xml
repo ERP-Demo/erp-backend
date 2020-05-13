@@ -17,6 +17,9 @@
     <sql id="Base_Column_List">
         supplier_id,drugs_id
     </sql>
+    <insert id="add">
+        insert into drugs_drug_model value(#{tid},#{id})
+    </insert>
     <delete id="deletebyid">
             delete from drugs_supplier where drugs_id=#{id} and supplier_id=#{did}
     </delete>

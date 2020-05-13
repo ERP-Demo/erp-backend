@@ -28,6 +28,7 @@ public class Requirements implements Serializable {
     /**
      * 项目编码
      */
+    @TableId(value = "project_id")
     private Integer projectId;
     /**
      * 医生id

@@ -1,6 +1,6 @@
 package cn.shiying.test_projects.mapper;
 
-import cn.shiying.common.entity.TestSynthesize.TestSynthesize;
+import cn.shiying.common.entity.TestSynthesize_.TestSynthesize.TestSynthesize;
 import cn.shiying.test_projects.entity.TestProjects;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

@@ -1,6 +1,7 @@
 package cn.shiying.requirements.service.impl;
 
 import cn.shiying.requirements.entity.Requirements;
+import cn.shiying.requirements.entity.Vo.Requirements_Vo;
 import cn.shiying.requirements.mapper.RequirementsMapper;
 import cn.shiying.requirements.service.RequirementsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -9,6 +10,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import cn.shiying.common.utils.Query;
 import cn.shiying.common.utils.PageUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,6 +40,11 @@ public class RequirementsServiceImpl extends ServiceImpl<RequirementsMapper, Req
     @Override
     public void updatestate(Integer id) {
         baseMapper.updatestate(id);
+    }
+
+    @Override
+    public List<Requirements_Vo> All() {
+        return baseMapper.All();
     }
 
 }

@@ -1,6 +1,7 @@
 package cn.shiying.requirements.controller;
 
 import cn.shiying.common.entity.token.JwtUser;
+import cn.shiying.requirements.entity.Vo.Requirements_Vo;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
@@ -37,7 +38,6 @@ public class RequirementsController {
     @PreAuthorize("hasAuthority('requirements:requirements:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = requirementsService.queryPage(params);
-
         return Result.ok().put("page", page);
     }
 
@@ -100,5 +100,13 @@ public class RequirementsController {
         System.out.println(id);
         requirementsService.updatestate(id);
         return Result.ok();
+    }
+    @GetMapping("/All")
+    public Result All(){
+        List<Requirements_Vo> all = requirementsService.All();
+        for (Requirements_Vo requirements_vo : all) {
+            System.out.println("数据"+requirements_vo);
+        }
+        return Result.ok().put("list",all);
     }
 }

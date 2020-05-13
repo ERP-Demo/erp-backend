@@ -1,5 +1,7 @@
 package cn.shiying.users_department.service.impl;
 
+import cn.shiying.common.entity.department.Department;
+import cn.shiying.users_department.entity.User;
 import cn.shiying.users_department.entity.UsersDepartment;
 import cn.shiying.users_department.mapper.UsersDepartmentMapper;
 import cn.shiying.users_department.service.UsersDepartmentService;
@@ -45,5 +47,9 @@ public class UsersDepartmentServiceImpl extends ServiceImpl<UsersDepartmentMappe
             list.add(department.getDepartmentId());
         }
         return list;
+    }
+
+    public List<User> allUser(Integer did){
+        return baseMapper.selById(baseMapper.selUser(did));
     }
 }

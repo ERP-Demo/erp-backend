@@ -1,5 +1,7 @@
 package cn.shiying.users_department.service;
 
+import cn.shiying.common.entity.department.Department;
+import cn.shiying.users_department.entity.User;
 import cn.shiying.users_department.entity.UsersDepartment;
 import cn.shiying.users_department.entity.vo.UsersDepartmentVo;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -21,6 +23,6 @@ public interface UsersDepartmentService extends IService<UsersDepartment> {
     List<UsersDepartment> All(Integer uid);
     void delById(@Param("id") Integer id,@Param("userId") Long userId);
     void add(Integer uid,Integer[] ids);
-
     List<Integer> all(Integer uid);
+    public List<User> allUser(Integer did);
 }

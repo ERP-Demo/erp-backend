@@ -3,10 +3,12 @@ package cn.shiying.users_department.controller;
 
 import cn.shiying.common.entity.department.Department;
 import cn.shiying.users_department.client.DepartmentClient;
+import cn.shiying.users_department.entity.User;
 import cn.shiying.users_department.entity.UsersDepartment;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -57,11 +59,17 @@ public class UsersDepartmentController {
         return Result.ok().put("list",list);
     }
     //哪个接收
-    public Result test(){
-        Result all = departmentClient.getAll();
-        List<Department> departments=(List<Department>) all.get("list");
-        Department department = departments.get(0);
-        List<UsersDepartment> department_id = departmentService.list(new QueryWrapper<UsersDepartment>().eq("department_id", department.getDepartmentId()));
-        return Result.ok();
+    @GetMapping("/allDepartment")
+    public Result allDepartment(){
+        //获取所有科室信息
+        List<Department> departments=(List<Department>)departmentClient.getAll().get("list");
+        List<User> list=departmentService.allUser(departments.get(0).getDepartmentId());
+        return Result.ok().put("departments",departments).put("list",list);
+    }
+
+    @PostMapping("/getUser")
+    public Result getUser(@PathVariable Integer did){
+        List<User> list=departmentService.allUser(did);
+        return Result.ok().put("list",list);
     }
 }

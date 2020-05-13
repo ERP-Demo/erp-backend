@@ -29,4 +29,13 @@
     <insert id="add">
         insert into users_department(user_id,department_id)value(#{uid},#{ids})
     </insert>
+    <select id="selUser" resultType="java.lang.Long">
+        select user_id from users_department where department_id=#{did}
+    </select>
+    <select id="selById" resultType="cn.shiying.users_department.entity.User">
+        select username,photo_url from sys_user where
+        <foreach collection="list" item="id" index="index" separator=" or ">
+            user_id=#{id}
+        </foreach>
+    </select>
 </mapper>

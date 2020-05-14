@@ -1,9 +1,12 @@
 package cn.shiying.requirements.controller;
 
 import cn.shiying.common.entity.token.JwtUser;
+import cn.shiying.requirements.entity.TestSynthesizeAll;
 import cn.shiying.requirements.entity.Vo.Requirements_Vo;
+import cn.shiying.requirements.entity.form.RequirementsForm;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -58,11 +61,23 @@ public class RequirementsController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('requirements:requirements:save')")
-    public Result save(@RequestBody Requirements requirements){
-        System.out.println("数据=-----------"+requirements);
+    public Result save(@RequestBody RequirementsForm requirements){
         ValidatorUtils.validateEntity(requirements);
-        requirements.setUid(getUser().getUid());
-        requirementsService.save(requirements);
+        Requirements r=new Requirements();
+        List<Requirements> list = requirements.getList();
+        r.setPatientId(requirements.getPatientId());
+        r.setRegisterId(requirements.getRegisterId());
+        r.setUid(getUser().getUid());
+        for (Requirements requirements1 : list) {
+            r.setTestSynthesizeId(requirements1.getTestSynthesizeId());
+            r.setPurpose(requirements1.getPurpose());
+            r.setRequirements(requirements1.getRequirements());
+            r.setClinicalImpression(requirements1.getClinicalImpression());
+            r.setClinicalDiagnosis(requirements1.getClinicalDiagnosis());
+            r.setCheckThe(requirements1.getCheckThe());
+            r.setStatus(1);
+            requirementsService.save(r);
+        }
         return Result.ok();
     }
     public JwtUser getUser(){
@@ -105,8 +120,17 @@ public class RequirementsController {
     public Result All(){
         List<Requirements_Vo> all = requirementsService.All();
         for (Requirements_Vo requirements_vo : all) {
-            System.out.println("数据"+requirements_vo);
+            System.out.println(requirements_vo
+            );
         }
         return Result.ok().put("list",all);
+    }
+    @GetMapping("/AllList")
+    public Result AllList(){
+        List<TestSynthesizeAll> testSynthesizeAlls = requirementsService.TestSynthesizeAll();
+        for (TestSynthesizeAll testSynthesizeAll : testSynthesizeAlls) {
+            System.out.println(testSynthesizeAll);
+        }
+        return Result.ok().put("list",testSynthesizeAlls);
     }
 }

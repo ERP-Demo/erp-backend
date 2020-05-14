@@ -99,7 +99,6 @@ public class TestSynthesizeController {
         TestSynthesize testSynthesize = synthesizeService.selectByid(ids);
         List<TestSynthesize> list=new ArrayList<>();
         list.add(testSynthesize);
-        System.out.println(testSynthesize);
         return Result.ok().put("list",list);
     }
 }

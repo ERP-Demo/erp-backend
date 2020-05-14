@@ -28,8 +28,8 @@ public class Requirements implements Serializable {
     /**
      * 项目编码
      */
-    @TableId(value = "project_id")
-    private Integer projectId;
+    @TableId(value = "testSynthesize_id")
+    private Integer testSynthesizeId;
     /**
      * 医生id
      */
@@ -76,6 +76,7 @@ public class Requirements implements Serializable {
      */
     @TableField("status")
     private Integer status;
+
 
 
 }

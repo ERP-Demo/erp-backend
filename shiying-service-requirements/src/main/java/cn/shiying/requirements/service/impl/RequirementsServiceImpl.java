@@ -1,6 +1,7 @@
 package cn.shiying.requirements.service.impl;
 
 import cn.shiying.requirements.entity.Requirements;
+import cn.shiying.requirements.entity.TestSynthesizeAll;
 import cn.shiying.requirements.entity.Vo.Requirements_Vo;
 import cn.shiying.requirements.mapper.RequirementsMapper;
 import cn.shiying.requirements.service.RequirementsService;
@@ -45,6 +46,11 @@ public class RequirementsServiceImpl extends ServiceImpl<RequirementsMapper, Req
     @Override
     public List<Requirements_Vo> All() {
         return baseMapper.All();
+    }
+
+    @Override
+    public List<TestSynthesizeAll> TestSynthesizeAll() {
+        return baseMapper.TestSynthesizeAll();
     }
 
 }

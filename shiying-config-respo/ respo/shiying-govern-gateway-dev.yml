@@ -53,7 +53,7 @@ zuul:
       sensitiveHeaders:
     service-department:
       path: /users_department/**
-      serviceId: shiying-service-users_department
+      serviceId: shiying-service-users-department
       strip-prefix: false
       sensitiveHeaders:
     service-register:

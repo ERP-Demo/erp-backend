@@ -10,6 +10,6 @@ public interface DepartmentClient {
     @GetMapping("/department/Department/selectById/{did}")
     public Result selectById(@PathVariable Integer did);
 
-    @GetMapping("/getAll")
+    @GetMapping("/department/Department/getAll")
     public Result getAll();
 }

@@ -27,8 +27,9 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class LoginFilter extends ZuulFilter {
 
-    private static final String[] LOGIN_URI = {"/api/auth/userlogin","/api/Department/Department/getAll"};
+    private static final String[] LOGIN_URI = {"/api/auth/userlogin","/api/Department/Department/getAll","/api/users_department/Department/allDepartment","/api/users_department/Department/getUser"};
 
+    private static final String utoken="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidXNlciJ9.G_19cbqgudrLlTP7hBeYOBCt4NXCRCmnx3S2MRCnDnBiJ8JGN7UWgvOY4GcyHXiDApzZanoRzPgNISsfWCobTxUhSPACN_KcqbnlFwzb4xLFJE_AM3OHc_8DUjJo14wI84XKVBCxfS_OZFOV54nuH_EBLIaKA1m4j3CqLMmHedUEC60q05rpirIEO_y3uhJUMcNROzHEzqJOps5FIJ1pl117AQuHCI08sd9O4Iy6TBkGogM05FJV9wflZPqPRlOK6mk3B7fxrz31H_B4dOIh0L8AQG6dTX4n7dor_gfmFEpOSU_yM2eC4q0SjMufczjwZBL6njwTKeiEvPEct_l1Kw";
     @Autowired
     AuthService authService;
 
@@ -50,6 +51,7 @@ public class LoginFilter extends ZuulFilter {
         HttpServletRequest request = requestContext.getRequest();
         for (String url : LOGIN_URI) {
             if (url.equals(request.getRequestURI())) {
+                requestContext.addZuulRequestHeader("Authorization","Bearer "+utoken);
                 return false;
             }
         }

@@ -16,6 +16,17 @@
     <sql id="Base_Column_List">
         drug_model_id, drug_model_name, drug_model_introduction,drug_model_code,drug_model_range,drug_model_type
     </sql>
+    <select id="queryByNameorRange" resultMap="BaseResultMap">
+        select * from drug_model
+        <where>
+            <if test="params.drugModelName != null and params.drugModelName != ''">
+                and drug_model_name LIKE concat('%',#{params.drugModelName},'%')
+            </if>
+            <if test="params.drugModelRange != null and params.drugModelRange != ''">
+                and drug_model_range = #{params.drugModelRange}
+            </if>
+        </where>
+    </select>
     <insert id="add">
         insert into drugs_drug_model(drug_model_id,drugs_id)value(#{drugModelId},#{ids})
     </insert>

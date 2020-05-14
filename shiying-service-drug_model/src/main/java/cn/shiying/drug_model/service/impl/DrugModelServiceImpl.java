@@ -5,6 +5,7 @@ import cn.shiying.drug_model.entity.from.DrugModelFrom;
 import cn.shiying.drug_model.entity.vo.DrugModelVo;
 import cn.shiying.drug_model.mapper.DrugModelMapper;
 import cn.shiying.drug_model.service.DrugModelService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -32,8 +33,10 @@ public class DrugModelServiceImpl extends ServiceImpl<DrugModelMapper, DrugModel
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        IPage<DrugModel> page=baseMapper.selectPage(new Query<DrugModel>(params).getPage(),
-                new QueryWrapper<DrugModel>().lambda());
+        Page page=new Query<DrugModel>(params).getPage();
+        List<DrugModel> list= baseMapper.queryByNameorRange(page,params);
+        System.out.println(list);
+        page.setRecords(list);
         return new PageUtils(page);
     }
 

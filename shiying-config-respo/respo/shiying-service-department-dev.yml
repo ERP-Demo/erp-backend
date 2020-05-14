@@ -3,6 +3,6 @@ spring:
     name: shiying-service-department
 
 server:
-  port: 10086
+  port: 5000
   servlet:
-    context-path: /users_department
+    context-path: /department

@@ -9,4 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface DepartmentClient {
     @GetMapping("/department/Department/selectById/{did}")
     public Result selectById(@PathVariable Integer did);
+
+    @GetMapping("/getAll")
+    public Result getAll();
 }

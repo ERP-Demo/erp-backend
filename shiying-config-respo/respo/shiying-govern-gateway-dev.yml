@@ -51,6 +51,11 @@ zuul:
       serviceId: shiying-service-patient
       strip-prefix: false
       sensitiveHeaders:
+    service-users_department:
+      path: /users_department/**
+      serviceId: shiying-service-users-department
+      strip-prefix: false
+      sensitiveHeaders:
     service-department:
       path: /department/**
       serviceId: shiying-service-department
@@ -76,18 +81,11 @@ zuul:
       serviceId: shiying-service-drugs_purchase
       strip-prefix: false
       sensitiveHeaders:
-      service-drugs_purchase_detailed:
-        path: /drugs_purchase_detailed/**
-        serviceId: shiying-service-drugs_purchase_detailed
-        strip-prefix: false
-        sensitiveHeaders:
-
-    service-users_department:
-      path: /users_department/**
-      serviceId: shiying-service-users_department
+    service-drugs_purchase_detailed:
+      path: /drugs_purchase_detailed/**
+      serviceId: shiying-service-drugs_purchase_detailed
       strip-prefix: false
       sensitiveHeaders:
-
     service-test_correlation:
       path: /test_correlation/**
       serviceId: shiying-service-test_correlation

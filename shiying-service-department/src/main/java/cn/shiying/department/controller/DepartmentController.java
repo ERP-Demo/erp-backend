@@ -93,6 +93,7 @@ public class DepartmentController {
         List<Department> list = DepartmentService.list(null);
         return Result.ok().put("list", list);
     }
+
     @GetMapping("/selectById/{did}")
     public Result selectById(@PathVariable("did") Integer did){
         Department department=DepartmentService.selectById(did);

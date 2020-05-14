@@ -5,6 +5,7 @@ import cn.shiying.common.entity.token.JwtUser;
 import cn.shiying.common.enums.ErrorEnum;
 import cn.shiying.electronic_case.client.IcdClient;
 import cn.shiying.electronic_case.entity.vo.CaseVO;
+import cn.shiying.electronic_case.entity.vo.ElectronicAndDetailedVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -73,7 +74,6 @@ public class ElectronicCaseController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('electronic_case:case:save')")
     public Result save(@RequestBody ElectronicCase cas){
-        System.out.println("数据"+cas);
         String id=Integer.toString(cas.getPatientId());
         ValidatorUtils.validateEntity(cas);
         cas.setUid(getUser().getUid());
@@ -122,5 +122,11 @@ public class ElectronicCaseController {
         return Result.ok().put("list",redis);
     }
 
+    //查询历史病历
+    @GetMapping("/selectElectronic/{patientId}")
+    public Result selectElectronic(@PathVariable("patientId") Integer patientId){
+        List<ElectronicAndDetailedVO> list = caseService.selectElectronic(patientId);
+        return Result.ok().put("list",list);
+    }
 
 }

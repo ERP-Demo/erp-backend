@@ -34,4 +34,7 @@ public interface ActivitiClient {
 
     @PostMapping("/bpmName")
     Result bpmName(@RequestParam("processInstanceIds") List<String> processInstanceIds);
+
+    @PostMapping("/checkAgree")
+    public Result checkAgree(String processInstanceId);
 }

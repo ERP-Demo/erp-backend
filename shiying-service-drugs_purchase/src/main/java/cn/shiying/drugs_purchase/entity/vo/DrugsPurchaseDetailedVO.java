@@ -6,4 +6,6 @@ import lombok.Data;
 @Data
 public class DrugsPurchaseDetailedVO extends DrugsPurchaseDetailed {
     private String drugsName;
+    private Integer tuihuoNum;
+    private Integer freezeNum;
 }

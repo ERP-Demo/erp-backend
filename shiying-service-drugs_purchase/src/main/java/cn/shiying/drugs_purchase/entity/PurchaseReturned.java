@@ -24,4 +24,6 @@ public class PurchaseReturned  implements Serializable {
     //药品购入表编号
     private String purchaseId;
 
+    private Integer status;
+
 }

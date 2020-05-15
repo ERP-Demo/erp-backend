@@ -1,6 +1,6 @@
 package cn.shiying.patient_handle.service;
 
-import cn.shiying.patient_handle.entity.PatientHandleApplyDetailed;
+import cn.shiying.common.entity.patient_handle.PatientHandleApplyDetailed;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 

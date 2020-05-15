@@ -1,7 +1,7 @@
 package cn.shiying.patient_handle.entity.form;
 
-import cn.shiying.patient_handle.entity.PatientHandleApply;
-import cn.shiying.patient_handle.entity.PatientHandleApplyDetailed;
+import cn.shiying.common.entity.patient_handle.PatientHandleApply;
+import cn.shiying.common.entity.patient_handle.PatientHandleApplyDetailed;
 import lombok.Data;
 
 import java.util.List;

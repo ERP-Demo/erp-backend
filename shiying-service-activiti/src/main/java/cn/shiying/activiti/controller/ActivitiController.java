@@ -205,6 +205,15 @@ public class ActivitiController {
         return Result.ok().put("reason",variables.get("reason"));
     }
 
+    @PostMapping("/checkAgree")
+    public Result checkAgree(String processInstanceId){
+        Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).taskName("验收").singleResult();
+        JwtUser user = getUser();
+        taskService.setAssignee(task.getId(),user.getUsername());
+        taskService.complete(task.getId());
+        return Result.ok();
+    }
+
     private List<String> orderId(List<Task> list){
         List<String> ids=new ArrayList<>();
         for (Task task : list) {

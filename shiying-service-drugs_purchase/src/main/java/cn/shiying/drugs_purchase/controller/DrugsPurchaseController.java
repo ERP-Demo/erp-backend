@@ -13,10 +13,14 @@ import cn.shiying.drugs_purchase.entity.form.DrugsAndDetailed;
 import cn.shiying.drugs_purchase.entity.form.Returned;
 import cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO;
 import cn.shiying.drugs_purchase.entity.vo.ReturnedAndDetailedVO;
+import cn.shiying.drugs_purchase.service.PurchaseReturnedDetailedService;
+import cn.shiying.drugs_purchase.service.PurchaseReturnedService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,6 +49,12 @@ public class DrugsPurchaseController {
 
     @Autowired
     private ActivitiClient activitiClient;
+
+    @Autowired
+    private PurchaseReturnedService purchaseReturnedService;
+
+    @Autowired
+    private PurchaseReturnedDetailedService detailedService;
 
     /**
      * 列表
@@ -123,6 +133,31 @@ public class DrugsPurchaseController {
     @GetMapping("/all/{pid}")
     public Result All(@PathVariable("pid") String pid){
         List<DrugsPurchaseDetailedVO> all = purchaseService.selectBypid(pid);
+        List<PurchaseReturned> list = purchaseReturnedService.list(new QueryWrapper<PurchaseReturned>().and(i -> i.eq("purchase_id", pid).ne("status",2)));
+        Map<Integer,Integer> map=new HashMap<>();
+        Map<Integer,Integer> tuihuo=new HashMap<>();
+        for (PurchaseReturned returned : list) {
+            List<PurchaseReturnedDetailed> detaileds = detailedService.list(new QueryWrapper<PurchaseReturnedDetailed>().eq("tuihuo_id", returned.getTuihuoId()));
+            for (PurchaseReturnedDetailed detailed : detaileds) {
+                if (returned.getStatus()==1) {
+                    if (tuihuo.get(detailed.getPdid()) == null) {
+                        tuihuo.put(detailed.getPdid(), detailed.getPdNum());
+                        continue;
+                    }
+                    tuihuo.put(detailed.getPdid(), map.get(detailed.getPdid()) + detailed.getPdNum());
+                } else {
+                    if (map.get(detailed.getPdid()) == null) {
+                        map.put(detailed.getPdid(), detailed.getPdNum());
+                        continue;
+                    }
+                    map.put(detailed.getPdid(), map.get(detailed.getPdid()) + detailed.getPdNum());
+                }
+            }
+        }
+        for (DrugsPurchaseDetailedVO vo : all) {
+            vo.setTuihuoNum(tuihuo.get(vo.getPdid())==null?0:tuihuo.get(vo.getPdid()));
+            vo.setFreezeNum(map.get(vo.getPdid())==null?0:map.get(vo.getPdid()));
+        }
         return Result.ok().put("all",all);
     }
 
@@ -235,4 +270,22 @@ public class DrugsPurchaseController {
         return Result.ok().put("all",all);
     }
 
+    @PostMapping("/rejHandleReturned")
+    public Result rejHandleReturned(Integer tuihuoId){
+        PurchaseReturned purchaseReturned =new PurchaseReturned();
+        purchaseReturned.setTuihuoId(tuihuoId);
+        purchaseReturned.setStatus(2);
+        purchaseReturnedService.updateById(purchaseReturned);
+        return Result.ok();
+    }
+
+    @PostMapping("/agreHandleReturned")
+    public Result agreHandleReturned(Integer tuihuoId){
+        System.out.println(tuihuoId);
+        PurchaseReturned purchaseReturned =new PurchaseReturned();
+        purchaseReturned.setTuihuoId(tuihuoId);
+        purchaseReturned.setStatus(1);
+        purchaseReturnedService.updateById(purchaseReturned);
+        return Result.ok();
+    }
 }

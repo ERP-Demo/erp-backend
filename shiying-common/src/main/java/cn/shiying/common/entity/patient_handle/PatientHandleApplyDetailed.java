@@ -24,4 +24,7 @@ public class PatientHandleApplyDetailed {
     @TableField(exist = false)
     private PatientHandle patientHandle;
 
+    @TableField(exist = false)
+    private PatientHandleApply patientHandleApply;
+
 }

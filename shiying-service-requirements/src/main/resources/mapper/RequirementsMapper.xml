@@ -27,7 +27,9 @@
         update  requirements  set status=4 where testSynthesize_id=#{id}
     </update>
     <select id="All" resultMap="WithDepartment">
-        select <include refid="Base_Column_List"/> from requirements
+        select
+        <include refid="Base_Column_List"/>
+        from requirements where status=1
     </select>
     <select id="TestSynthesizeAll" resultType="cn.shiying.requirements.entity.TestSynthesizeAll">
         SELECT r.testSynthesize_id,t.test_synthesize_name,t.test_synthesize_price,r.`status` FROM test_synthesize t

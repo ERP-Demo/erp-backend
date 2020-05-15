@@ -4,6 +4,8 @@ import cn.shiying.test_synthesize.entity.TestSynthesize;
 import cn.shiying.test_synthesize.entity.form.SynthesizeAndProjects;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,5 +26,6 @@ public interface TestSynthesizeService extends IService<TestSynthesize> {
      PageUtils queryPage(Map<String, Object> params);
 
     void addSynthesizeAndProjects(SynthesizeAndProjects synthesizeAndProjects);
-    TestSynthesize selectByid(Integer id);
+
+    List<TestSynthesize> selectByid(Integer[] id);
 }

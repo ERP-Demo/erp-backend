@@ -1,8 +1,10 @@
 package cn.shiying.drugs_storage.controller;
 
+import cn.shiying.common.entity.Drugs.DrugsPurchaseDetailed;
 import org.springframework.web.bind.annotation.RequestMapping;
-import java.util.Arrays;
-import java.util.Map;
+
+import java.util.*;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -54,10 +56,8 @@ public class DrugsStorageDetailedInfoController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('drugs_storage:storage:save')")
-    public Result save(@RequestBody DrugsStorageDetailedInfo storage){
-        ValidatorUtils.validateEntity(storage);
-        storageService.save(storage);
-
+    public Result save(@RequestBody List<DrugsPurchaseDetailed> list){
+        storageService.save(list);
         return Result.ok();
     }
 
@@ -82,4 +82,5 @@ public class DrugsStorageDetailedInfoController {
 
         return Result.ok();
     }
+
 }

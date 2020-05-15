@@ -36,5 +36,14 @@ public interface ActivitiClient {
     Result bpmName(@RequestParam("processInstanceIds") List<String> processInstanceIds);
 
     @PostMapping("/checkAgree")
-    public Result checkAgree(String processInstanceId);
+    Result checkAgree(String processInstanceId);
+
+    @GetMapping("/manageCheck")
+    Result manageCheck();
+
+    @PostMapping("/rejHandleReturned")
+    Result rejHandleReturned(String processInstanceId);
+
+    @PostMapping("/agreHandleReturned")
+    Result agreHandleReturned(String processInstanceId);
 }

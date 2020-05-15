@@ -93,6 +93,12 @@ public class ActivitiController {
         return Result.ok().put("ids",orderId(list));
     }
 
+    @GetMapping("/manageCheck")
+    public Result manageCheck(){
+        List<Task> list = taskService.createTaskQuery().taskName("仓库经理审核").list();
+        return Result.ok().put("ids",orderId(list));
+    }
+
     @PostMapping("/agree")
     public Result agree(@RequestBody List<String> processInstanceIds){
         JwtUser user = getUser();
@@ -211,6 +217,29 @@ public class ActivitiController {
         JwtUser user = getUser();
         taskService.setAssignee(task.getId(),user.getUsername());
         taskService.complete(task.getId());
+        return Result.ok();
+    }
+    @PostMapping("/rejHandleReturned")
+    public Result rejHandleReturned(String processInstanceId){
+        Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).taskName("仓库经理审核").singleResult();
+        if (task!=null) {
+            JwtUser user = getUser();
+            taskService.setAssignee(task.getId(),user.getUsername());
+            taskService.setVariable(task.getId(),"check",1);
+            taskService.complete(task.getId());
+        }
+        return Result.ok();
+    }
+
+    @PostMapping("/agreHandleReturned")
+    public Result agreHandleReturned(String processInstanceId){
+        Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).taskName("仓库经理审核").singleResult();
+        if (task!=null) {
+            JwtUser user = getUser();
+            taskService.setAssignee(task.getId(),user.getUsername());
+            taskService.setVariable(task.getId(),"check",0);
+            taskService.complete(task.getId());
+        }
         return Result.ok();
     }
 

@@ -128,8 +128,7 @@ public class PatientHandleController {
     public Result payment(){
         List<PatientHandleApplyDetailed> list = detailedService.list(new QueryWrapper<PatientHandleApplyDetailed>().eq("status", 1));
         for (PatientHandleApplyDetailed detailed : list) {
-            PatientHandleApply apply = applyService.getOne(new QueryWrapper<PatientHandleApply>().eq("apply_id", detailed.getApplyId()));
-            detailed.setPatientHandleApply(apply);
+            detailed.setPatientHandleApply(applyService.getById(detailed.getApplyId()));
             detailed.setPatientHandle(handleService.getById(detailed.getHandleId()));
         }
         return Result.ok().put("list",list);

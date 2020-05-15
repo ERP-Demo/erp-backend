@@ -1,6 +1,6 @@
 spring:
   application:
-    name: shiying-service-drugs_storage
+    name: shiying-service-drugs-storage
 
 server:
   port: 40124

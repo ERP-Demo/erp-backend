@@ -1,6 +1,5 @@
 package cn.shiying.patient_handle.service.impl;
 
-import cn.shiying.patient_handle.entity.PatientHandle;
 import cn.shiying.patient_handle.mapper.PatientHandleMapper;
 import cn.shiying.patient_handle.service.PatientHandleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

@@ -59,4 +59,6 @@ public interface DrugsPurchaseMapper extends BaseMapper<DrugsPurchase> {
 
     //根据退货编号查询详细
     List<ReturnedAndDetailedVO> selectReturned(@Param("tuihuoId") String tuihuoId);
+
+    List<Integer> selectByPurchaseId(String purchaseId);
 }

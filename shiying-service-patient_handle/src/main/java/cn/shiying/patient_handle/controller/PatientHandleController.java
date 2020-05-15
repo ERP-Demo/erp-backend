@@ -1,7 +1,8 @@
 package cn.shiying.patient_handle.controller;
 
-import cn.shiying.patient_handle.entity.PatientHandleApply;
-import cn.shiying.patient_handle.entity.PatientHandleApplyDetailed;
+import cn.shiying.common.entity.patient_handle.PatientHandle;
+import cn.shiying.common.entity.patient_handle.PatientHandleApply;
+import cn.shiying.common.entity.patient_handle.PatientHandleApplyDetailed;
 import cn.shiying.patient_handle.entity.form.HandleApplyForm;
 import cn.shiying.patient_handle.service.PatientHandleApplyDetailedService;
 import cn.shiying.patient_handle.service.PatientHandleApplyService;
@@ -14,7 +15,6 @@ import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import cn.shiying.patient_handle.entity.PatientHandle;
 import cn.shiying.patient_handle.service.PatientHandleService;
 import cn.shiying.common.dto.Result;
 import cn.shiying.common.utils.PageUtils;
@@ -121,5 +121,17 @@ public class PatientHandleController {
             detailed.setPatientHandle(handleService.getById(detailed.getHandleId()));
         }
         return Result.ok().put("list",list).put("id",apply.getId());
+    }
+
+    @GetMapping("/apply/payment")
+    @PreAuthorize("hasAuthority('patient_handle:handle:apply:list')")
+    public Result payment(){
+        List<PatientHandleApplyDetailed> list = detailedService.list(new QueryWrapper<PatientHandleApplyDetailed>().eq("status", 1));
+        for (PatientHandleApplyDetailed detailed : list) {
+            PatientHandleApply apply = applyService.getOne(new QueryWrapper<PatientHandleApply>().eq("apply_id", detailed.getApplyId()));
+            detailed.setPatientHandleApply(apply);
+            detailed.setPatientHandle(handleService.getById(detailed.getHandleId()));
+        }
+        return Result.ok().put("list",list);
     }
 }

@@ -1,6 +1,6 @@
 package cn.shiying.patient_handle.mapper;
 
-import cn.shiying.patient_handle.entity.PatientHandle;
+import cn.shiying.common.entity.patient_handle.PatientHandle;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

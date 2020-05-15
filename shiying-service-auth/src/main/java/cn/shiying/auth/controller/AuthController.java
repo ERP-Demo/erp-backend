@@ -83,18 +83,17 @@ public class AuthController {
 
 
 
-    //退出
-//    @Override
-//    @PostMapping("/userlogout")
-//    public ResponseResult logout() {
-//        //取出cookie中的用户身份令牌
-//        String token = getTokenFormCookie();
-//        //删除redis中的token
-//        boolean result = authService.delToken(token);
-//        //清除cookie
-//        this.clearCookie(token);
-//        return new ResponseResult(CommonCode.SUCCESS);
-//    }
+    //退出s
+    @PostMapping("/userlogout")
+    public Result logout() {
+        //取出cookie中的用户身份令牌
+        String token = getTokenFormCookie();
+        //删除redis中的token
+        boolean result = authService.delToken(token);
+        //清除cookie
+        this.clearCookie(token);
+        return Result.ok();
+    }
 
     public Map<String,Object> Jwtdecode(){
         Jwt decode = JwtHelper.decode(userjwt());

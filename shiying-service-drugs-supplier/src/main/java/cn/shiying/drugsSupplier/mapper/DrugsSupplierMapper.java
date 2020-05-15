@@ -23,4 +23,5 @@ public interface DrugsSupplierMapper extends BaseMapper<DrugsSupplier> {
     List<DrugsSupplierVO> selectlike(Page<DrugsSupplierVO> page, @Param("params") Map<String,Object> params);
     List<DrugsSupplierVO> All(@Param("pid") Integer pid);
     void deletebyid(@Param("id") Integer id, @Param("did") Integer did);
+    void add(@Param("tid") Integer tid, @Param("id") Integer id);
 }

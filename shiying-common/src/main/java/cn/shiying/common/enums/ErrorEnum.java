@@ -25,6 +25,7 @@ public enum ErrorEnum {
     NO_UUID(503,"uuid为空"),
     SQL_ILLEGAL(504,"sql非法"),
     LOAD_TIME_LANG(505,"连接超时"),
+    LOAD_LANG(506,"网络连接失败，请稍后再试"),
 
     //用户权限错误
     INVALID_TOKEN(1001,"token不合法"),

@@ -21,10 +21,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="shiying-common" />
-    <orderEntry type="module" module-name="shiying-common-config" />
-    <orderEntry type="module" module-name="shiying-common" />
-    <orderEntry type="module" module-name="shiying-common-config" />
-    <orderEntry type="module" module-name="shiying-common" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.16.18" level="project" />
     <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus:3.1.2" level="project" />
     <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus-extension:3.1.2" level="project" />

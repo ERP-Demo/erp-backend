@@ -2,16 +2,22 @@ package cn.shiying.register.controller;
 
 import cn.shiying.common.entity.patient.PatientDetailed;
 import cn.shiying.common.enums.ErrorEnum;
+import cn.shiying.common.utils.CookieUtil;
 import cn.shiying.register.client.ActivitiClient;
 import cn.shiying.register.client.PatienClient;
 import cn.shiying.register.config.RegisterSchedule;
 import cn.shiying.register.entity.RegisterPatient;
 import cn.shiying.register.entity.Vo.RegisterPatientVO;
 import cn.shiying.register.entity.Vo.departmentVo;
+import cn.shiying.register.util.CaptchaUtil;
+import com.sun.imageio.plugins.common.ImageUtil;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.File;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +28,8 @@ import cn.shiying.common.dto.Result;
 import cn.shiying.common.utils.PageUtils;
 import cn.shiying.common.validator.ValidatorUtils;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -44,6 +52,9 @@ public class RegisterController {
 
     @Autowired
     RegisterSchedule schedule;
+
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
 
 
     /**
@@ -160,5 +171,67 @@ public class RegisterController {
         return (List<Integer>)map.get("departmentId");
     }
 
+    @PostMapping("/VerificationCode")
+    public Result VerificationCode(String phones){
+        System.out.println("电话号码数据："+phones);
+        registerService.VerificationCode(phones);
+        return Result.ok();
+    }
+    /**
+     * @param @return 参数说明
+     * @return BaseRestResult 返回类型
+     * @Description: 生成滑块拼图验证码
+     */
+    @GetMapping("/getImageVerifyCode")
+    public Result getImageVerifyCode() {
+        Map<String, Object> resultMap = new HashMap<>();
+        //读取本地路径下的图片,随机选一条
+        File file = new File(this.getClass().getResource("/image").getPath());
+        File[] files = file.listFiles();
+        int n = new Random().nextInt(files.length);
+        File imageUrl = files[n];
+        CaptchaUtil.createImage(imageUrl, resultMap);
 
+        //读取网络图片
+        //ImageUtil.createImage("http://hbimg.b0.upaiyun.com/7986d66f29bfeb6015aaaec33d33fcd1d875ca16316f-2bMHNG_fw658",resultMap);
+//        session.setAttribute("xWidth", resultMap.get("xWidth"));
+        String uuid= UUID.randomUUID().toString().replaceAll("-","");
+        stringRedisTemplate.boundValueOps("Captcha:"+uuid).set(resultMap.get("xWidth")+"",300, TimeUnit.SECONDS);
+        return Result.ok().put("bigImage",resultMap.get("bigImage"));
+    }
+
+
+    /**
+     * 校验滑块拼图验证码
+     *
+     * @param moveLength 移动距离
+     * @return BaseRestResult 返回类型
+     * @Description: 生成图形验证码
+     */
+    @GetMapping("/verifyImageCode")
+    public Result verifyImageCode(@RequestParam(value = "moveLength") String moveLength, HttpServletRequest request) {
+        Double dMoveLength = Double.valueOf(moveLength);
+        Map<String, Object> resultMap = new HashMap<>();
+        try {
+//            Map<String,String> map= CookieUtil.readCookie(request,"uuid");
+//            String uuid=map.get("uuid");
+//            Long expire = stringRedisTemplate.getExpire(key, TimeUnit.SECONDS);
+//            Integer xWidth =  Integer.parseInt(stringRedisTemplate.opsForValue().get());
+//            if (xWidth == null) {
+//                return Result.error("验证过期，请重试");
+//            }
+//            if (Math.abs(xWidth - dMoveLength) > 10) {
+//                resultMap.put("errcode", 1);
+//                resultMap.put("errmsg", "验证不通过");
+//            } else {
+//                resultMap.put("errcode", 0);
+//                resultMap.put("errmsg", "验证通过");
+//            }
+        } catch (Exception e) {
+//            throw new EsServiceException(e.getMessage());
+        } finally {
+//            session.removeAttribute("xWidth");
+        }
+        return Result.ok();
+    }
 }

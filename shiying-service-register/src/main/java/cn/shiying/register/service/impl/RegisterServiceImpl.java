@@ -9,18 +9,30 @@ import cn.shiying.register.entity.Vo.RegisterPatientVO;
 import cn.shiying.register.entity.Vo.departmentVo;
 import cn.shiying.register.mapper.RegisterMapper;
 import cn.shiying.register.service.RegisterService;
+import com.alibaba.fastjson.JSONObject;
+import com.aliyuncs.CommonRequest;
+import com.aliyuncs.CommonResponse;
+import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.IAcsClient;
+import com.aliyuncs.http.MethodType;
+import com.aliyuncs.profile.DefaultProfile;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import cn.shiying.common.utils.Query;
 import cn.shiying.common.utils.PageUtils;
+import com.netflix.client.ClientException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.rmi.ServerException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -35,6 +47,9 @@ public class RegisterServiceImpl extends ServiceImpl<RegisterMapper, Register> i
 
     @Autowired
     ActivitiClient activitiClient;
+
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
 
     /**
      * 分页查询
@@ -79,6 +94,34 @@ public class RegisterServiceImpl extends ServiceImpl<RegisterMapper, Register> i
         List<RegisterPatientVO> registerPatientVOS = baseMapper.listPage(page, params);
         page.setRecords(registerPatientVOS);
         return new PageUtils(page);
+    }
+
+    @Override
+    public void VerificationCode(String phone) {
+        String code = String.valueOf((int)((Math.random()*9+1)*100000));
+        stringRedisTemplate.boundValueOps("phone:"+phone).set(code,300, TimeUnit.SECONDS);
+        Long expire = stringRedisTemplate.getExpire("phone:"+phone, TimeUnit.SECONDS);
+        if (expire<=0) ExceptionCast.cast(ErrorEnum.LOAD_LANG);
+//        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAI4GAt6zA8RGNLqRQ6gTYF", "j1LVxtnNaFJaOrlV7BTNT1eGZFmApq");
+//        IAcsClient client = new DefaultAcsClient(profile);
+//        CommonRequest request = new CommonRequest();
+//        request.setMethod(MethodType.POST);
+//        request.setDomain("dysmsapi.aliyuncs.com");
+//        request.setVersion("2017-05-25");
+//        request.setAction("SendSms");
+//        request.putQueryParameter("RegionId", "cn-hangzhou");
+//        request.putQueryParameter("PhoneNumbers",phone);
+//        request.putQueryParameter("SignName","时樱");
+//        request.putQueryParameter("TemplateCode","SMS_189520898");
+//        HashMap<String, String> map = new HashMap<>();
+//        map.put("code",code);
+//        request.putQueryParameter("TemplateParam", JSONObject.toJSONString(map));
+//        try {
+//            CommonResponse response = client.getCommonResponse(request);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            ExceptionCast.cast(ErrorEnum.LOAD_LANG);
+//        }
     }
 
 }

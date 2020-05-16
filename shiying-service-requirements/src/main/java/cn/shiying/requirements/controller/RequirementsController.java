@@ -112,7 +112,9 @@ public class RequirementsController {
     }
     @GetMapping("/updatestate/{id}")
     public Result updatestate(@PathVariable Integer[] id) {
-        requirementsService.updatestate(id);
+        for (Integer integer : id) {
+            requirementsService.updatestate(integer);
+        }
         return Result.ok();
     }
     @GetMapping("/All")

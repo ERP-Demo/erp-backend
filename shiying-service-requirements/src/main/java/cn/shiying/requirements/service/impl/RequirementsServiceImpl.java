@@ -53,4 +53,9 @@ public class RequirementsServiceImpl extends ServiceImpl<RequirementsMapper, Req
         return baseMapper.TestSynthesizeAll();
     }
 
+    @Override
+    public List<TestSynthesizeAll> topFive(Integer uid) {
+        return baseMapper.topFive(uid);
+    }
+
 }

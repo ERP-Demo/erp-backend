@@ -128,9 +128,11 @@ public class RequirementsController {
     @GetMapping("/AllList")
     public Result AllList(){
         List<TestSynthesizeAll> testSynthesizeAlls = requirementsService.TestSynthesizeAll();
-        for (TestSynthesizeAll testSynthesizeAll : testSynthesizeAlls) {
-            System.out.println(testSynthesizeAll);
-        }
         return Result.ok().put("list",testSynthesizeAlls);
+    }
+    @GetMapping("/topFive")
+    public Result topFive(){
+        List<TestSynthesizeAll> freqList = requirementsService.topFive(getUser().getUid());
+        return Result.ok().put("list",freqList);
     }
 }

@@ -33,10 +33,19 @@
     </select>
     <select id="TestSynthesizeAll" resultType="cn.shiying.requirements.entity.TestSynthesizeAll">
         SELECT r.testSynthesize_id,t.test_synthesize_name,t.test_synthesize_price,r.`status` FROM test_synthesize t
-LEFT JOIN requirements r
-on t.test_synthesize_id=r.testSynthesize_id
-WHERE test_synthesize_id in
-(select testSynthesize_id from  requirements );
+        LEFT JOIN requirements r
+        on t.test_synthesize_id=r.testSynthesize_id
+        WHERE test_synthesize_id in
+        (select testSynthesize_id from  requirements );
     </select>
-
+    <select id="topFive" resultType="cn.shiying.requirements.entity.TestSynthesizeAll">
+        select t1.testSynthesize_id,t2.test_synthesize_name,t2.test_synthesize_price
+        from requirements t1
+        inner join test_synthesize t2
+        on t1.testSynthesize_id=t2.test_synthesize_id
+        where t1.uid=#{uid}
+        group by t1.testSynthesize_id
+        order by count(1) desc
+        limit 5
+    </select>
 </mapper>

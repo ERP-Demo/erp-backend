@@ -39,8 +39,10 @@ public class RequirementsServiceImpl extends ServiceImpl<RequirementsMapper, Req
     }
 
     @Override
-    public void updatestate(Integer id) {
-        baseMapper.updatestate(id);
+    public void updatestate(Integer[] id) {
+        for (Integer integer : id) {
+            baseMapper.updatestate(integer);
+        }
     }
 
     @Override

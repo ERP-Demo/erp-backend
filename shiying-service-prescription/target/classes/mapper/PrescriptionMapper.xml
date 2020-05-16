@@ -9,10 +9,17 @@
         <result column="prescription_price" property="prescriptionPrice" />
         <result column="prescription_state" property="prescriptionState" />
     </resultMap>
+    <resultMap id="WithDepartment" extends="BaseResultMap" type="cn.shiying.prescription.entity.Prescription_Vo">
+        <association property="drugsDetailed" column="drugs_id" select="cn.shiying.common.mapper.Drugs.DrugsDetaileMapper.selectById"/>
+        <association property="prescription" column="prescription_id" select="cn.shiying.prescription.mapper.PrescriptionMapper.selectById"/>
+    </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         prescription_id, prescription_name, prescription_price
+    </sql>
+    <sql id="Base_Column_List1">
+        pd_id, prescription_id, drugs_id,drugs_num,drugs_use,drugs_day,drugs_usenum,status
     </sql>
     <insert id="addpPrescription" parameterType="cn.shiying.prescription.entity.Prescription">
         insert into prescription values(#{prescriptionId},#{prescriptionName},#{prescriptionPrice},0)
@@ -29,4 +36,14 @@
             prescription_id=#{id}
         </foreach>
     </update>
+    <update id="updatestate">
+        update  prescription_details  set status=4 where prescription_id=#{id}
+    </update>
+    <select id="PrescriptionVo" resultMap="WithDepartment">
+    select <include refid="Base_Column_List1"/> from  prescription_details where status=1
+
+    </select>
+    <select id="PrescriptionVoByid" resultMap="WithDepartment">
+        select <include refid="Base_Column_List1"/> from prescription_details where prescription_id=#{id}
+    </select>
 </mapper>

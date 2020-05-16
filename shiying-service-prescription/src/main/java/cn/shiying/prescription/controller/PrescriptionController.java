@@ -1,6 +1,7 @@
 package cn.shiying.prescription.controller;
 
 import cn.shiying.prescription.entity.PrescriptionDetails;
+import cn.shiying.prescription.entity.Prescription_Vo;
 import cn.shiying.prescription.entity.from.DrugsAndDetailed;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
@@ -92,10 +93,28 @@ public class PrescriptionController {
     }
     @PostMapping("/toVoid")
     public Result toVoid(@RequestBody List<Integer> ids){
-        for (Integer id : ids) {
-            System.out.println(id);
-        }
         prescriptionService.toVoid(ids);
+        return Result.ok();
+    }
+
+    @GetMapping("/All")
+    public Result All() {
+        List<Prescription_Vo> prescription_vos = prescriptionService.PrescriptionVo();
+        for (Prescription_Vo prescription_vo : prescription_vos) {
+            System.out.println(prescription_vo);
+        }
+        return Result.ok().put("list", prescription_vos);
+    }
+
+    @GetMapping("/selectByid/{id}")
+    public Result selectByid(@PathVariable Integer[] id) {
+        List<Prescription_Vo> prescription_vos = prescriptionService.PrescriptionVoByid(id);
+        return Result.ok().put("list", prescription_vos);
+    }
+
+    @GetMapping("/updatestate/{id}")
+    public Result updatestate(@PathVariable Integer[] id) {
+        prescriptionService.updatestate(id);
         return Result.ok();
     }
 }

@@ -4,7 +4,7 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.shiying.requirements.entity.Requirements">
-        <result column="project_id" property="projectId" />
+        <result column="testSynthesize_id" property="testSynthesizeId"/>
         <result column="patient_id" property="patientId"/>
         <result column="register_id" property="registerId"/>
         <result column="purpose" property="purpose" />

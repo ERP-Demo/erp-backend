@@ -37,4 +37,11 @@ public class PatientHandleServiceImpl extends ServiceImpl<PatientHandleMapper, P
         return new PageUtils(page);
     }
 
+    @Override
+    public void updatestate(Integer[] id) {
+        for (Integer integer : id) {
+            baseMapper.updatestate(integer);
+        }
+    }
+
 }

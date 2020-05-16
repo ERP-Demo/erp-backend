@@ -6,6 +6,7 @@ import cn.shiying.common.exception.ExceptionCast;
 import cn.shiying.prescription.client.DrugsClient;
 import cn.shiying.prescription.entity.Prescription;
 import cn.shiying.prescription.entity.PrescriptionDetails;
+import cn.shiying.prescription.entity.Prescription_Vo;
 import cn.shiying.prescription.entity.from.DrugsAndDetailed;
 import cn.shiying.prescription.mapper.PrescriptionMapper;
 import cn.shiying.prescription.service.PrescriptionService;
@@ -113,5 +114,27 @@ public class PrescriptionServiceImpl extends ServiceImpl<PrescriptionMapper, Pre
 
     public void toVoid(List<Integer> ids) {
         baseMapper.toVoid(ids);
+    }
+
+    @Override
+    public List<Prescription_Vo> PrescriptionVo() {
+        return baseMapper.PrescriptionVo();
+    }
+
+    @Override
+    public List<Prescription_Vo> PrescriptionVoByid(Integer[] id) {
+        List<Prescription_Vo> vo = new ArrayList<>();
+        for (Integer integer : id) {
+            Prescription_Vo prescription_vos = baseMapper.PrescriptionVoByid(integer);
+            vo.add(prescription_vos);
+        }
+        return vo;
+    }
+
+    @Override
+    public void updatestate(Integer[] id) {
+        for (Integer integer : id) {
+            baseMapper.updatestate(integer);
+        }
     }
 }

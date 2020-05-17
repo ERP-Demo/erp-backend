@@ -74,10 +74,6 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
         }
         Page page=new Query<DrugsPurchase>(params).getPage();
         List<String> ids= (List<String>) result.get("ids");
-        if (ids == null || ids.size()==0) {
-            page.setRecords(null);
-            return new PageUtils(page);
-        }
         if (result.get("check") !=null&&(Integer) result.get("check")==1){
             Iterator<String> it=ids.iterator();
             while(it.hasNext()) {
@@ -87,6 +83,10 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
                     it.remove();
                 }
             }
+        }
+        if (ids == null || ids.size()==0) {
+            page.setRecords(null);
+            return new PageUtils(page);
         }
         List<PurchaseSupplierVo> list= baseMapper.DrugsPurchaseList(page,params,ids);
         page.setRecords(list);

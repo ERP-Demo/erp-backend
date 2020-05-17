@@ -66,4 +66,7 @@ public class DrugsPurchase implements Serializable {
      */
     private String checkName;
 
+    private String warehouseName;
+
+    private String warehouseCheckName;
 }

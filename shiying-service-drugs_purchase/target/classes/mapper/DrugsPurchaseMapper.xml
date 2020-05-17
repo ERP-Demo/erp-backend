@@ -46,7 +46,7 @@
 
     <!--模糊查询-->
     <select id="DrugsPurchaseList" resultType="cn.shiying.drugs_purchase.entity.vo.PurchaseSupplierVo">
-        select dp.purchase_id,sd.supplier_name,dp.purchase_amount_payable,dp.purchase_actual_amount_paid,dp.purchase_time,dp.process_instance_id,dp.sub_name,dp.check_name
+        select dp.purchase_id,sd.supplier_name,dp.purchase_amount_payable,dp.purchase_actual_amount_paid,dp.purchase_time,dp.process_instance_id,dp.sub_name,dp.check_name,dp.warehouse_name,dp.warehouse_check_name
         from drugs_purchase dp
         inner join supplier_detailed sd
         on dp.supplier_id=sd.supplier_id
@@ -62,7 +62,7 @@
     </select>
 
     <select id="pageList" resultType="cn.shiying.drugs_purchase.entity.vo.PurchaseSupplierVo">
-        select dp.purchase_id,sd.supplier_name,dp.purchase_amount_payable,dp.purchase_actual_amount_paid,dp.purchase_time,dp.process_instance_id,dp.sub_name,dp.check_name
+        select dp.purchase_id,sd.supplier_name,dp.purchase_amount_payable,dp.purchase_actual_amount_paid,dp.purchase_time,dp.process_instance_id,dp.sub_name,dp.check_name,dp.warehouse_name,dp.warehouse_check_name
         from drugs_purchase dp
         inner join supplier_detailed sd
         on dp.supplier_id=sd.supplier_id

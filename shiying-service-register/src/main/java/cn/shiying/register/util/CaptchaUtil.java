@@ -20,53 +20,53 @@ public class CaptchaUtil {
     static int r1 = 4;//距离点
 
     /**
+     * @return int[][]
+     * @throws
      * @Createdate: 2019年1月24日上午10:52:42
      * @Title: getBlockData
      * @Description: 生成小图轮廓
      * @author zhoujin
-     * @return int[][]
-     * @throws
      */
     private static int[][] getBlockData() {
         int[][] data = new int[targetWidth][targetHeight];
-        double x2 = targetWidth -circleR; //47
+        double x2 = targetWidth - circleR; //47
 
         //随机生成圆的位置
-        double h1 = circleR + Math.random() * (targetWidth-3*circleR-r1);
-        double po = Math.pow(circleR,2); //64
+        double h1 = circleR + Math.random() * (targetWidth - 3 * circleR - r1);
+        double po = Math.pow(circleR, 2); //64
 
         double xbegin = targetWidth - circleR - r1;
-        double ybegin = targetHeight- circleR - r1;
+        double ybegin = targetHeight - circleR - r1;
 
         //圆的标准方程 (x-a)²+(y-b)²=r²,标识圆心（a,b）,半径为r的圆
         //计算需要的小图轮廓，用二维数组来表示，二维数组有两张值，0和1，其中0表示没有颜色，1有颜色
         for (int i = 0; i < targetWidth; i++) {
             for (int j = 0; j < targetHeight; j++) {
-                double d2 = Math.pow(j - 2,2) + Math.pow(i - h1,2);
-                double d3 = Math.pow(i - x2,2) + Math.pow(j - h1,2);
-                if ((j <= ybegin && d2 < po)||(i >= xbegin && d3 > po)) {
+                double d2 = Math.pow(j - 2, 2) + Math.pow(i - h1, 2);
+                double d3 = Math.pow(i - x2, 2) + Math.pow(j - h1, 2);
+                if ((j <= ybegin && d2 < po) || (i >= xbegin && d3 > po)) {
                     data[i][j] = 0;
-                }  else {
+                } else {
                     data[i][j] = 1;
                 }
             }
         }
         return data;
     }
+
     /**
-     *
+     * @param oriImage      原图
+     * @param targetImage   抠图拼图
+     * @param templateImage 颜色
+     * @param x
+     * @param y             void
+     * @throws
      * @Createdate: 2019年1月24日上午10:51:30
      * @Title: cutByTemplate
      * @Description: 有这个轮廓后就可以依据这个二维数组的值来判定抠图并在原图上抠图位置处加阴影,
      * @author zhoujin
-     * @param oriImage  原图
-     * @param targetImage  抠图拼图
-     * @param templateImage 颜色
-     * @param x
-     * @param y void
-     * @throws
      */
-    private static void cutByTemplate(BufferedImage oriImage, BufferedImage targetImage, int[][] templateImage, int x, int y){
+    private static void cutByTemplate(BufferedImage oriImage, BufferedImage targetImage, int[][] templateImage, int x, int y) {
         int[][] martrix = new int[3][3];
         int[] values = new int[9];
         //创建shape区域
@@ -78,12 +78,11 @@ public class CaptchaUtil {
 
                 if (rgb == 1) {
                     targetImage.setRGB(i, j, rgb_ori);
-
                     //抠图区域高斯模糊
                     readPixel(oriImage, x + i, y + j, values);
                     fillMatrix(martrix, values);
                     oriImage.setRGB(x + i, y + j, avgMatrix(martrix));
-                }else{
+                } else {
                     //这里把背景设为透明
                     targetImage.setRGB(i, j, rgb_ori & 0x00ffffff);
                 }
@@ -146,76 +145,76 @@ public class CaptchaUtil {
     }
 
     /**
+     * @return Map<String, Object>  返回生成的抠图和带抠图阴影的大图 base64码及抠图坐标
      * @Description: 读取本地图片，生成拼图验证码
      * @author zhoujin
-     * @return Map<String,Object>  返回生成的抠图和带抠图阴影的大图 base64码及抠图坐标
      */
-    public static Map<String,Object> createImage(File file, Map<String,Object> resultMap){
+    public static Map<String, Object> createImage(File file, Map<String, Object> resultMap) {
         try {
             BufferedImage oriImage = ImageIO.read(file);
             Random random = new Random();
             //X轴距离右端targetWidth  Y轴距离底部targetHeight以上
-            int widthRandom = random.nextInt(oriImage.getWidth()-  2*targetWidth) + targetWidth;
-            int heightRandom = random.nextInt(oriImage.getHeight()- targetHeight);
+            int widthRandom = random.nextInt(oriImage.getWidth() - 2 * targetWidth) + targetWidth;
+            int heightRandom = random.nextInt(oriImage.getHeight() - targetHeight);
 
-            BufferedImage targetImage= new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_4BYTE_ABGR);
-            cutByTemplate(oriImage,targetImage,getBlockData(),widthRandom,heightRandom);
+            BufferedImage targetImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_4BYTE_ABGR);
+            cutByTemplate(oriImage, targetImage, getBlockData(), widthRandom, heightRandom);
 
             resultMap.put("bigImage", getImageBASE64(oriImage));//大图
             resultMap.put("smallImage", getImageBASE64(targetImage));//小图
-            resultMap.put("xWidth",widthRandom);
-            resultMap.put("yHeight",heightRandom);
+            resultMap.put("xWidth", widthRandom);
+            resultMap.put("yHeight", heightRandom);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
+        } finally {
             return resultMap;
         }
     }
 
 
     /**
+     * @return Map<String, Object>  返回生成的抠图和带抠图阴影的大图 base64码及抠图坐标
      * @Description: 读取网络图片，生成拼图验证码
      * @author zhoujin
-     * @return Map<String,Object>  返回生成的抠图和带抠图阴影的大图 base64码及抠图坐标
      */
-    public static Map<String,Object> createImage(String imgUrl, Map<String,Object> resultMap){
+    public static Map<String, Object> createImage(String imgUrl, Map<String, Object> resultMap) {
         try {
             //通过URL 读取图片
             URL url = new URL(imgUrl);
             BufferedImage bufferedImage = ImageIO.read(url.openStream());
             Random rand = new Random();
-            int widthRandom = rand.nextInt(bufferedImage.getWidth()-  targetWidth - 100 + 1 ) + 100;
-            int heightRandom = rand.nextInt(bufferedImage.getHeight()- targetHeight + 1 );
+            int widthRandom = rand.nextInt(bufferedImage.getWidth() - targetWidth - 100 + 1) + 100;
+            int heightRandom = rand.nextInt(bufferedImage.getHeight() - targetHeight + 1);
 
-            BufferedImage target= new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_4BYTE_ABGR);
-            cutByTemplate(bufferedImage,target,getBlockData(),widthRandom,heightRandom);
+            BufferedImage target = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_4BYTE_ABGR);
+            cutByTemplate(bufferedImage, target, getBlockData(), widthRandom, heightRandom);
             resultMap.put("bigImage", getImageBASE64(bufferedImage));//大图
             resultMap.put("smallImage", getImageBASE64(target));//小图
-            resultMap.put("xWidth",widthRandom);
-            resultMap.put("yHeight",heightRandom);
+            resultMap.put("xWidth", widthRandom);
+            resultMap.put("yHeight", heightRandom);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
+        } finally {
             return resultMap;
         }
     }
 
 
     /**
-     * @Title: getImageBASE64
-     * @Description: 图片转BASE64
-     * @author zhoujin
      * @param image
      * @return
      * @throws IOException String
+     * @Title: getImageBASE64
+     * @Description: 图片转BASE64
+     * @author zhoujin
      */
     public static String getImageBASE64(BufferedImage image) throws IOException {
         byte[] imagedata = null;
-        ByteArrayOutputStream bao=new ByteArrayOutputStream();
-        ImageIO.write(image,"png",bao);
-        imagedata=bao.toByteArray();
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", bao);
+        imagedata = bao.toByteArray();
         BASE64Encoder encoder = new BASE64Encoder();
-        String BASE64IMAGE=encoder.encodeBuffer(imagedata).trim();
+        String BASE64IMAGE = encoder.encodeBuffer(imagedata).trim();
         BASE64IMAGE = BASE64IMAGE.replaceAll("\r|\n", "");  //删除 \r\n
         return BASE64IMAGE;
     }

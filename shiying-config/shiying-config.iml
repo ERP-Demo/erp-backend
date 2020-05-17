@@ -18,6 +18,11 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
+    <content url="file://$MODULE_DIR$/../../shiying-config">
+      <sourceFolder url="file://$MODULE_DIR$/../../shiying-config/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../shiying-config/src/main/resources" type="java-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../../shiying-config/target" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:2.2.5.RELEASE" level="project" />

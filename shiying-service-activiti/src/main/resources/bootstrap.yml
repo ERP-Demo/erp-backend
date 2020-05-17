@@ -2,13 +2,20 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
-      name: shiying-client-zipkin, shiying-client-admin, shiying-client-eureka,shiying-activiti-client-mysql,shiying-service-activiti
+      name: shiying-client-zipkin, shiying-client-admin, shiying-client-eureka,shiying-service-activiti
       label: master
       profile: dev
-  application:
-    name: shiying-service-activiti
-
-server:
-  port: 40800
-  servlet:
-    context-path: /activiti
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/activiti?serverTimezone=Hongkong
+      username: root
+      password: 123456
+      driverClassName: com.mysql.cj.jdbc.Driver
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 10000
+      testOnBorrow: true
+      testOnReturn: false
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000

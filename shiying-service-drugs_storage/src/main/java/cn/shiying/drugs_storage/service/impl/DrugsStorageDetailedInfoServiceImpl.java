@@ -53,7 +53,7 @@ public class DrugsStorageDetailedInfoServiceImpl extends ServiceImpl<DrugsStorag
                 detailedInfo.setPharmacyWarning(50);
                 baseMapper.insert(detailedInfo);
             }else {
-                detailedInfo.setPharmacyNum(detailed.getPdNum()+detailedInfo.getPharmacyNum());
+                detailedInfo.setPharmacyNum(detailed.getPdNum()+info.getPharmacyNum());
                 baseMapper.updateById(detailedInfo);
             }
         }

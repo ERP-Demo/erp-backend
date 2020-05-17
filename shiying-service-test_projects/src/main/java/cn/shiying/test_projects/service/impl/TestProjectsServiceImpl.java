@@ -1,5 +1,6 @@
 package cn.shiying.test_projects.service.impl;
 
+import cn.shiying.common.entity.TestSynthesize.TestSynthesize;
 import cn.shiying.common.entity.TestSynthesize_.TestSynthesize.TestSynthesize;
 import cn.shiying.test_projects.entity.TestProjects;
 import cn.shiying.test_projects.mapper.TestProjectsMapper;

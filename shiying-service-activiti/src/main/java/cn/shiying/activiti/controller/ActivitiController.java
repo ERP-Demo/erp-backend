@@ -213,6 +213,7 @@ public class ActivitiController {
 
     @PostMapping("/checkAgree")
     public Result checkAgree(String processInstanceId){
+        System.out.println(processInstanceId);
         Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).taskName("验收").singleResult();
         JwtUser user = getUser();
         taskService.setAssignee(task.getId(),user.getUsername());
@@ -221,6 +222,7 @@ public class ActivitiController {
     }
     @PostMapping("/rejHandleReturned")
     public Result rejHandleReturned(String processInstanceId){
+        System.out.println(processInstanceId);
         Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).taskName("仓库经理审核").singleResult();
         if (task!=null) {
             JwtUser user = getUser();

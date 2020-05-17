@@ -246,6 +246,15 @@ public class DrugsPurchaseController {
         return Result.ok();
     }
 
+    @PostMapping("/agreeWarehouse")
+    public Result agreeWarehouse(@RequestBody String[] ids){
+        Result result= activitiClient.agree(Arrays.asList(ids));
+        DrugsPurchase drugsPurchase=new DrugsPurchase();
+        drugsPurchase.setWarehouseName(getUserName());
+        order(result,drugsPurchase);
+        return Result.ok();
+    }
+
     @PostMapping("/reject")
     public Result reject(@RequestBody CheckForm form){
         Result result= activitiClient.reject(form.getIds(),form.getReason());
@@ -299,11 +308,13 @@ public class DrugsPurchaseController {
         PurchaseReturned returned = purchaseReturnedService.getById(tuihuoId);
         if (returned.getStatus()!=0) return Result.error("已经审核过了，请勿重复提交");
         DrugsPurchase drugsPurchase = purchaseService.getById(returned.getPurchaseId());
-        activitiClient.agreHandleReturned(drugsPurchase.getProcessInstanceId());
+        drugsPurchase.setWarehouseCheckName(getUserName());
+        purchaseService.updateById(drugsPurchase);
         PurchaseReturned purchaseReturned =new PurchaseReturned();
         purchaseReturned.setTuihuoId(tuihuoId);
         purchaseReturned.setStatus(1);
         purchaseReturnedService.updateById(purchaseReturned);
+        activitiClient.agreHandleReturned(drugsPurchase.getProcessInstanceId());
         return Result.ok();
     }
 
@@ -316,8 +327,29 @@ public class DrugsPurchaseController {
 
     @PostMapping("/agreHandleManage")
     public Result agreHandleManage(String purchaseId){
+        DrugsPurchase purchase=new DrugsPurchase();
+        purchase.setPurchaseId(purchaseId);
+        purchase.setWarehouseCheckName(getUserName());
+        purchaseService.updateById(purchase);
         List<DrugsPurchaseDetailed> list = drugsPurchaseDetailedService.list(new QueryWrapper<DrugsPurchaseDetailed>().eq("purchase_id", purchaseId));
-        drugsStorageClient.save(list);
+        List<PurchaseReturned> returneds = purchaseReturnedService.list(new QueryWrapper<PurchaseReturned>().eq("status", 1).eq("purchase_id", purchaseId));
+        Map<Integer,Integer> map=new HashMap<>();
+        for (PurchaseReturned returned : returneds) {
+            List<PurchaseReturnedDetailed> tuihuo_id = detailedService.list(new QueryWrapper<PurchaseReturnedDetailed>().eq("tuihuo_id", returned.getTuihuoId()));
+            for (PurchaseReturnedDetailed detailed : tuihuo_id) {
+                Integer pdnum = map.get(detailed.getPdid());
+                map.put(detailed.getPdid(),pdnum==null ? detailed.getPdNum():pdnum+detailed.getPdNum());
+            }
+        }
+        for (DrugsPurchaseDetailed detailed : list) {
+            Integer pdnum = map.get(detailed.getPdid());
+            if (pdnum!=null)
+                detailed.setPdNum(detailed.getPdNum()-pdnum);
+        }
+        Result save = drugsStorageClient.save(list);
+        if ((Integer) save.get("code")!=200) return Result.error(ErrorEnum.UNKNOWN);
+        Result result = activitiClient.agreHandleReturned(purchaseService.getById(purchaseId).getProcessInstanceId());
+        if ((Integer) result.get("code")!=200) return Result.error(ErrorEnum.UNKNOWN);
         return Result.ok();
     }
 }

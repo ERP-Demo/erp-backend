@@ -28,12 +28,15 @@ import cn.shiying.common.dto.Result;
 import cn.shiying.common.utils.PageUtils;
 import cn.shiying.common.validator.ValidatorUtils;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author tyb
@@ -62,7 +65,7 @@ public class RegisterController {
      */
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('register:register:list')")
-    public Result list(@RequestParam Map<String, Object> params){
+    public Result list(@RequestParam Map<String, Object> params) {
         PageUtils page = registerService.queryPage(params);
         return Result.ok().put("page", page);
     }
@@ -73,8 +76,8 @@ public class RegisterController {
      */
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('register:register:info')")
-    public Result info(@PathVariable("id") String id){
-       Register register = registerService.getById(id);
+    public Result info(@PathVariable("id") String id) {
+        Register register = registerService.getById(id);
 
         return Result.ok().put("register", register);
     }
@@ -84,14 +87,14 @@ public class RegisterController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('register:register:save')")
-    public Result save(@RequestBody RegisterPatient register){
+    public Result save(@RequestBody RegisterPatient register) {
 
         //进货单号
         String RegisterId = schedule.createId();
-        System.out.println("编号："+RegisterId);
+        System.out.println("编号：" + RegisterId);
 
         ValidatorUtils.validateEntity(register);
-        PatientDetailed p=new PatientDetailed();
+        PatientDetailed p = new PatientDetailed();
         p.setPatientName(register.getPatientName());
         p.setPatientAge(register.getPatientAge());
         p.setPatientSex(register.getPatientSex());
@@ -99,11 +102,11 @@ public class RegisterController {
         p.setPatientAddress(register.getPatientAddress());
         p.setPatientNote(register.getPatientNote());
         p.setPatientCartnum(register.getPatientCartnum());
-        Result rs=patientclient.save(p);
-        Result result=activitiClient.startPatient(register.getDepartmentId(),RegisterId);
+        Result rs = patientclient.save(p);
+        Result result = activitiClient.startPatient(register.getDepartmentId(), RegisterId);
         String processInstanceId = (String) result.get("processInstanceId");
-        Integer pid=(Integer) rs.get("id");
-        Register r=new Register();
+        Integer pid = (Integer) rs.get("id");
+        Register r = new Register();
         r.setRegisterId(RegisterId);
         r.setPatientId(pid);
         r.setDepartmentId(register.getDepartmentId());
@@ -118,7 +121,7 @@ public class RegisterController {
      */
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('register:register:update')")
-    public Result update(@RequestBody Register register){
+    public Result update(@RequestBody Register register) {
         ValidatorUtils.validateEntity(register);
         registerService.updateById(register);
         return Result.ok();
@@ -129,54 +132,56 @@ public class RegisterController {
      */
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('register:register:delete')")
-    public Result delete(@RequestBody String[] ids){
+    public Result delete(@RequestBody String[] ids) {
         registerService.removeByIds(Arrays.asList(ids));
 
         return Result.ok();
     }
+
     @RequestMapping("/all")
-    public Result all(){
+    public Result all() {
         List<departmentVo> list = registerService.departmentvo();
-        return Result.ok().put("list",list);
+        return Result.ok().put("list", list);
     }
 
     @GetMapping("/refreshPatient")
-    public Result refreshPatient(){
-        Result result=activitiClient.registerPatient();
-        List<RegisterPatientVO> deptWaitList=
+    public Result refreshPatient() {
+        Result result = activitiClient.registerPatient();
+        List<RegisterPatientVO> deptWaitList =
                 registerService.list((List<Integer>) result.get("deptWaitList"));
-        List<RegisterPatientVO> personalWaitList=
+        List<RegisterPatientVO> personalWaitList =
                 registerService.list((List<Integer>) result.get("personalWaitList"));
-        List<RegisterPatientVO> personalDuringList=
+        List<RegisterPatientVO> personalDuringList =
                 registerService.list((List<Integer>) result.get("personalDuringList"));
 
 //        PageUtils personalEndList=registerService.listPage(null);
-        return Result.ok().put("deptWaitList",deptWaitList)
-                .put("personalWaitList",personalWaitList)
-                .put("personalDuringList",personalDuringList);
+        return Result.ok().put("deptWaitList", deptWaitList)
+                .put("personalWaitList", personalWaitList)
+                .put("personalDuringList", personalDuringList);
     }
 
     @PostMapping("/back")
-    public Result back(Integer id){
+    public Result back(Integer id) {
         Register register = registerService.getById(id);
-        Result result=activitiClient.back(register.getProcessInstanceId());
-        if ((Integer) result.get("code")!=200) return Result.error(ErrorEnum.UNKNOWN);
+        Result result = activitiClient.back(register.getProcessInstanceId());
+        if ((Integer) result.get("code") != 200) return Result.error(ErrorEnum.UNKNOWN);
         register.setStatus(0);
         registerService.updateById(register);
         return Result.ok();
     }
 
-    public List<Integer> getDepartment(){
-        Map<String,Object> map= (Map<String, Object>) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return (List<Integer>)map.get("departmentId");
+    public List<Integer> getDepartment() {
+        Map<String, Object> map = (Map<String, Object>) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return (List<Integer>) map.get("departmentId");
     }
 
     @PostMapping("/VerificationCode")
-    public Result VerificationCode(String phones){
-        System.out.println("电话号码数据："+phones);
+    public Result VerificationCode(String phones) {
+        System.out.println("电话号码数据：" + phones);
         registerService.VerificationCode(phones);
         return Result.ok();
     }
+
     /**
      * @param @return 参数说明
      * @return BaseRestResult 返回类型
@@ -184,7 +189,7 @@ public class RegisterController {
      */
     @GetMapping("/getImageVerifyCode")
     public Result getImageVerifyCode() {
-        Map<String, Object> resultMap = new HashMap<>();
+        Result resultMap = new Result();
         //读取本地路径下的图片,随机选一条
         File file = new File(this.getClass().getResource("/image").getPath());
         File[] files = file.listFiles();
@@ -195,9 +200,11 @@ public class RegisterController {
         //读取网络图片
         //ImageUtil.createImage("http://hbimg.b0.upaiyun.com/7986d66f29bfeb6015aaaec33d33fcd1d875ca16316f-2bMHNG_fw658",resultMap);
 //        session.setAttribute("xWidth", resultMap.get("xWidth"));
-        String uuid= UUID.randomUUID().toString().replaceAll("-","");
-        stringRedisTemplate.boundValueOps("Captcha:"+uuid).set(resultMap.get("xWidth")+"",300, TimeUnit.SECONDS);
-        return Result.ok().put("bigImage",resultMap.get("bigImage"));
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        resultMap.put("uuid",uuid);
+        stringRedisTemplate.boundValueOps("Captcha:" + uuid).set(resultMap.get("xWidth") + "", 300, TimeUnit.SECONDS);
+        resultMap.remove("xWidth");
+        return resultMap;
     }
 
 
@@ -209,29 +216,16 @@ public class RegisterController {
      * @Description: 生成图形验证码
      */
     @GetMapping("/verifyImageCode")
-    public Result verifyImageCode(@RequestParam(value = "moveLength") String moveLength, HttpServletRequest request) {
+    public Result verifyImageCode(@RequestParam("moveLength") String moveLength,@RequestParam("uuid") String uuid) {
         Double dMoveLength = Double.valueOf(moveLength);
-        Map<String, Object> resultMap = new HashMap<>();
-        try {
-//            Map<String,String> map= CookieUtil.readCookie(request,"uuid");
-//            String uuid=map.get("uuid");
-//            Long expire = stringRedisTemplate.getExpire(key, TimeUnit.SECONDS);
-//            Integer xWidth =  Integer.parseInt(stringRedisTemplate.opsForValue().get());
-//            if (xWidth == null) {
-//                return Result.error("验证过期，请重试");
-//            }
-//            if (Math.abs(xWidth - dMoveLength) > 10) {
-//                resultMap.put("errcode", 1);
-//                resultMap.put("errmsg", "验证不通过");
-//            } else {
-//                resultMap.put("errcode", 0);
-//                resultMap.put("errmsg", "验证通过");
-//            }
-        } catch (Exception e) {
-//            throw new EsServiceException(e.getMessage());
-        } finally {
-//            session.removeAttribute("xWidth");
+        Long expire = stringRedisTemplate.getExpire("Captcha:"+uuid, TimeUnit.MILLISECONDS);
+        System.out.println(expire);
+        if (expire <= 0) return Result.error(ErrorEnum.LONG_TIME_ERROR);
+        Integer xWidth = Integer.parseInt(stringRedisTemplate.opsForValue().get("Captcha:"+uuid));
+        if (Math.abs(xWidth - dMoveLength) > 10) {
+            return Result.error("验证不通过");
+        } else {
+            return Result.ok().put("time",expire);
         }
-        return Result.ok();
     }
 }

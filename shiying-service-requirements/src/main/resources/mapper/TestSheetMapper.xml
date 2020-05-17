@@ -3,7 +3,8 @@
 <mapper namespace="cn.shiying.requirements.mapper.TestSheetMapper">
 
     <select id="listReqAndTestSheetVO" resultType="cn.shiying.requirements.entity.Vo.ReqAndTestSheetVO">
-        select r.testSynthesize_id,p.patient_name,r.purpose,r.requirements,r.Clinical_impression,r.Clinical_diagnosis,r.Check_the
+        select
+        r.test_synthesize_id,p.patient_name,r.purpose,r.requirements,r.Clinical_impression,r.Clinical_diagnosis,r.Check_the
         from requirements r
         inner join patient_detailed p
         on r.patient_id=p.patient_id

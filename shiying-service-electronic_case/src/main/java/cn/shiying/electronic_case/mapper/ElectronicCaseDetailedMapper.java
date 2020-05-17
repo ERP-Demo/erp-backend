@@ -13,4 +13,6 @@ import java.util.List;
 public interface ElectronicCaseDetailedMapper extends BaseMapper<ElectronicCaseDetailed> {
     //查询历史病历
     List<ElectronicAndDetailedVO> selectElectronic(@Param("patientId") Integer patientId);
+    List<Integer> getIds(int id);
+    List<Icd> selById(List<Integer> ids);
 }

@@ -24,7 +24,7 @@
         testSynthesize_id, uid,patient_id,register_id, purpose, requirements, Clinical_impression, Clinical_diagnosis, Check_the,status
     </sql>
     <update id="updatestate">
-        update  requirements  set status=4 where testSynthesize_id=#{id}
+        update  requirements  set status=2 where testSynthesize_id=#{id}
     </update>
     <select id="All" resultMap="WithDepartment">
         select

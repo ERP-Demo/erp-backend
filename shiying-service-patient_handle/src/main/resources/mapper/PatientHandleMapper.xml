@@ -3,6 +3,6 @@
 <mapper namespace="cn.shiying.patient_handle.mapper.PatientHandleMapper">
 
     <update id="updatestate">
-        update patient_handle_apply_detailed set `status`=4 where handle_id=#{id}
+        update patient_handle_apply_detailed set `status`=2 where handle_id=#{id}
     </update>
 </mapper>

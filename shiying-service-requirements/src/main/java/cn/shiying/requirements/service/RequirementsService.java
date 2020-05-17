@@ -25,7 +25,8 @@ public interface RequirementsService extends IService<Requirements> {
      * @return
      */
     PageUtils queryPage(Map<String, Object> params);
-    void  updatestate(Integer id);
+
+    void updatestate(Integer[] id);
     List<Requirements_Vo> All();
     List<TestSynthesizeAll> TestSynthesizeAll();
     List<TestSynthesizeAll> topFive(Integer uid);

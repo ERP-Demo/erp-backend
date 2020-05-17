@@ -10,8 +10,10 @@
         <result column="prescription_state" property="prescriptionState" />
     </resultMap>
     <resultMap id="WithDepartment" extends="BaseResultMap" type="cn.shiying.prescription.entity.Prescription_Vo">
-        <association property="drugsDetailed" column="drugs_id" select="cn.shiying.common.mapper.Drugs.DrugsDetaileMapper.selectById"/>
-        <association property="prescription" column="prescription_id" select="cn.shiying.prescription.mapper.PrescriptionMapper.selectById"/>
+        <association property="drugsDetailed" column="drugs_id"
+                     select="cn.shiying.common.mapper.Drugs.DrugsDetaileMapper.selectById"/>
+        <association property="prescription" column="prescription_id"
+                     select="cn.shiying.prescription.mapper.PrescriptionMapper.selectById"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -37,13 +39,17 @@
         </foreach>
     </update>
     <update id="updatestate">
-        update  prescription_details  set status=4 where prescription_id=#{id}
+        update  prescription_details  set status=2 where prescriptio    n_id=#{id}
     </update>
     <select id="PrescriptionVo" resultMap="WithDepartment">
-    select <include refid="Base_Column_List1"/> from  prescription_details where status=1
+        select
+        <include refid="Base_Column_List1"/>
+        from prescription_details where status=1
 
     </select>
     <select id="PrescriptionVoByid" resultMap="WithDepartment">
-        select <include refid="Base_Column_List1"/> from prescription_details where prescription_id=#{id}
+        select
+        <include refid="Base_Column_List1"/>
+        from prescription_details where prescription_id=#{id}
     </select>
 </mapper>

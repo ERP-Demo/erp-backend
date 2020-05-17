@@ -26,6 +26,6 @@ public interface TestSynthesizeMapper extends BaseMapper<TestSynthesize> {
 
     List<TestSynthesize> SynthesizeList(Page<TestSynthesize> page, @Param("params") Map<String, Object> params);
 
-    List<TestSynthesize> selectbyId(@Param("id") Integer id);
+    TestSynthesize selectbyId(@Param("id") Integer id);
 
 }

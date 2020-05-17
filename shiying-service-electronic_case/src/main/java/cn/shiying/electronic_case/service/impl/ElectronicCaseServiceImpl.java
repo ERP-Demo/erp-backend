@@ -126,4 +126,7 @@ public class ElectronicCaseServiceImpl extends ServiceImpl<ElectronicCaseMapper,
         return electronicCaseDetailedMapper.selectElectronic(patientId);
     }
 
+    public List<Icd> topFive(){
+        return electronicCaseDetailedMapper.selById(electronicCaseDetailedMapper.getIds(getUser().getUid()));
+    }
 }

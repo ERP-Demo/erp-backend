@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author tyb
@@ -54,6 +54,10 @@ public class PrescriptionDetails implements Serializable {
      * 用量
      */
     private String drugsUsenum;
+    /**
+     * 状态
+     */
+    private Integer status;
 
 
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shiying.common.mapper.Drugs.DrugsDetaileMapper">
+
+    <resultMap id="BaseResultMap" type="cn.shiying.common.entity.Drugs.DrugsDetailed">
+        <id column="drugs_id" property="drugsId" />
+        <result property="drugsName" column="drugs_name"/>
+        <result property="drugsPrice" column="drugs_price"/>
+        <result property="drugsNorms" column="drugs_norms"/>
+        <result property="drugsUsage" column="drugs_usage"/>
+        <result property="drugsDosage" column="drugs_dosage"/>
+        <result property="drugsTaboo" column="drugs_taboo"/>
+        <result property="drugsProducer" column="drugs_producer"/>
+        <result property="drugsApprovalNumber" column="drugs_approval_number"/>
+    </resultMap>
+
+<!--    <sql id="Base_Column_List">-->
+<!--        drugs_id,drugs_name,drugs_price,drugs_norms,drugs_usage,drugs_dosage,drugs_taboo,drugs_producer,drugs_approval_number-->
+<!--    </sql>-->
+
+    <select id="selectByddId" resultMap="BaseResultMap">
+        select * from drugs_detailed where drugs_id=#{drugsId}
+    </select>
+
+</mapper>

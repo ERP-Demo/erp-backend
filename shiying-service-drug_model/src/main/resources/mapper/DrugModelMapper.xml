@@ -12,6 +12,7 @@
         <result column="drug_model_type" property="drugModelType" />
     </resultMap>
 
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         drug_model_id, drug_model_name, drug_model_introduction,drug_model_code,drug_model_range,drug_model_type
@@ -50,4 +51,11 @@
     <delete id="delbyid">
         delete from drugs_drug_model where drug_model_id=#{DrugModelId}
     </delete>
+
+    <select id="selectDrug" resultType="cn.shiying.drug_model.entity.vo.DrugModelVo">
+        select  dd.*
+        from drugs_detailed dd
+        inner join drugs_drug_model ddm
+        on dd.drugs_id=ddm.drugs_id
+    </select>
 </mapper>

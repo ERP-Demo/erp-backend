@@ -29,8 +29,5 @@
             </if>
         </where>
     </select>
-    <select id="selectbyId" resultType="cn.shiying.test_synthesize.entity.TestSynthesize">
-                                select * from test_synthesize where test_synthesize_id=#{id}
-    </select>
 
 </mapper>

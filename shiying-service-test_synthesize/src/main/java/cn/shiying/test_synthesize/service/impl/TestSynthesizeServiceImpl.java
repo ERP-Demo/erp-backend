@@ -87,19 +87,6 @@ public class TestSynthesizeServiceImpl extends ServiceImpl<TestSynthesizeMapper,
             System.out.println("化验项目表:"+correlation);
         }
         baseMapper.addTestCorrelation(co);
-
-
-
-        System.out.println("数据："+synthesizeAndProjects);
-    }
-
-    @Override
-    public List<TestSynthesize> selectByid(Integer[] id) {
-        for (Integer integer : id) {
-            List<TestSynthesize> testSynthesizes = baseMapper.selectbyId(integer);
-            System.out.println(testSynthesizes);
-        }
-        return null;
     }
 
 }

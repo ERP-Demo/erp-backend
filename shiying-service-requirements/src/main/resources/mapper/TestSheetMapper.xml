@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shiying.requirements.mapper.TestSheetMapper">
+
+    <select id="listReqAndTestSheetVO" resultType="cn.shiying.requirements.entity.Vo.ReqAndTestSheetVO">
+        select r.testSynthesize_id,p.patient_name,r.purpose,r.requirements,r.Clinical_impression,r.Clinical_diagnosis,r.Check_the
+        from requirements r
+        inner join patient_detailed p
+        on r.patient_id=p.patient_id
+        <where>
+            <if test="params.patientName != null and params.patientName != ''">
+                and p.patient_name LIKE concat('%',#{params.patientName},'%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="addTestSheet">
+        insert into laboratory_list(id,test_projects_id,result) values
+        <foreach collection="list" item="lab" separator="," close=";">
+            (#{lab.id},#{lab.testProjectsId},#{lab.result})
+        </foreach>
+    </insert>
+
+</mapper>

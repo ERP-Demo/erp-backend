@@ -25,6 +25,9 @@ public class Requirements implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "id")
+    private Integer id;
+
     /**
      * 项目编码
      */

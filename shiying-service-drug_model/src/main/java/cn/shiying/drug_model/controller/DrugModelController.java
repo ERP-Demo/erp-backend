@@ -4,6 +4,8 @@ import cn.shiying.drug_model.entity.from.DrugModelFrom;
 import cn.shiying.drug_model.entity.vo.DrugModelVo;
 import cn.shiying.drug_model.service.DrugsDrugModelService;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -51,10 +53,15 @@ public class DrugModelController {
     @GetMapping("/info/{id}")
     public Result info(@PathVariable("id") Integer id){
         List<DrugModelVo> drugModelVos = modelService.selectById(id);
+        DrugModelVo dv=new DrugModelVo();
+        double allprice=0.0;
+        for (DrugModelVo drugs:drugModelVos){
+            allprice+=drugs.getDrugsPrice();
+        }
+        String price=String.valueOf(allprice);
         DrugModel selectbyid = modelService.selectbyid(id);
-        return Result.ok().put("list",drugModelVos).put("mode",selectbyid);
+        return Result.ok().put("list",drugModelVos).put("mode",selectbyid).put("price",price);
     }
-
     /**
      * 保存
      */
@@ -99,9 +106,7 @@ public class DrugModelController {
     }
     @RequestMapping("/byid/{id}")
     public Result byid(@PathVariable Integer id){
-        System.out.println(id);
         DrugModel selectbyid = modelService.selectbyid(id);
-        System.out.println(selectbyid);
         return Result.ok().put("mode",selectbyid);
     }
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shiying.drug_model.mapper.DrugsDrugModelMapper">
+
+    <resultMap id="BaseResultMap" type="cn.shiying.drug_model.entity.DrugsDrugModel">
+        <result property="drugModelId" column="drug_model_id"/>
+        <result property="drugsId" column="drugs_id"/>
+    </resultMap>
+
+
+    <select id="selectBydmId" resultMap="BaseResultMap">
+        select * from drugs_drug_model where drug_model_id=#{drugModelId}
+    </select>
+
+</mapper>

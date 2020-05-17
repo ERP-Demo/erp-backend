@@ -17,5 +17,5 @@ import java.util.List;
  */
 @Mapper
 public interface DrugsDetaileMapper extends BaseMapper<DrugsDetailed> {
-
+    List<DrugsDetailed> selectByddId(Integer drugsId);
 }

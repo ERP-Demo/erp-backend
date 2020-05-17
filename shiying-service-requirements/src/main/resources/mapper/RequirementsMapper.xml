@@ -38,5 +38,14 @@
         WHERE test_synthesize_id in
         (select testSynthesize_id from  requirements );
     </select>
-
+    <select id="topFive" resultType="cn.shiying.requirements.entity.TestSynthesizeAll">
+        select t2.test_synthesize_id,t2.test_synthesize_name,t2.test_synthesize_price
+        from requirements t1
+        inner join test_synthesize t2
+        on t1.synthesize_id=t2.test_synthesize_id
+        where t1.uid=#{uid}
+        group by t1.synthesize_id
+        order by count(1) desc
+        limit 5
+    </select>
 </mapper>

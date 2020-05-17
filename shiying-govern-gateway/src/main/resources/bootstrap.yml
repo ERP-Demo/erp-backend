@@ -5,5 +5,3 @@ spring:
       name: shiying-client-zipkin, shiying-client-admin, shiying-client-eureka,shiying-client-mysql,shiying-client-redis,shiying-govern-gateway
       label: master
       profile: dev
-zuul:
-  sentitveHeaders:

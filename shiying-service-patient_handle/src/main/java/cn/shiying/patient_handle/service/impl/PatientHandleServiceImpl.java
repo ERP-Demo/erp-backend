@@ -1,6 +1,6 @@
 package cn.shiying.patient_handle.service.impl;
 
-import cn.shiying.patient_handle.entity.PatientHandle;
+import cn.shiying.common.entity.patient_handle.PatientHandle;
 import cn.shiying.patient_handle.mapper.PatientHandleMapper;
 import cn.shiying.patient_handle.service.PatientHandleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -35,6 +35,13 @@ public class PatientHandleServiceImpl extends ServiceImpl<PatientHandleMapper, P
         IPage<PatientHandle> page=baseMapper.selectPage(new Query<PatientHandle>(params).getPage(),
                 wrapper.lambda());
         return new PageUtils(page);
+    }
+
+    @Override
+    public void updatestate(Integer[] id) {
+        for (Integer integer : id) {
+            baseMapper.updatestate(integer);
+        }
     }
 
 }

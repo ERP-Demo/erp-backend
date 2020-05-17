@@ -2,6 +2,7 @@ package cn.shiying.drugs_purchase.entity;
 
 import cn.shiying.drugs_purchase.entity.form.DrugsAndDetailed;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -43,5 +44,6 @@ public class DrugsPurchaseDetailed implements Serializable {
      */
     private String pdNum;
 
+    @TableField(exist =false)
     List<DrugsAndDetailed> list;
 }

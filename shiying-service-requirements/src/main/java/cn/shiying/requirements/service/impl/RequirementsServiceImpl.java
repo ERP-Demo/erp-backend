@@ -1,6 +1,7 @@
 package cn.shiying.requirements.service.impl;
 
 import cn.shiying.requirements.entity.Requirements;
+import cn.shiying.requirements.entity.TestSynthesizeAll;
 import cn.shiying.requirements.entity.Vo.Requirements_Vo;
 import cn.shiying.requirements.mapper.RequirementsMapper;
 import cn.shiying.requirements.service.RequirementsService;
@@ -38,13 +39,25 @@ public class RequirementsServiceImpl extends ServiceImpl<RequirementsMapper, Req
     }
 
     @Override
-    public void updatestate(Integer id) {
-        baseMapper.updatestate(id);
+    public void updatestate(Integer[] id) {
+        for (Integer integer : id) {
+            baseMapper.updatestate(integer);
+        }
     }
 
     @Override
     public List<Requirements_Vo> All() {
         return baseMapper.All();
+    }
+
+    @Override
+    public List<TestSynthesizeAll> TestSynthesizeAll() {
+        return baseMapper.TestSynthesizeAll();
+    }
+
+    @Override
+    public List<TestSynthesizeAll> topFive(Integer uid) {
+        return baseMapper.topFive(uid);
     }
 
 }

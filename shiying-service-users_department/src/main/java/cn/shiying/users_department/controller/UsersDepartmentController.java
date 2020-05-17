@@ -2,6 +2,8 @@ package cn.shiying.users_department.controller;
 
 
 import cn.shiying.common.entity.department.Department;
+import cn.shiying.common.enums.ErrorEnum;
+import cn.shiying.common.exception.ExceptionCast;
 import cn.shiying.users_department.client.DepartmentClient;
 import cn.shiying.users_department.entity.User;
 import cn.shiying.users_department.entity.UsersDepartment;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import cn.shiying.users_department.service.UsersDepartmentService;
@@ -62,13 +66,16 @@ public class UsersDepartmentController {
     @GetMapping("/allDepartment")
     public Result allDepartment(){
         //获取所有科室信息
-        List<Department> departments=(List<Department>)departmentClient.getAll().get("list");
-        List<User> users=departmentService.allUser(departments.get(0).getDepartmentId());
+        Result result = departmentClient.getAll();
+        if ((Integer) result.get("code")!=200) ExceptionCast.cast(ErrorEnum.LOAD_TIME_LANG);
+        List<Department> departments=(List<Department>)result.get("list");
+        Map<String, Object> map = (Map<String, Object>) departments.get(0);
+        List<User> users=departmentService.allUser((Integer) map.get("departmentId"));
         return Result.ok().put("departments",departments).put("users",users);
     }
 
     @PostMapping("/getUser")
-    public Result getUser(@RequestBody Integer did){
+    public Result getUser(Integer did){
         List<User> users=departmentService.allUser(did);
         return Result.ok().put("users",users);
     }

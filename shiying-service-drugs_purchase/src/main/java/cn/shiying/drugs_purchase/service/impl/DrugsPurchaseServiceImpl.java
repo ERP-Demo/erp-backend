@@ -17,9 +17,13 @@ import cn.shiying.drugs_purchase.entity.form.DrugsAndDetailed;
 import cn.shiying.drugs_purchase.entity.DrugsPurchase;
 import cn.shiying.drugs_purchase.entity.form.Returned;
 import cn.shiying.drugs_purchase.entity.vo.*;
+import cn.shiying.drugs_purchase.mapper.DrugsPurchaseDetailedMapper;
 import cn.shiying.drugs_purchase.mapper.DrugsPurchaseMapper;
+import cn.shiying.drugs_purchase.mapper.PurchaseReturnedDetailedMapper;
 import cn.shiying.drugs_purchase.mapper.PurchaseReturnedMapper;
 import cn.shiying.drugs_purchase.service.DrugsPurchaseService;
+import cn.shiying.drugs_purchase.service.PurchaseReturnedDetailedService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import cn.shiying.common.utils.Query;
@@ -29,6 +33,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -52,31 +57,37 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
     @Autowired
     PurchaseReturnedMapper returnedMapper;
 
+    @Autowired
+    PurchaseReturnedDetailedMapper detailedMapper;
+
+    @Autowired
+    DrugsPurchaseDetailedMapper drugsPurchaseDetailedMapper;
     /**
      * 分页查询
      * @param params
      * @return
      */
     @Override
-    public PageUtils queryPage(Map<String, Object> params,Integer check) {
-        Page page=new Query<DrugsPurchase>(params).getPage();
-        Result result = null;
-        if (check==0) {
-            result = activitiClient.checkOrder();
-        }else if (check==1){
-            result = activitiClient.order();
-        }else {
-            result = activitiClient.warehouseCheck();
-        }
+    public PageUtils queryPage(Map<String, Object> params,Result result) {
         if ((Integer) result.get("code") != 200) {
             ExceptionCast.cast(ErrorEnum.UNKNOWN);
         }
+        Page page=new Query<DrugsPurchase>(params).getPage();
         List<String> ids= (List<String>) result.get("ids");
         if (ids == null || ids.size()==0) {
             page.setRecords(null);
             return new PageUtils(page);
         }
-
+        if (result.get("check") !=null&&(Integer) result.get("check")==1){
+            Iterator<String> it=ids.iterator();
+            while(it.hasNext()) {
+                String id=it.next();
+                Integer num = returnedMapper.selectCount(new QueryWrapper<PurchaseReturned>().eq("purchase_id", id).eq("status",0));
+                if(num!=0) {
+                    it.remove();
+                }
+            }
+        }
         List<PurchaseSupplierVo> list= baseMapper.DrugsPurchaseList(page,params,ids);
         page.setRecords(list);
         return new PageUtils(page);
@@ -151,11 +162,37 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
         Integer id = purchaseReturned.getTuihuoId();
         //添加订单退货详细表
         List<PurchaseReturnedDetailed> prdetailedList=returned.getPurchaseReturnedDetaileds();
-
+        List<PurchaseReturnedDetailed> remove=new ArrayList<>();
+        boolean flag=true;
         for (PurchaseReturnedDetailed p : prdetailedList) {
+            if (p.getPdNum()==0){
+                remove.add(p);
+                continue;
+            }
             p.setTuihuoId(id);
+            List<Integer> purchases = baseMapper.selectByPurchaseId(purchaseReturned.getPurchaseId());
+            List<PurchaseReturnedDetailed> list = detailedMapper.selectList(new QueryWrapper<PurchaseReturnedDetailed>().and(i ->i.eq("pdid", p.getPdid()).in("tuihuo_id",purchases)));
+            int count=0;
+            for (PurchaseReturnedDetailed detailed : list) {
+                count+=detailed.getPdNum();
+            }
+            DrugsPurchaseDetailed detailed = drugsPurchaseDetailedMapper.selectById(p.getPdid());
+            int max=detailed.getPdNum()-count;
+            if (p.getPdNum()>max)  p.setPdNum(max);
+            count+=p.getPdNum();
+            if (detailed.getPdNum()>count){
+                flag=false;
+            }
+            System.out.println(count+" "+detailed.getPdNum());
+        }
+        for (PurchaseReturnedDetailed p : remove) {
+            prdetailedList.remove(p);
         }
 
+        if (flag){
+            DrugsPurchase purchase = baseMapper.selectById(purchaseReturned.getPurchaseId());
+            activitiClient.checkAgree(purchase.getProcessInstanceId());
+        }
         baseMapper.addPurchaseReturnedDetailed(prdetailedList);
     }
 

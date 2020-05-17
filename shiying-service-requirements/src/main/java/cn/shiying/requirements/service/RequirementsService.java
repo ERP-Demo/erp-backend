@@ -1,6 +1,7 @@
 package cn.shiying.requirements.service;
 
 import cn.shiying.requirements.entity.Requirements;
+import cn.shiying.requirements.entity.TestSynthesizeAll;
 import cn.shiying.requirements.entity.Vo.Requirements_Vo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
@@ -23,7 +24,10 @@ public interface RequirementsService extends IService<Requirements> {
      * @param params
      * @return
      */
-     PageUtils queryPage(Map<String, Object> params);
-     void  updatestate(Integer id);
+    PageUtils queryPage(Map<String, Object> params);
+
+    void updatestate(Integer[] id);
     List<Requirements_Vo> All();
+    List<TestSynthesizeAll> TestSynthesizeAll();
+    List<TestSynthesizeAll> topFive(Integer uid);
 }

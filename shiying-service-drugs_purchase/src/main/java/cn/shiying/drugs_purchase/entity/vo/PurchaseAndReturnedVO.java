@@ -20,4 +20,6 @@ public class PurchaseAndReturnedVO extends PurchaseReturnedDetailed {
 
     //退货时间
     private String tuihuoTime;
+
+    private Integer status;
 }

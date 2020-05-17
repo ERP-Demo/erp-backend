@@ -32,4 +32,6 @@ public interface RegisterService extends IService<Register> {
      List<RegisterPatientVO> list(List<Integer> id);
 
     PageUtils listPage(Map<String, Object> params);
+
+    void VerificationCode(String phone);
 }

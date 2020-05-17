@@ -47,6 +47,7 @@
         <commons-io.version>2.6</commons-io.version>
         <feign-okhttp.version>8.18.0</feign-okhttp.version>
         <commons-lang.version>2.6</commons-lang.version>
+        <aliyun.version>4.0.3</aliyun.version>
     </properties>
 
     <dependencyManagement>
@@ -187,6 +188,11 @@
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
                 <version>${commons-lang.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-core</artifactId>
+                <version>${aliyun.version}</version>
             </dependency>
             <!-- commons End -->
         </dependencies>

@@ -95,11 +95,8 @@ public class TestSynthesizeController {
         return Result.ok();
     }
     @GetMapping("/selectByid/{ids}")
-    public Result selectByid(@PathVariable Integer ids){
-        TestSynthesize testSynthesize = synthesizeService.selectByid(ids);
-        List<TestSynthesize> list=new ArrayList<>();
-        list.add(testSynthesize);
-        System.out.println(testSynthesize);
-        return Result.ok().put("list",list);
+    public Result selectByid(@PathVariable Integer[] ids) {
+        List<TestSynthesize> testSynthesizes = synthesizeService.selectByid(ids);
+        return Result.ok().put("list", testSynthesizes);
     }
 }

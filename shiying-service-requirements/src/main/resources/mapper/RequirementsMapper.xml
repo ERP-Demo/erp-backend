@@ -4,7 +4,7 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.shiying.requirements.entity.Requirements">
-        <result column="project_id" property="projectId" />
+        <result column="testSynthesize_id" property="testSynthesizeId"/>
         <result column="patient_id" property="patientId"/>
         <result column="register_id" property="registerId"/>
         <result column="purpose" property="purpose" />
@@ -15,19 +15,37 @@
     </resultMap>
     <resultMap id="WithDepartment" extends="BaseResultMap" type="cn.shiying.requirements.entity.Vo.Requirements_Vo">
         <association property="patientDetailed" column="patient_id" select="cn.shiying.common.mapper.PatientDetailedMapper.selectById"/>
-        <association property="requirements1" column="project_id" select="cn.shiying.requirements.mapper.RequirementsMapper.selectById"/>
-        <association property="testSynthesize" column="project_id" select="cn.shiying.common.mapper.TestSynthesize.TestSynthesizeMapper.selectById"/>
+        <association property="requirements1" column="testSynthesize_id" select="cn.shiying.requirements.mapper.RequirementsMapper.selectById"/>
+        <association property="testSynthesize" column="testSynthesize_id" select="cn.shiying.common.mapper.TestSynthesize.TestSynthesizeMapper.selectById"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        project_id, uid,patient_id,register_id, purpose, requirements, Clinical_impression, Clinical_diagnosis, Check_the,status
+        testSynthesize_id, uid,patient_id,register_id, purpose, requirements, Clinical_impression, Clinical_diagnosis, Check_the,status
     </sql>
     <update id="updatestate">
-        update  requirements  set status=4 where project_id=#{id}
+        update  requirements  set status=2 where testSynthesize_id=#{id}
     </update>
     <select id="All" resultMap="WithDepartment">
-    select <include refid="Base_Column_List"/>from requirements where status=1
+        select
+        <include refid="Base_Column_List"/>
+        from requirements where status=1
     </select>
-
+    <select id="TestSynthesizeAll" resultType="cn.shiying.requirements.entity.TestSynthesizeAll">
+        SELECT r.testSynthesize_id,t.test_synthesize_name,t.test_synthesize_price,r.`status` FROM test_synthesize t
+        LEFT JOIN requirements r
+        on t.test_synthesize_id=r.testSynthesize_id
+        WHERE test_synthesize_id in
+        (select testSynthesize_id from  requirements );
+    </select>
+    <select id="topFive" resultType="cn.shiying.requirements.entity.TestSynthesizeAll">
+        select t1.testSynthesize_id,t2.test_synthesize_name,t2.test_synthesize_price
+        from requirements t1
+        inner join test_synthesize t2
+        on t1.testSynthesize_id=t2.test_synthesize_id
+        where t1.uid=#{uid}
+        group by t1.testSynthesize_id
+        order by count(1) desc
+        limit 5
+    </select>
 </mapper>

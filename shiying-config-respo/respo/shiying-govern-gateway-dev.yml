@@ -68,7 +68,7 @@ zuul:
       sensitiveHeaders:
     service-drugs_storage:
       path: /drugs_storage/**
-      serviceId: shiying-service-drugs_storage
+      serviceId: shiying-service-drugs-storage
       strip-prefix: false
       sensitiveHeaders:
     service-electronic_case:

@@ -1,8 +1,10 @@
 package cn.shiying.patient_handle.service;
 
-import cn.shiying.patient_handle.entity.PatientHandle;
+import cn.shiying.common.entity.patient_handle.PatientHandle;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.Map;
 
 /**
@@ -21,4 +23,7 @@ public interface PatientHandleService extends IService<PatientHandle> {
      * @return
      */
      PageUtils queryPage(Map<String, Object> params);
+
+    void updatestate(Integer[] id);
+
 }

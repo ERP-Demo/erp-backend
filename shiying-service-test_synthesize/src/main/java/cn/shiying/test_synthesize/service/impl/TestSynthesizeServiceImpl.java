@@ -94,8 +94,14 @@ public class TestSynthesizeServiceImpl extends ServiceImpl<TestSynthesizeMapper,
     }
 
     @Override
-    public TestSynthesize selectByid(Integer id) {
-        return baseMapper.selectById(id);
+    public List<TestSynthesize> selectByid(Integer[] id) {
+        TestSynthesize t;
+        List<TestSynthesize> tst = new ArrayList<>();
+        for (Integer integer : id) {
+            t = baseMapper.selectbyId(integer);
+            tst.add(t);
+        }
+        return tst;
     }
 
 }

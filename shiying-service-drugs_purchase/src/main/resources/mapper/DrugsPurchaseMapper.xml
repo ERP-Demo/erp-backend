@@ -93,7 +93,7 @@
 
     <!--添加退货表详细表-->
     <insert id="addPurchaseReturnedDetailed">
-        insert into purchase_returned_detailed(pdid,pdNum,tuihuo_id) values
+        insert into purchase_returned_detailed(pdid,pd_num,tuihuo_id) values
         <foreach collection="list" item="returned" separator="," close=";">
             (#{returned.pdid},#{returned.pdNum},#{returned.tuihuoId})
         </foreach>
@@ -101,7 +101,7 @@
 
     <!--查询退货所有数据-->
     <select id="listPurchaseAndReturnedVO" resultType="cn.shiying.drugs_purchase.entity.vo.PurchaseAndReturnedVO">
-        select pr.tuihuo_id,dp.purchase_id,sd.supplier_name,su.username,pr.tuihuo_time
+        select pr.tuihuo_id,dp.purchase_id,sd.supplier_name,su.username,pr.tuihuo_time,pr.status
         from purchase_returned pr
         inner join sys_user su
         on pr.user_id=su.user_id
@@ -117,7 +117,7 @@
     </select>
 
     <select id="selectReturned" resultType="cn.shiying.drugs_purchase.entity.vo.ReturnedAndDetailedVO">
-        select dd.drugs_name,dpd.pd_money,prd.pdNum
+        select dd.drugs_name,dpd.pd_money,prd.pd_num
         from purchase_returned_detailed prd
         inner join drugs_purchase_detailed dpd
         on prd.pdid=dpd.pdid
@@ -125,5 +125,8 @@
         on dpd.drugs_id=dd.drugs_id
         where prd.tuihuo_id=#{tuihuoId}
     </select>
-
+    
+    <select id="selectByPurchaseId" resultType="java.lang.Integer">
+        select tuihuo_id from purchase_returned where purchase_id = #{purchaseId} and status!=2
+    </select>
 </mapper>

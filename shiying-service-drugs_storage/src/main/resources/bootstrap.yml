@@ -5,3 +5,6 @@ spring:
       name: shiying-client-zipkin, shiying-client-admin, shiying-client-eureka,shiying-client-mysql,shiying-service-drugs_storage
       label: master
       profile: dev
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

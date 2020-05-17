@@ -6,6 +6,7 @@ import cn.shiying.common.entity.supplier.SupplierDetailed;
 import cn.shiying.common.enums.ErrorEnum;
 import cn.shiying.common.exception.ExceptionCast;
 import cn.shiying.drugs_purchase.client.ActivitiClient;
+import cn.shiying.drugs_purchase.client.DrugsStorageClient;
 import cn.shiying.drugs_purchase.entity.PurchaseReturned;
 import cn.shiying.drugs_purchase.entity.PurchaseReturnedDetailed;
 import cn.shiying.drugs_purchase.entity.form.CheckForm;
@@ -13,10 +14,15 @@ import cn.shiying.drugs_purchase.entity.form.DrugsAndDetailed;
 import cn.shiying.drugs_purchase.entity.form.Returned;
 import cn.shiying.drugs_purchase.entity.vo.DrugsPurchaseDetailedVO;
 import cn.shiying.drugs_purchase.entity.vo.ReturnedAndDetailedVO;
+import cn.shiying.drugs_purchase.service.DrugsPurchaseDetailedService;
+import cn.shiying.drugs_purchase.service.PurchaseReturnedDetailedService;
+import cn.shiying.drugs_purchase.service.PurchaseReturnedService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -41,10 +47,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("purchase")
 public class DrugsPurchaseController {
     @Autowired
+    private ActivitiClient activitiClient;
+
+    @Autowired
+    private DrugsStorageClient drugsStorageClient;
+
+    @Autowired
     private DrugsPurchaseService purchaseService;
 
     @Autowired
-    private ActivitiClient activitiClient;
+    private PurchaseReturnedService purchaseReturnedService;
+
+    @Autowired
+    private PurchaseReturnedDetailedService detailedService;
+
+    @Autowired
+    private DrugsPurchaseDetailedService drugsPurchaseDetailedService;
 
     /**
      * 列表
@@ -52,7 +70,8 @@ public class DrugsPurchaseController {
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('drugs_purchase:purchase:list')")
     public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = purchaseService.queryPage(params,1);
+        Result result = activitiClient.order();
+        PageUtils page = purchaseService.queryPage(params,result);
         return Result.ok().put("page", page);
     }
 
@@ -123,6 +142,31 @@ public class DrugsPurchaseController {
     @GetMapping("/all/{pid}")
     public Result All(@PathVariable("pid") String pid){
         List<DrugsPurchaseDetailedVO> all = purchaseService.selectBypid(pid);
+        List<PurchaseReturned> list = purchaseReturnedService.list(new QueryWrapper<PurchaseReturned>().and(i -> i.eq("purchase_id", pid).ne("status",2)));
+        Map<Integer,Integer> map=new HashMap<>();
+        Map<Integer,Integer> tuihuo=new HashMap<>();
+        for (PurchaseReturned returned : list) {
+            List<PurchaseReturnedDetailed> detaileds = detailedService.list(new QueryWrapper<PurchaseReturnedDetailed>().eq("tuihuo_id", returned.getTuihuoId()));
+            for (PurchaseReturnedDetailed detailed : detaileds) {
+                if (returned.getStatus()==1) {
+                    if (tuihuo.get(detailed.getPdid()) == null) {
+                        tuihuo.put(detailed.getPdid(), detailed.getPdNum());
+                        continue;
+                    }
+                    tuihuo.put(detailed.getPdid(), map.get(detailed.getPdid()) + detailed.getPdNum());
+                } else {
+                    if (map.get(detailed.getPdid()) == null) {
+                        map.put(detailed.getPdid(), detailed.getPdNum());
+                        continue;
+                    }
+                    map.put(detailed.getPdid(), map.get(detailed.getPdid()) + detailed.getPdNum());
+                }
+            }
+        }
+        for (DrugsPurchaseDetailedVO vo : all) {
+            vo.setTuihuoNum(tuihuo.get(vo.getPdid())==null?0:tuihuo.get(vo.getPdid()));
+            vo.setFreezeNum(map.get(vo.getPdid())==null?0:map.get(vo.getPdid()));
+        }
         return Result.ok().put("all",all);
     }
 
@@ -171,14 +215,16 @@ public class DrugsPurchaseController {
     @GetMapping("/checkList")
     @PreAuthorize("hasAuthority('drugs_purchase:purchase:check:list')")
     public Result checkList(@RequestParam Map<String, Object> params){
-        PageUtils page = purchaseService.queryPage(params,0);
+        Result result = activitiClient.checkOrder();
+        PageUtils page = purchaseService.queryPage(params,result);
         return Result.ok().put("page", page);
     }
 
     @GetMapping("/warehouseCheck")
     @PreAuthorize("hasAuthority('warehouse:check:list')")
     public Result warehouseCheck(@RequestParam Map<String, Object> params){
-        PageUtils page = purchaseService.queryPage(params,3);
+        Result result = activitiClient.warehouseCheck();
+        PageUtils page = purchaseService.queryPage(params,result);
         return Result.ok().put("page", page);
     }
 
@@ -235,4 +281,43 @@ public class DrugsPurchaseController {
         return Result.ok().put("all",all);
     }
 
+    @PostMapping("/rejHandleReturned")
+    public Result rejHandleReturned(Integer tuihuoId){
+        PurchaseReturned returned = purchaseReturnedService.getById(tuihuoId);
+        if (returned.getStatus()!=0) return Result.error("已经审核过了，请勿重复提交");
+        DrugsPurchase drugsPurchase = purchaseService.getById(returned.getPurchaseId());
+        activitiClient.rejHandleReturned(drugsPurchase.getProcessInstanceId());
+        PurchaseReturned purchaseReturned =new PurchaseReturned();
+        purchaseReturned.setTuihuoId(tuihuoId);
+        purchaseReturned.setStatus(2);
+        purchaseReturnedService.updateById(purchaseReturned);
+        return Result.ok();
+    }
+
+    @PostMapping("/agreHandleReturned")
+    public Result agreHandleReturned(Integer tuihuoId){
+        PurchaseReturned returned = purchaseReturnedService.getById(tuihuoId);
+        if (returned.getStatus()!=0) return Result.error("已经审核过了，请勿重复提交");
+        DrugsPurchase drugsPurchase = purchaseService.getById(returned.getPurchaseId());
+        activitiClient.agreHandleReturned(drugsPurchase.getProcessInstanceId());
+        PurchaseReturned purchaseReturned =new PurchaseReturned();
+        purchaseReturned.setTuihuoId(tuihuoId);
+        purchaseReturned.setStatus(1);
+        purchaseReturnedService.updateById(purchaseReturned);
+        return Result.ok();
+    }
+
+    @GetMapping("/manageCheck")
+    public Result manageCheck(@RequestParam Map<String, Object> params){
+        Result result = activitiClient.manageCheck();
+        PageUtils page = purchaseService.queryPage(params,result.put("check",1));
+        return Result.ok().put("page", page);
+    }
+
+    @PostMapping("/agreHandleManage")
+    public Result agreHandleManage(String purchaseId){
+        List<DrugsPurchaseDetailed> list = drugsPurchaseDetailedService.list(new QueryWrapper<DrugsPurchaseDetailed>().eq("purchase_id", purchaseId));
+        drugsStorageClient.save(list);
+        return Result.ok();
+    }
 }

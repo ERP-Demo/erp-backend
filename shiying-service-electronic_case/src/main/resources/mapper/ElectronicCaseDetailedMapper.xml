@@ -12,4 +12,20 @@
         on dpd.icd_id=ic.icd_id
         where ec.patient_id=#{patientId}
     </select>
+    <select id="getIds" resultType="java.lang.Integer">
+        select t2.icd_id
+        from electronic_case t1
+        INNER JOIN electronic_case_detailed t2
+        on t1.case_no=t2.case_no
+        where t1.uid=#{uid}
+        GROUP BY t2.icd_id
+        ORDER BY COUNT(1) desc
+        limit 5
+    </select>
+    <select id="selById" resultType="cn.shiying.common.entity.Icd.Icd">
+        select icd_name,icd_code from icd where
+        <foreach collection="list" item="id" index="index" separator=" or ">
+            icd_id=#{id}
+        </foreach>
+    </select>
 </mapper>

@@ -22,4 +22,5 @@ public interface RequirementsMapper extends BaseMapper<Requirements> {
     void updatestate(@Param("id") Integer id);
     List<Requirements_Vo>All();
     List<TestSynthesizeAll> TestSynthesizeAll();
+    List<TestSynthesizeAll> topFive(@Param("uid") Integer uid);
 }

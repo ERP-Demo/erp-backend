@@ -11,7 +11,6 @@ import cn.shiying.register.entity.Vo.RegisterPatientVO;
 import cn.shiying.register.entity.Vo.departmentVo;
 import cn.shiying.register.util.CaptchaUtil;
 import com.sun.imageio.plugins.common.ImageUtil;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -52,9 +51,6 @@ public class RegisterController {
 
     @Autowired
     RegisterSchedule schedule;
-
-    @Autowired
-    StringRedisTemplate stringRedisTemplate;
 
 
     /**

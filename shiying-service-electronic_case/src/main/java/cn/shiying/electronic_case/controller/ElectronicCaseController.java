@@ -129,4 +129,8 @@ public class ElectronicCaseController {
         return Result.ok().put("list",list);
     }
 
+    @GetMapping("topFive")
+    public Result topFive(){
+        return Result.ok().put("list",caseService.topFive());
+    }
 }

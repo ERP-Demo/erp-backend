@@ -25,7 +25,7 @@ public class TestModel implements Serializable {
     /**
      * 化验模板的编号
      */
-    @TableId(value = "test_model_id", type = IdType.ID_WORKER_STR)
+    @TableId(value = "test_model_id", type = IdType.AUTO)
     private Integer testModelId;
 
     /**

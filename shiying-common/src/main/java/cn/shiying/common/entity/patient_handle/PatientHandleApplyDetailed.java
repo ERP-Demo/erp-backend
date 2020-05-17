@@ -1,5 +1,6 @@
 package cn.shiying.common.entity.patient_handle;
 
+import cn.shiying.common.entity.patient.PatientDetailed;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
@@ -26,5 +27,7 @@ public class PatientHandleApplyDetailed {
 
     @TableField(exist = false)
     private PatientHandleApply patientHandleApply;
+    @TableField(exist = false)
+    private PatientDetailed patientDetailed;
 
 }

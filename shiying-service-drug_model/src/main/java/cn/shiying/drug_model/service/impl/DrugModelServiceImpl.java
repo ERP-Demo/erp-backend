@@ -67,4 +67,9 @@ public class DrugModelServiceImpl extends ServiceImpl<DrugModelMapper, DrugModel
         baseMapper.delbyid(DrugModelId);
     }
 
+    @Override
+    public List<DrugModelVo> selectDrug() {
+        return baseMapper.selectDrug();
+    }
+
 }

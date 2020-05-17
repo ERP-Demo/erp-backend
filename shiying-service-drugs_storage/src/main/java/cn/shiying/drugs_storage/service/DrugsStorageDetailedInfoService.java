@@ -1,5 +1,6 @@
 package cn.shiying.drugs_storage.service;
 
+import cn.shiying.common.entity.Drugs.DrugsPurchaseDetailed;
 import cn.shiying.drugs_storage.entity.DrugsStorageDetailedInfo;
 import cn.shiying.drugs_storage.entity.vo.DrugsDetailedVO;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -24,4 +25,6 @@ public interface DrugsStorageDetailedInfoService extends IService<DrugsStorageDe
      * @return
      */
      PageUtils queryPage(Map<String, Object> params);
+
+    void save(List<DrugsPurchaseDetailed> list);
 }

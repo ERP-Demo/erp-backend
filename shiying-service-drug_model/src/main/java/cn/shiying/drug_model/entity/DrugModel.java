@@ -3,6 +3,8 @@ package cn.shiying.drug_model.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -52,5 +54,7 @@ public class DrugModel implements Serializable {
      * 药品模板类型
      */
     private Integer drugModelType;
+
+
 
 }

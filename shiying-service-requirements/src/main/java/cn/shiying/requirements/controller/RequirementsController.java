@@ -111,26 +111,28 @@ public class RequirementsController {
         return Result.ok();
     }
     @GetMapping("/updatestate/{id}")
-    public Result updatestate(@PathVariable Integer id){
-        System.out.println(id);
+    public Result updatestate(@PathVariable Integer[] id) {
         requirementsService.updatestate(id);
         return Result.ok();
     }
     @GetMapping("/All")
-    public Result All(){
+    public Result All(@RequestParam Map<String, Object> params) {
+        requirementsService.queryPage(params);
+        System.out.println("分页" + params);
         List<Requirements_Vo> all = requirementsService.All();
         for (Requirements_Vo requirements_vo : all) {
-            System.out.println(requirements_vo
-            );
+            System.out.println(requirements_vo);
         }
         return Result.ok().put("list",all);
     }
     @GetMapping("/AllList")
     public Result AllList(){
         List<TestSynthesizeAll> testSynthesizeAlls = requirementsService.TestSynthesizeAll();
-        for (TestSynthesizeAll testSynthesizeAll : testSynthesizeAlls) {
-            System.out.println(testSynthesizeAll);
-        }
         return Result.ok().put("list",testSynthesizeAlls);
+    }
+    @GetMapping("/topFive")
+    public Result topFive(){
+        List<TestSynthesizeAll> freqList = requirementsService.topFive(getUser().getUid());
+        return Result.ok().put("list",freqList);
     }
 }

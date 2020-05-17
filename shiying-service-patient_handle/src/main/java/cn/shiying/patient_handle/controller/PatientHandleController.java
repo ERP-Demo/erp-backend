@@ -3,6 +3,8 @@ package cn.shiying.patient_handle.controller;
 import cn.shiying.common.entity.patient_handle.PatientHandle;
 import cn.shiying.common.entity.patient_handle.PatientHandleApply;
 import cn.shiying.common.entity.patient_handle.PatientHandleApplyDetailed;
+import cn.shiying.common.mapper.PatientDetailedMapper;
+import cn.shiying.patient_handle.client.handle;
 import cn.shiying.patient_handle.entity.form.HandleApplyForm;
 import cn.shiying.patient_handle.service.PatientHandleApplyDetailedService;
 import cn.shiying.patient_handle.service.PatientHandleApplyService;
@@ -40,6 +42,8 @@ public class PatientHandleController {
 
     @Autowired
     PatientHandleApplyDetailedService detailedService;
+    @Autowired
+    handle handle;
 
     /**
      * 列表
@@ -128,10 +132,18 @@ public class PatientHandleController {
     public Result payment(){
         List<PatientHandleApplyDetailed> list = detailedService.list(new QueryWrapper<PatientHandleApplyDetailed>().eq("status", 1));
         for (PatientHandleApplyDetailed detailed : list) {
-            PatientHandleApply apply = applyService.getOne(new QueryWrapper<PatientHandleApply>().eq("apply_id", detailed.getApplyId()));
-            detailed.setPatientHandleApply(apply);
+            detailed.setPatientHandleApply(applyService.getById(detailed.getApplyId()));
             detailed.setPatientHandle(handleService.getById(detailed.getHandleId()));
+            System.out.println("患者id" + detailed.getPatientHandleApply().getPatientId());
+
         }
+        System.out.println("数据" + list);
         return Result.ok().put("list",list);
+    }
+
+    @GetMapping("/updatestate/{id}")
+    public Result updatestate(@PathVariable Integer[] id) {
+        handleService.updatestate(id);
+        return Result.ok();
     }
 }

@@ -36,4 +36,6 @@ public interface DrugModelService extends IService<DrugModel> {
     DrugModel selectbyid(Integer id);
 
     void delbyid(@Param("DrugModelId") Integer DrugModelId);
+
+    List<DrugModelVo> selectDrug();
 }

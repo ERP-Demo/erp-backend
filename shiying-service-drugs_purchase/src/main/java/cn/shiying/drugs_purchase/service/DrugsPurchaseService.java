@@ -1,5 +1,6 @@
 package cn.shiying.drugs_purchase.service;
 
+import cn.shiying.common.dto.Result;
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
 import cn.shiying.common.entity.Drugs.DrugsPurchaseDetailed;
 import cn.shiying.common.entity.supplier.SupplierDetailed;
@@ -30,7 +31,7 @@ public interface DrugsPurchaseService extends IService<DrugsPurchase> {
      * @param params
      * @return
      */
-    PageUtils queryPage(Map<String, Object> params,Integer check);
+    PageUtils queryPage(Map<String, Object> params, Result result);
     List<DrugsPurchaseDetailedVO> selectBypid(String pid);
     List<SupplierDetailed> selectSname();
     List<DrugsDetailed> selectDname();

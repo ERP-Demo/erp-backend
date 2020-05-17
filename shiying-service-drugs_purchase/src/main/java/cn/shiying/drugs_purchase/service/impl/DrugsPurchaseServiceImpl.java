@@ -33,6 +33,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -67,25 +68,26 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
      * @return
      */
     @Override
-    public PageUtils queryPage(Map<String, Object> params,Integer check) {
-        Page page=new Query<DrugsPurchase>(params).getPage();
-        Result result = null;
-        if (check==0) {
-            result = activitiClient.checkOrder();
-        }else if (check==1){
-            result = activitiClient.order();
-        }else {
-            result = activitiClient.warehouseCheck();
-        }
+    public PageUtils queryPage(Map<String, Object> params,Result result) {
         if ((Integer) result.get("code") != 200) {
             ExceptionCast.cast(ErrorEnum.UNKNOWN);
         }
+        Page page=new Query<DrugsPurchase>(params).getPage();
         List<String> ids= (List<String>) result.get("ids");
         if (ids == null || ids.size()==0) {
             page.setRecords(null);
             return new PageUtils(page);
         }
-
+        if (result.get("check") !=null&&(Integer) result.get("check")==1){
+            Iterator<String> it=ids.iterator();
+            while(it.hasNext()) {
+                String id=it.next();
+                Integer num = returnedMapper.selectCount(new QueryWrapper<PurchaseReturned>().eq("purchase_id", id).eq("status",0));
+                if(num!=0) {
+                    it.remove();
+                }
+            }
+        }
         List<PurchaseSupplierVo> list= baseMapper.DrugsPurchaseList(page,params,ids);
         page.setRecords(list);
         return new PageUtils(page);
@@ -178,7 +180,7 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
             int max=detailed.getPdNum()-count;
             if (p.getPdNum()>max)  p.setPdNum(max);
             count+=p.getPdNum();
-            if (detailed.getPdNum()<count){
+            if (detailed.getPdNum()>count){
                 flag=false;
             }
             System.out.println(count+" "+detailed.getPdNum());

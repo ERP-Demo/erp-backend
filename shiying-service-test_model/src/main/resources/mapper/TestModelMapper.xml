@@ -16,6 +16,27 @@
         test_model_id, test_model_name, test_model_introduction, test_model_code, test_model_range
     </sql>
     <insert id="add">
-        insert into test_model(test_model_id,test_synthesize_id)value(#{testModelId},#{ids})
+        insert into test_test_model(test_model_id,test_synthesize_id)value(#{testModelId},#{ids})
     </insert>
+<!--    删除-->
+    <delete id="del">
+        delete from test_test_model where test_model_id in
+        <foreach collection="list" item="test_model_id" open="(" close=")" separator=",">
+            #{test_model_id}
+        </foreach>
+    </delete>
+    <!--    查询已有的化验项目-->
+    <select id="selectById" resultType="cn.shiying.test_model.entity.vo.TestModelVo">
+        select  ts.*
+        from test_synthesize ts
+        inner join test_test_model tt
+        on tt.test_synthesize_id=ts.test_synthesize_id
+        where tt.test_model_id=#{id}
+    </select>
+    <select id="selectbyid" resultType="cn.shiying.test_model.entity.TestModel">
+        select * from test_model where test_model_id=#{id}
+    </select>
+    <delete id="delbyid">
+        delete from test_test_model where test_model_id=#{testModelId}
+    </delete>
 </mapper>

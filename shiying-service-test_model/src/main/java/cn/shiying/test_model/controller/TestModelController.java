@@ -1,8 +1,10 @@
 package cn.shiying.test_model.controller;
 
 import cn.shiying.test_model.entity.from.TestModelFrom;
+import cn.shiying.test_model.entity.vo.TestModelVo;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,15 +42,7 @@ public class TestModelController {
     }
 
 
-    /**
-     * 信息
-     */
-    @GetMapping("/info/{id}")
-    @PreAuthorize("hasAuthority('test_model:model:info')")
-    public Result info(@PathVariable("id") String id){
-       TestModel model = modelService.getById(id);
-        return Result.ok().put("model", model);
-    }
+
 
     /**
      * 保存
@@ -58,24 +52,23 @@ public class TestModelController {
     public Result save(@RequestBody TestModelFrom from){
         //验证工具
         ValidatorUtils.validateEntity(from);
+        System.out.println("11111111111111111111111111111111111111111111111");
         TestModel t=from.getTestModel();
+        System.out.println("拿到了++++++++++++++++++++"+t);
+        System.out.println("222222222222222222222222222222222222222222222222");
         modelService.save(t);
+        System.out.println("333333333333333333333333333333333333333333333333");
         System.out.println(t.getTestModelId());
         from.setTestModelId(from.getTestModelId());
-        modelService.add(from.getTestModelId(),from.getIds());
+        System.out.println(t.getTestModelId()+"++++++++++++++保存++++++++++++++++"+from.getIds());
+        modelService.add(t.getTestModelId(),from.getIds());
         return Result.ok();
     }
-
     /**
-     * 修改
+     * 保存
      */
-    @PutMapping("/update")
-    @PreAuthorize("hasAuthority('test_model:model:update')")
-    public Result update(@RequestBody TestModel model){
-        ValidatorUtils.validateEntity(model);
-        modelService.updateById(model);
-        return Result.ok();
-    }
+
+
 
     /**
      * 删除
@@ -84,6 +77,45 @@ public class TestModelController {
     @PreAuthorize("hasAuthority('test_model:model:delete')")
     public Result delete(@RequestBody String[] ids){
         modelService.removeByIds(Arrays.asList(ids));
+        System.out.println(Arrays.asList(ids));
+        modelService.del(Arrays.asList(ids));
         return Result.ok();
     }
+    /**
+     * 信息
+     */
+    @GetMapping("/info/{id}")
+    public Result info(@PathVariable("id") Integer id){
+        List<TestModelVo> drugModelVos = modelService.selectById(id);
+        TestModel selectbyid = modelService.selectbyid(id);
+        return Result.ok().put("list",drugModelVos).put("mode",selectbyid);
+    }
+    /**
+     * 修改
+     */
+    @PutMapping("/update")
+    @PreAuthorize("hasAuthority('test_model:model:update')")
+    public Result update(@RequestBody TestModelFrom from){
+        ValidatorUtils.validateEntity(from);
+        System.out.println(from);
+        TestModel m=from.getTestModel();
+        m.setTestModelId(m.getTestModelId());
+        System.out.println("m:"+m);
+        System.out.println("id:"+m.getTestModelId());
+        modelService.updateById(m);
+        modelService.delbyid(m.getTestModelId());
+        m.setTestModelId(m.getTestModelId());
+        System.out.println(m.getTestModelId()+"++++++++++++++++++++++++++++++"+from.getIds());
+        modelService.add(m.getTestModelId(),from.getIds());
+        return Result.ok();
+    }
+
+    @RequestMapping("/byid/{id}")
+    public Result byid(@PathVariable Integer id){
+        System.out.println(id);
+        TestModel selectbyid = modelService.selectbyid(id);
+        System.out.println(selectbyid);
+        return Result.ok().put("mode",selectbyid);
+    }
+
 }

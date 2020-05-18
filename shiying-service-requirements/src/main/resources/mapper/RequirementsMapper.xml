@@ -21,7 +21,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        testSynthesize_id, uid,patient_id,register_id, purpose, requirements, Clinical_impression, Clinical_diagnosis, Check_the,status
+        test_synthesize_id, uid,patient_id,register_id, purpose, requirements, Clinical_impression, Clinical_diagnosis, Check_the,status
     </sql>
     <update id="updatestate">
         update  requirements  set status=4 where testSynthesize_id=#{id}
@@ -32,11 +32,20 @@
         from requirements where status=1
     </select>
     <select id="TestSynthesizeAll" resultType="cn.shiying.requirements.entity.TestSynthesizeAll">
-        SELECT r.testSynthesize_id,t.test_synthesize_name,t.test_synthesize_price,r.`status` FROM test_synthesize t
+        SELECT r.test_synthesize_id,t.test_synthesize_name,t.test_synthesize_price,r.`status` FROM test_synthesize t
         LEFT JOIN requirements r
         on t.test_synthesize_id=r.testSynthesize_id
         WHERE test_synthesize_id in
         (select testSynthesize_id from  requirements );
     </select>
-
+    <select id="topFive" resultType="cn.shiying.requirements.entity.TestSynthesizeAll">
+        select t2.test_synthesize_id,t2.test_synthesize_name,t2.test_synthesize_price
+        from requirements t1
+        inner join test_synthesize t2
+        on t1.synthesize_id=t2.test_synthesize_id
+        where t1.uid=#{uid}
+        group by t1.synthesize_id
+        order by count(1) desc
+        limit 5
+    </select>
 </mapper>

@@ -4,7 +4,7 @@
 
 
     <select id="list" resultType="cn.shiying.requirements.entity.Vo.TestsheetChilrenVO">
-        select r.id,tp.Test_projects_id,tp.test_name,tc.ceiling,tc.floor,tc.unit
+        select r.id,tp.test_synthesize_id,tp.test_name,tc.ceiling,tc.floor,tc.unit
         from requirements r
         inner join test_correlation tc
         on r.synthesize_id=tc.test_synthesize_id

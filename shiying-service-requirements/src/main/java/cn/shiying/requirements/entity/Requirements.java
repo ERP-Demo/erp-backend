@@ -31,8 +31,9 @@ public class Requirements implements Serializable {
     /**
      * 项目编码
      */
-    @TableId(value = "testSynthesize_id")
-    private Integer testSynthesizeId;
+    @TableId(value = "synthesize_id")
+    private Integer synthesizeId;
+
     /**
      * 医生id
      */

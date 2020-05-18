@@ -69,7 +69,7 @@ public class RequirementsController {
         r.setRegisterId(requirements.getRegisterId());
         r.setUid(getUser().getUid());
         for (Requirements requirements1 : list) {
-            r.setTestSynthesizeId(requirements1.getTestSynthesizeId());
+            r.setSynthesizeId(requirements1.getSynthesizeId());
             r.setPurpose(requirements1.getPurpose());
             r.setRequirements(requirements1.getRequirements());
             r.setClinicalImpression(requirements1.getClinicalImpression());

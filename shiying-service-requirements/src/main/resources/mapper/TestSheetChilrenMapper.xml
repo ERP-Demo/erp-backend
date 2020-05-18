@@ -7,7 +7,7 @@
         select r.id,tp.Test_projects_id,tp.test_name,tc.ceiling,tc.floor,tc.unit
         from requirements r
         inner join test_correlation tc
-        on r.testSynthesize_id=tc.test_synthesize_id
+        on r.synthesize_id=tc.test_synthesize_id
         inner join test_projects tp
         on tp.test_projects_id=tc.test_projects_id
         where tc.test_synthesize_id=#{params.pid}

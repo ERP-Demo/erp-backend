@@ -39,7 +39,7 @@
         </foreach>
     </update>
     <update id="updatestate">
-        update  prescription_details  set status=2 where prescriptio    n_id=#{id}
+        update  prescription_details  set status=2 where   prescription_id=#{id}
     </update>
     <select id="PrescriptionVo" resultMap="WithDepartment">
         select

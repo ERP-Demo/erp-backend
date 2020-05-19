@@ -1,6 +1,7 @@
 package cn.shiying.electronic_case.service;
 
 import cn.shiying.common.entity.Icd.Icd;
+import cn.shiying.common.entity.electronicCaseTemplate.Vo.ElectronicCaseTemplateVO;
 import cn.shiying.electronic_case.entity.Case;
 import cn.shiying.electronic_case.entity.ElectronicCase;
 import cn.shiying.electronic_case.entity.vo.ElectronicAndDetailedVO;
@@ -40,4 +41,5 @@ public interface ElectronicCaseService extends IService<ElectronicCase> {
     //查询历史病历
     List<ElectronicAndDetailedVO> selectElectronic(Integer patientId);
     public List<Icd> topFive();
+    List<ElectronicCaseTemplateVO> allTemplate();
 }

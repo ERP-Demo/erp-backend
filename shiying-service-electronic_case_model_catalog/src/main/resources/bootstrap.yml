@@ -1,7 +1,0 @@
-spring:
-  cloud:
-    config:
-      uri: http://localhost:8888
-      name: shiying-client-zipkin, shiying-client-admin, shiying-client-eureka,shiying-client-mysql,shiying-service-electronic_case_model_catalog
-      label: master
-      profile: dev

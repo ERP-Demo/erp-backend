@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shiying.electronic_case_template.mapper.ElectronicCaseTemplateMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.shiying.electronic_case_template.entity.ElectronicCaseTemplate">
+        <id column="tid" property="tid" />
+        <result column="complain" property="complain" />
+        <result column="patient_symptom" property="patientSymptom" />
+        <result column="main_icd" property="mainIcd" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        tid, complain, patient_symptom, main_icd
+    </sql>
+    <select id="getTemplate" resultType="cn.shiying.electronic_case_template.entity.ElectronicCaseTemplate">
+        select tid,complain,patient_symptom,main_icd from electronic_case_template
+    </select>
+    <select id="getIds" resultType="java.lang.Integer">
+        select icd_id from electronic_case_template_detailed where tid=#{tid}
+    </select>
+    <select id="selById" resultType="cn.shiying.common.entity.Icd.Icd">
+        select icd_id,icd_name,icd_code from icd where
+        <foreach collection="list" item="id" index="index" separator=" or ">
+            icd_id=#{id}
+        </foreach>
+    </select>
+</mapper>

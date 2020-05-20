@@ -1,5 +1,6 @@
 package cn.shiying.electronic_case.mapper;
 
+import cn.shiying.common.entity.electronicCaseTemplate.ElectronicCaseTemplate;
 import cn.shiying.electronic_case.entity.ElectronicCase;
 import cn.shiying.electronic_case.entity.vo.ElectronicCaseVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

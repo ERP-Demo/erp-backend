@@ -62,6 +62,7 @@ public class RequirementsController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('requirements:requirements:save')")
     public Result save(@RequestBody RequirementsForm requirements){
+        System.out.println("数据" + requirements);
         ValidatorUtils.validateEntity(requirements);
         Requirements r=new Requirements();
         List<Requirements> list = requirements.getList();
@@ -69,7 +70,7 @@ public class RequirementsController {
         r.setRegisterId(requirements.getRegisterId());
         r.setUid(getUser().getUid());
         for (Requirements requirements1 : list) {
-            r.setSynthesizeId(requirements1.getSynthesizeId());
+            r.setTestSynthesizeId(requirements1.getTestSynthesizeId());
             r.setPurpose(requirements1.getPurpose());
             r.setRequirements(requirements1.getRequirements());
             r.setClinicalImpression(requirements1.getClinicalImpression());

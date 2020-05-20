@@ -144,6 +144,7 @@ public class ElectronicCaseServiceImpl extends ServiceImpl<ElectronicCaseMapper,
             templateVO.setTid(template.getTid());
             templateVO.setComplain(template.getComplain());
             templateVO.setPatientSymptom(template.getPatientSymptom());
+            templateVO.setMainIcd(template.getMainIcd());
             templateVO.setIcds(icds);
             list.add(templateVO);
         }

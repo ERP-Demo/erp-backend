@@ -25,13 +25,13 @@ public class Requirements implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id")
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
      * 项目编码
      */
-    @TableId(value = "testSynthesize_id")
+    @TableId(value = "test_synthesize_id")
     private Integer testSynthesizeId;
     /**
      * 医生id

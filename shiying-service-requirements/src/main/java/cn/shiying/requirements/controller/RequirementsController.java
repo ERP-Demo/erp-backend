@@ -62,6 +62,7 @@ public class RequirementsController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('requirements:requirements:save')")
     public Result save(@RequestBody RequirementsForm requirements){
+        System.out.println("数据" + requirements);
         ValidatorUtils.validateEntity(requirements);
         Requirements r=new Requirements();
         List<Requirements> list = requirements.getList();

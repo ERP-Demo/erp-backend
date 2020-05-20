@@ -4,6 +4,7 @@ import cn.shiying.common.entity.Icd.Icd;
 import cn.shiying.common.entity.token.JwtUser;
 import cn.shiying.common.enums.ErrorEnum;
 import cn.shiying.electronic_case.client.IcdClient;
+import cn.shiying.electronic_case.entity.Case;
 import cn.shiying.electronic_case.entity.vo.CaseVO;
 import cn.shiying.electronic_case.entity.vo.ElectronicAndDetailedVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -73,12 +74,8 @@ public class ElectronicCaseController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('electronic_case:case:save')")
-    public Result save(@RequestBody ElectronicCase cas){
-        String id=Integer.toString(cas.getPatientId());
-        ValidatorUtils.validateEntity(cas);
-        cas.setUid(getUser().getUid());
-        caseService.save(cas);
-        redisTemplate.delete(id);
+    public Result save(@RequestBody Case cas) {
+        caseService.saveCase(cas);
         return Result.ok();
     }
 
@@ -129,8 +126,13 @@ public class ElectronicCaseController {
         return Result.ok().put("list",list);
     }
 
-    @GetMapping("topFive")
+    @GetMapping("/topFive")
     public Result topFive(){
         return Result.ok().put("list",caseService.topFive());
+    }
+
+    @GetMapping("/allTemplate")
+    public Result allTemplate(){
+        return Result.ok().put("list",caseService.allTemplate());
     }
 }

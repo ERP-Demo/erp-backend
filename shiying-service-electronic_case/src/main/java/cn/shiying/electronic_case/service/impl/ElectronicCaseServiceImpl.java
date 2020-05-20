@@ -134,20 +134,4 @@ public class ElectronicCaseServiceImpl extends ServiceImpl<ElectronicCaseMapper,
     public List<Icd> topFive(){
         return electronicCaseDetailedMapper.selById(electronicCaseDetailedMapper.getIds(getUser().getUid()));
     }
-
-    public List<ElectronicCaseTemplateVO> allTemplate(){
-        List<ElectronicCaseTemplateVO> list=new ArrayList<>();
-        List<ElectronicCaseTemplate> templates=electronicCaseMapper.getTemplate();
-        for (ElectronicCaseTemplate template : templates) {
-            ElectronicCaseTemplateVO templateVO=new ElectronicCaseTemplateVO();
-            List<Icd> icds=electronicCaseDetailedMapper.selById(electronicCaseMapper.getIds(template.getTid()));
-            templateVO.setTid(template.getTid());
-            templateVO.setComplain(template.getComplain());
-            templateVO.setPatientSymptom(template.getPatientSymptom());
-            templateVO.setMainIcd(template.getMainIcd());
-            templateVO.setIcds(icds);
-            list.add(templateVO);
-        }
-        return list;
-    }
 }

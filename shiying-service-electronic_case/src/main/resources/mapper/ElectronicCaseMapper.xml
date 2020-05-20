@@ -51,10 +51,4 @@
     <!--    <select id="listElectronicCaseVO" resultMap="WithPatientDetailed">-->
     <!--        select <include refid="Base_Column_List" /> from  Electronic_case-->
     <!--    </select>-->
-    <select id="getTemplate" resultType="cn.shiying.common.entity.electronicCaseTemplate.ElectronicCaseTemplate">
-        select tid,complain,patient_symptom,main_icd from electronic_case_template
-    </select>
-    <select id="getIds" resultType="java.lang.Integer">
-        select icd_id from electronic_case_template_detailed where tid=#{tid}
-    </select>
 </mapper>

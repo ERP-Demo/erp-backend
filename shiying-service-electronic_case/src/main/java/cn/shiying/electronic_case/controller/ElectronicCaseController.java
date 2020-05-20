@@ -130,9 +130,4 @@ public class ElectronicCaseController {
     public Result topFive(){
         return Result.ok().put("list",caseService.topFive());
     }
-
-    @GetMapping("/allTemplate")
-    public Result allTemplate(){
-        return Result.ok().put("list",caseService.allTemplate());
-    }
 }

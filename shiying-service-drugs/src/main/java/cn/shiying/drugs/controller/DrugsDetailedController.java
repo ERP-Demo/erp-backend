@@ -1,6 +1,7 @@
 package cn.shiying.drugs.controller;
 
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
+import cn.shiying.common.entity.Drugs.vo.DrugsVo;
 import cn.shiying.drugs.service.DrugsStorageReportsLossService;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -37,7 +38,9 @@ public class DrugsDetailedController {
     @PreAuthorize("hasAuthority('drugs:detailed:list')")
     public Result list(@RequestParam Map<String, Object> params) {
         PageUtils page = detailedService.queryPage(params);
-        return Result.ok().put("page", page);
+        List<DrugsVo> list=detailedService.selectAll();
+        System.out.println(list);
+        return Result.ok().put("page", page).put("list",list);
     }
 
 

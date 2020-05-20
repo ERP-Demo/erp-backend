@@ -54,4 +54,6 @@ public class DrugModelVo extends DrugModel {
     private String drugsApprovalNumber;
 
 
+    private Integer pharmacyNum;
+
 }

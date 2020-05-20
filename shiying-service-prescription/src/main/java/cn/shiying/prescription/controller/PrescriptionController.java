@@ -38,11 +38,9 @@ public class PrescriptionController {
     @PreAuthorize("hasAuthority('prescription:prescription:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = prescriptionService.queryPage(params);
-
+        System.out.println(page);
         return Result.ok().put("page", page);
     }
-
-
     /**
      * 信息
      */
@@ -50,10 +48,20 @@ public class PrescriptionController {
     @PreAuthorize("hasAuthority('prescription:prescription:info')")
     public Result info(@PathVariable("id") String id){
        Prescription prescription = prescriptionService.getById(id);
-
         return Result.ok().put("prescription", prescription);
     }
+    @GetMapping("/byid/{id}")
+    public Result byid(@PathVariable("id") Integer id){
+        List<DrugsAndDetailed> list=prescriptionService.AllbyPid(id);
+        System.out.println(list);
+        return Result.ok().put("list",list);
+    }
 
+    @GetMapping("/bypdid/{id}")
+    public Result bypdid(@PathVariable("id") Integer id){
+        prescriptionService.bypdid(id);
+        return Result.ok();
+    }
     /**
      * 保存
      */
@@ -62,7 +70,6 @@ public class PrescriptionController {
     public Result save(@RequestBody Prescription prescription){
         ValidatorUtils.validateEntity(prescription);
         prescriptionService.save(prescription);
-
         return Result.ok();
     }
 
@@ -109,6 +116,7 @@ public class PrescriptionController {
     @GetMapping("/selectByid/{id}")
     public Result selectByid(@PathVariable Integer[] id) {
         List<Prescription_Vo> prescription_vos = prescriptionService.PrescriptionVoByid(id);
+        System.out.println(prescription_vos);
         return Result.ok().put("list", prescription_vos);
     }
 

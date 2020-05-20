@@ -37,4 +37,10 @@ public class Prescription implements Serializable {
     private Double prescriptionPrice;
 
     private Integer prescriptionState;
+
+    private Integer uid;
+
+    private Integer patientId;
+
+    private String registerId;
 }

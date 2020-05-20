@@ -10,6 +10,7 @@ import cn.shiying.prescription.entity.Prescription_Vo;
 import cn.shiying.prescription.entity.from.DrugsAndDetailed;
 import cn.shiying.prescription.mapper.PrescriptionMapper;
 import cn.shiying.prescription.service.PrescriptionService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -45,8 +46,10 @@ public class PrescriptionServiceImpl extends ServiceImpl<PrescriptionMapper, Pre
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        IPage<Prescription> page = baseMapper.selectPage(new Query<Prescription>(params).getPage(),
-                new QueryWrapper<Prescription>().lambda());
+        Page page=new Query<Prescription_Vo>(params).getPage();
+        List<Prescription_Vo> list= baseMapper.Prescription_VoAll(page,params);
+        System.out.println(list);
+        page.setRecords(list);
         return new PageUtils(page);
     }
 
@@ -136,5 +139,17 @@ public class PrescriptionServiceImpl extends ServiceImpl<PrescriptionMapper, Pre
         for (Integer integer : id) {
             baseMapper.updatestate(integer);
         }
+    }
+
+
+
+    @Override
+    public List<DrugsAndDetailed> AllbyPid(Integer id) {
+        return baseMapper.AllbyPid(id);
+    }
+
+    @Override
+    public void bypdid(Integer id) {
+        baseMapper.bypdid(id);
     }
 }

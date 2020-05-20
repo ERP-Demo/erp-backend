@@ -38,11 +38,13 @@
         </foreach>
     </delete>
     <select id="selectById" resultType="cn.shiying.drug_model.entity.vo.DrugModelVo">
-        select  dd.*
-        from drugs_detailed dd
-        inner join drugs_drug_model ddm
-        on dd.drugs_id=ddm.drugs_id
-        where ddm.drug_model_id=#{id}
+       select  dd.*,d3.pharmacy_num
+       from drugs_detailed dd
+       inner join drugs_drug_model ddm
+       on dd.drugs_id=ddm.drugs_id
+       inner join drugs_storage_detailed_info d3
+       on ddm.drugs_id=d3.drugs_id
+       where ddm.drug_model_id=#{id}
     </select>
     <select id="selectbyid" resultType="cn.shiying.drug_model.entity.DrugModel">
         select * from drug_model where drug_model_id=#{id}

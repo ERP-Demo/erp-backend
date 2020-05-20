@@ -34,4 +34,9 @@ public interface PrescriptionService extends IService<Prescription> {
     List<Prescription_Vo> PrescriptionVoByid(Integer[] id);
 
     void updatestate(Integer[] id);
+
+
+    List<DrugsAndDetailed> AllbyPid(Integer id);
+
+    void bypdid(Integer id);
 }

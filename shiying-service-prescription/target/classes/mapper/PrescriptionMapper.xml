@@ -41,6 +41,9 @@
     <update id="updatestate">
         update  prescription_details  set status=2 where prescriptio    n_id=#{id}
     </update>
+    <update id="bypdid">
+        update prescription set prescription_state=1 where prescription_id=#{id}
+    </update>
     <select id="PrescriptionVo" resultMap="WithDepartment">
         select
         <include refid="Base_Column_List1"/>
@@ -51,5 +54,30 @@
         select
         <include refid="Base_Column_List1"/>
         from prescription_details where prescription_id=#{id}
+    </select>
+
+    <select id="Prescription_VoAll" resultType="cn.shiying.prescription.entity.Prescription_Vo">
+        select p1.*,p2.patient_name,u.username,p3.`status`
+        from prescription p1
+        inner join patient_detailed p2
+        on p1.patient_id=p2.patient_id
+        inner join sys_user u
+        on p1.uid=u.user_id
+        inner join prescription_details p3
+        on p1.prescription_id=p3.prescription_id
+        <where>
+            <if test="params.prescriptionState != null and params.prescriptionState != ''">
+                and p1.prescription_state = #{params.prescriptionState}
+            </if>
+        </where>
+    </select>
+    <select id="AllbyPid" resultType="cn.shiying.prescription.entity.from.DrugsAndDetailed">
+        select p2.pd_id,p1.prescription_name,dd.drugs_name,p2.drugs_num,p2.drugs_use,p2.drugs_day,p2.drugs_usenum,p2.status
+        from prescription p1
+        inner join prescription_details p2
+        on p1.prescription_id=p2.prescription_id
+        inner join drugs_detailed dd
+        on p2.drugs_id=dd.drugs_id
+        where p1.prescription_id=#{id}
     </select>
 </mapper>

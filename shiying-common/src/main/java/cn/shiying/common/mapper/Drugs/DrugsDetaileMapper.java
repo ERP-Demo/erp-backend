@@ -1,9 +1,9 @@
 package cn.shiying.common.mapper.Drugs;
 
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
+import cn.shiying.common.entity.Drugs.vo.DrugsVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,4 +18,6 @@ import java.util.List;
 @Mapper
 public interface DrugsDetaileMapper extends BaseMapper<DrugsDetailed> {
     List<DrugsDetailed> selectByddId(Integer drugsId);
+
+    List<DrugsVo> selectAll();
 }

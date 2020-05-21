@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author tyb
@@ -38,5 +38,9 @@ public class  Prescription implements Serializable {
 
     private Integer prescriptionState;
 
+    private Integer uid;
+
     private Integer patientId;
+
+    private String registerId;
 }

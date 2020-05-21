@@ -50,7 +50,6 @@
         select
         <include refid="Base_Column_List"/>
         from prescription
-
     </select>
     <select id="PrescriptionVoByid" resultMap="WithDepartment">
         select
@@ -59,13 +58,6 @@
         INNER JOIN prescription p
         on d.prescription_id=p.prescription_id
         where prescription_id=#{id}
-    </select>
-    <select id="getPreId" resultType="cn.shiying.prescription.entity.Prescription">
-        select patient_id from prescription where prescription_id=#{prescriptionId}
-    </select>
-
-    <select id="getPatName" resultType="cn.shiying.common.entity.patient.PatientDetailed">
-        select patient_name from patient_detailed where patient_id=#{patientId}
     </select>
 
     <select id="Prescription_VoAll" resultType="cn.shiying.prescription.entity.Prescription_Vo">

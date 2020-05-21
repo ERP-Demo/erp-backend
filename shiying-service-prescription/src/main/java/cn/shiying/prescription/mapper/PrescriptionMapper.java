@@ -33,8 +33,6 @@ public interface PrescriptionMapper extends BaseMapper<Prescription> {
 
     void updatestate(@Param("id") Integer id);
 
-
-
     List<DrugsAndDetailed> AllbyPid(Integer id);
 
     void bypdid(Integer id);

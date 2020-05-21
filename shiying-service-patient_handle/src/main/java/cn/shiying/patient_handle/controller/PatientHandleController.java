@@ -129,9 +129,16 @@ public class PatientHandleController {
 
     @GetMapping("/apply/payment")
     @PreAuthorize("hasAuthority('patient_handle:handle:apply:list')")
-    public Result payment(@RequestParam Map<String, Object> params){
-        PageUtils page = handleService.queryPagePatient(params);
-        return Result.ok().put("page", page);
+    public Result payment() {
+        List<PatientHandleApplyDetailed> list = detailedService.list(new QueryWrapper<PatientHandleApplyDetailed>().eq("status", 1));
+        for (PatientHandleApplyDetailed detailed : list) {
+            detailed.setPatientHandleApply(applyService.getById(detailed.getApplyId()));
+            detailed.setPatientHandle(handleService.getById(detailed.getHandleId()));
+            System.out.println("患者id" + detailed.getPatientHandleApply().getPatientId());
+
+        }
+        System.out.println("数据" + list);
+        return Result.ok().put("list", list);
     }
 
     @GetMapping("/updatestate/{id}")

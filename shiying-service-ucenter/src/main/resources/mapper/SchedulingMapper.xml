@@ -15,7 +15,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id,  user_id,starttime, endtime
+        id,  user_id,starttime, endtime,max_patient,money
     </sql>
     <select id="SysUserVo" resultMap="WithDepartment">
         select <include refid="Base_Column_List" /> from  scheduling

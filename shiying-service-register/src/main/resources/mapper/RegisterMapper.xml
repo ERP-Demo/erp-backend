@@ -38,4 +38,12 @@
     <select id="listPage" resultMap="WithPatien">
         select <include refid="Base_Column_List"/> from register where status=0
     </select>
+
+    <update id="addCount" >
+        update scheduling set `count`=`count`+1 where `count`+1 &lt;= max_patient and (now() between starttime and endtime) and user_id=#{uid}
+    </update>
+
+    <select id="getMoney" resultType="java.lang.Double">
+        select money from scheduling where (now() between starttime and endtime) and user_id=#{uid}
+    </select>
 </mapper>

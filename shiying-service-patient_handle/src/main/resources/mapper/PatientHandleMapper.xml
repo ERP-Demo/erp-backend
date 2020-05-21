@@ -5,6 +5,27 @@
     <update id="updatestate">
         update patient_handle_apply_detailed set `status`=2 where handle_id=#{id}
     </update>
+    <select id="queryAll" resultType="cn.shiying.patient_handle.entity.form.HandleApplyForm">
+        select p1.id,p1.handle_name,p1.handle_price,p3.register_id,p4.patient_name,p2.`status`,p2.username
+        from patient_handle p1
+        inner join patient_handle_apply_detailed p2
+        on p1.id=p2.handle_id
+        inner join patient_handle_apply p3
+        on p2.apply_id=p3.id
+        inner join patient_detailed p4
+        on p3.patient_id=p4.patient_id
+        /*where p2.`status`=2 or p2.`status`=3*/
+        <where>
+            and  p2.`status`=2 or p2.`status`=3
+            <if test="params.patientName != null and params.patientName != ''">
+                and p4.patient_name LIKE concat('%',#{params.patientName},'%')
+            </if>
+        </where>
+    </select>
+
+    <update id="runHandle">
+        update patient_handle_apply_detailed set `status`=3,username=#{username} where handle_id=#{id}
+    </update>
 
     <!--根据患者编号查询患者名称-->
     <select id="getPatientDeId" resultType="cn.shiying.common.entity.patient_handle.PatientHandleApplyDetailed">

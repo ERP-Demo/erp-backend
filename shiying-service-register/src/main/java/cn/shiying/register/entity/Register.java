@@ -31,7 +31,7 @@ public class Register implements Serializable {
 
     private Integer status;
 
-    private BigDecimal registerCost;
+    private double registerCost;
 
     private Integer departmentId;
 

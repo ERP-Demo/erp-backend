@@ -28,4 +28,8 @@ public interface RegisterMapper extends BaseMapper<Register> {
     List<RegisterPatientVO> listPage(Page page,@Param("params") Map<String, Object> params);
 
     List<departmentVo> departmentvo();
+
+    Integer addCount(Integer uid);
+
+    Double getMoney(Integer uid);
 }

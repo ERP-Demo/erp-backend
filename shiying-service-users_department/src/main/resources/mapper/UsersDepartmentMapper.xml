@@ -33,7 +33,7 @@
         select user_id from users_department where department_id=#{did}
     </select>
     <select id="selById" resultType="cn.shiying.users_department.entity.User">
-        select username,photo_url from sys_user u
+        select u.user_id,username,photo_url from sys_user u
         INNER JOIN scheduling s
         on u.user_id=s.user_id
         where

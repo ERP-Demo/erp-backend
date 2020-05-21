@@ -3,14 +3,12 @@ package cn.shiying.patient_handle.controller;
 import cn.shiying.common.entity.patient_handle.PatientHandle;
 import cn.shiying.common.entity.patient_handle.PatientHandleApply;
 import cn.shiying.common.entity.patient_handle.PatientHandleApplyDetailed;
-import cn.shiying.common.entity.token.JwtUser;
 import cn.shiying.common.mapper.PatientDetailedMapper;
 import cn.shiying.patient_handle.client.handle;
 import cn.shiying.patient_handle.entity.form.HandleApplyForm;
 import cn.shiying.patient_handle.service.PatientHandleApplyDetailedService;
 import cn.shiying.patient_handle.service.PatientHandleApplyService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Arrays;
@@ -66,6 +64,7 @@ public class PatientHandleController {
     @PreAuthorize("hasAuthority('patient_handle:handle:info')")
     public Result info(@PathVariable("id") String id){
        PatientHandle handle = handleService.getById(id);
+
         return Result.ok().put("handle", handle);
     }
 
@@ -130,16 +129,9 @@ public class PatientHandleController {
 
     @GetMapping("/apply/payment")
     @PreAuthorize("hasAuthority('patient_handle:handle:apply:list')")
-    public Result payment(){
-        List<PatientHandleApplyDetailed> list = detailedService.list(new QueryWrapper<PatientHandleApplyDetailed>().eq("status", 1));
-        for (PatientHandleApplyDetailed detailed : list) {
-            detailed.setPatientHandleApply(applyService.getById(detailed.getApplyId()));
-            detailed.setPatientHandle(handleService.getById(detailed.getHandleId()));
-            System.out.println("患者id" + detailed.getPatientHandleApply().getPatientId());
-
-        }
-        System.out.println("数据" + list);
-        return Result.ok().put("list",list);
+    public Result payment(@RequestParam Map<String, Object> params){
+        PageUtils page = handleService.queryPagePatient(params);
+        return Result.ok().put("page", page);
     }
 
     @GetMapping("/updatestate/{id}")

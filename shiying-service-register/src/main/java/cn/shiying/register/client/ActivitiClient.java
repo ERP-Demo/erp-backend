@@ -27,4 +27,7 @@ public interface ActivitiClient {
 
     @PostMapping("/bpmName")
     Result bpmName(@RequestParam("processInstanceIds") List<String> processInstanceIds);
+
+    @PostMapping("/userConsultation")
+    Result userConsultation(@RequestParam("processInstanceId") String processInstanceId,@RequestParam("uid") Integer uid);
 }

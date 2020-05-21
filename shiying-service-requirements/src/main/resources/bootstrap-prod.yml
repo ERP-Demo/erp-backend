@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      uri: http://39.99.134.159:8888
+      name: shiying-client-zipkin, shiying-client-admin, shiying-client-eureka,shiying-client-mysql,shiying-service-requirements
+      label: master
+      profile: prod

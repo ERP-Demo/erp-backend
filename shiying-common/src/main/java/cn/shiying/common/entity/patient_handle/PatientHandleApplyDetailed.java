@@ -30,4 +30,11 @@ public class PatientHandleApplyDetailed {
     @TableField(exist = false)
     private PatientDetailed patientDetailed;
 
+
+    /**
+     * 患者姓名
+     */
+    @TableField(exist = false)
+    private String patientName;
+
 }

@@ -19,7 +19,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Prescription implements Serializable {
+public class  Prescription implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -38,9 +38,5 @@ public class Prescription implements Serializable {
 
     private Integer prescriptionState;
 
-    private Integer uid;
-
     private Integer patientId;
-
-    private String registerId;
 }

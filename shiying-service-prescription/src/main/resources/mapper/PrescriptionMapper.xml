@@ -16,6 +16,8 @@
                      select="cn.shiying.prescription.mapper.PrescriptionMapper.selectById"/>
         <association property="patientDetailed" column="patient_id"
                      select="cn.shiying.common.mapper.PatientDetailedMapper.selectById"/>
+        <collection property="prescriptionDetails" column="prescription_id"
+                    select="cn.shiying.prescription.mapper.PrescriptionDetailsMapper.plist"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -83,5 +85,10 @@
         inner join drugs_detailed dd
         on p2.drugs_id=dd.drugs_id
         where p1.prescription_id=#{id}
+    </select>
+
+
+    <select id="queryByrId" resultMap="WithDepartment">
+        select * from prescription where register_id=#{registerId}
     </select>
 </mapper>

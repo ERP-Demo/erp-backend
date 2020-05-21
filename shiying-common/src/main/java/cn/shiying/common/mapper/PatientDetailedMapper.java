@@ -19,4 +19,5 @@ import java.util.Map;
 @Mapper
 public interface PatientDetailedMapper extends BaseMapper<PatientDetailed> {
     List<PatientDetailed> queryByCatnum(Page<PatientDetailed> page, @Param("params") Map<String, Object> params);
+
 }

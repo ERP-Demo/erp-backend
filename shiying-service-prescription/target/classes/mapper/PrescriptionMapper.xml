@@ -16,6 +16,8 @@
                      select="cn.shiying.prescription.mapper.PrescriptionMapper.selectById"/>
         <association property="patientDetailed" column="patient_id"
                      select="cn.shiying.common.mapper.PatientDetailedMapper.selectById"/>
+        <collection property="prescriptionDetails" column="prescription_id"
+                    select="cn.shiying.prescription.mapper.PrescriptionDetailsMapper.plist"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -50,7 +52,6 @@
         select
         <include refid="Base_Column_List"/>
         from prescription
-
     </select>
     <select id="PrescriptionVoByid" resultMap="WithDepartment">
         select
@@ -59,13 +60,6 @@
         INNER JOIN prescription p
         on d.prescription_id=p.prescription_id
         where prescription_id=#{id}
-    </select>
-    <select id="getPreId" resultType="cn.shiying.prescription.entity.Prescription">
-        select patient_id from prescription where prescription_id=#{prescriptionId}
-    </select>
-
-    <select id="getPatName" resultType="cn.shiying.common.entity.patient.PatientDetailed">
-        select patient_name from patient_detailed where patient_id=#{patientId}
     </select>
 
     <select id="Prescription_VoAll" resultType="cn.shiying.prescription.entity.Prescription_Vo">
@@ -91,5 +85,10 @@
         inner join drugs_detailed dd
         on p2.drugs_id=dd.drugs_id
         where p1.prescription_id=#{id}
+    </select>
+
+
+    <select id="queryByrId" resultMap="WithDepartment">
+        select * from prescription where register_id=#{registerId}
     </select>
 </mapper>

@@ -47,8 +47,10 @@ public class PrescriptionServiceImpl extends ServiceImpl<PrescriptionMapper, Pre
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        IPage<Prescription> page = baseMapper.selectPage(new Query<Prescription>(params).getPage(),
-                new QueryWrapper<Prescription>().lambda());
+        Page page=new Query<Prescription_Vo>(params).getPage();
+        List<Prescription_Vo> list= baseMapper.Prescription_VoAll(page,params);
+        System.out.println(list);
+        page.setRecords(list);
         return new PageUtils(page);
     }
 
@@ -141,5 +143,20 @@ public class PrescriptionServiceImpl extends ServiceImpl<PrescriptionMapper, Pre
         List<Prescription_Vo> list= baseMapper.PrescriptionVo(page,params);
         page.setRecords(list);
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<DrugsAndDetailed> AllbyPid(Integer id) {
+        return baseMapper.AllbyPid(id);
+    }
+
+    @Override
+    public void bypdid(Integer id) {
+        baseMapper.bypdid(id);
+    }
+
+    @Override
+    public List<Prescription_Vo> queryByrId(String registerId) {
+        return baseMapper.queryByrId(registerId);
     }
 }

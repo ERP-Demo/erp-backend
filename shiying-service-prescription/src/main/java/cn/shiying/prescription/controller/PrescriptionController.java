@@ -39,7 +39,7 @@ public class PrescriptionController {
     @PreAuthorize("hasAuthority('prescription:prescription:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = prescriptionService.queryPage(params);
-
+        System.out.println(page);
         return Result.ok().put("page", page);
     }
 
@@ -51,7 +51,6 @@ public class PrescriptionController {
     @PreAuthorize("hasAuthority('prescription:prescription:info')")
     public Result info(@PathVariable("id") String id){
        Prescription prescription = prescriptionService.getById(id);
-
         return Result.ok().put("prescription", prescription);
     }
     @GetMapping("/byid/{id}")
@@ -111,7 +110,6 @@ public class PrescriptionController {
 
     @GetMapping("/All")
     public Result All(@RequestParam Map<String, Object> params) {
-
         PageUtils page = prescriptionService.queryPagePre(params);
 
         return Result.ok().put("page", page);
@@ -136,4 +134,12 @@ public class PrescriptionController {
         prescriptionService.updatestate(id);
         return Result.ok();
     }
+
+    @GetMapping("/queryByrId/{registerId}")
+    public Result queryByrId(@PathVariable String registerId){
+        List<Prescription_Vo> list=prescriptionService.queryByrId(registerId);
+        System.out.println(list);
+        return Result.ok().put("list",list);
+    }
+
 }

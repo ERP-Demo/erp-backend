@@ -34,4 +34,10 @@ public interface PrescriptionService extends IService<Prescription> {
     void updatestate(Integer[] id);
 
     PageUtils queryPagePre(Map<String, Object> params);
+
+    List<DrugsAndDetailed> AllbyPid(Integer id);
+
+    void bypdid(Integer id);
+
+    List<Prescription_Vo> queryByrId(String registerId);
 }

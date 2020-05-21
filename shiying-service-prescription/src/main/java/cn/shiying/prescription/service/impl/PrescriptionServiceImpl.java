@@ -1,6 +1,7 @@
 package cn.shiying.prescription.service.impl;
 
 import cn.shiying.common.dto.Result;
+import cn.shiying.common.entity.patient.PatientDetailed;
 import cn.shiying.common.enums.ErrorEnum;
 import cn.shiying.common.exception.ExceptionCast;
 import cn.shiying.prescription.client.DrugsClient;
@@ -10,6 +11,7 @@ import cn.shiying.prescription.entity.Prescription_Vo;
 import cn.shiying.prescription.entity.from.DrugsAndDetailed;
 import cn.shiying.prescription.mapper.PrescriptionMapper;
 import cn.shiying.prescription.service.PrescriptionService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -117,11 +119,6 @@ public class PrescriptionServiceImpl extends ServiceImpl<PrescriptionMapper, Pre
     }
 
     @Override
-    public List<Prescription_Vo> PrescriptionVo() {
-        return baseMapper.PrescriptionVo();
-    }
-
-    @Override
     public List<Prescription_Vo> PrescriptionVoByid(Integer[] id) {
         List<Prescription_Vo> vo = new ArrayList<>();
         for (Integer integer : id) {
@@ -136,5 +133,13 @@ public class PrescriptionServiceImpl extends ServiceImpl<PrescriptionMapper, Pre
         for (Integer integer : id) {
             baseMapper.updatestate(integer);
         }
+    }
+
+    @Override
+    public PageUtils queryPagePre(Map<String, Object> params) {
+        Page page=new Query<Prescription_Vo>(params).getPage();
+        List<Prescription_Vo> list= baseMapper.PrescriptionVo(page,params);
+        page.setRecords(list);
+        return new PageUtils(page);
     }
 }

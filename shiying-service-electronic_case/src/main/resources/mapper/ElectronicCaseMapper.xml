@@ -24,6 +24,9 @@
     <sql id="Base_Column_List">
         case_no, uid, patient_id, department_id, enter_hospital, leave_hospital, patient_symptom, doctor_advice
     </sql>
+    <delete id="deleteByid">
+        delete from electronic_case where register_id=#{id}
+    </delete>
 
     <!--    <select id="listElectronicCaseVO" resultMap="WithDepartment">-->
     <!--            select <include refid="Base_Column_List" /> from  Electronic_case-->
@@ -51,10 +54,4 @@
     <!--    <select id="listElectronicCaseVO" resultMap="WithPatientDetailed">-->
     <!--        select <include refid="Base_Column_List" /> from  Electronic_case-->
     <!--    </select>-->
-    <select id="getTemplate" resultType="cn.shiying.common.entity.electronicCaseTemplate.ElectronicCaseTemplate">
-        select tid,complain,patient_symptom from electronic_case_template
-    </select>
-    <select id="getIds" resultType="java.lang.Integer">
-        select icd_id from electronic_case_template_detailed where tid=#{tid}
-    </select>
 </mapper>

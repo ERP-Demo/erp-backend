@@ -126,14 +126,15 @@ public class RequirementsController {
         }
         return Result.ok().put("list",all);
     }
-    @GetMapping("/AllList")
-    public Result AllList(){
-        List<TestSynthesizeAll> testSynthesizeAlls = requirementsService.TestSynthesizeAll();
+
+    @GetMapping("/AllList/{id}")
+    public Result AllList(@PathVariable String id) {
+        List<TestSynthesizeAll> testSynthesizeAlls = requirementsService.TestSynthesizeAll(id);
         return Result.ok().put("list",testSynthesizeAlls);
     }
-    @GetMapping("/topFive")
-    public Result topFive(){
-        List<TestSynthesizeAll> freqList = requirementsService.topFive(getUser().getUid());
-        return Result.ok().put("list",freqList);
-    }
+//    @GetMapping("/topFive")
+//    public Result topFive(){
+//        List<TestSynthesizeAll> freqList = requirementsService.topFive(getUser().getUid());
+//        return Result.ok().put("list",freqList);
+//    }
 }

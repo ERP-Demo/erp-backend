@@ -29,9 +29,9 @@ public interface PrescriptionService extends IService<Prescription> {
      Map<String, String> addDrugsAndDetailed(List<DrugsAndDetailed> drugsAndDetailed);
      void toVoid(List<Integer> ids);
 
-    List<Prescription_Vo> PrescriptionVo();
-
     List<Prescription_Vo> PrescriptionVoByid(Integer[] id);
 
     void updatestate(Integer[] id);
+
+    PageUtils queryPagePre(Map<String, Object> params);
 }

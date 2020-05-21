@@ -28,7 +28,7 @@ public class PatientDetailed implements Serializable {
     /**
      * 患者id
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "patient_id", type = IdType.AUTO)
     private Integer patientId;
 
     /**

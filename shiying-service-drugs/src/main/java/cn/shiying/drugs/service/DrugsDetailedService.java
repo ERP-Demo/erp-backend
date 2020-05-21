@@ -1,6 +1,7 @@
 package cn.shiying.drugs.service;
 
 import cn.shiying.common.entity.Drugs.DrugsDetailed;
+import cn.shiying.common.entity.Drugs.vo.DrugsVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.shiying.common.utils.PageUtils;
 
@@ -23,4 +24,6 @@ public interface DrugsDetailedService extends IService<DrugsDetailed> {
      * @return
      */
      PageUtils queryPage(Map<String, Object> params);
+
+     List<DrugsVo> selectAll();
 }

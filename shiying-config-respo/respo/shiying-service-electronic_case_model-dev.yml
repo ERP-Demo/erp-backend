@@ -1,8 +1,0 @@
-spring:
-  application:
-    name: shiying-service-electronic_case_model
-
-server:
-  port: 10088
-  servlet:
-    context-path: /electronic_case_model

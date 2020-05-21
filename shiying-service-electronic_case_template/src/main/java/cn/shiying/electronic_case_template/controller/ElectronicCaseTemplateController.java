@@ -1,7 +1,7 @@
 package cn.shiying.electronic_case_template.controller;
 
-import cn.shiying.common.entity.token.JwtUser;
-import org.springframework.security.core.context.SecurityContextHolder;
+import cn.shiying.common.entity.Icd.Icd;
+import cn.shiying.electronic_case_template.entity.ElectronicCaseTemplateFrom;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
 import java.util.List;
@@ -48,8 +48,9 @@ public class ElectronicCaseTemplateController {
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('electronic_case_template:case:info')")
     public Result info(@PathVariable("id") String id){
-       ElectronicCaseTemplate cas = caseService.getById(id);
-        return Result.ok().put("case", cas);
+        ElectronicCaseTemplate cas = caseService.getById(id);
+        List<Icd> icds=caseService.getIcds(id);
+        return Result.ok().put("case", cas).put("icds",icds);
     }
 
     /**
@@ -57,10 +58,11 @@ public class ElectronicCaseTemplateController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('electronic_case_template:case:save')")
-    public Result save(@RequestBody ElectronicCaseTemplate cas){
-        ValidatorUtils.validateEntity(cas);
-        caseService.save(cas);
-
+    public Result save(@RequestBody ElectronicCaseTemplateFrom from){
+        ValidatorUtils.validateEntity(from);
+        ElectronicCaseTemplate t=from.getElectronicCaseTemplate();
+        caseService.save(t);
+        caseService.add(t.getTid(),from.getIds());
         return Result.ok();
     }
 
@@ -69,9 +71,12 @@ public class ElectronicCaseTemplateController {
      */
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('electronic_case_template:case:update')")
-    public Result update(@RequestBody ElectronicCaseTemplate cas){
-        ValidatorUtils.validateEntity(cas);
-        caseService.updateById(cas);
+    public Result update(@RequestBody ElectronicCaseTemplateFrom from){
+        ValidatorUtils.validateEntity(from);
+        ElectronicCaseTemplate t=from.getElectronicCaseTemplate();
+        caseService.updateById(t);
+        caseService.delDetailed(t.getTid().toString());
+        caseService.add(t.getTid(),from.getIds());
         return Result.ok();
     }
 
@@ -82,7 +87,7 @@ public class ElectronicCaseTemplateController {
     @PreAuthorize("hasAuthority('electronic_case_template:case:delete')")
     public Result delete(@RequestBody String[] ids){
         caseService.removeByIds(Arrays.asList(ids));
-
+        for (String id : ids) { caseService.delDetailed(id); }
         return Result.ok();
     }
 

@@ -10,6 +10,9 @@ import java.util.List;
 public class Prescription_Vo extends Prescription {
     private DrugsDetailed drugsDetailed;
     private Prescription prescription;
+    private String patientName;
+    private String username;
+    private Integer status;
     private PatientDetailed patientDetailed;
     private String patientName;
     private String username;

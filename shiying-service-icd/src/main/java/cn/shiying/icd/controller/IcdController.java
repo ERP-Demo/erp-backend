@@ -35,7 +35,6 @@ public class IcdController {
     @PreAuthorize("hasAuthority('icd:icd:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = icdService.queryPage(params);
-
         return Result.ok().put("page", page);
     }
 

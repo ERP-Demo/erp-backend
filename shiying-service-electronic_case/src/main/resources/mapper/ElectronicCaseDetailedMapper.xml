@@ -23,7 +23,7 @@
         limit 5
     </select>
     <select id="selById" resultType="cn.shiying.common.entity.Icd.Icd">
-        select icd_name,icd_code from icd where
+        select icd_id,icd_name,icd_code from icd where
         <foreach collection="list" item="id" index="index" separator=" or ">
             icd_id=#{id}
         </foreach>

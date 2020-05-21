@@ -1,6 +1,8 @@
 package cn.shiying.electronic_case.service.impl;
 
 import cn.shiying.common.entity.Icd.Icd;
+import cn.shiying.common.entity.electronicCaseTemplate.ElectronicCaseTemplate;
+import cn.shiying.common.entity.electronicCaseTemplate.Vo.ElectronicCaseTemplateVO;
 import cn.shiying.common.entity.token.JwtUser;
 import cn.shiying.electronic_case.Util.RedisUtil;
 import cn.shiying.electronic_case.entity.Case;
@@ -49,6 +51,9 @@ public class ElectronicCaseServiceImpl extends ServiceImpl<ElectronicCaseMapper,
 
     @Autowired
     ElectronicCaseDetailedMapper electronicCaseDetailedMapper;
+
+    @Autowired
+    ElectronicCaseMapper electronicCaseMapper;
 
     /**
      * 分页查询

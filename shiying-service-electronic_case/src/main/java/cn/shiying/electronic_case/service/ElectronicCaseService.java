@@ -1,6 +1,7 @@
 package cn.shiying.electronic_case.service;
 
 import cn.shiying.common.entity.Icd.Icd;
+import cn.shiying.common.entity.electronicCaseTemplate.Vo.ElectronicCaseTemplateVO;
 import cn.shiying.electronic_case.entity.Case;
 import cn.shiying.electronic_case.entity.ElectronicCase;
 import cn.shiying.electronic_case.entity.vo.ElectronicAndDetailedVO;

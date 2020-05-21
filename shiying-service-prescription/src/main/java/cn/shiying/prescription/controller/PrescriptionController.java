@@ -1,5 +1,6 @@
 package cn.shiying.prescription.controller;
 
+import cn.shiying.common.entity.patient.PatientDetailed;
 import cn.shiying.prescription.entity.PrescriptionDetails;
 import cn.shiying.prescription.entity.Prescription_Vo;
 import cn.shiying.prescription.entity.from.DrugsAndDetailed;
@@ -98,12 +99,19 @@ public class PrescriptionController {
     }
 
     @GetMapping("/All")
-    public Result All() {
-        List<Prescription_Vo> prescription_vos = prescriptionService.PrescriptionVo();
+    public Result All(@RequestParam Map<String, Object> params) {
+
+        PageUtils page = prescriptionService.queryPagePre(params);
+
+        return Result.ok().put("page", page);
+
+        /*List<Prescription_Vo> prescription_vos = prescriptionService.PrescriptionVo();
         for (Prescription_Vo prescription_vo : prescription_vos) {
-            System.out.println(prescription_vo);
+//            Integer patientId=prescription_vo.getPatientDetailed().getPatientId();
+//            System.out.println("id:"+patientId);
+            System.out.println("ALL数据："+prescription_vo);
         }
-        return Result.ok().put("list", prescription_vos);
+        return Result.ok().put("list", prescription_vos);*/
     }
 
     @GetMapping("/selectByid/{id}")

@@ -116,7 +116,7 @@ public class RequirementsController {
         requirementsService.updatestate(id);
         return Result.ok();
     }
-    @GetMapping("/All")
+    /*@GetMapping("/All")
     public Result All(@RequestParam Map<String, Object> params) {
         requirementsService.queryPage(params);
         System.out.println("分页" + params);
@@ -125,7 +125,7 @@ public class RequirementsController {
             System.out.println(requirements_vo);
         }
         return Result.ok().put("list",all);
-    }
+    }*/
     @GetMapping("/AllList")
     public Result AllList(){
         List<TestSynthesizeAll> testSynthesizeAlls = requirementsService.TestSynthesizeAll();

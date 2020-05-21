@@ -5,4 +5,10 @@
     <update id="updatestate">
         update patient_handle_apply_detailed set `status`=2 where handle_id=#{id}
     </update>
+
+    <!--根据患者编号查询患者名称-->
+    <select id="getPatientDeId" resultType="cn.shiying.common.entity.patient_handle.PatientHandleApplyDetailed">
+        select patient_name from patient_detailed where patient_id=#{patientId}
+    </select>
+
 </mapper>

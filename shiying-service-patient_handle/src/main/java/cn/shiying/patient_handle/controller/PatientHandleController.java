@@ -3,12 +3,14 @@ package cn.shiying.patient_handle.controller;
 import cn.shiying.common.entity.patient_handle.PatientHandle;
 import cn.shiying.common.entity.patient_handle.PatientHandleApply;
 import cn.shiying.common.entity.patient_handle.PatientHandleApplyDetailed;
+import cn.shiying.common.entity.token.JwtUser;
 import cn.shiying.common.mapper.PatientDetailedMapper;
 import cn.shiying.patient_handle.client.handle;
 import cn.shiying.patient_handle.entity.form.HandleApplyForm;
 import cn.shiying.patient_handle.service.PatientHandleApplyDetailedService;
 import cn.shiying.patient_handle.service.PatientHandleApplyService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Arrays;

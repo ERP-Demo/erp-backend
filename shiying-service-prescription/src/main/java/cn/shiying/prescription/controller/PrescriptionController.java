@@ -54,18 +54,18 @@ public class PrescriptionController {
 
         return Result.ok().put("prescription", prescription);
     }
-    @GetMapping("/byid/{id}")
-    public Result byid(@PathVariable("id") Integer id){
-        List<DrugsAndDetailed> list=prescriptionService.AllbyPid(id);
-        System.out.println(list);
-        return Result.ok().put("list",list);
-    }
-
-    @GetMapping("/bypdid/{id}")
-    public Result bypdid(@PathVariable("id") Integer id){
-        prescriptionService.bypdid(id);
-        return Result.ok();
-    }
+//    @GetMapping("/byid/{id}")
+//    public Result byid(@PathVariable("id") Integer id){
+//        List<DrugsAndDetailed> list=prescriptionService.AllbyPid(id);
+//        System.out.println(list);
+//        return Result.ok().put("list",list);
+//    }
+//
+//    @GetMapping("/bypdid/{id}")
+//    public Result bypdid(@PathVariable("id") Integer id){
+//        prescriptionService.bypdid(id);
+//        return Result.ok();
+//    }
     /**
      * 保存
      */

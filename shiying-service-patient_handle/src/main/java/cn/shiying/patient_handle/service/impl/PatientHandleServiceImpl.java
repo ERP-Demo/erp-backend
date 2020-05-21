@@ -5,6 +5,7 @@ import cn.shiying.common.entity.Requirements;
 import cn.shiying.common.entity.patient.PatientDetailed;
 import cn.shiying.common.entity.patient_handle.PatientHandle;
 import cn.shiying.common.entity.patient_handle.PatientHandleApplyDetailed;
+import cn.shiying.patient_handle.entity.form.HandleApplyForm;
 import cn.shiying.patient_handle.mapper.PatientHandleMapper;
 import cn.shiying.patient_handle.service.PatientHandleApplyDetailedService;
 import cn.shiying.patient_handle.service.PatientHandleApplyService;
@@ -19,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
+import java.util.List;
+
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +62,7 @@ public class PatientHandleServiceImpl extends ServiceImpl<PatientHandleMapper, P
         return new PageUtils(page);
     }
 
+
     @Override
     public void updatestate(Integer[] id) {
         for (Integer integer : id) {
@@ -88,6 +92,21 @@ public class PatientHandleServiceImpl extends ServiceImpl<PatientHandleMapper, P
             detailed.setPatientHandle(handleService.getById(detailed.getHandleId()));
             detailed.setPatientName(p.getPatientName());
         }
+        return new PageUtils(page);
+    }
+
+
+    @Override
+    public void runHandle(String username,Integer id) {
+        baseMapper.runHandle(username,id);
+    }
+
+    @Override
+    public PageUtils queryPage2(Map<String, Object> params) {
+        Page page=new Query<HandleApplyForm>(params).getPage();
+        List<HandleApplyForm> list= baseMapper.queryAll(page,params);
+        System.out.println(list);
+        page.setRecords(list);
         return new PageUtils(page);
     }
 

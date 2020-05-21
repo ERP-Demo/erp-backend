@@ -4,6 +4,7 @@ import cn.shiying.common.entity.Icd.Icd;
 import cn.shiying.electronic_case_template.entity.ElectronicCaseTemplate;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,6 +19,8 @@ import java.util.List;
 @Mapper
 public interface ElectronicCaseTemplateMapper extends BaseMapper<ElectronicCaseTemplate> {
     List<ElectronicCaseTemplate> getTemplate();
-    List<Integer> getIds(Integer tid);
+    List<Integer> getIds(@Param("tid") String tid);
     List<Icd> selById(List<Integer> ids);
+    void delDetailed(@Param("tid") String tid);
+    void addDetailed(@Param("tid") Integer tid, @Param("icdId") Integer icdId);
 }

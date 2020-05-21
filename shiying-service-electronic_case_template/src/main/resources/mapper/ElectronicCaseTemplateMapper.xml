@@ -26,4 +26,10 @@
             icd_id=#{id}
         </foreach>
     </select>
+    <delete id="delDetailed">
+        delete from electronic_case_template_detailed where tid=#{tid}
+    </delete>
+    <insert id="addDetailed">
+        insert into electronic_case_template_detailed value(null,#{tid},#{icdId})
+    </insert>
 </mapper>

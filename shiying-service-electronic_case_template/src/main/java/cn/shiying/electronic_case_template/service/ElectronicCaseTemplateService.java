@@ -1,5 +1,6 @@
 package cn.shiying.electronic_case_template.service;
 
+import cn.shiying.common.entity.Icd.Icd;
 import cn.shiying.common.entity.electronicCaseTemplate.Vo.ElectronicCaseTemplateVO;
 import cn.shiying.electronic_case_template.entity.ElectronicCaseTemplate;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -25,4 +26,7 @@ public interface ElectronicCaseTemplateService extends IService<ElectronicCaseTe
      */
      PageUtils queryPage(Map<String, Object> params);
      List<ElectronicCaseTemplateVO> allTemplate();
+     void delDetailed(String tid);
+     List<Icd> getIcds(String tid);
+     void add(Integer tid, List<Integer> ids);
 }

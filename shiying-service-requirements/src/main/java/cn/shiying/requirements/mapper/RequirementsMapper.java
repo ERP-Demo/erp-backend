@@ -21,6 +21,7 @@ import java.util.List;
 public interface RequirementsMapper extends BaseMapper<Requirements> {
     void updatestate(@Param("id") Integer id);
     List<Requirements_Vo>All();
-    List<TestSynthesizeAll> TestSynthesizeAll();
+
+    List<TestSynthesizeAll> TestSynthesizeAll(@Param("id") String id);
     List<TestSynthesizeAll> topFive(@Param("uid") Integer uid);
 }

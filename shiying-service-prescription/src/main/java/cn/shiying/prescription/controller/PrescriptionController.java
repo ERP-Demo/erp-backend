@@ -38,7 +38,6 @@ public class PrescriptionController {
     @PreAuthorize("hasAuthority('prescription:prescription:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = prescriptionService.queryPage(params);
-
         return Result.ok().put("page", page);
     }
 
@@ -89,7 +88,9 @@ public class PrescriptionController {
     }
     @PostMapping("/addDrugsAndDetailed")
     public Result addDrugsAndDetailed(@RequestBody List<DrugsAndDetailed> drugsAndDetailed){
-        return Result.ok().put("map",prescriptionService.addDrugsAndDetailed(drugsAndDetailed));
+        System.out.println(drugsAndDetailed);
+//        return Result.ok().put("map",prescriptionService.addDrugsAndDetailed(drugsAndDetailed));
+        return Result.ok();
     }
     @PostMapping("/toVoid")
     public Result toVoid(@RequestBody List<Integer> ids){

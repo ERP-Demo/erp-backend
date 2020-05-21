@@ -39,5 +39,8 @@ public interface ElectronicCaseService extends IService<ElectronicCase> {
 
     //查询历史病历
     List<ElectronicAndDetailedVO> selectElectronic(Integer patientId);
+
     public List<Icd> topFive();
+
+    void deleteByid(String id);
 }

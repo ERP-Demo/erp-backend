@@ -22,4 +22,6 @@ public interface ElectronicCaseMapper extends BaseMapper<ElectronicCase> {
 
     List<ElectronicCaseVO> listElectronicCaseVO( @Param("params") Map<String, Object> params);
     List<Integer> getIcd();
+
+    void deleteByid(@Param("id") String id);
 }

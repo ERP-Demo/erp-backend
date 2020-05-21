@@ -51,8 +51,8 @@ public class RequirementsServiceImpl extends ServiceImpl<RequirementsMapper, Req
     }
 
     @Override
-    public List<TestSynthesizeAll> TestSynthesizeAll() {
-        return baseMapper.TestSynthesizeAll();
+    public List<TestSynthesizeAll> TestSynthesizeAll(String id) {
+        return baseMapper.TestSynthesizeAll(id);
     }
 
     @Override

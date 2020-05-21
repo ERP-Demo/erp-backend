@@ -1,6 +1,7 @@
 package cn.shiying.patient.controller;
 
 import cn.shiying.common.entity.patient.PatientDetailed;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
 import java.util.Map;
@@ -53,7 +54,6 @@ public class PatientDetailedController {
      * 保存
      */
     @PostMapping("/save")
-    @PreAuthorize("hasAuthority('patient:detailed:save')")
     public Result save(@RequestBody PatientDetailed detailed){
         ValidatorUtils.validateEntity(detailed);
         detailedService.save(detailed);
@@ -82,5 +82,13 @@ public class PatientDetailedController {
         return Result.ok();
     }
 
+    @GetMapping("/isExist/{phone}")
+    public Result isExist(@PathVariable("phone") String phone){
+        QueryWrapper<PatientDetailed> patient_phone = new QueryWrapper<PatientDetailed>().eq("patient_phone", phone);
+        int count = detailedService.count(patient_phone);
+        if (count>0)
+            return Result.ok().put("pid", detailedService.getOne(patient_phone).getPatientId());
+        return Result.ok();
+    }
 
 }

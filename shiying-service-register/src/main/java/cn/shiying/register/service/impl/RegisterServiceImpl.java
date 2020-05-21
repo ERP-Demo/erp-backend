@@ -9,27 +9,15 @@ import cn.shiying.register.entity.Vo.RegisterPatientVO;
 import cn.shiying.register.entity.Vo.departmentVo;
 import cn.shiying.register.mapper.RegisterMapper;
 import cn.shiying.register.service.RegisterService;
-import com.alibaba.fastjson.JSONObject;
-import com.aliyuncs.CommonRequest;
-import com.aliyuncs.CommonResponse;
-import com.aliyuncs.DefaultAcsClient;
-import com.aliyuncs.IAcsClient;
-import com.aliyuncs.http.MethodType;
-import com.aliyuncs.profile.DefaultProfile;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import cn.shiying.common.utils.Query;
 import cn.shiying.common.utils.PageUtils;
-import com.netflix.client.ClientException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.rmi.ServerException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -122,6 +110,16 @@ public class RegisterServiceImpl extends ServiceImpl<RegisterMapper, Register> i
 //            e.printStackTrace();
 //            ExceptionCast.cast(ErrorEnum.LOAD_LANG);
 //        }
+    }
+
+    @Override
+    public Integer addCount(Integer uid) {
+        return baseMapper.addCount(uid);
+    }
+
+    @Override
+    public double getMoney(Integer uid) {
+        return baseMapper.getMoney(uid);
     }
 
 }

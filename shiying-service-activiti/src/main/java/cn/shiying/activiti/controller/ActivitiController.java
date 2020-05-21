@@ -36,7 +36,7 @@ public class ActivitiController {
     }
 
     @PostMapping("/startPatient")
-    public Result startPatient(Integer departmentId,String registerId){
+    public Result startPatient(@RequestParam("departmentId") Integer departmentId,@RequestParam("registerId") String registerId){
         Map<String , Object> variables = new HashMap<String,Object>();
         variables.put("departmentId",departmentId);
         variables.put("registerId",registerId);
@@ -128,7 +128,7 @@ public class ActivitiController {
             taskService.setAssignee(task1.getId(),(String) variables.get("subName"));
             map.put((String) variables.get("purchaseId"),task1.getProcessInstanceId());
         }
-        return Result.ok().put("map",map);
+        return Result.ok().put("map",map).put("ids",orderId(list));
     }
 
     @PostMapping("/sysconsultation")
@@ -142,6 +142,12 @@ public class ActivitiController {
     public Result consultation(String processInstanceId){
         Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
         taskService.setVariable(task.getId(),"waitAssignee",getUser().getUid());
+        return Result.ok();
+    }
+    @PostMapping("/userConsultation")
+    public Result userConsultation(@RequestParam("processInstanceId") String processInstanceId,@RequestParam("uid") Integer uid){
+        Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
+        taskService.setVariable(task.getId(),"waitAssignee",uid);
         return Result.ok();
     }
 
@@ -222,7 +228,6 @@ public class ActivitiController {
     }
     @PostMapping("/rejHandleReturned")
     public Result rejHandleReturned(String processInstanceId){
-        System.out.println(processInstanceId);
         Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).taskName("仓库经理审核").singleResult();
         if (task!=null) {
             JwtUser user = getUser();
@@ -256,12 +261,18 @@ public class ActivitiController {
 
 
     private String strat(String bpmName,Map<String,Object> variables){
-        JwtUser user=getUser();
+        JwtUser user=null;
+        try {
+            user=getUser();
+        }catch (Exception e){
+            user=new JwtUser();
+        }
         ProcessInstance processInstance=runtimeService.startProcessInstanceByKey(bpmName);
         String processInstanceId=processInstance.getProcessInstanceId();
         Task task=taskService.createTaskQuery()
                 .processDefinitionKey(bpmName)
                 .processInstanceId(processInstanceId).singleResult();
+        if (user.getUsername()==null) user.setUsername("user");
         taskService.setAssignee(task.getId(),user.getUsername());
         taskService.setVariables(task.getId(),variables);
         return processInstanceId;

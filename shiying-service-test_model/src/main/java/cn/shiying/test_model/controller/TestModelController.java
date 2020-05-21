@@ -39,7 +39,6 @@ public class TestModelController {
     @PreAuthorize("hasAuthority('test_model:model:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = modelService.queryPage(params);
-        System.out.println(page);
         return Result.ok().put("page", page);
     }
 
@@ -54,15 +53,9 @@ public class TestModelController {
     public Result save(@RequestBody TestModelFrom from){
         //验证工具
         ValidatorUtils.validateEntity(from);
-        System.out.println("11111111111111111111111111111111111111111111111");
         TestModel t=from.getTestModel();
-        System.out.println("拿到了++++++++++++++++++++"+t);
-        System.out.println("222222222222222222222222222222222222222222222222");
         modelService.save(t);
-        System.out.println("333333333333333333333333333333333333333333333333");
-        System.out.println(t.getTestModelId());
         from.setTestModelId(from.getTestModelId());
-        System.out.println(t.getTestModelId()+"++++++++++++++保存++++++++++++++++"+from.getIds());
         modelService.add(t.getTestModelId(),from.getIds());
         return Result.ok();
     }
@@ -79,7 +72,6 @@ public class TestModelController {
     @PreAuthorize("hasAuthority('test_model:model:delete')")
     public Result delete(@RequestBody String[] ids){
         modelService.removeByIds(Arrays.asList(ids));
-        System.out.println(Arrays.asList(ids));
         modelService.del(Arrays.asList(ids));
         return Result.ok();
     }
@@ -90,7 +82,6 @@ public class TestModelController {
     public Result info(@PathVariable("id") Integer id){
         List<TestModelVo> drugModelVos = modelService.selectById(id);
         for (TestModelVo drugModelVo : drugModelVos) {
-            System.out.println(drugModelVo);
         }
 //        double allprice=0.0;
 //        for (TestModelVo test:drugModelVos){
@@ -111,24 +102,18 @@ public class TestModelController {
     @PreAuthorize("hasAuthority('test_model:model:update')")
     public Result update(@RequestBody TestModelFrom from){
         ValidatorUtils.validateEntity(from);
-        System.out.println(from);
         TestModel m=from.getTestModel();
         m.setTestModelId(m.getTestModelId());
-        System.out.println("m:"+m);
-        System.out.println("id:"+m.getTestModelId());
         modelService.updateById(m);
         modelService.delbyid(m.getTestModelId());
         m.setTestModelId(m.getTestModelId());
-        System.out.println(m.getTestModelId()+"++++++++++++++++++++++++++++++"+from.getIds());
         modelService.add(m.getTestModelId(),from.getIds());
         return Result.ok();
     }
 
     @RequestMapping("/byid/{id}")
     public Result byid(@PathVariable Integer id){
-        System.out.println(id);
         TestModel selectbyid = modelService.selectbyid(id);
-        System.out.println(selectbyid);
         return Result.ok().put("mode",selectbyid);
     }
 

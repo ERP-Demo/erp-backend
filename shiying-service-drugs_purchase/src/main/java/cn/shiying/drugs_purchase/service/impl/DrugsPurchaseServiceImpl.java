@@ -166,6 +166,7 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
         boolean flag=true;
         for (PurchaseReturnedDetailed p : prdetailedList) {
             if (p.getPdNum()==0){
+                flag=false;
                 remove.add(p);
                 continue;
             }
@@ -183,7 +184,7 @@ public class DrugsPurchaseServiceImpl extends ServiceImpl<DrugsPurchaseMapper, D
             if (detailed.getPdNum()>count){
                 flag=false;
             }
-            System.out.println(count+" "+detailed.getPdNum());
+            System.out.println(count+" "+detailed.getPdNum()+" "+(detailed.getPdNum()>count));
         }
         for (PurchaseReturnedDetailed p : remove) {
             prdetailedList.remove(p);

@@ -1,10 +1,12 @@
 package cn.shiying.requirements.service.impl;
 
+import cn.shiying.common.dto.Result;
 import cn.shiying.requirements.entity.Requirements;
 import cn.shiying.requirements.entity.TestSynthesizeAll;
 import cn.shiying.requirements.entity.Vo.Requirements_Vo;
 import cn.shiying.requirements.mapper.RequirementsMapper;
 import cn.shiying.requirements.service.RequirementsService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -33,8 +35,9 @@ public class RequirementsServiceImpl extends ServiceImpl<RequirementsMapper, Req
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        IPage<Requirements> page=baseMapper.selectPage(new Query<Requirements>(params).getPage(),
-                new QueryWrapper<Requirements>().lambda());
+        Page page=new Query<Requirements_Vo>(params).getPage();
+//        List<Requirements_Vo> list = baseMapper.All(page,params);
+//        page.setRecords(list);
         return new PageUtils(page);
     }
 
@@ -51,8 +54,8 @@ public class RequirementsServiceImpl extends ServiceImpl<RequirementsMapper, Req
     }
 
     @Override
-    public List<TestSynthesizeAll> TestSynthesizeAll() {
-        return baseMapper.TestSynthesizeAll();
+    public List<TestSynthesizeAll> TestSynthesizeAll(String id) {
+        return baseMapper.TestSynthesizeAll(id);
     }
 
     @Override

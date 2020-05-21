@@ -13,7 +13,7 @@ public class RegisterPatient {
     //患者名称
     private String patientName;
     //挂号费用
-    private BigDecimal registerCost;
+    private double registerCost;
     //挂号科室
     private Integer departmentId;
     //患者年龄
@@ -28,4 +28,5 @@ public class RegisterPatient {
     private String patientAddress;
     //描述
     private String patientNote;
+
 }

@@ -3,12 +3,14 @@ package cn.shiying.patient_handle.controller;
 import cn.shiying.common.entity.patient_handle.PatientHandle;
 import cn.shiying.common.entity.patient_handle.PatientHandleApply;
 import cn.shiying.common.entity.patient_handle.PatientHandleApplyDetailed;
+import cn.shiying.common.entity.token.JwtUser;
 import cn.shiying.common.mapper.PatientDetailedMapper;
 import cn.shiying.patient_handle.client.handle;
 import cn.shiying.patient_handle.entity.form.HandleApplyForm;
 import cn.shiying.patient_handle.service.PatientHandleApplyDetailedService;
 import cn.shiying.patient_handle.service.PatientHandleApplyService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Arrays;
@@ -52,8 +54,8 @@ public class PatientHandleController {
     @PreAuthorize("hasAuthority('patient_handle:handle:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = handleService.queryPage(params);
-
-        return Result.ok().put("page", page);
+        PageUtils page2=handleService.queryPage2(params);
+        return Result.ok().put("page", page).put("page2",page2);
     }
 
 
@@ -129,7 +131,7 @@ public class PatientHandleController {
 
     @GetMapping("/apply/payment")
     @PreAuthorize("hasAuthority('patient_handle:handle:apply:list')")
-    public Result payment(){
+    public Result payment() {
         List<PatientHandleApplyDetailed> list = detailedService.list(new QueryWrapper<PatientHandleApplyDetailed>().eq("status", 1));
         for (PatientHandleApplyDetailed detailed : list) {
             detailed.setPatientHandleApply(applyService.getById(detailed.getApplyId()));
@@ -138,12 +140,31 @@ public class PatientHandleController {
 
         }
         System.out.println("数据" + list);
-        return Result.ok().put("list",list);
+        return Result.ok().put("list", list);
     }
 
     @GetMapping("/updatestate/{id}")
     public Result updatestate(@PathVariable Integer[] id) {
         handleService.updatestate(id);
         return Result.ok();
+    }
+
+    /**
+     * 执行处置
+     */
+    @GetMapping("/runHandle/{id}")
+    public Result runHandle(@PathVariable Integer id){
+        String name=getUser().getUsername();
+        handleService.runHandle(name,id);
+        return Result.ok();
+    }
+
+    public JwtUser getUser(){
+        Map<String,Object> map= (Map<String, Object>) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        JwtUser user=new JwtUser();
+        user.setUid((Integer) map.get("uid"));
+        user.setUsername((String) map.get("username"));
+        user.setDepartmentId((List<Integer>) map.get("departmentId"));
+        return user;
     }
 }

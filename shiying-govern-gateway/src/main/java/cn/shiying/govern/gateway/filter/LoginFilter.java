@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class LoginFilter extends ZuulFilter {
 
-    private static final String[] LOGIN_URI = {"/api/auth/userlogin","/api/Department/Department/getAll","/api/users_department/Department/allDepartment","/api/users_department/Department/getUser","/api/register/register/getImageVerifyCode","/api/register/register/verifyImageCode"};
+    private static final String[] LOGIN_URI = {"/api/auth/userlogin","/api/Department/Department/getAll","/api/users_department/Department/allDepartment","/api/users_department/Department/getUser","/api/register/register/getImageVerifyCode","/api/register/register/verifyImageCode","/api/register/register/verifyTextCode","/api/register/register/register"};
 
     private static final String utoken="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidXNlciJ9.G_19cbqgudrLlTP7hBeYOBCt4NXCRCmnx3S2MRCnDnBiJ8JGN7UWgvOY4GcyHXiDApzZanoRzPgNISsfWCobTxUhSPACN_KcqbnlFwzb4xLFJE_AM3OHc_8DUjJo14wI84XKVBCxfS_OZFOV54nuH_EBLIaKA1m4j3CqLMmHedUEC60q05rpirIEO_y3uhJUMcNROzHEzqJOps5FIJ1pl117AQuHCI08sd9O4Iy6TBkGogM05FJV9wflZPqPRlOK6mk3B7fxrz31H_B4dOIh0L8AQG6dTX4n7dor_gfmFEpOSU_yM2eC4q0SjMufczjwZBL6njwTKeiEvPEct_l1Kw";
     @Autowired
@@ -105,7 +105,6 @@ public class LoginFilter extends ZuulFilter {
         requestContext.setResponseStatusCode(200);
         //构建响应的信息
         Result result = Result.error(ErrorEnum.UNAUTHENTICATED);
-        System.out.println(result);
         //转成json
         String jsonString = JSON.toJSONString(result);
         requestContext.setResponseBody(jsonString);

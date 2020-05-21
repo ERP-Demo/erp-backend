@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author tyb
@@ -19,7 +19,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Prescription implements Serializable {
+public class  Prescription implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

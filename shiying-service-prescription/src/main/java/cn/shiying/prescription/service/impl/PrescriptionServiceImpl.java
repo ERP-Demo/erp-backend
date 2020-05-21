@@ -1,6 +1,7 @@
 package cn.shiying.prescription.service.impl;
 
 import cn.shiying.common.dto.Result;
+import cn.shiying.common.entity.patient.PatientDetailed;
 import cn.shiying.common.enums.ErrorEnum;
 import cn.shiying.common.exception.ExceptionCast;
 import cn.shiying.prescription.client.DrugsClient;
@@ -46,8 +47,8 @@ public class PrescriptionServiceImpl extends ServiceImpl<PrescriptionMapper, Pre
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        Page page=new Query<Prescription_Vo>(params).getPage();
-        List<Prescription_Vo> list= baseMapper.Prescription_VoAll(page,params);
+        Page page = new Query<Prescription_Vo>(params).getPage();
+        List<Prescription_Vo> list = baseMapper.Prescription_VoAll(page, params);
         System.out.println(list);
         page.setRecords(list);
         return new PageUtils(page);
@@ -120,11 +121,6 @@ public class PrescriptionServiceImpl extends ServiceImpl<PrescriptionMapper, Pre
     }
 
     @Override
-    public List<Prescription_Vo> PrescriptionVo() {
-        return baseMapper.PrescriptionVo();
-    }
-
-    @Override
     public List<Prescription_Vo> PrescriptionVoByid(Integer[] id) {
         List<Prescription_Vo> vo = new ArrayList<>();
         for (Integer integer : id) {
@@ -141,15 +137,11 @@ public class PrescriptionServiceImpl extends ServiceImpl<PrescriptionMapper, Pre
         }
     }
 
-
-
     @Override
-    public List<DrugsAndDetailed> AllbyPid(Integer id) {
-        return baseMapper.AllbyPid(id);
-    }
-
-    @Override
-    public void bypdid(Integer id) {
-        baseMapper.bypdid(id);
+    public PageUtils queryPagePre(Map<String, Object> params) {
+        Page page=new Query<Prescription_Vo>(params).getPage();
+        List<Prescription_Vo> list= baseMapper.PrescriptionVo(page,params);
+        page.setRecords(list);
+        return new PageUtils(page);
     }
 }

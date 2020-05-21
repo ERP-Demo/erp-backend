@@ -60,13 +60,19 @@ public class ElectronicCaseController {
     @PreAuthorize("hasAuthority('electronic_case:case:info')")
     public Result info(@PathVariable("id") String id) {
         ElectronicCase case1 = caseService.getOne(new QueryWrapper<ElectronicCase>().eq("register_id", id));
-        List<String> ids = caseService.getdetailed(case1.getCaseNo());
-        Result result = icdClient.icds(ids);
-        if ((Integer) result.get("code") != 200) return Result.error(ErrorEnum.LOAD_TIME_LANG);
-        CaseVO caseVO = new CaseVO();
-        caseVO.setElectronicCase(case1);
-        caseVO.setIcds((List<Icd>) result.get("icds"));
-        return Result.ok().put("case", caseVO);
+        System.out.println(case1);
+        if (case1 != null) {
+            List<String> ids = caseService.getdetailed(case1.getCaseNo());
+            Result result = icdClient.icds(ids);
+            if ((Integer) result.get("code") != 200) return Result.error(ErrorEnum.LOAD_TIME_LANG);
+            CaseVO caseVO = new CaseVO();
+            caseVO.setElectronicCase(case1);
+            caseVO.setIcds((List<Icd>) result.get("icds"));
+            System.out.println(caseVO);
+            return Result.ok().put("case", caseVO);
+        }
+        CaseVO caseVO1 = new CaseVO();
+        return Result.ok().put("case", caseVO1);
     }
 
     /**
@@ -75,6 +81,7 @@ public class ElectronicCaseController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('electronic_case:case:save')")
     public Result save(@RequestBody Case cas) {
+        caseService.deleteByid(cas.getElectronicCase().getRegisterId());
         caseService.saveCase(cas);
         return Result.ok();
     }
@@ -123,6 +130,9 @@ public class ElectronicCaseController {
     @GetMapping("/selectElectronic/{patientId}")
     public Result selectElectronic(@PathVariable("patientId") Integer patientId){
         List<ElectronicAndDetailedVO> list = caseService.selectElectronic(patientId);
+        for (ElectronicAndDetailedVO electronicAndDetailedVO : list) {
+            System.out.println(electronicAndDetailedVO);
+        }
         return Result.ok().put("list",list);
     }
 

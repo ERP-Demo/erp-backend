@@ -28,6 +28,7 @@ public interface RequirementsService extends IService<Requirements> {
 
     void updatestate(Integer[] id);
     List<Requirements_Vo> All();
-    List<TestSynthesizeAll> TestSynthesizeAll();
+
+    List<TestSynthesizeAll> TestSynthesizeAll(String id);
     List<TestSynthesizeAll> topFive(Integer uid);
 }

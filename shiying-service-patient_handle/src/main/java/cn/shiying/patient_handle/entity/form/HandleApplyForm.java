@@ -10,4 +10,12 @@ import java.util.List;
 public class HandleApplyForm {
     private PatientHandleApply apply;
     private List<PatientHandleApplyDetailed> detaileds;
+
+    private Integer id;
+    private String handleName;
+    private String handlePrice;
+    private String registerId;
+    private String patientName;
+    private Integer status;
+    private String username;
 }

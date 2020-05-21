@@ -25,6 +25,7 @@ public class TestSheetServiceImpl extends ServiceImpl<TestSheetMapper, Requireme
     public PageUtils queryPage(Map<String, Object> params) {
         Page page=new Query<Requirements>(params).getPage();
         List<ReqAndTestSheetVO> list= baseMapper.listReqAndTestSheetVO(page,params);
+        System.out.println("数据："+list);
         page.setRecords(list);
         return new PageUtils(page);
     }

@@ -22,7 +22,5 @@ import java.util.Map;
 public interface PatientHandleMapper extends BaseMapper<PatientHandle> {
     void updatestate(@Param("id") Integer id);
     List<HandleApplyForm> queryAll(Page<HandleApplyForm> page, @Param("params") Map<String, Object> params);
-
-
     void runHandle(@Param("username") String name,@Param("id") Integer id);
 }

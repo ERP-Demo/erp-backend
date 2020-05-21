@@ -72,6 +72,7 @@ public class TestModelController {
     @PreAuthorize("hasAuthority('test_model:model:delete')")
     public Result delete(@RequestBody String[] ids){
         modelService.removeByIds(Arrays.asList(ids));
+        System.out.println(Arrays.asList(ids));
         modelService.del(Arrays.asList(ids));
         return Result.ok();
     }
@@ -82,6 +83,7 @@ public class TestModelController {
     public Result info(@PathVariable("id") Integer id){
         List<TestModelVo> drugModelVos = modelService.selectById(id);
         for (TestModelVo drugModelVo : drugModelVos) {
+            System.out.println(drugModelVo);
         }
 //        double allprice=0.0;
 //        for (TestModelVo test:drugModelVos){
@@ -90,10 +92,9 @@ public class TestModelController {
 //        String price=String.valueOf(allprice);
 
         TestModel selectbyid = modelService.selectbyid(id);
-
         List<TestModel> t=new ArrayList<>();
         t.add(selectbyid);
-        return Result.ok().put("list",drugModelVos).put("mode",t);
+        return Result.ok().put("list",drugModelVos).put("mode",selectbyid);
     }
     /**
      * 修改

@@ -34,20 +34,20 @@
         from requirements where status=1
     </select>
     <select id="TestSynthesizeAll" resultType="cn.shiying.requirements.entity.TestSynthesizeAll">
-        SELECT r.test_synthesize_id,t.test_synthesize_name,t.test_synthesize_price,r.`status` FROM test_synthesize t
+ SELECT distinct r.test_synthesize_id,t.test_synthesize_name,t.test_synthesize_price,r.`status` FROM test_synthesize t
         LEFT JOIN requirements r
         on t.test_synthesize_id=r.test_synthesize_id
         WHERE r.test_synthesize_id in
-        (select test_synthesize_id from  requirements );
+        (select test_synthesize_id from  requirements where register_id=#{id} );
     </select>
-    <select id="topFive" resultType="cn.shiying.requirements.entity.TestSynthesizeAll">
-        select t2.synthesize_id,t2.test_synthesize_name,t2.test_synthesize_price
-        from requirements t1
-        inner join test_synthesize t2
-        on t1.test_synthesize_id=t2.test_synthesize_id
-        where t1.uid=#{uid}
-        group by t1.synthesize_id
-        order by count(1) desc
-        limit 5
-    </select>
+    <!--    <select id="topFive" resultType="cn.shiying.requirements.entity.TestSynthesizeAll">-->
+    <!--        select t2.synthesize_id,t2.test_synthesize_name,t2.test_synthesize_price-->
+    <!--        from requirements t1-->
+    <!--        inner join test_synthesize t2-->
+    <!--        on t1.test_synthesize_id=t2.test_synthesize_id-->
+    <!--        where t1.uid=#{uid}-->
+    <!--        group by t1.synthesize_id-->
+    <!--        order by count(1) desc-->
+    <!--        limit 5-->
+    <!--    </select>-->
 </mapper>

@@ -134,4 +134,9 @@ public class ElectronicCaseServiceImpl extends ServiceImpl<ElectronicCaseMapper,
     public List<Icd> topFive(){
         return electronicCaseDetailedMapper.selById(electronicCaseDetailedMapper.getIds(getUser().getUid()));
     }
+
+    @Override
+    public void deleteByid(String id) {
+        baseMapper.deleteByid(id);
+    }
 }

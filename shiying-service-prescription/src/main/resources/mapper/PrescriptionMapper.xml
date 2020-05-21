@@ -14,14 +14,16 @@
                      select="cn.shiying.common.mapper.Drugs.DrugsDetaileMapper.selectById"/>
         <association property="prescription" column="prescription_id"
                      select="cn.shiying.prescription.mapper.PrescriptionMapper.selectById"/>
+        <association property="patientDetailed" column="patient_id"
+                     select="cn.shiying.common.mapper.PatientDetailedMapper.selectById"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        prescription_id, prescription_name, prescription_price
+        prescription_id, prescription_name, prescription_price,prescription_state,uid,patient_id,register_id
     </sql>
     <sql id="Base_Column_List1">
-        pd_id, prescription_id, drugs_id,drugs_num,drugs_use,drugs_day,drugs_usenum,status
+        pd_id, prescription_details.prescription_id, drugs_id,patient_id,drugs_num,drugs_use,drugs_day,drugs_usenum,status
     </sql>
     <insert id="addpPrescription" parameterType="cn.shiying.prescription.entity.Prescription">
         insert into prescription values(#{prescriptionId},#{prescriptionName},#{prescriptionPrice},0)
@@ -46,14 +48,16 @@
     </update>
     <select id="PrescriptionVo" resultMap="WithDepartment">
         select
-        <include refid="Base_Column_List1"/>
-        from prescription_details where status=1
-
+        <include refid="Base_Column_List"/>
+        from prescription
     </select>
     <select id="PrescriptionVoByid" resultMap="WithDepartment">
         select
-        <include refid="Base_Column_List1"/>
-        from prescription_details where prescription_id=#{id}
+        <include refid="Base_Column_List1"/>,p.patient_id
+        from prescription_details d
+        INNER JOIN prescription p
+        on d.prescription_id=p.prescription_id
+        where prescription_id=#{id}
     </select>
 
     <select id="Prescription_VoAll" resultType="cn.shiying.prescription.entity.Prescription_Vo">

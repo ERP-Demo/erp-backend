@@ -27,8 +27,6 @@ import java.util.Map;
  */
 @Service
 public class ElectronicCaseTemplateServiceImpl extends ServiceImpl<ElectronicCaseTemplateMapper, ElectronicCaseTemplate> implements ElectronicCaseTemplateService {
-    @Autowired
-    ElectronicCaseTemplateMapper electronicCaseTemplateMapper;
     /**
      * 分页查询
      * @param params
@@ -43,10 +41,10 @@ public class ElectronicCaseTemplateServiceImpl extends ServiceImpl<ElectronicCas
 
     public List<ElectronicCaseTemplateVO> allTemplate(){
         List<ElectronicCaseTemplateVO> list=new ArrayList<>();
-        List<ElectronicCaseTemplate> templates=electronicCaseTemplateMapper.getTemplate();
+        List<ElectronicCaseTemplate> templates=baseMapper.getTemplate();
         for (ElectronicCaseTemplate template : templates) {
             ElectronicCaseTemplateVO templateVO=new ElectronicCaseTemplateVO();
-            List<Icd> icds=electronicCaseTemplateMapper.selById(electronicCaseTemplateMapper.getIds(template.getTid()));
+            List<Icd> icds=getIcds(template.getTid().toString());
             templateVO.setTid(template.getTid());
             templateVO.setComplain(template.getComplain());
             templateVO.setPatientSymptom(template.getPatientSymptom());
@@ -56,4 +54,25 @@ public class ElectronicCaseTemplateServiceImpl extends ServiceImpl<ElectronicCas
         }
         return list;
     }
+
+    @Override
+    public void delDetailed(String tid) {
+        baseMapper.delDetailed(tid);
+    }
+
+    @Override
+    public List<Icd> getIcds(String tid) {
+        List<Integer> ids = baseMapper.getIds(tid);
+        if (ids.size()==0||ids==null)
+            return null;
+        return baseMapper.selById(ids);
+    }
+
+    @Override
+    public void add(Integer tid, List<Integer> ids) {
+        for (Integer id : ids) {
+            baseMapper.addDetailed(tid,id);
+        }
+    }
+
 }

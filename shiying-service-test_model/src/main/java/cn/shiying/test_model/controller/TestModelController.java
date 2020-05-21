@@ -3,6 +3,8 @@ package cn.shiying.test_model.controller;
 import cn.shiying.test_model.entity.from.TestModelFrom;
 import cn.shiying.test_model.entity.vo.TestModelVo;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -87,8 +89,20 @@ public class TestModelController {
     @GetMapping("/info/{id}")
     public Result info(@PathVariable("id") Integer id){
         List<TestModelVo> drugModelVos = modelService.selectById(id);
+        for (TestModelVo drugModelVo : drugModelVos) {
+            System.out.println(drugModelVo);
+        }
+//        double allprice=0.0;
+//        for (TestModelVo test:drugModelVos){
+//            allprice+=test.getTestSynthesizePrice();
+//        }
+//        String price=String.valueOf(allprice);
+
         TestModel selectbyid = modelService.selectbyid(id);
-        return Result.ok().put("list",drugModelVos).put("mode",selectbyid);
+
+        List<TestModel> t=new ArrayList<>();
+        t.add(selectbyid);
+        return Result.ok().put("list",drugModelVos).put("mode",t);
     }
     /**
      * 修改

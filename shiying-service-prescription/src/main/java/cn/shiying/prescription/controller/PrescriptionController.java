@@ -38,6 +38,7 @@ public class PrescriptionController {
     @PreAuthorize("hasAuthority('prescription:prescription:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = prescriptionService.queryPage(params);
+
         return Result.ok().put("page", page);
     }
 
@@ -52,7 +53,18 @@ public class PrescriptionController {
 
         return Result.ok().put("prescription", prescription);
     }
+    @GetMapping("/byid/{id}")
+    public Result byid(@PathVariable("id") Integer id){
+        List<DrugsAndDetailed> list=prescriptionService.AllbyPid(id);
+        System.out.println(list);
+        return Result.ok().put("list",list);
+    }
 
+    @GetMapping("/bypdid/{id}")
+    public Result bypdid(@PathVariable("id") Integer id){
+        prescriptionService.bypdid(id);
+        return Result.ok();
+    }
     /**
      * 保存
      */
@@ -88,9 +100,7 @@ public class PrescriptionController {
     }
     @PostMapping("/addDrugsAndDetailed")
     public Result addDrugsAndDetailed(@RequestBody List<DrugsAndDetailed> drugsAndDetailed){
-        System.out.println(drugsAndDetailed);
-//        return Result.ok().put("map",prescriptionService.addDrugsAndDetailed(drugsAndDetailed));
-        return Result.ok();
+        return Result.ok().put("map",prescriptionService.addDrugsAndDetailed(drugsAndDetailed));
     }
     @PostMapping("/toVoid")
     public Result toVoid(@RequestBody List<Integer> ids){

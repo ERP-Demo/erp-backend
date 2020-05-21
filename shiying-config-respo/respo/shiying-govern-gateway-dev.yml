@@ -76,6 +76,11 @@ zuul:
       serviceId: shiying-service-electronic_case
       strip-prefix: false
       sensitiveHeaders:
+    service-electronic_case_template:
+      path: /electronic_case_template/**
+      serviceId: shiying-service-electronic_case_template
+      strip-prefix: false
+      sensitiveHeaders:
     service-drugs_purchase:
       path: /drugs_purchase/**
       serviceId: shiying-service-drugs_purchase

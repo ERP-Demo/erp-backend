@@ -53,6 +53,7 @@ public class DrugModelController {
     @GetMapping("/info/{id}")
     public Result info(@PathVariable("id") Integer id){
         List<DrugModelVo> drugModelVos = modelService.selectById(id);
+        System.out.println(drugModelVos);
         DrugModelVo dv=new DrugModelVo();
         double allprice=0.0;
         for (DrugModelVo drugs:drugModelVos){

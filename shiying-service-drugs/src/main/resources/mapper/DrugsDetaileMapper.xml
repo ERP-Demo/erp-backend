@@ -21,5 +21,11 @@
     <select id="selectByddId" resultMap="BaseResultMap">
         select * from drugs_detailed where drugs_id=#{drugsId}
     </select>
+    <select id="selectAll" resultType="cn.shiying.common.entity.Drugs.vo.DrugsVo">
+        select d1.*,d2.pharmacy_num
+        from drugs_detailed d1
+        inner join drugs_storage_detailed_info d2
+        on d1.drugs_id=d2.drugs_id
+    </select>
 
 </mapper>

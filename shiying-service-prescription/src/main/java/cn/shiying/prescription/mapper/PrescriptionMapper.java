@@ -40,4 +40,8 @@ public interface PrescriptionMapper extends BaseMapper<Prescription> {
     List<Prescription_Vo> Prescription_VoAll(Page<Prescription_Vo> page, @feign.Param("params") Map<String, Object> params);
 
     List<Prescription_Vo> queryByrId(@Param("registerId") String registerId);
+
+    List<DrugsAndDetailed> querydIds(@Param("id") Integer id);
+
+    void updatedsdi(@Param("drugsId") Integer drugsId, @Param("drugsNum") Integer drugsNum);
 }

@@ -60,11 +60,16 @@ public class PrescriptionController {
 //        return Result.ok().put("list",list);
 //    }
 //
-//    @GetMapping("/bypdid/{id}")
-//    public Result bypdid(@PathVariable("id") Integer id){
-//        prescriptionService.bypdid(id);
-//        return Result.ok();
-//    }
+    @GetMapping("/bypdid/{id}")
+    public Result bypdid(@PathVariable("id") Integer id){
+        List<DrugsAndDetailed> querydIds=prescriptionService.querydIds(id);
+        for (DrugsAndDetailed dd:querydIds){
+            System.out.println(dd.getDrugsId()+" "+dd.getDrugsNum());
+            prescriptionService.updatedsdi(dd.getDrugsId(),dd.getDrugsNum());
+        }
+        prescriptionService.bypdid(id);
+        return Result.ok();
+    }
     /**
      * 保存
      */

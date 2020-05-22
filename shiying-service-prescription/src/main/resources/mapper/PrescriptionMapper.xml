@@ -48,6 +48,9 @@
     <update id="bypdid">
         update prescription set prescription_state=1 where prescription_id=#{id}
     </update>
+    <update id="updatedsdi">
+        update drugs_storage_detailed_info set pharmacy_num=pharmacy_num-#{drugsNum} where drugs_id=#{drugsId}
+    </update>
     <select id="PrescriptionVo" resultMap="WithDepartment">
         select
         <include refid="Base_Column_List"/>
@@ -62,16 +65,17 @@
         where prescription_id=#{id}
     </select>
 
-    <select id="Prescription_VoAll" resultType="cn.shiying.prescription.entity.Prescription_Vo">
-        select p1.*,p2.patient_name,u.username,p3.`status`
+    <select id="Prescription_VoAll" resultMap="WithDepartment">
+        select distinct p1.*,p2.patient_name,u.username
         from prescription p1
         inner join patient_detailed p2
         on p1.patient_id=p2.patient_id
         inner join sys_user u
         on p1.uid=u.user_id
-        inner join prescription_details p3
+        left join prescription_details p3
         on p1.prescription_id=p3.prescription_id
         <where>
+            and p3.status=1
             <if test="params.prescriptionState != null and params.prescriptionState != ''">
                 and p1.prescription_state = #{params.prescriptionState}
             </if>
@@ -90,5 +94,14 @@
 
     <select id="queryByrId" resultMap="WithDepartment">
         select * from prescription where register_id=#{registerId}
+    </select>
+    <select id="querydIds" resultType="cn.shiying.prescription.entity.from.DrugsAndDetailed">
+        select d.drugs_id,p2.drugs_num
+				from prescription p1
+				inner join prescription_details p2
+				on p1.prescription_id=p2.prescription_id
+				inner join drugs_storage_detailed_info d
+				on p2.drugs_id=d.drugs_id
+				where p1.prescription_id=#{id}
     </select>
 </mapper>

@@ -68,7 +68,7 @@ public class ElectronicCaseController {
             CaseVO caseVO = new CaseVO();
             caseVO.setElectronicCase(case1);
             caseVO.setIcds((List<Icd>) result.get("icds"));
-            System.out.println(caseVO);
+            System.out.println("数据" + caseVO);
             return Result.ok().put("case", caseVO);
         }
         CaseVO caseVO1 = new CaseVO();

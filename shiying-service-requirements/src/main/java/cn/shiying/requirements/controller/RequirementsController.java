@@ -116,16 +116,6 @@ public class RequirementsController {
         requirementsService.updatestate(id);
         return Result.ok();
     }
-    @GetMapping("/All")
-    public Result All(@RequestParam Map<String, Object> params) {
-        requirementsService.queryPage(params);
-        System.out.println("分页" + params);
-        List<Requirements_Vo> all = requirementsService.All();
-        for (Requirements_Vo requirements_vo : all) {
-            System.out.println(requirements_vo);
-        }
-        return Result.ok().put("list",all);
-    }
 
     @GetMapping("/AllList/{id}")
     public Result AllList(@PathVariable String id) {

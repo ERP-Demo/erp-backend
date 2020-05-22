@@ -44,4 +44,6 @@ public interface ElectronicCaseService extends IService<ElectronicCase> {
     public List<Icd> topFive();
 
     void deleteByid(String id);
+
+    void addCase(Case cas);
 }

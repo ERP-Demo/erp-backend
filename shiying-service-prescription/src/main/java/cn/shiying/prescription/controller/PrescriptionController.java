@@ -39,7 +39,7 @@ public class PrescriptionController {
     @PreAuthorize("hasAuthority('prescription:prescription:list')")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = prescriptionService.queryPage(params);
-
+        System.out.println(page);
         return Result.ok().put("page", page);
     }
 
@@ -51,21 +51,25 @@ public class PrescriptionController {
     @PreAuthorize("hasAuthority('prescription:prescription:info')")
     public Result info(@PathVariable("id") String id){
        Prescription prescription = prescriptionService.getById(id);
-
         return Result.ok().put("prescription", prescription);
     }
-    /*@GetMapping("/byid/{id}")
-    public Result byid(@PathVariable("id") Integer id){
-        List<DrugsAndDetailed> list=prescriptionService.AllbyPid(id);
-        System.out.println(list);
-        return Result.ok().put("list",list);
-    }*/
-
-    /*@GetMapping("/bypdid/{id}")
+//    @GetMapping("/byid/{id}")
+//    public Result byid(@PathVariable("id") Integer id){
+//        List<DrugsAndDetailed> list=prescriptionService.AllbyPid(id);
+//        System.out.println(list);
+//        return Result.ok().put("list",list);
+//    }
+//
+    @GetMapping("/bypdid/{id}")
     public Result bypdid(@PathVariable("id") Integer id){
+        List<DrugsAndDetailed> querydIds=prescriptionService.querydIds(id);
+        for (DrugsAndDetailed dd:querydIds){
+            System.out.println(dd.getDrugsId()+" "+dd.getDrugsNum());
+            prescriptionService.updatedsdi(dd.getDrugsId(),dd.getDrugsNum());
+        }
         prescriptionService.bypdid(id);
         return Result.ok();
-    }*/
+    }
     /**
      * 保存
      */
@@ -111,10 +115,17 @@ public class PrescriptionController {
 
     @GetMapping("/All")
     public Result All(@RequestParam Map<String, Object> params) {
-
         PageUtils page = prescriptionService.queryPagePre(params);
 
         return Result.ok().put("page", page);
+
+        /*List<Prescription_Vo> prescription_vos = prescriptionService.PrescriptionVo();
+        for (Prescription_Vo prescription_vo : prescription_vos) {
+//            Integer patientId=prescription_vo.getPatientDetailed().getPatientId();
+//            System.out.println("id:"+patientId);
+            System.out.println("ALL数据："+prescription_vo);
+        }
+        return Result.ok().put("list", prescription_vos);*/
     }
 
     @GetMapping("/selectByid/{id}")
@@ -128,4 +139,12 @@ public class PrescriptionController {
         prescriptionService.updatestate(id);
         return Result.ok();
     }
+
+    @GetMapping("/queryByrId/{registerId}")
+    public Result queryByrId(@PathVariable String registerId){
+        List<Prescription_Vo> list=prescriptionService.queryByrId(registerId);
+        System.out.println(list);
+        return Result.ok().put("list",list);
+    }
+
 }

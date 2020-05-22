@@ -91,4 +91,13 @@
     <select id="queryByrId" resultMap="WithDepartment">
         select * from prescription where register_id=#{registerId}
     </select>
+    <select id="queryByName" resultType="cn.shiying.prescription.entity.Prescription_Vo">
+        select d.drugs_name,p2.drugs_num,d.drugs_price,p1.prescription_state preStatus
+        from prescription p1
+        inner join prescription_details p2
+        on p1.prescription_id=p2.prescription_id
+        inner join drugs_detailed d
+        on p2.drugs_id=d.drugs_id
+        where p1.register_id=#{registerId}
+    </select>
 </mapper>

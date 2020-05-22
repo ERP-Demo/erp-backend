@@ -159,4 +159,10 @@ public class PrescriptionServiceImpl extends ServiceImpl<PrescriptionMapper, Pre
     public List<Prescription_Vo> queryByrId(String registerId) {
         return baseMapper.queryByrId(registerId);
     }
+
+    @Override
+    public List<Prescription_Vo> queryByName(String registerId) {
+        return baseMapper.queryByName(registerId);
+    }
+
 }

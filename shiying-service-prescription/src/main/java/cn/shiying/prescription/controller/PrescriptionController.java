@@ -5,6 +5,8 @@ import cn.shiying.prescription.entity.PrescriptionDetails;
 import cn.shiying.prescription.entity.Prescription_Vo;
 import cn.shiying.prescription.entity.from.DrugsAndDetailed;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -128,4 +130,25 @@ public class PrescriptionController {
         prescriptionService.updatestate(id);
         return Result.ok();
     }
+
+    @GetMapping("/queryByrId/{registerId}")
+    public Result queryByrId(@PathVariable String registerId){
+        List<Prescription_Vo> list=prescriptionService.queryByrId(registerId);
+
+        List<Prescription_Vo> list2=new ArrayList<>();
+        Prescription_Vo ppv;
+
+        List<Prescription_Vo> pvs=prescriptionService.queryByName(registerId);
+
+        for (Prescription_Vo p : pvs){
+            ppv=new Prescription_Vo();
+            ppv.setDrugsName(p.getDrugsName());
+            ppv.setDrugsNum(p.getDrugsNum());
+            ppv.setDrugsPrice(p.getDrugsPrice());
+            ppv.setPreStatus(p.getPreStatus());
+            list2.add(ppv);
+        }
+        return Result.ok().put("list",list).put("list2",list2);
+    }
+
 }

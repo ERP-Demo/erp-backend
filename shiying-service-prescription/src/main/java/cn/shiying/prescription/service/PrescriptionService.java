@@ -40,4 +40,6 @@ public interface PrescriptionService extends IService<Prescription> {
     void bypdid(Integer id);
 
     List<Prescription_Vo> queryByrId(String registerId);
+
+    List<Prescription_Vo> queryByName(String registerId);
 }

@@ -139,4 +139,12 @@ public class ElectronicCaseServiceImpl extends ServiceImpl<ElectronicCaseMapper,
     public void deleteByid(String id) {
         baseMapper.deleteByid(id);
     }
+
+    @Override
+    public void addCase(Case cas) {
+        electronicCaseDetailedMapper.delDetailed(cas.getElectronicCase().getCaseNo().toString());
+        for (Integer integer : cas.getIcdId()) {
+            electronicCaseDetailedMapper.addDetailed(cas.getElectronicCase().getCaseNo(),integer);
+        }
+    }
 }

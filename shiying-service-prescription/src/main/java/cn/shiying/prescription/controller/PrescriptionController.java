@@ -5,6 +5,8 @@ import cn.shiying.prescription.entity.PrescriptionDetails;
 import cn.shiying.prescription.entity.Prescription_Vo;
 import cn.shiying.prescription.entity.from.DrugsAndDetailed;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +67,6 @@ public class PrescriptionController {
     public Result bypdid(@PathVariable("id") Integer id){
         List<DrugsAndDetailed> querydIds=prescriptionService.querydIds(id);
         for (DrugsAndDetailed dd:querydIds){
-            System.out.println(dd.getDrugsId()+" "+dd.getDrugsNum());
             prescriptionService.updatedsdi(dd.getDrugsId(),dd.getDrugsNum());
         }
         prescriptionService.bypdid(id);

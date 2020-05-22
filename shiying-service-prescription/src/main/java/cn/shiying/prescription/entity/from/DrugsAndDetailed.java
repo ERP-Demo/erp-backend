@@ -17,6 +17,10 @@ public class DrugsAndDetailed {
 
     private Integer pdId;
 
+    private Integer prescriptionId;
+
+    private Integer drugsId;
+
     /**
      * 药品数量
      */

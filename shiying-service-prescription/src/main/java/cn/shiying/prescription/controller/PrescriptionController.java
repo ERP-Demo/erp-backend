@@ -5,8 +5,6 @@ import cn.shiying.prescription.entity.PrescriptionDetails;
 import cn.shiying.prescription.entity.Prescription_Vo;
 import cn.shiying.prescription.entity.from.DrugsAndDetailed;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -56,18 +54,23 @@ public class PrescriptionController {
 
         return Result.ok().put("prescription", prescription);
     }
-    /*@GetMapping("/byid/{id}")
-    public Result byid(@PathVariable("id") Integer id){
-        List<DrugsAndDetailed> list=prescriptionService.AllbyPid(id);
-        System.out.println(list);
-        return Result.ok().put("list",list);
-    }*/
-
-    /*@GetMapping("/bypdid/{id}")
+//    @GetMapping("/byid/{id}")
+//    public Result byid(@PathVariable("id") Integer id){
+//        List<DrugsAndDetailed> list=prescriptionService.AllbyPid(id);
+//        System.out.println(list);
+//        return Result.ok().put("list",list);
+//    }
+//
+    @GetMapping("/bypdid/{id}")
     public Result bypdid(@PathVariable("id") Integer id){
+        List<DrugsAndDetailed> querydIds=prescriptionService.querydIds(id);
+        for (DrugsAndDetailed dd:querydIds){
+            System.out.println(dd.getDrugsId()+" "+dd.getDrugsNum());
+            prescriptionService.updatedsdi(dd.getDrugsId(),dd.getDrugsNum());
+        }
         prescriptionService.bypdid(id);
         return Result.ok();
-    }*/
+    }
     /**
      * 保存
      */

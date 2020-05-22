@@ -15,4 +15,6 @@ public interface ElectronicCaseDetailedMapper extends BaseMapper<ElectronicCaseD
     List<ElectronicAndDetailedVO> selectElectronic(@Param("patientId") Integer patientId);
     List<Integer> getIds(int id);
     List<Icd> selById(List<Integer> ids);
+    void delDetailed(@Param("cno") String cno);
+    void addDetailed(@Param("cno") Integer cno, @Param("icdId") Integer icdId);
 }

@@ -42,4 +42,8 @@ public interface PrescriptionService extends IService<Prescription> {
     List<Prescription_Vo> queryByrId(String registerId);
 
     List<Prescription_Vo> queryByName(String registerId);
+
+    List<DrugsAndDetailed> querydIds(Integer id);
+
+    void updatedsdi(Integer drugsId, Integer drugsNum);
 }

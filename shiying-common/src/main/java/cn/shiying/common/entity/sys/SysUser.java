@@ -4,9 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -29,12 +30,15 @@ public class SysUser implements Serializable {
     private String password;
     private String email;
     private Integer createUserId;
-    private Date createTime;
+    private LocalDateTime createTime;
     private Integer status;
+    private String photoUrl;
 
     @TableField(exist=false)
     private List<Integer> roleIdList;
 
     @TableField(exist=false)
     private List<String> perms;
+
+
 }

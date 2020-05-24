@@ -9,4 +9,6 @@ import java.util.List;
 @Data
 public class TestSheetForm {
     private List<LaboratoryList> dataList;
+
+    private Integer testAll;
 }

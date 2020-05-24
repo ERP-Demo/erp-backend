@@ -34,4 +34,13 @@ public class TestSheetController {
         return Result.ok();
     }
 
+    /**
+     * 改状态
+     */
+    @GetMapping("/TestSheetGo/{id}")
+    public Result TestSheetGo(@PathVariable("id") Integer id){
+        testSheetService.TestSheetGo(id);
+        return Result.ok();
+    }
+
 }

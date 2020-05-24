@@ -67,7 +67,6 @@ public class PrescriptionController {
     public Result bypdid(@PathVariable("id") Integer id){
         List<DrugsAndDetailed> querydIds=prescriptionService.querydIds(id);
         for (DrugsAndDetailed dd:querydIds){
-            System.out.println(dd.getDrugsId()+" "+dd.getDrugsNum());
             prescriptionService.updatedsdi(dd.getDrugsId(),dd.getDrugsNum());
         }
         prescriptionService.bypdid(id);

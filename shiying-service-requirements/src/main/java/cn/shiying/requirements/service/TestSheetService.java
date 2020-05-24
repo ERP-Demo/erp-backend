@@ -13,4 +13,6 @@ public interface TestSheetService extends IService<Requirements> {
     PageUtils queryPage(Map<String, Object> params);
 
     void addTestSheet(TestSheetForm testSheetForm);
+
+    void TestSheetGo(Integer id);
 }

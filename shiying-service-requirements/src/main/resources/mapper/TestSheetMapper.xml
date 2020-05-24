@@ -4,7 +4,7 @@
 
     <select id="listReqAndTestSheetVO" resultType="cn.shiying.requirements.entity.Vo.ReqAndTestSheetVO">
         select
-        r.test_synthesize_id,p.patient_name,r.purpose,r.requirements,r.Clinical_impression,r.Clinical_diagnosis,r.Check_the
+        r.id,r.test_synthesize_id,p.patient_name,r.purpose,r.requirements,r.Clinical_impression,r.Clinical_diagnosis,r.Check_the,r.`status`
         from requirements r
         inner join patient_detailed p
         on r.patient_id=p.patient_id
@@ -12,6 +12,7 @@
             <if test="params.patientName != null and params.patientName != ''">
                 and p.patient_name LIKE concat('%',#{params.patientName},'%')
             </if>
+            r.`status`=2 or r.`status`=3
         </where>
     </select>
 
@@ -21,5 +22,14 @@
             (#{lab.id},#{lab.testProjectsId},#{lab.result})
         </foreach>
     </insert>
+
+    <!--修改状态-->
+    <update id="updateStatus">
+        update requirements set `status`=3 where id=#{testId}
+    </update>
+
+    <update id="TestSheetGo">
+        update requirements set `status`=4 where id=#{testId}
+    </update>
 
 </mapper>

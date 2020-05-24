@@ -81,7 +81,12 @@ public class ElectronicCaseController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('electronic_case:case:save')")
     public Result save(@RequestBody Case cas) {
-        caseService.addCase(cas);
+        caseService.deleteByid(cas.getElectronicCase().getRegisterId());
+        if (cas.getElectronicCase().getRegisterId() != null) {
+            caseService.saveCase(cas);
+        } else {
+            return Result.ok();
+        }
         return Result.ok();
     }
 

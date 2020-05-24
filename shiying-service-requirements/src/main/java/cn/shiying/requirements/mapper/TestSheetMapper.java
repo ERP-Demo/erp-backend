@@ -18,4 +18,8 @@ public interface TestSheetMapper extends BaseMapper<Requirements> {
     public List<ReqAndTestSheetVO> listReqAndTestSheetVO(Page<Requirements> page, @Param("params") Map<String, Object> params);
 
     void addTestSheet(List<LaboratoryList> laboratoryLists);
+
+    void updateStatus(@Param("testId") Integer testId);
+
+    void TestSheetGo(Integer id);
 }

@@ -82,7 +82,11 @@ public class ElectronicCaseController {
     @PreAuthorize("hasAuthority('electronic_case:case:save')")
     public Result save(@RequestBody Case cas) {
         caseService.deleteByid(cas.getElectronicCase().getRegisterId());
-        caseService.saveCase(cas);
+        if (cas.getElectronicCase().getRegisterId() != null) {
+            caseService.saveCase(cas);
+        } else {
+            return Result.ok();
+        }
         return Result.ok();
     }
 

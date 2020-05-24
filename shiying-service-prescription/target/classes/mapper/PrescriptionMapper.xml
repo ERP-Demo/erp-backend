@@ -75,7 +75,7 @@
         left join prescription_details p3
         on p1.prescription_id=p3.prescription_id
         <where>
-            and p3.status=1
+            and p3.status=2
             <if test="params.prescriptionState != null and params.prescriptionState != ''">
                 and p1.prescription_state = #{params.prescriptionState}
             </if>

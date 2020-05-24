@@ -47,7 +47,7 @@
         on ec.patient_id=pd.patient_id
         <where>
             <if test="params.key != null and params.key != ''">
-                and pa.patient_name LIKE concat('%',#{params.key},'%')
+                and pd.patient_name LIKE concat('%',#{params.key},'%')
             </if>
         </where>
     </select>

@@ -22,7 +22,7 @@ import java.util.Map;
 @Mapper
 public interface RequirementsMapper extends BaseMapper<Requirements> {
     void updatestate(@Param("id") Integer id);
-    List<Requirements_Vo>All(Page page, Map<String, Object> params);
+    List<Requirements_Vo> All(Page<Requirements_Vo> page, @feign.Param("params") Map<String, Object> params);
 
     List<TestSynthesizeAll> TestSynthesizeAll(@Param("id") String id);
     List<TestSynthesizeAll> topFive(@Param("uid") Integer uid);

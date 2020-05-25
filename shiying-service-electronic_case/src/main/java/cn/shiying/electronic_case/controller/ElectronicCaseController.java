@@ -60,7 +60,6 @@ public class ElectronicCaseController {
     @PreAuthorize("hasAuthority('electronic_case:case:info')")
     public Result info(@PathVariable("id") String id) {
         ElectronicCase case1 = caseService.getOne(new QueryWrapper<ElectronicCase>().eq("register_id", id));
-        System.out.println(case1);
         if (case1 != null) {
             List<String> ids = caseService.getdetailed(case1.getCaseNo());
             Result result = icdClient.icds(ids);
@@ -72,7 +71,8 @@ public class ElectronicCaseController {
             return Result.ok().put("case", caseVO);
         }
         CaseVO caseVO1 = new CaseVO();
-        return Result.ok().put("case", caseVO1);
+        ElectronicCase e=caseService.getById(id);
+        return Result.ok().put("case", caseVO1).put("e",e);
     }
 
     /**
@@ -81,7 +81,12 @@ public class ElectronicCaseController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('electronic_case:case:save')")
     public Result save(@RequestBody Case cas) {
-        caseService.addCase(cas);
+        caseService.deleteByid(cas.getElectronicCase().getRegisterId());
+        if (cas.getElectronicCase().getRegisterId() != null) {
+            caseService.saveCase(cas);
+        } else {
+            return Result.ok();
+        }
         return Result.ok();
     }
 

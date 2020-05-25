@@ -81,7 +81,9 @@ public class SupplierDetailedController {
     @PreAuthorize("hasAuthority('supplier:detailed:delete')")
     public Result delete(@RequestBody String[] ids){
         detailedService.removeByIds(Arrays.asList(ids));
-
+        for (String id : ids) {
+            System.out.println(id);
+        }
         return Result.ok();
     }
     //插入关系

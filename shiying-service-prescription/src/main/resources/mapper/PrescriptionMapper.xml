@@ -33,7 +33,7 @@
     <insert id="addpPrescriptionDetails" parameterType="java.util.List">
         insert into prescription_details values
         <foreach collection="list" item="drugs" separator="," close=";">
-            (null,#{drugs.prescriptionId},#{drugs.drugsId},#{drugs.drugsNum},#{drugs.drugsUse},#{drugs.drugsDay},#{drugs.drugsUsenum})
+            (null,#{drugs.prescriptionId},#{drugs.drugsId},#{drugs.drugsNum},#{drugs.drugsUse},#{drugs.drugsDay},#{drugs.drugsUsenum},2)
         </foreach>
     </insert>
     <update id="toVoid">

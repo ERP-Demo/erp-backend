@@ -33,6 +33,7 @@ public interface PatientHandleService extends IService<PatientHandle> {
     PatientHandleApplyDetailed getPatientDeId(Integer patientId);
 
     PageUtils queryPagePatient(Map<String, Object> params);
+
     void runHandle(String username,Integer id);
 
     PageUtils queryPage2(Map<String, Object> params);

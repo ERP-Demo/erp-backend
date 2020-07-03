@@ -166,3 +166,14 @@ zuul:
       serviceId: shiying-service-patient_handle
       strip-prefix: false
       sensitiveHeaders:
+
+    service-aa:
+      path: /aa/**
+      serviceId: shiying-service-aa
+      strip-prefix: false
+      sensitiveHeaders:
+    service-aaa:
+      path: /aaa/**
+      serviceId: shiying-service-aaa
+      strip-prefix: false
+      sensitiveHeaders:

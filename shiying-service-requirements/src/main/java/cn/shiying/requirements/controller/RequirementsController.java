@@ -40,6 +40,7 @@ public class RequirementsController {
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('requirements:requirements:list')")
     public Result list(@RequestParam Map<String, Object> params){
+        System.out.println("进入了");
         PageUtils page = requirementsService.queryPage(params);
         return Result.ok().put("page", page);
     }

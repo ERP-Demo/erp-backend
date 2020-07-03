@@ -36,8 +36,8 @@ public class RequirementsServiceImpl extends ServiceImpl<RequirementsMapper, Req
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         Page page=new Query<Requirements_Vo>(params).getPage();
-//        List<Requirements_Vo> list = baseMapper.All(page,params);
-//        page.setRecords(list);
+        List<Requirements_Vo> list = baseMapper.All(page,params);
+        page.setRecords(list);
         return new PageUtils(page);
     }
 

@@ -32,7 +32,7 @@
         <activiti-spring-boot-starter.version>7.1.0.M6</activiti-spring-boot-starter.version>
 
         <!-- Environment Settings -->
-        <mysql.version>8.0.19</mysql.version>
+        <mysql.version>8.0.28</mysql.version>
         <lombok.version>1.16.18</lombok.version>
         <guava.version>29.0-jre</guava.version>
         <nekohtml.version>1.9.22</nekohtml.version>
